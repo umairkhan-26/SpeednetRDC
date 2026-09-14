@@ -1,0 +1,1043 @@
+{
+  "matched": [
+    {
+      "area": "AFGHANISTAN",
+      "code": "AFG",
+      "zoneName": "Afghanistan",
+      "plans": 2
+    },
+    {
+      "area": "ALBANIA",
+      "code": "ALB",
+      "zoneName": "Albania",
+      "plans": 7
+    },
+    {
+      "area": "ALGERIA",
+      "code": "DZA",
+      "zoneName": "Algeria",
+      "plans": 6
+    },
+    {
+      "area": "ANDORRA",
+      "code": "AND",
+      "zoneName": "Andorra",
+      "plans": 5
+    },
+    {
+      "area": "ANGOLA",
+      "code": "AGO",
+      "zoneName": "Angola",
+      "plans": 2
+    },
+    {
+      "area": "ARGENTINA",
+      "code": "ARG",
+      "zoneName": "Argentina",
+      "plans": 7
+    },
+    {
+      "area": "ARMENIA",
+      "code": "ARM",
+      "zoneName": "Armenia",
+      "plans": 6
+    },
+    {
+      "area": "ARUBA",
+      "code": "ABW",
+      "zoneName": "Aruba",
+      "plans": 4
+    },
+    {
+      "area": "AUSTRALIA",
+      "code": "AUS",
+      "zoneName": "Australia",
+      "plans": 9
+    },
+    {
+      "area": "AUSTRIA",
+      "code": "AUT",
+      "zoneName": "Austria",
+      "plans": 7
+    },
+    {
+      "area": "AZERBAIJAN",
+      "code": "AZE",
+      "zoneName": "Azerbaijan",
+      "plans": 2
+    },
+    {
+      "area": "BAHAMAS",
+      "code": "BHS",
+      "zoneName": "Bahamas",
+      "plans": 4
+    },
+    {
+      "area": "BAHRAIN",
+      "code": "BHR",
+      "zoneName": "Bahrain",
+      "plans": 7
+    },
+    {
+      "area": "BANGLADESH",
+      "code": "BGD",
+      "zoneName": "Bangladesh",
+      "plans": 5
+    },
+    {
+      "area": "BELGIUM",
+      "code": "BEL",
+      "zoneName": "Belgium",
+      "plans": 8
+    },
+    {
+      "area": "BELARUS",
+      "code": "BLR",
+      "zoneName": "Belarus",
+      "plans": 4
+    },
+    {
+      "area": "BELIZE",
+      "code": "BLZ",
+      "zoneName": "Belize",
+      "plans": 1
+    },
+    {
+      "area": "BENIN",
+      "code": "BEN",
+      "zoneName": "Benin",
+      "plans": 3
+    },
+    {
+      "area": "BHUTAN",
+      "code": "BTN",
+      "zoneName": "Bhutan",
+      "plans": 1
+    },
+    {
+      "area": "BOLIVIA",
+      "code": "BOL",
+      "zoneName": "Bolivia",
+      "plans": 6
+    },
+    {
+      "area": "BOSNIA & HERZEGOVINA",
+      "code": "BIH",
+      "zoneName": "Bosnia and Herzegovina",
+      "plans": 5
+    },
+    {
+      "area": "BOTSWANA",
+      "code": "BWA",
+      "zoneName": "Botswana",
+      "plans": 4
+    },
+    {
+      "area": "BRAZIL",
+      "code": "BRA",
+      "zoneName": "Brazil",
+      "plans": 10
+    },
+    {
+      "area": "BRUNEI",
+      "code": "BRN",
+      "zoneName": "Brunei",
+      "plans": 4
+    },
+    {
+      "area": "BULGARIA",
+      "code": "BGR",
+      "zoneName": "Bulgaria",
+      "plans": 8
+    },
+    {
+      "area": "BURKINA FASO",
+      "code": "BFA",
+      "zoneName": "Burkina Faso",
+      "plans": 2
+    },
+    {
+      "area": "BURUNDI",
+      "code": "BDI",
+      "zoneName": "Burundi",
+      "plans": 2
+    },
+    {
+      "area": "CENTRAL AFRICAN REPUBLIC",
+      "code": "CAF",
+      "zoneName": "Central African Republic",
+      "plans": 4
+    },
+    {
+      "area": "CAMBODIA",
+      "code": "KHM",
+      "zoneName": "Cambodia",
+      "plans": 7
+    },
+    {
+      "area": "CAMEROON",
+      "code": "CMR",
+      "zoneName": "Cameroon",
+      "plans": 4
+    },
+    {
+      "area": "CANADA",
+      "code": "CAN",
+      "zoneName": "Canada",
+      "plans": 9
+    },
+    {
+      "area": "CAPE VERDE",
+      "code": "CPV",
+      "zoneName": "Cabo Verde",
+      "plans": 2
+    },
+    {
+      "area": "CHILE",
+      "code": "CHL",
+      "zoneName": "Chile",
+      "plans": 7
+    },
+    {
+      "area": "CHINA",
+      "code": "CHN",
+      "zoneName": "China",
+      "plans": 8
+    },
+    {
+      "area": "CÔTE D'IVOIRE",
+      "code": "CIV",
+      "zoneName": "Ivory Coast",
+      "plans": 4
+    },
+    {
+      "area": "COLOMBIA",
+      "code": "COL",
+      "zoneName": "Colombia",
+      "plans": 6
+    },
+    {
+      "area": "COMOROS",
+      "code": "COM",
+      "zoneName": "Comores",
+      "plans": 5
+    },
+    {
+      "area": "CONGO",
+      "code": "COG",
+      "zoneName": "Congo",
+      "plans": 4
+    },
+    {
+      "area": "COSTA RICA",
+      "code": "CRI",
+      "zoneName": "Costa Rica",
+      "plans": 7
+    },
+    {
+      "area": "CROATIA",
+      "code": "HRV",
+      "zoneName": "Croatia",
+      "plans": 6
+    },
+    {
+      "area": "CURAÇAO",
+      "code": "CUW",
+      "zoneName": "Curaçao",
+      "plans": 4
+    },
+    {
+      "area": "CYPRUS",
+      "code": "CYP",
+      "zoneName": "Cyprus",
+      "plans": 8
+    },
+    {
+      "area": "CZECH REPUBLIC",
+      "code": "CZE",
+      "zoneName": "Czech Republic",
+      "plans": 7
+    },
+    {
+      "area": "DENMARK",
+      "code": "DNK",
+      "zoneName": "Denmark",
+      "plans": 8
+    },
+    {
+      "area": "DJIBOUTI",
+      "code": "DJI",
+      "zoneName": "Djibouti",
+      "plans": 3
+    },
+    {
+      "area": "DOMINICAN REPUBLIC",
+      "code": "DOM",
+      "zoneName": "Dominican Republic",
+      "plans": 8
+    },
+    {
+      "area": "DEMOCRATIC REPUBLIC OF THE CONGO",
+      "code": "COD",
+      "zoneName": "Congo Democratic Republic",
+      "plans": 1
+    },
+    {
+      "area": "ECUADOR",
+      "code": "ECU",
+      "zoneName": "Ecuador",
+      "plans": 4
+    },
+    {
+      "area": "EGYPT",
+      "code": "EGY",
+      "zoneName": "Egypt",
+      "plans": 8
+    },
+    {
+      "area": "SPAIN",
+      "code": "ESP",
+      "zoneName": "Spain",
+      "plans": 10
+    },
+    {
+      "area": "ESTONIA",
+      "code": "EST",
+      "zoneName": "Estonia",
+      "plans": 7
+    },
+    {
+      "area": "ESWATINI",
+      "code": "SWZ",
+      "zoneName": "Eswatini",
+      "plans": 1
+    },
+    {
+      "area": "ETHIOPIA",
+      "code": "ETH",
+      "zoneName": "Ethiopia",
+      "plans": 2
+    },
+    {
+      "area": "FAROE ISLANDS",
+      "code": "FRO",
+      "zoneName": "Faroe Islands",
+      "plans": 4
+    },
+    {
+      "area": "FIJI",
+      "code": "FJI",
+      "zoneName": "Fiji",
+      "plans": 2
+    },
+    {
+      "area": "FINLAND",
+      "code": "FIN",
+      "zoneName": "Finland",
+      "plans": 7
+    },
+    {
+      "area": "FRANCE",
+      "code": "FRA",
+      "zoneName": "France",
+      "plans": 12
+    },
+    {
+      "area": "FRENCH GUIANA",
+      "code": "GUF",
+      "zoneName": "French Guiana",
+      "plans": 1
+    },
+    {
+      "area": "GABON",
+      "code": "GAB",
+      "zoneName": "Gabon",
+      "plans": 2
+    },
+    {
+      "area": "GAMBIA",
+      "code": "GMB",
+      "zoneName": "Gambia",
+      "plans": 4
+    },
+    {
+      "area": "GEORGIA",
+      "code": "GEO",
+      "zoneName": "Georgia",
+      "plans": 7
+    },
+    {
+      "area": "GERMANY",
+      "code": "DEU",
+      "zoneName": "Germany",
+      "plans": 11
+    },
+    {
+      "area": "GHANA",
+      "code": "GHA",
+      "zoneName": "Ghana",
+      "plans": 2
+    },
+    {
+      "area": "GIBRALTAR",
+      "code": "GIB",
+      "zoneName": "Gibraltar",
+      "plans": 2
+    },
+    {
+      "area": "GREECE",
+      "code": "GRC",
+      "zoneName": "Greece",
+      "plans": 8
+    },
+    {
+      "area": "GREENLAND",
+      "code": "GRL",
+      "zoneName": "Greenland",
+      "plans": 4
+    },
+    {
+      "area": "GUATEMALA",
+      "code": "GTM",
+      "zoneName": "Guatemala",
+      "plans": 6
+    },
+    {
+      "area": "GUADELOUPE",
+      "code": "GLP",
+      "zoneName": "Guadeloupe",
+      "plans": 2
+    },
+    {
+      "area": "GUAM",
+      "code": "GUM",
+      "zoneName": "Guam",
+      "plans": 3
+    },
+    {
+      "area": "GUINEA",
+      "code": "GIN",
+      "zoneName": "Guinea",
+      "plans": 4
+    },
+    {
+      "area": "GUINEA BISSAU",
+      "code": "GNB",
+      "zoneName": "Guinea-Bissau",
+      "plans": 5
+    },
+    {
+      "area": "GUYANA",
+      "code": "GUY",
+      "zoneName": "Guyana",
+      "plans": 4
+    },
+    {
+      "area": "HONG KONG",
+      "code": "HKG",
+      "zoneName": "Hong Kong",
+      "plans": 8
+    },
+    {
+      "area": "HONDURAS",
+      "code": "HND",
+      "zoneName": "Honduras",
+      "plans": 6
+    },
+    {
+      "area": "HUNGARY",
+      "code": "HUN",
+      "zoneName": "Hungary",
+      "plans": 6
+    },
+    {
+      "area": "ICELAND",
+      "code": "ISL",
+      "zoneName": "Iceland",
+      "plans": 5
+    },
+    {
+      "area": "INDIA",
+      "code": "IND",
+      "zoneName": "India",
+      "plans": 10
+    },
+    {
+      "area": "INDONESIA",
+      "code": "IDN",
+      "zoneName": "Indonesia",
+      "plans": 8
+    },
+    {
+      "area": "IRAQ",
+      "code": "IRQ",
+      "zoneName": "Iraq",
+      "plans": 2
+    },
+    {
+      "area": "IRELAND",
+      "code": "IRL",
+      "zoneName": "Ireland",
+      "plans": 7
+    },
+    {
+      "area": "ISRAEL",
+      "code": "ISR",
+      "zoneName": "Israel",
+      "plans": 7
+    },
+    {
+      "area": "ITALY",
+      "code": "ITA",
+      "zoneName": "Italy",
+      "plans": 11
+    },
+    {
+      "area": "JORDAN",
+      "code": "JOR",
+      "zoneName": "Jordan",
+      "plans": 3
+    },
+    {
+      "area": "JAPAN",
+      "code": "JPN",
+      "zoneName": "Japan",
+      "plans": 12
+    },
+    {
+      "area": "KAZAKHSTAN",
+      "code": "KAZ",
+      "zoneName": "Kazakhstan",
+      "plans": 7
+    },
+    {
+      "area": "KENYA",
+      "code": "KEN",
+      "zoneName": "Kenya",
+      "plans": 8
+    },
+    {
+      "area": "KYRGYZSTAN",
+      "code": "KGZ",
+      "zoneName": "Kyrgyzstan",
+      "plans": 7
+    },
+    {
+      "area": "SOUTH KOREA",
+      "code": "KOR",
+      "zoneName": "South Korea",
+      "plans": 9
+    },
+    {
+      "area": "KOSOVO",
+      "code": "XKX",
+      "zoneName": "Kosovo",
+      "plans": 2
+    },
+    {
+      "area": "SAUDI ARABIA",
+      "code": "SAU",
+      "zoneName": "Saudi Arabia",
+      "plans": 4
+    },
+    {
+      "area": "KUWAIT",
+      "code": "KWT",
+      "zoneName": "Kuwait",
+      "plans": 6
+    },
+    {
+      "area": "LATVIA",
+      "code": "LVA",
+      "zoneName": "Latvia",
+      "plans": 6
+    },
+    {
+      "area": "LITHUANIA",
+      "code": "LTU",
+      "zoneName": "Lithuania",
+      "plans": 6
+    },
+    {
+      "area": "LUXEMBOURG",
+      "code": "LUX",
+      "zoneName": "Luxembourg",
+      "plans": 2
+    },
+    {
+      "area": "MACAU",
+      "code": "MAC",
+      "zoneName": "Macao",
+      "plans": 6
+    },
+    {
+      "area": "MACEDONIA",
+      "code": "MKD",
+      "zoneName": "Macedonia",
+      "plans": 2
+    },
+    {
+      "area": "MALAWI",
+      "code": "MWI",
+      "zoneName": "Malawi",
+      "plans": 3
+    },
+    {
+      "area": "MALAYSIA",
+      "code": "MYS",
+      "zoneName": "Malaysia",
+      "plans": 7
+    },
+    {
+      "area": "MALI",
+      "code": "MLI",
+      "zoneName": "Mali",
+      "plans": 4
+    },
+    {
+      "area": "MALTA",
+      "code": "MLT",
+      "zoneName": "Malta",
+      "plans": 7
+    },
+    {
+      "area": "MARTINIQUE",
+      "code": "MTQ",
+      "zoneName": "Martinique",
+      "plans": 2
+    },
+    {
+      "area": "MAURITANIA",
+      "code": "MRT",
+      "zoneName": "Mauritania",
+      "plans": 2
+    },
+    {
+      "area": "MAURITIUS",
+      "code": "MUS",
+      "zoneName": "Mauritius",
+      "plans": 6
+    },
+    {
+      "area": "MAYOTTE",
+      "code": "MYT",
+      "zoneName": "Mayotte",
+      "plans": 2
+    },
+    {
+      "area": "MADAGASCAR",
+      "code": "MDG",
+      "zoneName": "Madagascar",
+      "plans": 7
+    },
+    {
+      "area": "MEXICO",
+      "code": "MEX",
+      "zoneName": "Mexico",
+      "plans": 6
+    },
+    {
+      "area": "MOLDOVA",
+      "code": "MDA",
+      "zoneName": "Moldova",
+      "plans": 5
+    },
+    {
+      "area": "MONGOLIA",
+      "code": "MNG",
+      "zoneName": "Mongolia",
+      "plans": 3
+    },
+    {
+      "area": "MONTENEGRO",
+      "code": "MNE",
+      "zoneName": "Montenegro",
+      "plans": 6
+    },
+    {
+      "area": "MOROCCO",
+      "code": "MAR",
+      "zoneName": "Morocco",
+      "plans": 8
+    },
+    {
+      "area": "MOZAMBIQUE",
+      "code": "MOZ",
+      "zoneName": "Mozambique",
+      "plans": 2
+    },
+    {
+      "area": "NAMIBIA",
+      "code": "NAM",
+      "zoneName": "Nambia",
+      "plans": 1
+    },
+    {
+      "area": "NAURU",
+      "code": "NRU",
+      "zoneName": "Nauro",
+      "plans": 3
+    },
+    {
+      "area": "NEW CALEDONIA",
+      "code": "NCL",
+      "zoneName": "New Caledonia",
+      "plans": 3
+    },
+    {
+      "area": "NEPAL",
+      "code": "NPL",
+      "zoneName": "Nepal",
+      "plans": 2
+    },
+    {
+      "area": "NETHERLANDS",
+      "code": "NLD",
+      "zoneName": "Netherlands",
+      "plans": 8
+    },
+    {
+      "area": "NICARAGUA",
+      "code": "NIC",
+      "zoneName": "Nicaragua",
+      "plans": 7
+    },
+    {
+      "area": "NIGERIA",
+      "code": "NGA",
+      "zoneName": "Nigeria",
+      "plans": 4
+    },
+    {
+      "area": "NORWAY",
+      "code": "NOR",
+      "zoneName": "Norway",
+      "plans": 8
+    },
+    {
+      "area": "NEW ZEALAND",
+      "code": "NZL",
+      "zoneName": "New Zealand",
+      "plans": 7
+    },
+    {
+      "area": "OMAN",
+      "code": "OMN",
+      "zoneName": "Oman",
+      "plans": 4
+    },
+    {
+      "area": "PAKISTAN",
+      "code": "PAK",
+      "zoneName": "Pakistan",
+      "plans": 8
+    },
+    {
+      "area": "PALESTINE",
+      "code": "PSE",
+      "zoneName": "Palestine",
+      "plans": 3
+    },
+    {
+      "area": "PANAMA",
+      "code": "PAN",
+      "zoneName": "Panama",
+      "plans": 7
+    },
+    {
+      "area": "PARAGUAY",
+      "code": "PRY",
+      "zoneName": "Paraguay",
+      "plans": 7
+    },
+    {
+      "area": "PERU",
+      "code": "PER",
+      "zoneName": "Peru",
+      "plans": 7
+    },
+    {
+      "area": "PHILIPPINES",
+      "code": "PHL",
+      "zoneName": "Philippines",
+      "plans": 9
+    },
+    {
+      "area": "POLAND",
+      "code": "POL",
+      "zoneName": "Poland",
+      "plans": 8
+    },
+    {
+      "area": "FRENCH POLYNESIA",
+      "code": "PYF",
+      "zoneName": "French Polynesia",
+      "plans": 6
+    },
+    {
+      "area": "PORTUGAL",
+      "code": "PRT",
+      "zoneName": "Portugal",
+      "plans": 8
+    },
+    {
+      "area": "QATAR",
+      "code": "QAT",
+      "zoneName": "Qatar",
+      "plans": 4
+    },
+    {
+      "area": "REUNION",
+      "code": "REU",
+      "zoneName": "Réunion",
+      "plans": 2
+    },
+    {
+      "area": "ROMANIA",
+      "code": "ROU",
+      "zoneName": "Romania",
+      "plans": 3
+    },
+    {
+      "area": "RUSSIA",
+      "code": "RUS",
+      "zoneName": "Russian Federation",
+      "plans": 11
+    },
+    {
+      "area": "RWANDA",
+      "code": "RWA",
+      "zoneName": "Rwanda",
+      "plans": 4
+    },
+    {
+      "area": "SAMOA",
+      "code": "WSM",
+      "zoneName": "Samoa",
+      "plans": 2
+    },
+    {
+      "area": "SAINT BARTHELEMY",
+      "code": "BLM",
+      "zoneName": "Saint Barthélemy",
+      "plans": 1
+    },
+    {
+      "area": "SENEGAL",
+      "code": "SEN",
+      "zoneName": "Senegal",
+      "plans": 5
+    },
+    {
+      "area": "SERBIA",
+      "code": "SRB",
+      "zoneName": "Serbia",
+      "plans": 6
+    },
+    {
+      "area": "SEYCHELLES",
+      "code": "SYC",
+      "zoneName": "Seychelles",
+      "plans": 5
+    },
+    {
+      "area": "SIERRA LEONE",
+      "code": "SLE",
+      "zoneName": "Sierra Leone",
+      "plans": 3
+    },
+    {
+      "area": "SINGAPORE",
+      "code": "SGP",
+      "zoneName": "Singapore",
+      "plans": 10
+    },
+    {
+      "area": "SLOVAKIA",
+      "code": "SVK",
+      "zoneName": "Slovakia",
+      "plans": 7
+    },
+    {
+      "area": "SLOVENIA",
+      "code": "SVN",
+      "zoneName": "Slovenia",
+      "plans": 3
+    },
+    {
+      "area": "EL SALVADOR",
+      "code": "SLV",
+      "zoneName": "El Salvador",
+      "plans": 6
+    },
+    {
+      "area": "SAINT MARTIN (FRENCH PART)",
+      "code": "MAF",
+      "zoneName": "Saint Martin (French part)",
+      "plans": 2
+    },
+    {
+      "area": "SOUTH SUDAN",
+      "code": "SSD",
+      "zoneName": "South Sudan",
+      "plans": 2
+    },
+    {
+      "area": "SRI LANKA",
+      "code": "LKA",
+      "zoneName": "Sri Lanka",
+      "plans": 7
+    },
+    {
+      "area": "SUDAN",
+      "code": "SDN",
+      "zoneName": "Sudan",
+      "plans": 2
+    },
+    {
+      "area": "SURINAME",
+      "code": "SUR",
+      "zoneName": "Suriname",
+      "plans": 4
+    },
+    {
+      "area": "SWEDEN",
+      "code": "SWE",
+      "zoneName": "Sweden",
+      "plans": 7
+    },
+    {
+      "area": "SWITZERLAND",
+      "code": "CHE",
+      "zoneName": "Switzerland",
+      "plans": 10
+    },
+    {
+      "area": "TAIWAN",
+      "code": "TWN",
+      "zoneName": "Taiwan",
+      "plans": 9
+    },
+    {
+      "area": "TAJIKISTAN",
+      "code": "TJK",
+      "zoneName": "Tajikistan",
+      "plans": 8
+    },
+    {
+      "area": "TANZANIA",
+      "code": "TZA",
+      "zoneName": "Tanzania",
+      "plans": 4
+    },
+    {
+      "area": "THAILAND",
+      "code": "THA",
+      "zoneName": "Thailand",
+      "plans": 10
+    },
+    {
+      "area": "TOGO",
+      "code": "TGO",
+      "zoneName": "Togo",
+      "plans": 1
+    },
+    {
+      "area": "TONGA",
+      "code": "TON",
+      "zoneName": "Tonga",
+      "plans": 1
+    },
+    {
+      "area": "TRINIDAD AND TOBAGO",
+      "code": "TTO",
+      "zoneName": "Trinidad and Tobago",
+      "plans": 4
+    },
+    {
+      "area": "TUNISIA",
+      "code": "TUN",
+      "zoneName": "Tunisia",
+      "plans": 7
+    },
+    {
+      "area": "TURKEY",
+      "code": "TUR",
+      "zoneName": "Turkey",
+      "plans": 10
+    },
+    {
+      "area": "UAE",
+      "code": "ARE",
+      "zoneName": "United Arab Emirates",
+      "plans": 9
+    },
+    {
+      "area": "UGANDA",
+      "code": "UGA",
+      "zoneName": "Uganda",
+      "plans": 2
+    },
+    {
+      "area": "UK",
+      "code": "GBR",
+      "zoneName": "United Kingdom",
+      "plans": 11
+    },
+    {
+      "area": "UKRAINE",
+      "code": "UKR",
+      "zoneName": "Ukraine",
+      "plans": 5
+    },
+    {
+      "area": "URUGUAY",
+      "code": "URY",
+      "zoneName": "Uruguay",
+      "plans": 7
+    },
+    {
+      "area": "USA",
+      "code": "USA",
+      "zoneName": "United States of America",
+      "plans": 13
+    },
+    {
+      "area": "UZBEKISTAN",
+      "code": "UZB",
+      "zoneName": "Uzbekistan",
+      "plans": 7
+    },
+    {
+      "area": "VANUATU",
+      "code": "VUT",
+      "zoneName": "Vanuatu",
+      "plans": 2
+    },
+    {
+      "area": "VENEZUELA",
+      "code": "VEN",
+      "zoneName": "Venezuela",
+      "plans": 4
+    },
+    {
+      "area": "VIETNAM",
+      "code": "VNM",
+      "zoneName": "Vietnam",
+      "plans": 8
+    },
+    {
+      "area": "SOUTH AFRICA",
+      "code": "ZAF",
+      "zoneName": "South Africa",
+      "plans": 9
+    },
+    {
+      "area": "ZAMBIA",
+      "code": "ZMB",
+      "zoneName": "Zambia",
+      "plans": 2
+    }
+  ],
+  "unmatched": []
+}

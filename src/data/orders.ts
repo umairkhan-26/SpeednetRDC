@@ -1,0 +1,40 @@
+import type { Order } from "@/lib/types";
+
+export const mockOrders: Order[] = [
+  {
+    id: "ORD-83291",
+    countrySlug: "japan",
+    countryName: "Japan",
+    iso: "JP",
+    planName: "5GB / 30 Days",
+    dataAmountGb: 5,
+    validityDays: 30,
+    price: 14.0,
+    purchaseDate: "2026-08-14",
+    status: "Paid",
+  },
+  {
+    id: "ORD-77102",
+    countrySlug: "united-kingdom",
+    countryName: "United Kingdom",
+    iso: "GB",
+    planName: "3GB / 15 Days",
+    dataAmountGb: 3,
+    validityDays: 15,
+    price: 6.8,
+    purchaseDate: "2026-06-02",
+    status: "Paid",
+  },
+  {
+    id: "ORD-65920",
+    countrySlug: undefined,
+    countryName: "Global",
+    iso: "GLOBAL",
+    planName: "10GB / 30 Days",
+    dataAmountGb: 10,
+    validityDays: 30,
+    price: 24.0,
+    purchaseDate: "2026-03-21",
+    status: "Paid",
+  },
+];

@@ -1,0 +1,56 @@
+[
+  {
+    "slug": "africa",
+    "name": "Africa",
+    "countryCount": 47,
+    "fromPrice": 8.99
+  },
+  {
+    "slug": "asia",
+    "name": "Asia",
+    "countryCount": 26,
+    "fromPrice": 1.99
+  },
+  {
+    "slug": "caribbean",
+    "name": "Caribbean",
+    "countryCount": 29,
+    "fromPrice": 6.99
+  },
+  {
+    "slug": "europe",
+    "name": "Europe",
+    "countryCount": 55,
+    "fromPrice": 1.99
+  },
+  {
+    "slug": "latin-america",
+    "name": "Latin America",
+    "countryCount": 15,
+    "fromPrice": 17.99
+  },
+  {
+    "slug": "middle-east",
+    "name": "Middle East",
+    "countryCount": 14,
+    "fromPrice": 14.99
+  },
+  {
+    "slug": "oceania",
+    "name": "Oceania",
+    "countryCount": 12,
+    "fromPrice": 4.99
+  },
+  {
+    "slug": "north-america",
+    "name": "North America",
+    "countryCount": 2,
+    "fromPrice": 20.99
+  },
+  {
+    "slug": "americas",
+    "name": "The Americas",
+    "countryCount": 25,
+    "fromPrice": 11.99
+  }
+]
