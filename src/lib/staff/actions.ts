@@ -19,6 +19,7 @@ import {
   getOpenShift,
   getStaffByEmail,
   getTaskById,
+  hasAnyAdmin,
   listStaff,
   updateTaskStatus as updateTaskStatusRow,
 } from "./repository";
@@ -231,4 +232,51 @@ export async function postTeamReplyAction(message: string): Promise<void> {
   createMessage({ senderId: session.staffId, recipientId: null, message: trimmed, isTeamBroadcast: true });
   revalidatePath("/staff/messages");
   revalidatePath("/admin/staff");
+}
+
+export interface SetupAdminActionState {
+  error?: string;
+  success?: boolean;
+}
+
+/**
+ * One-time bootstrap for environments with no terminal/SSH access to create
+ * the first admin account. Gated by SETUP_ADMIN_SECRET (a server-only env
+ * var, separate from STAFF_SESSION_SECRET) and refuses once any admin
+ * account exists. Delete the /setup-admin route once it's no longer needed.
+ */
+export async function setupAdminAction(
+  _prevState: SetupAdminActionState,
+  formData: FormData
+): Promise<SetupAdminActionState> {
+  const expectedSecret = process.env.SETUP_ADMIN_SECRET;
+  if (!expectedSecret) {
+    return { error: "Setup is disabled on this server (SETUP_ADMIN_SECRET is not set)." };
+  }
+
+  const secret = String(formData.get("secret") ?? "");
+  if (secret !== expectedSecret) {
+    return { error: "Incorrect setup secret." };
+  }
+
+  if (hasAnyAdmin()) {
+    return { error: "An admin account already exists. Use the Staff Directory in /admin to add more." };
+  }
+
+  const name = String(formData.get("name") ?? "").trim();
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const password = String(formData.get("password") ?? "");
+
+  if (!name || !email || !password) {
+    return { error: "Fill in your name, email, and a password." };
+  }
+  if (password.length < 8) {
+    return { error: "Password must be at least 8 characters." };
+  }
+  if (getStaffByEmail(email)) {
+    return { error: "An account with that email already exists." };
+  }
+
+  createStaffMember({ name, email, passwordHash: hashPassword(password), role: "admin" });
+  return { success: true };
 }

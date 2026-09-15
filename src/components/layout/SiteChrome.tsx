@@ -9,7 +9,11 @@ import CursorTrail from "./CursorTrail";
 
 export default function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const isInternalPortal = pathname?.startsWith("/staff") || pathname?.startsWith("/admin") || false;
+  const isInternalPortal =
+    pathname?.startsWith("/staff") ||
+    pathname?.startsWith("/admin") ||
+    pathname?.startsWith("/setup-admin") ||
+    false;
 
   if (isInternalPortal) {
     return <div className="flex-1">{children}</div>;

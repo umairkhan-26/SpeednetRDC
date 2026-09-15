@@ -53,6 +53,13 @@ export function listStaff(): StaffMember[] {
   return rows.map(toStaffMember);
 }
 
+export function hasAnyAdmin(): boolean {
+  const row = staffDb
+    .prepare("SELECT COUNT(*) AS count FROM staff_members WHERE role = 'admin'")
+    .get() as { count: number };
+  return row.count > 0;
+}
+
 export function createStaffMember(input: {
   name: string;
   email: string;
