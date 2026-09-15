@@ -14,7 +14,7 @@ const NAV_ITEMS = [
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const session = await getStaffSession();
   if (!session) {
-    redirect("/staff/login");
+    redirect("/admin/login");
   }
   if (session.role !== "admin") {
     redirect("/staff");

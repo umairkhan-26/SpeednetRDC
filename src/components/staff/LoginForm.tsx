@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { loginAction, type LoginActionState } from "@/lib/staff/actions";
+import type { LoginActionState } from "@/lib/staff/actions";
 import { Button } from "@/components/ui/Button";
 
 const initialState: LoginActionState = {};
@@ -16,8 +16,14 @@ function SubmitButton() {
   );
 }
 
-export default function LoginForm() {
-  const [state, formAction] = useActionState(loginAction, initialState);
+export default function LoginForm({
+  action,
+  emailPlaceholder = "you@speednetrdc.com",
+}: {
+  action: (state: LoginActionState, formData: FormData) => Promise<LoginActionState>;
+  emailPlaceholder?: string;
+}) {
+  const [state, formAction] = useActionState(action, initialState);
 
   return (
     <form action={formAction} className="mt-6 space-y-4">
@@ -27,7 +33,7 @@ export default function LoginForm() {
           type="email"
           name="email"
           required
-          placeholder="you@speednetrdc.com"
+          placeholder={emailPlaceholder}
           className="w-full rounded-lg border border-line px-4 py-3 text-sm outline-none focus:border-orange"
         />
       </div>

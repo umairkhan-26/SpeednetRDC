@@ -2,23 +2,26 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { STAFF_SESSION_COOKIE, verifyStaffSessionToken } from "@/lib/staff/session";
 
-const PUBLIC_STAFF_PATHS = new Set(["/staff/login"]);
+const PUBLIC_PATHS = new Set(["/staff/login", "/admin/login"]);
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (PUBLIC_STAFF_PATHS.has(pathname)) {
+  if (PUBLIC_PATHS.has(pathname)) {
     return NextResponse.next();
   }
+
+  const isAdminRoute = pathname.startsWith("/admin");
+  const loginPath = isAdminRoute ? "/admin/login" : "/staff/login";
 
   const token = request.cookies.get(STAFF_SESSION_COOKIE)?.value;
   const session = token ? verifyStaffSessionToken(token) : null;
 
   if (!session) {
-    return NextResponse.redirect(new URL("/staff/login", request.url));
+    return NextResponse.redirect(new URL(loginPath, request.url));
   }
 
-  if (pathname.startsWith("/admin") && session.role !== "admin") {
+  if (isAdminRoute && session.role !== "admin") {
     return NextResponse.redirect(new URL("/staff", request.url));
   }
 

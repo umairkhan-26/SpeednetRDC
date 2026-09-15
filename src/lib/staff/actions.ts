@@ -3,7 +3,12 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { createStaffSessionToken, STAFF_SESSION_COOKIE, STAFF_SESSION_MAX_AGE } from "./session";
+import {
+  createStaffSessionToken,
+  STAFF_SESSION_COOKIE,
+  STAFF_SESSION_MAX_AGE,
+  type StaffSessionPayload,
+} from "./session";
 import { hashPassword, verifyPassword } from "./password";
 import {
   clockIn as clockInRow,
@@ -17,11 +22,23 @@ import {
   listStaff,
   updateTaskStatus as updateTaskStatusRow,
 } from "./repository";
-import { requireAdminSession, requireStaffSession } from "./auth";
+import { getStaffSession, requireAdminSession, requireStaffSession } from "./auth";
 import type { StaffRole, TaskStatus } from "./types";
 
 function taskTitleFromMessage(message: string): string {
   return message.length > 80 ? `${message.slice(0, 77)}...` : message;
+}
+
+async function setStaffSessionCookie(payload: StaffSessionPayload): Promise<void> {
+  const token = createStaffSessionToken(payload);
+  const cookieStore = await cookies();
+  cookieStore.set(STAFF_SESSION_COOKIE, token, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+    maxAge: STAFF_SESSION_MAX_AGE,
+  });
 }
 
 export interface LoginActionState {
@@ -44,28 +61,38 @@ export async function loginAction(
     return { error: "Incorrect email or password." };
   }
 
-  const token = createStaffSessionToken({
-    staffId: staff.id,
-    role: staff.role,
-    name: staff.name,
-  });
-
-  const cookieStore = await cookies();
-  cookieStore.set(STAFF_SESSION_COOKIE, token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: STAFF_SESSION_MAX_AGE,
-  });
-
+  await setStaffSessionCookie({ staffId: staff.id, role: staff.role, name: staff.name });
   redirect(staff.role === "admin" ? "/admin" : "/staff");
 }
 
+export async function adminLoginAction(
+  _prevState: LoginActionState,
+  formData: FormData
+): Promise<LoginActionState> {
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const password = String(formData.get("password") ?? "");
+
+  if (!email || !password) {
+    return { error: "Enter your email and password." };
+  }
+
+  const staff = getStaffByEmail(email);
+  if (!staff || !verifyPassword(password, staff.passwordHash)) {
+    return { error: "Incorrect email or password." };
+  }
+  if (staff.role !== "admin") {
+    return { error: "This sign-in is for admin accounts only." };
+  }
+
+  await setStaffSessionCookie({ staffId: staff.id, role: staff.role, name: staff.name });
+  redirect("/admin");
+}
+
 export async function logoutAction(): Promise<void> {
+  const session = await getStaffSession();
   const cookieStore = await cookies();
   cookieStore.delete(STAFF_SESSION_COOKIE);
-  redirect("/staff/login");
+  redirect(session?.role === "admin" ? "/admin/login" : "/staff/login");
 }
 
 export async function clockInAction(): Promise<void> {
