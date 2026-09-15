@@ -57,7 +57,7 @@ export async function loginAction(
     return { error: "Enter your email and password." };
   }
 
-  const staff = getStaffByEmail(email);
+  const staff = await getStaffByEmail(email);
   if (!staff || !verifyPassword(password, staff.passwordHash)) {
     return { error: "Incorrect email or password." };
   }
@@ -77,7 +77,7 @@ export async function adminLoginAction(
     return { error: "Enter your email and password." };
   }
 
-  const staff = getStaffByEmail(email);
+  const staff = await getStaffByEmail(email);
   if (!staff || !verifyPassword(password, staff.passwordHash)) {
     return { error: "Incorrect email or password." };
   }
@@ -98,8 +98,8 @@ export async function logoutAction(): Promise<void> {
 
 export async function clockInAction(): Promise<void> {
   const session = await requireStaffSession();
-  if (!getOpenShift(session.staffId)) {
-    clockInRow(session.staffId);
+  if (!(await getOpenShift(session.staffId))) {
+    await clockInRow(session.staffId);
   }
   revalidatePath("/staff");
   revalidatePath("/admin");
@@ -108,9 +108,9 @@ export async function clockInAction(): Promise<void> {
 
 export async function clockOutAction(): Promise<void> {
   const session = await requireStaffSession();
-  const openShift = getOpenShift(session.staffId);
+  const openShift = await getOpenShift(session.staffId);
   if (openShift) {
-    clockOutRow(openShift.id);
+    await clockOutRow(openShift.id);
   }
   revalidatePath("/staff");
   revalidatePath("/admin");
@@ -119,13 +119,13 @@ export async function clockOutAction(): Promise<void> {
 
 export async function updateTaskStatusAction(taskId: number, status: TaskStatus): Promise<void> {
   const session = await requireStaffSession();
-  const task = getTaskById(taskId);
+  const task = await getTaskById(taskId);
   if (!task) return;
   if (session.role !== "admin" && task.assignedTo !== session.staffId) {
     throw new Error("Forbidden");
   }
 
-  updateTaskStatusRow(taskId, status);
+  await updateTaskStatusRow(taskId, status);
   revalidatePath("/staff/tasks");
   revalidatePath("/admin");
 }
@@ -155,11 +155,11 @@ export async function createStaffAction(
   if (role !== "staff" && role !== "admin") {
     return { error: "Invalid role." };
   }
-  if (getStaffByEmail(email)) {
+  if (await getStaffByEmail(email)) {
     return { error: "A staff member with that email already exists." };
   }
 
-  createStaffMember({ name, email, passwordHash: hashPassword(password), role });
+  await createStaffMember({ name, email, passwordHash: hashPassword(password), role });
   revalidatePath("/admin/staff");
   return { success: true };
 }
@@ -173,10 +173,10 @@ export async function sendAdminDirectMessageAction(
   const trimmed = message.trim();
   if (!trimmed) return;
 
-  createMessage({ senderId: session.staffId, recipientId, message: trimmed, isTeamBroadcast: false });
+  await createMessage({ senderId: session.staffId, recipientId, message: trimmed, isTeamBroadcast: false });
 
   if (attachAsTask) {
-    createTask({
+    await createTask({
       title: taskTitleFromMessage(trimmed),
       description: trimmed,
       assignedTo: recipientId,
@@ -195,11 +195,11 @@ export async function sendTeamBroadcastAction(message: string, attachAsTask: boo
   const trimmed = message.trim();
   if (!trimmed) return;
 
-  createMessage({ senderId: session.staffId, recipientId: null, message: trimmed, isTeamBroadcast: true });
+  await createMessage({ senderId: session.staffId, recipientId: null, message: trimmed, isTeamBroadcast: true });
 
   if (attachAsTask) {
-    for (const member of listStaff()) {
-      createTask({
+    for (const member of await listStaff()) {
+      await createTask({
         title: taskTitleFromMessage(trimmed),
         description: trimmed,
         assignedTo: member.id,
@@ -219,7 +219,7 @@ export async function sendStaffReplyAction(recipientId: number, message: string)
   const trimmed = message.trim();
   if (!trimmed) return;
 
-  createMessage({ senderId: session.staffId, recipientId, message: trimmed, isTeamBroadcast: false });
+  await createMessage({ senderId: session.staffId, recipientId, message: trimmed, isTeamBroadcast: false });
   revalidatePath("/staff/messages");
   revalidatePath("/admin/staff");
 }
@@ -229,7 +229,7 @@ export async function postTeamReplyAction(message: string): Promise<void> {
   const trimmed = message.trim();
   if (!trimmed) return;
 
-  createMessage({ senderId: session.staffId, recipientId: null, message: trimmed, isTeamBroadcast: true });
+  await createMessage({ senderId: session.staffId, recipientId: null, message: trimmed, isTeamBroadcast: true });
   revalidatePath("/staff/messages");
   revalidatePath("/admin/staff");
 }
@@ -259,7 +259,7 @@ export async function setupAdminAction(
     return { error: "Incorrect setup secret." };
   }
 
-  if (hasAnyAdmin()) {
+  if (await hasAnyAdmin()) {
     return { error: "An admin account already exists. Use the Staff Directory in /admin to add more." };
   }
 
@@ -273,10 +273,10 @@ export async function setupAdminAction(
   if (password.length < 8) {
     return { error: "Password must be at least 8 characters." };
   }
-  if (getStaffByEmail(email)) {
+  if (await getStaffByEmail(email)) {
     return { error: "An account with that email already exists." };
   }
 
-  createStaffMember({ name, email, passwordHash: hashPassword(password), role: "admin" });
+  await createStaffMember({ name, email, passwordHash: hashPassword(password), role: "admin" });
   return { success: true };
 }

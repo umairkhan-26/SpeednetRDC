@@ -19,9 +19,19 @@ export default async function AdminStaffDirectoryPage() {
   const session = await getStaffSession();
   if (!session) return null;
 
-  const staff = listStaff();
-  const activeIds = getActiveStaffIds();
-  const teamBroadcasts = getTeamBroadcasts();
+  const staff = await listStaff();
+  const activeIds = await getActiveStaffIds();
+  const teamBroadcasts = await getTeamBroadcasts();
+
+  const rows = await Promise.all(
+    staff.map(async (member) => {
+      const isOnline = activeIds.has(member.id);
+      const openShift = isOnline ? await getOpenShift(member.id) : null;
+      const conversation =
+        member.id === session.staffId ? [] : await getDirectConversation(session.staffId, member.id);
+      return { member, isOnline, openShift, conversation };
+    })
+  );
 
   return (
     <div className="space-y-6">
@@ -37,12 +47,7 @@ export default async function AdminStaffDirectoryPage() {
       </div>
 
       <div className="divide-y divide-line rounded-2xl border border-line bg-white">
-        {staff.map((member) => {
-          const isOnline = activeIds.has(member.id);
-          const openShift = isOnline ? getOpenShift(member.id) : null;
-          const conversation =
-            member.id === session.staffId ? [] : getDirectConversation(session.staffId, member.id);
-
+        {rows.map(({ member, isOnline, openShift, conversation }) => {
           return (
             <div key={member.id} className="flex items-center justify-between gap-4 px-5 py-4 hover:bg-cream/60">
               <Link href={`/admin/staff/${member.id}`} className="flex flex-1 items-center gap-3">

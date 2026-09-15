@@ -21,14 +21,14 @@ const TASK_STATUS_LABELS: Record<string, string> = {
 export default async function AdminStaffDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const staffId = Number(id);
-  const staff = Number.isFinite(staffId) ? getStaffById(staffId) : null;
+  const staff = Number.isFinite(staffId) ? await getStaffById(staffId) : null;
 
   if (!staff) {
     notFound();
   }
 
-  const shifts = getShiftHistory(staff.id, 20);
-  const tasks = getTasksForStaff(staff.id);
+  const shifts = await getShiftHistory(staff.id, 20);
+  const tasks = await getTasksForStaff(staff.id);
 
   return (
     <div className="space-y-8">

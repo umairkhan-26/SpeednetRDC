@@ -10,8 +10,8 @@ export default async function StaffDashboardPage() {
   const session = await getStaffSession();
   if (!session) return null;
 
-  const openShift = getOpenShift(session.staffId);
-  const todaysShifts = getTodaysShifts(session.staffId);
+  const openShift = await getOpenShift(session.staffId);
+  const todaysShifts = await getTodaysShifts(session.staffId);
 
   return (
     <div className="space-y-8">

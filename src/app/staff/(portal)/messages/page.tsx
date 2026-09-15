@@ -11,20 +11,21 @@ export default async function StaffMessagesPage() {
   const session = await getStaffSession();
   if (!session) return null;
 
-  const partnerIds = getDirectMessagePartnerIds(session.staffId);
-  const directThreads = partnerIds
-    .map((partnerId) => {
-      const partner = getStaffById(partnerId);
+  const partnerIds = await getDirectMessagePartnerIds(session.staffId);
+  const threadsWithNulls = await Promise.all(
+    partnerIds.map(async (partnerId) => {
+      const partner = await getStaffById(partnerId);
       if (!partner) return null;
       return {
         partnerId,
         partnerName: partner.name,
-        messages: getDirectConversation(session.staffId, partnerId),
+        messages: await getDirectConversation(session.staffId, partnerId),
       };
     })
-    .filter((t): t is NonNullable<typeof t> => t !== null);
+  );
+  const directThreads = threadsWithNulls.filter((t): t is NonNullable<typeof t> => t !== null);
 
-  const teamBroadcasts = getTeamBroadcasts();
+  const teamBroadcasts = await getTeamBroadcasts();
 
   return (
     <div className="space-y-6">

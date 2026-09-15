@@ -6,7 +6,7 @@ export default async function StaffTasksPage() {
   const session = await getStaffSession();
   if (!session) return null;
 
-  const tasks = getTasksForStaff(session.staffId);
+  const tasks = await getTasksForStaff(session.staffId);
 
   return (
     <div className="space-y-6">
