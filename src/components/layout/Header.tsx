@@ -1,29 +1,32 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations, useLocale } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 import { Menu, Phone, X } from "lucide-react";
 import { clsx } from "clsx";
 import Logo from "./Logo";
-
-const navLinks = [
-  { label: "eSIM Store", href: "/esim-store" },
-  { label: "Destinations", href: "/destinations" },
-  { label: "Regional Plans", href: "/regional-plans" },
-  { label: "Global Plans", href: "/global-plans" },
-  { label: "How It Works", href: "/how-it-works" },
-  { label: "Help", href: "/help" },
-];
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const locale = useLocale();
+  const t = useTranslations("nav");
+
+  const navLinks = [
+    { label: t("esimStore"), href: "/esim-store" },
+    { label: t("destinations"), href: "/destinations" },
+    { label: t("regionalPlans"), href: "/regional-plans" },
+    { label: t("globalPlans"), href: "/global-plans" },
+    { label: t("howItWorks"), href: "/how-it-works" },
+    { label: t("help"), href: "/help" },
+  ];
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-cream/95 backdrop-blur">
       <div className="container-page flex h-16 items-center justify-between">
-        <Logo />
+        <Logo href={`/${locale}`} />
 
         <nav className="hidden items-center gap-7 lg:flex">
           {navLinks.map((link) => {
@@ -43,16 +46,17 @@ export default function Header() {
           })}
         </nav>
 
-        <div className="hidden items-center gap-5 lg:flex">
+        <div className="hidden items-center gap-4 lg:flex">
+          <LanguageSwitcher />
           <Link href="/account/orders" className="text-sm font-medium text-ink/80 hover:text-ink">
-            Orders
+            {t("orders")}
           </Link>
           <Link
             href="/account"
             className="inline-flex items-center gap-2 rounded-full bg-orange px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-orange-soft"
           >
             <Phone className="size-4" />
-            My eSIMs
+            {t("myEsims")}
           </Link>
         </div>
 
@@ -84,7 +88,7 @@ export default function Header() {
               onClick={() => setOpen(false)}
               className="rounded-lg px-2 py-2.5 text-sm font-medium text-ink hover:bg-ink/5"
             >
-              Orders
+              {t("orders")}
             </Link>
             <Link
               href="/account"
@@ -92,8 +96,11 @@ export default function Header() {
               className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white"
             >
               <Phone className="size-4" />
-              My eSIMs
+              {t("myEsims")}
             </Link>
+            <div className="mt-3 border-t border-line pt-3">
+              <LanguageSwitcher />
+            </div>
           </nav>
         </div>
       )}

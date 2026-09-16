@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { Plan } from "@/lib/types";
 import { formatData, formatPrice, formatValidity } from "@/lib/format";
 import { getCountryBySlug } from "@/data/countries";

@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { Globe, Search } from "lucide-react";
 import { searchCountries } from "@/data/countries";
 import { searchSuggestions } from "@/data/popular-destinations";
@@ -10,6 +11,7 @@ export default function DestinationSearch() {
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
   const router = useRouter();
+  const t = useTranslations("home.hero");
 
   const results = useMemo(() => searchCountries(query).slice(0, 6), [query]);
 
@@ -33,14 +35,14 @@ export default function DestinationSearch() {
           onFocus={() => setFocused(true)}
           onBlur={() => setTimeout(() => setFocused(false), 150)}
           type="text"
-          placeholder="Where are you traveling?"
+          placeholder={t("searchPlaceholder")}
           className="w-full bg-transparent px-3 py-3 text-sm text-ink outline-none placeholder:text-muted"
         />
         <button
           type="submit"
           className="shrink-0 rounded-full bg-orange px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-orange-soft"
         >
-          Search
+          {t("search")}
         </button>
       </form>
 

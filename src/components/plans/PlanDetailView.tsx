@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { Clock, Database, Network, ShieldCheck, Signal, Smartphone, Undo2, Wifi } from "lucide-react";
 import type { Plan } from "@/lib/types";
 import { formatData, formatPrice, formatValidity } from "@/lib/format";

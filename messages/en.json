@@ -1,0 +1,109 @@
+{
+  "nav": {
+    "esimStore": "eSIM Store",
+    "destinations": "Destinations",
+    "regionalPlans": "Regional Plans",
+    "globalPlans": "Global Plans",
+    "howItWorks": "How It Works",
+    "help": "Help",
+    "orders": "Orders",
+    "myEsims": "My eSIMs",
+    "language": "Language"
+  },
+  "footer": {
+    "tagline": "Stay Connected. Anywhere. Instant eSIM data in 190+ destinations, no roaming stress and no physical SIM.",
+    "shopHeading": "Shop",
+    "supportHeading": "Support",
+    "languageHeading": "Language",
+    "globalEsim": "Global eSIM",
+    "deviceCompatibility": "Device Compatibility",
+    "helpCenter": "Help Center",
+    "copyright": "© {year} SpeedNetRDC. All rights reserved."
+  },
+  "home": {
+    "hero": {
+      "titleLine1": "Stay Connected.",
+      "titleLine2": "Anywhere.",
+      "subtitle": "Instant eSIM data in 190+ destinations. No roaming stress, no physical SIM, no contracts — just land and connect.",
+      "explorePlans": "Explore eSIM Plans",
+      "howItWorks": "How It Works",
+      "searchPlaceholder": "Where are you traveling?",
+      "search": "Search"
+    },
+    "valueProps": {
+      "instantDeliveryTitle": "Instant delivery",
+      "instantDeliveryDescription": "QR code and activation details the moment you pay.",
+      "securePaymentsTitle": "Secure payments",
+      "securePaymentsDescription": "Encrypted checkout with cards, Apple Pay, Google Pay & PayPal.",
+      "topUpTitle": "Top up anytime",
+      "topUpDescription": "Running low? Add more data in a couple of taps.",
+      "supportTitle": "24/7 human support",
+      "supportDescription": "Real people, live chat, replies in minutes."
+    },
+    "steps": {
+      "eyebrow": "How it works",
+      "title": "Connected in four simple steps",
+      "searchTitle": "Search your destination",
+      "searchDescription": "Tell us where you're headed and we'll show every plan that covers it.",
+      "pickTitle": "Pick a plan & pay",
+      "pickDescription": "Choose your data and validity, then check out securely in under a minute.",
+      "scanTitle": "Scan the QR code",
+      "scanDescription": "Install instantly by scanning your QR code or entering the activation details.",
+      "landTitle": "Land & connect",
+      "landDescription": "Your eSIM activates automatically on your first supported network."
+    },
+    "popularDestinations": {
+      "eyebrow": "Popular destinations",
+      "title": "Where travelers connect most",
+      "allDestinations": "All destinations"
+    },
+    "regionalStrip": {
+      "eyebrow": "Multi-country coverage",
+      "title": "One eSIM for your whole trip",
+      "subtitle": "Crossing borders? One plan covers every country in the region.",
+      "seeAllRegions": "See all regions",
+      "global": "Global",
+      "countriesCount": "{count}+ countries",
+      "countriesCountPlain": "{count} countries",
+      "fromPrice": "from {price}"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Log in",
+      "subtitle": "Welcome back to SpeedNetRDC.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "emailError": "Enter a valid email.",
+      "passwordLabel": "Password",
+      "passwordError": "At least 6 characters.",
+      "submit": "Log in",
+      "noAccount": "New here?",
+      "createAccount": "Create an account"
+    },
+    "signup": {
+      "title": "Create your account",
+      "subtitle": "Get connected in 190+ destinations.",
+      "fullNameLabel": "Full name",
+      "fullNamePlaceholder": "Alex Johnson",
+      "fullNameError": "Enter your full name.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "emailError": "Enter a valid email.",
+      "passwordLabel": "Password",
+      "passwordError": "At least 6 characters.",
+      "submit": "Create account",
+      "hasAccount": "Already have an account?",
+      "login": "Log in"
+    }
+  },
+  "regions": {
+    "africa": "Africa",
+    "americas": "The Americas",
+    "asia": "Asia",
+    "caribbean": "Caribbean",
+    "europe": "Europe",
+    "middle-east": "Middle East",
+    "global": "Global"
+  }
+}

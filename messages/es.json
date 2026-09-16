@@ -1,0 +1,109 @@
+{
+  "nav": {
+    "esimStore": "Tienda eSIM",
+    "destinations": "Destinos",
+    "regionalPlans": "Planes regionales",
+    "globalPlans": "Planes globales",
+    "howItWorks": "Cómo funciona",
+    "help": "Ayuda",
+    "orders": "Pedidos",
+    "myEsims": "Mis eSIM",
+    "language": "Idioma"
+  },
+  "footer": {
+    "tagline": "Mantente conectado. En cualquier lugar. Datos eSIM al instante en más de 190 destinos, sin estrés de roaming y sin tarjeta SIM física.",
+    "shopHeading": "Tienda",
+    "supportHeading": "Soporte",
+    "languageHeading": "Idioma",
+    "globalEsim": "eSIM global",
+    "deviceCompatibility": "Compatibilidad de dispositivos",
+    "helpCenter": "Centro de ayuda",
+    "copyright": "© {year} SpeedNetRDC. Todos los derechos reservados."
+  },
+  "home": {
+    "hero": {
+      "titleLine1": "Mantente conectado.",
+      "titleLine2": "En cualquier lugar.",
+      "subtitle": "Datos eSIM al instante en más de 190 destinos. Sin estrés de roaming, sin tarjeta SIM física, sin contratos: aterriza y conéctate.",
+      "explorePlans": "Explorar planes eSIM",
+      "howItWorks": "Cómo funciona",
+      "searchPlaceholder": "¿A dónde viajas?",
+      "search": "Buscar"
+    },
+    "valueProps": {
+      "instantDeliveryTitle": "Entrega instantánea",
+      "instantDeliveryDescription": "Código QR y datos de activación en el momento del pago.",
+      "securePaymentsTitle": "Pagos seguros",
+      "securePaymentsDescription": "Pago cifrado con tarjeta, Apple Pay, Google Pay y PayPal.",
+      "topUpTitle": "Recarga cuando quieras",
+      "topUpDescription": "¿Se te acaban los datos? Añade más en un par de toques.",
+      "supportTitle": "Soporte humano 24/7",
+      "supportDescription": "Personas reales, chat en vivo, respuestas en minutos."
+    },
+    "steps": {
+      "eyebrow": "Cómo funciona",
+      "title": "Conectado en cuatro sencillos pasos",
+      "searchTitle": "Busca tu destino",
+      "searchDescription": "Dinos a dónde vas y te mostraremos todos los planes disponibles.",
+      "pickTitle": "Elige un plan y paga",
+      "pickDescription": "Elige tus datos y validez, luego paga de forma segura en menos de un minuto.",
+      "scanTitle": "Escanea el código QR",
+      "scanDescription": "Instálalo al instante escaneando tu código QR o introduciendo los datos de activación.",
+      "landTitle": "Aterriza y conéctate",
+      "landDescription": "Tu eSIM se activa automáticamente en cuanto detecta una red compatible."
+    },
+    "popularDestinations": {
+      "eyebrow": "Destinos populares",
+      "title": "Donde más se conectan los viajeros",
+      "allDestinations": "Todos los destinos"
+    },
+    "regionalStrip": {
+      "eyebrow": "Cobertura en varios países",
+      "title": "Una eSIM para todo tu viaje",
+      "subtitle": "¿Cruzas fronteras? Un solo plan cubre todos los países de la región.",
+      "seeAllRegions": "Ver todas las regiones",
+      "global": "Global",
+      "countriesCount": "{count}+ países",
+      "countriesCountPlain": "{count} países",
+      "fromPrice": "desde {price}"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar sesión",
+      "subtitle": "Bienvenido de nuevo a SpeedNetRDC.",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "emailError": "Introduce un correo electrónico válido.",
+      "passwordLabel": "Contraseña",
+      "passwordError": "Al menos 6 caracteres.",
+      "submit": "Iniciar sesión",
+      "noAccount": "¿Nuevo por aquí?",
+      "createAccount": "Crear una cuenta"
+    },
+    "signup": {
+      "title": "Crea tu cuenta",
+      "subtitle": "Conéctate en más de 190 destinos.",
+      "fullNameLabel": "Nombre completo",
+      "fullNamePlaceholder": "Alex Johnson",
+      "fullNameError": "Introduce tu nombre completo.",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "emailError": "Introduce un correo electrónico válido.",
+      "passwordLabel": "Contraseña",
+      "passwordError": "Al menos 6 caracteres.",
+      "submit": "Crear cuenta",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "login": "Iniciar sesión"
+    }
+  },
+  "regions": {
+    "africa": "África",
+    "americas": "América",
+    "asia": "Asia",
+    "caribbean": "Caribe",
+    "europe": "Europa",
+    "middle-east": "Oriente Medio",
+    "global": "Global"
+  }
+}

@@ -1,17 +1,22 @@
-import Link from "next/link";
+"use client";
+
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { popularDestinations } from "@/data/popular-destinations";
 import SectionHeading from "@/components/ui/SectionHeading";
 import DestinationTile from "@/components/destinations/DestinationTile";
 
 export default function PopularDestinations() {
+  const t = useTranslations("home.popularDestinations");
+
   return (
     <section className="container-page py-16 sm:py-20">
       <SectionHeading
-        eyebrow="Popular destinations"
-        title="Where travelers connect most"
+        eyebrow={t("eyebrow")}
+        title={t("title")}
         action={
           <Link href="/destinations" className="text-sm font-semibold text-orange hover:underline">
-            All destinations →
+            {t("allDestinations")} →
           </Link>
         }
       />

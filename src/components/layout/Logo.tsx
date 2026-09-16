@@ -2,9 +2,15 @@ import Link from "next/link";
 import { clsx } from "clsx";
 import LogoMark from "./LogoMark";
 
-export default function Logo({ theme = "light" }: { theme?: "light" | "dark" }) {
+export default function Logo({
+  theme = "light",
+  href = "/",
+}: {
+  theme?: "light" | "dark";
+  href?: string;
+}) {
   return (
-    <Link href="/" className="flex items-center gap-2.5">
+    <Link href={href} className="flex items-center gap-2.5">
       <LogoMark className="size-9" />
       <span
         className={clsx(

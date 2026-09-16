@@ -1,0 +1,109 @@
+{
+  "nav": {
+    "esimStore": "Boutique eSIM",
+    "destinations": "Destinations",
+    "regionalPlans": "Forfaits régionaux",
+    "globalPlans": "Forfaits mondiaux",
+    "howItWorks": "Comment ça marche",
+    "help": "Aide",
+    "orders": "Commandes",
+    "myEsims": "Mes eSIM",
+    "language": "Langue"
+  },
+  "footer": {
+    "tagline": "Restez connecté. Partout. Données eSIM instantanées dans plus de 190 destinations, sans stress d'itinérance et sans carte SIM physique.",
+    "shopHeading": "Boutique",
+    "supportHeading": "Assistance",
+    "languageHeading": "Langue",
+    "globalEsim": "eSIM mondiale",
+    "deviceCompatibility": "Compatibilité des appareils",
+    "helpCenter": "Centre d'aide",
+    "copyright": "© {year} SpeedNetRDC. Tous droits réservés."
+  },
+  "home": {
+    "hero": {
+      "titleLine1": "Restez connecté.",
+      "titleLine2": "Partout.",
+      "subtitle": "Données eSIM instantanées dans plus de 190 destinations. Sans stress d'itinérance, sans carte SIM physique, sans contrat — atterrissez et connectez-vous.",
+      "explorePlans": "Découvrir les forfaits eSIM",
+      "howItWorks": "Comment ça marche",
+      "searchPlaceholder": "Où voyagez-vous ?",
+      "search": "Rechercher"
+    },
+    "valueProps": {
+      "instantDeliveryTitle": "Livraison instantanée",
+      "instantDeliveryDescription": "Code QR et détails d'activation dès le paiement.",
+      "securePaymentsTitle": "Paiements sécurisés",
+      "securePaymentsDescription": "Paiement chiffré par carte, Apple Pay, Google Pay et PayPal.",
+      "topUpTitle": "Rechargez à tout moment",
+      "topUpDescription": "Presque à court de données ? Ajoutez-en en quelques clics.",
+      "supportTitle": "Assistance humaine 24/7",
+      "supportDescription": "De vraies personnes, chat en direct, réponses en quelques minutes."
+    },
+    "steps": {
+      "eyebrow": "Comment ça marche",
+      "title": "Connecté en quatre étapes simples",
+      "searchTitle": "Recherchez votre destination",
+      "searchDescription": "Indiquez-nous où vous allez et nous vous montrons tous les forfaits disponibles.",
+      "pickTitle": "Choisissez un forfait et payez",
+      "pickDescription": "Choisissez vos données et leur durée de validité, puis payez en toute sécurité en moins d'une minute.",
+      "scanTitle": "Scannez le code QR",
+      "scanDescription": "Installation instantanée en scannant votre code QR ou en saisissant les détails d'activation.",
+      "landTitle": "Atterrissez et connectez-vous",
+      "landDescription": "Votre eSIM s'active automatiquement dès votre arrivée sur un réseau compatible."
+    },
+    "popularDestinations": {
+      "eyebrow": "Destinations populaires",
+      "title": "Là où les voyageurs se connectent le plus",
+      "allDestinations": "Toutes les destinations"
+    },
+    "regionalStrip": {
+      "eyebrow": "Couverture multi-pays",
+      "title": "Une eSIM pour tout votre voyage",
+      "subtitle": "Vous traversez des frontières ? Un seul forfait couvre tous les pays de la région.",
+      "seeAllRegions": "Voir toutes les régions",
+      "global": "Mondial",
+      "countriesCount": "{count}+ pays",
+      "countriesCountPlain": "{count} pays",
+      "fromPrice": "à partir de {price}"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Connexion",
+      "subtitle": "Ravis de vous revoir sur SpeedNetRDC.",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "emailError": "Saisissez une adresse e-mail valide.",
+      "passwordLabel": "Mot de passe",
+      "passwordError": "Au moins 6 caractères.",
+      "submit": "Se connecter",
+      "noAccount": "Nouveau ici ?",
+      "createAccount": "Créer un compte"
+    },
+    "signup": {
+      "title": "Créez votre compte",
+      "subtitle": "Restez connecté dans plus de 190 destinations.",
+      "fullNameLabel": "Nom complet",
+      "fullNamePlaceholder": "Alex Johnson",
+      "fullNameError": "Saisissez votre nom complet.",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "emailError": "Saisissez une adresse e-mail valide.",
+      "passwordLabel": "Mot de passe",
+      "passwordError": "Au moins 6 caractères.",
+      "submit": "Créer le compte",
+      "hasAccount": "Vous avez déjà un compte ?",
+      "login": "Se connecter"
+    }
+  },
+  "regions": {
+    "africa": "Afrique",
+    "americas": "Les Amériques",
+    "asia": "Asie",
+    "caribbean": "Caraïbes",
+    "europe": "Europe",
+    "middle-east": "Moyen-Orient",
+    "global": "Mondial"
+  }
+}

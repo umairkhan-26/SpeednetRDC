@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { Link } from "@/i18n/navigation";
 import { Check, Copy, ExternalLink } from "lucide-react";
 import { generateQrDataUrl } from "@/lib/qr";
 import type { ActiveEsim } from "@/lib/types";
@@ -62,9 +63,9 @@ export default function InstallationGuideTab({ esim }: { esim: ActiveEsim }) {
         </div>
       </div>
 
-      <a href="/how-it-works" className="inline-flex items-center gap-1 text-sm font-semibold text-orange hover:underline">
+      <Link href="/how-it-works" className="inline-flex items-center gap-1 text-sm font-semibold text-orange hover:underline">
         View Full Installation Guide <ExternalLink className="size-3.5" />
-      </a>
+      </Link>
 
       <ol className="mt-2 grid w-full gap-3 text-left sm:grid-cols-2">
         {steps.map((step, i) => (

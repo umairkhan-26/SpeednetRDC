@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { CalendarDays, Database, Globe, SignalHigh, Zap } from "lucide-react";
 import type { Plan } from "@/lib/types";
 import { formatData, formatPrice, formatValidity } from "@/lib/format";
