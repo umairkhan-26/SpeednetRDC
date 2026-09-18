@@ -2,7 +2,11 @@ import { Check } from "lucide-react";
 import { clsx } from "clsx";
 import type { CheckoutStep } from "@/lib/store/checkout-store";
 
-const steps: { key: CheckoutStep; label: string }[] = [
+// "confirmation" is shown here purely as the visual endpoint of the
+// flow — it's no longer a CheckoutStep the store tracks, since payment
+// success now lands on its own route (/checkout/success) after a real
+// Stripe redirect, rather than being a step within this SPA flow.
+const steps: { key: CheckoutStep | "confirmation"; label: string }[] = [
   { key: "plan", label: "Plan" },
   { key: "account", label: "Account" },
   { key: "payment", label: "Payment" },

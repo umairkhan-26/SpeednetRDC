@@ -10,6 +10,7 @@
     "seed:staff": "node --env-file=.env.local scripts/seed-staff.mjs"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^9.16.0",
     "@tanstack/react-query": "^5.102.8",
     "clsx": "^2.1.1",
     "country-flag-icons": "^1.6.20",
@@ -21,6 +22,7 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "recharts": "^3.10.1",
+    "stripe": "^22.6.2",
     "zustand": "^5.0.15"
   },
   "devDependencies": {

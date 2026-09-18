@@ -94,12 +94,44 @@ const SCHEMA_STATEMENTS = [
     FOREIGN KEY (sender_id) REFERENCES staff_members(id),
     FOREIGN KEY (recipient_id) REFERENCES staff_members(id)
   )`,
+  // Widens the pre-existing orders.status enum so a real checkout can
+  // insert a row the instant a Stripe Checkout Session is created (before
+  // payment is known to succeed), rather than defaulting to 'completed'
+  // before any money has actually moved. Re-running MODIFY COLUMN with an
+  // identical definition is a no-op, so this is safe on every boot.
+  `ALTER TABLE orders MODIFY COLUMN status ENUM('pending', 'completed', 'refunded', 'failed') NOT NULL DEFAULT 'pending'`,
 ];
+
+// orders columns added for real Stripe checkout. Plain ADD COLUMN isn't
+// idempotent on MySQL versions before 8.0.29 (no IF NOT EXISTS support),
+// and the Hostinger MySQL version isn't guaranteed, so existence is checked
+// via information_schema first instead of relying on that syntax.
+const ORDERS_NEW_COLUMNS: { name: string; ddl: string }[] = [
+  { name: "plan_id", ddl: "VARCHAR(255) NULL" },
+  { name: "stripe_checkout_session_id", ddl: "VARCHAR(255) NULL" },
+  { name: "stripe_payment_intent_id", ddl: "VARCHAR(255) NULL" },
+  { name: "iccid", ddl: "VARCHAR(255) NULL" },
+  { name: "lpa_activation_code", ddl: "VARCHAR(255) NULL" },
+];
+
+async function ensureOrdersColumns(pool: mysql.Pool): Promise<void> {
+  const [rows] = await pool.query<(mysql.RowDataPacket & { COLUMN_NAME: string })[]>(
+    `SELECT COLUMN_NAME FROM information_schema.columns
+     WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'orders'`
+  );
+  const existing = new Set(rows.map((r) => r.COLUMN_NAME));
+  for (const column of ORDERS_NEW_COLUMNS) {
+    if (!existing.has(column.name)) {
+      await pool.query(`ALTER TABLE orders ADD COLUMN ${column.name} ${column.ddl}`);
+    }
+  }
+}
 
 async function ensureSchema(pool: mysql.Pool): Promise<void> {
   for (const statement of SCHEMA_STATEMENTS) {
     await pool.query(statement);
   }
+  await ensureOrdersColumns(pool);
 }
 
 export async function getPool(): Promise<mysql.Pool> {

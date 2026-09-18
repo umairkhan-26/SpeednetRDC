@@ -7,23 +7,11 @@ import OrderSummarySidebar from "@/components/checkout/OrderSummarySidebar";
 import PlanStep from "@/components/checkout/steps/PlanStep";
 import AccountStep from "@/components/checkout/steps/AccountStep";
 import PaymentStep from "@/components/checkout/steps/PaymentStep";
-import ConfirmationStep from "@/components/checkout/steps/ConfirmationStep";
 import { calculateOrderTotals } from "@/lib/pricing";
 import { LinkButton } from "@/components/ui/Button";
 
 export default function CheckoutClient() {
-  const {
-    plan,
-    step,
-    fullName,
-    email,
-    paymentMethod,
-    result,
-    setStep,
-    setAccountDetails,
-    setPaymentMethod,
-    setResult,
-  } = useCheckoutStore();
+  const { plan, step, fullName, email, setStep, setAccountDetails } = useCheckoutStore();
 
   if (!plan) {
     return (
@@ -41,11 +29,9 @@ export default function CheckoutClient() {
 
   return (
     <div className="container-page py-10">
-      {step !== "confirmation" && (
-        <div className="mb-10">
-          <StepIndicator current={step} />
-        </div>
-      )}
+      <div className="mb-10">
+        <StepIndicator current={step} />
+      </div>
 
       <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
         <div className="rounded-2xl border border-line bg-white p-6 sm:p-8">
@@ -69,27 +55,17 @@ export default function CheckoutClient() {
               total={totals.total}
               fullName={fullName}
               email={email}
-              method={paymentMethod}
-              onMethodChange={setPaymentMethod}
               onBack={() => setStep("account")}
-              onSuccess={(checkoutResult) => {
-                setResult(checkoutResult);
-                setStep("confirmation");
-              }}
             />
           )}
-
-          {step === "confirmation" && result && <ConfirmationStep result={result} plan={plan} />}
         </div>
 
-        {step !== "confirmation" && <OrderSummarySidebar plan={plan} />}
+        <OrderSummarySidebar plan={plan} />
       </div>
 
-      {step !== "confirmation" && (
-        <p className="mt-8 text-center text-xs text-muted">
-          Having trouble? <Link href="/help" className="font-semibold text-orange hover:underline">Get help</Link>
-        </p>
-      )}
+      <p className="mt-8 text-center text-xs text-muted">
+        Having trouble? <Link href="/help" className="font-semibold text-orange hover:underline">Get help</Link>
+      </p>
     </div>
   );
 }

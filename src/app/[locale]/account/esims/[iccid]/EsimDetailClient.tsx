@@ -7,8 +7,6 @@ import { Link } from "@/i18n/navigation";
 import { ChevronLeft } from "lucide-react";
 import { clsx } from "clsx";
 import { mockEsims } from "@/data/esims";
-import { useCheckoutStore } from "@/lib/store/checkout-store";
-import { getCountryBySlug } from "@/data/countries";
 import { formatData, formatDate } from "@/lib/format";
 import ProgressBar from "@/components/ui/ProgressBar";
 import { Badge } from "@/components/ui/Chip";
@@ -33,39 +31,10 @@ export default function EsimDetailClient() {
   const requestedTab = searchParams.get("tab");
   const initialTab = tabs.some((t) => t.key === requestedTab) ? (requestedTab as TabKey) : "install";
   const [tab, setTab] = useState<TabKey>(initialTab);
-  const { plan, result } = useCheckoutStore();
 
   const esim = useMemo<ActiveEsim | undefined>(() => {
-    const known = mockEsims.find((e) => e.iccid === iccid);
-    if (known) return known;
-
-    if (result && result.iccid === iccid && plan) {
-      const country = plan.countrySlug ? getCountryBySlug(plan.countrySlug) : undefined;
-      return {
-        iccid: result.iccid,
-        countrySlug: plan.countrySlug ?? "",
-        countryName: country?.name ?? plan.name,
-        iso: country?.iso ?? "GLOBAL",
-        status: "Not Installed",
-        dataUsedGb: 0,
-        dataTotalGb: plan.dataAmountGb,
-        expiresInDays: plan.validityDays,
-        activationDate: result.activationDate,
-        expirationDate: result.expirationDate,
-        network: plan.network,
-        coverageCountries: plan.countriesIncluded?.length ?? 1,
-        apn: "speednet",
-        dataRoaming: "ON (required)",
-        networkSelection: "Automatic",
-        preferredNetwork: "5G/LTE",
-        lineLabel: "SpeedNetRDC",
-        activationCode: result.activationCode,
-        qrCodeUrl: "",
-        smDpAddress: "rsp.speednetrdc.com",
-      };
-    }
-    return undefined;
-  }, [iccid, plan, result]);
+    return mockEsims.find((e) => e.iccid === iccid);
+  }, [iccid]);
 
   // toLocaleDateString() is timezone-sensitive: the server (UTC) and the
   // browser's local timezone can render the same instant as different
