@@ -7,7 +7,7 @@ export default function ChatBubble() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-20 right-5 z-50 flex flex-col items-end gap-3">
       {open && (
         <div className="w-80 max-w-[calc(100vw-2.5rem)] overflow-hidden rounded-2xl border border-line bg-white shadow-2xl">
           <div className="bg-gradient-to-r from-orange to-orange-soft px-4 py-4 text-white">

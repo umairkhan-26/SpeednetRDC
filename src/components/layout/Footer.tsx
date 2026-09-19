@@ -71,8 +71,19 @@ export default async function Footer({ locale }: { locale: AppLocale }) {
       </div>
 
       <div className="border-t border-white/10 py-6">
-        <div className="container-page text-xs text-white/40">
+        <div className="container-page flex flex-col gap-2 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <p>{t("copyright", { year: new Date().getFullYear() })}</p>
+          <p>
+            {t("designedBy")}{" "}
+            <a
+              href="https://corenovait.com.au"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/60 hover:text-white"
+            >
+              CoreNovaIT
+            </a>
+          </p>
         </div>
       </div>
     </footer>

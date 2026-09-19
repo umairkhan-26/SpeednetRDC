@@ -18,7 +18,8 @@
     "globalEsim": "eSIM global",
     "deviceCompatibility": "Compatibilidad de dispositivos",
     "helpCenter": "Centro de ayuda",
-    "copyright": "© {year} SpeedNetRDC. Todos los derechos reservados."
+    "copyright": "© {year} SpeedNetRDC. Todos los derechos reservados.",
+    "designedBy": "Diseñado por"
   },
   "home": {
     "hero": {
