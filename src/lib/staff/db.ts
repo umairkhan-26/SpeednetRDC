@@ -100,6 +100,27 @@ const SCHEMA_STATEMENTS = [
   // before any money has actually moved. Re-running MODIFY COLUMN with an
   // identical definition is a no-op, so this is safe on every boot.
   `ALTER TABLE orders MODIFY COLUMN status ENUM('pending', 'completed', 'refunded', 'failed') NOT NULL DEFAULT 'pending'`,
+  // Real SIM stock delivered by Transatel (see scripts/seed-sim-inventory.mjs
+  // and scripts/README.md). One row per physical SIM or eSIM Transatel has
+  // shipped/provisioned for this account; `status` tracks whether it's
+  // already been handed to a customer, separately from Transatel's own
+  // HLR status. iccid is the durable identifier (present from day one);
+  // msisdn starts NULL for stock that's never been activated and is filled
+  // in once Transatel's activation completes (see the Transatel event
+  // webhook, src/app/api/transatel/events/route.ts).
+  `CREATE TABLE IF NOT EXISTS sim_inventory (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    iccid VARCHAR(32) NOT NULL UNIQUE,
+    msisdn VARCHAR(32) NULL,
+    sim_type ENUM('esim', 'physical') NOT NULL DEFAULT 'physical',
+    pin1 VARCHAR(16) NULL,
+    puk1 VARCHAR(16) NULL,
+    transatel_hlr_status VARCHAR(32) NULL,
+    status ENUM('available', 'assigned') NOT NULL DEFAULT 'available',
+    assigned_order_id INT NULL,
+    created_at DATETIME NOT NULL,
+    FOREIGN KEY (assigned_order_id) REFERENCES orders(id)
+  )`,
 ];
 
 // orders columns added for real Stripe checkout. Plain ADD COLUMN isn't
@@ -112,6 +133,23 @@ const ORDERS_NEW_COLUMNS: { name: string; ddl: string }[] = [
   { name: "stripe_payment_intent_id", ddl: "VARCHAR(255) NULL" },
   { name: "iccid", ddl: "VARCHAR(255) NULL" },
   { name: "lpa_activation_code", ddl: "VARCHAR(255) NULL" },
+  { name: "msisdn", ddl: "VARCHAR(32) NULL" },
+  // Set right after a "preload" order is submitted for an already-active
+  // SIM/subscriber; NOT set for a brand-new SIM going through the
+  // activate -> ACTIVATED event -> preload flow (see the Transatel
+  // client and events webhook), since that flow's meaningful id is the
+  // activation transactionId below.
+  { name: "transatel_order_id", ddl: "VARCHAR(64) NULL" },
+  // Tracks Transatel-side provisioning independently of `status` (which
+  // is payment status only). 'pending' until the webhook starts working
+  // on it, 'activating' while waiting on Transatel's asynchronous SIM
+  // activation, 'provisioned' once the customer's plan is confirmed live,
+  // 'failed' if either the activation or the preload order call errors.
+  { name: "provisioning_status", ddl: "ENUM('pending', 'activating', 'provisioned', 'failed') NOT NULL DEFAULT 'pending'" },
+  // Transatel's transactionId for the SIM activation call — used by the
+  // events webhook (src/app/api/transatel/events/route.ts) to match an
+  // incoming ACTIVATED event back to the order that triggered it.
+  { name: "transatel_activation_transaction_id", ddl: "VARCHAR(64) NULL" },
 ];
 
 async function ensureOrdersColumns(pool: mysql.Pool): Promise<void> {

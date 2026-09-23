@@ -1,7 +1,65 @@
 import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getStripe } from "@/lib/checkout/stripe";
-import { markOrderFailed, markOrderPaid } from "@/lib/checkout/orders-repository";
+import {
+  attachActivationTransaction,
+  attachReservedSim,
+  getOrderById,
+  markOrderFailed,
+  markOrderPaid,
+  markProvisioningFailed,
+} from "@/lib/checkout/orders-repository";
+import { activateSim, TransatelApiError } from "@/lib/transatel/client";
+import { reserveSimForOrder } from "@/lib/transatel/inventory";
+import { preloadCustomerPlan } from "@/lib/transatel/provisioning";
+
+// Kicks off real eSIM provisioning for a paid order by reserving an unused
+// SIM from inventory, then branches on whether that SIM already has an
+// MSISDN:
+//   - Already has one (e.g. the demo account's "Pre-activée" test eSIMs,
+//     imported with a known MSISDN from a SIM management portal export) —
+//     go straight to giving it the customer's purchased plan.
+//   - Doesn't have one yet (e.g. brand-new production stock, status
+//     "Available") — ask Transatel to activate it first. Activation is
+//     asynchronous, so the actual "give the customer their purchased
+//     plan" step happens later, in src/app/api/transatel/events/route.ts,
+//     once Transatel reports the SIM is active and tells us its real
+//     MSISDN.
+//
+// Payment has already succeeded by the time this runs (markOrderPaid), so
+// a failure here is logged and recorded on the order rather than thrown —
+// the customer has been charged either way, and provisioning_status =
+// 'failed' is what should drive a manual-follow-up / retry path (not built
+// yet) or an admin-panel alert.
+async function startEsimProvisioning(orderId: number): Promise<void> {
+  const order = await getOrderById(orderId);
+  if (!order) {
+    console.error(`[transatel] Order ${orderId} not found, cannot provision eSIM`);
+    return;
+  }
+
+  try {
+    const sim = await reserveSimForOrder(orderId);
+    await attachReservedSim(orderId, sim.iccid);
+
+    if (sim.msisdn) {
+      await preloadCustomerPlan(order, sim.msisdn);
+    } else {
+      const activation = await activateSim({
+        iccid: sim.iccid,
+        externalReference: `order-${orderId}`,
+      });
+      await attachActivationTransaction(orderId, activation.transactionId);
+    }
+  } catch (error) {
+    if (error instanceof TransatelApiError) {
+      console.error(`[transatel] Order ${orderId} provisioning failed (${error.status}):`, error.body);
+    } else {
+      console.error(`[transatel] Order ${orderId} provisioning failed:`, error);
+    }
+    await markProvisioningFailed(orderId);
+  }
+}
 
 function orderIdFromMetadata(metadata: Stripe.Metadata | null | undefined): number | null {
   const raw = metadata?.order_id;
@@ -34,7 +92,13 @@ export async function POST(request: Request) {
       if (orderId !== null && session.payment_status === "paid") {
         const paymentIntentId =
           typeof session.payment_intent === "string" ? session.payment_intent : (session.payment_intent?.id ?? null);
-        await markOrderPaid(orderId, paymentIntentId);
+        const wasPending = await markOrderPaid(orderId, paymentIntentId);
+        // Only provision on the transition into 'completed' — guards
+        // against a duplicate webhook delivery reserving a second real
+        // SIM for the same payment.
+        if (wasPending) {
+          await startEsimProvisioning(orderId);
+        }
       }
       break;
     }

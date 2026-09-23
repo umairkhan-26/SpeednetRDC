@@ -32,6 +32,18 @@ export interface Country {
 }
 
 export interface Plan {
+  /**
+   * Internal identifier, used for routing and lookup (getPlanById).
+   *
+   * IMPORTANT: this is also Transatel's exact Technical Reference /
+   * productId, passed straight through from their catalog export (see
+   * scripts/generate-data.mjs, `id: p.technical_reference`). Never rename
+   * or regenerate this value without updating
+   * src/lib/transatel/product.ts, and never read `plan.id` directly when
+   * calling Transatel's API — use getTransatelProductId(plan) instead, so
+   * a future refactor that renames `id` fails loudly there instead of
+   * silently breaking order placement.
+   */
   id: string;
   scope: "country" | "regional" | "global";
   countrySlug?: string;

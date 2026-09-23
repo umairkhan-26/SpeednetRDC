@@ -7,7 +7,8 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "seed:staff": "node --env-file=.env.local scripts/seed-staff.mjs"
+    "seed:staff": "node --env-file=.env.local scripts/seed-staff.mjs",
+    "seed:sims": "node --env-file=.env.local scripts/seed-sim-inventory.mjs"
   },
   "dependencies": {
     "@stripe/stripe-js": "^9.16.0",

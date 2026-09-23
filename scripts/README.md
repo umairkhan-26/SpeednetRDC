@@ -47,3 +47,28 @@ just a pricing refresh with the same area list, step 5 alone is enough.
   429 from Wikimedia's CDN under a burst of concurrent requests (e.g. loading
   the full /destinations directory cold). Fine once Next's image cache warms
   up, but worth self-hosting these before a real launch.
+
+## SIM inventory (real eSIM/physical SIM provisioning)
+
+`scripts/seed-sim-inventory.mjs` imports a Transatel SIM delivery file
+(semicolon-delimited CSV: `TransatelId;Msisdn;Release;IccId;HLRStatus;Pin1;Puk1`)
+into the `sim_inventory` MySQL table, so the checkout webhook has real SIMs
+to hand out. Run with:
+
+```
+npm run seed:sims -- <path-to-csv> [esim|physical]
+```
+
+Never commit the CSV itself (`scripts/source/sim-inventory*.csv` is
+gitignored) — it contains real ICCID/PIN/PUK values. Safe to re-run on the
+same file; existing rows are refreshed, not duplicated, and a SIM already
+assigned to an order stays assigned.
+
+As of 2026-09, we only have a delivery file for the 1,000 **physical** SIM
+cards (`M2MA_WW_TSL_SPEEDNETRDC_CSO_7434`), not the 500 **eSIMs** the site
+actually sells online — the physical-SIM file has been seeded as a start,
+but a matching eSIM delivery file (with QR/LPA activation data) is still
+needed before real online checkout can hand out a real eSIM. See
+`src/lib/transatel/inventory.ts` and the Stripe/Transatel webhook routes
+under `src/app/api/` for how a reserved SIM flows through activation and
+plan provisioning.

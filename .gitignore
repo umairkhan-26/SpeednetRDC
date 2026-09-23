@@ -37,6 +37,11 @@ yarn-error.log*
 # staff portal sqlite database
 /data
 
+# Transatel SIM delivery files — contain real ICCID/PIN/PUK for physical
+# stock, never commit these. Run `npm run seed:sims -- <path>` locally to
+# import a delivery file into the database instead.
+scripts/source/sim-inventory*.csv
+
 # vercel
 .vercel
 
