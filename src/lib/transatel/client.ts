@@ -127,7 +127,11 @@ export async function placePreloadOrder(params: {
     body: JSON.stringify({
       bind: { msisdn: params.msisdn },
       product: { productId: params.productId },
-      payment: { provider: "credit" },
+      // Per Transatel account manager (Emeline Gernet), the SPC integration
+      // requires "customer" as the payment provider — "credit" is invalid
+      // for this account type and was the likely cause of the 501
+      // BUSINESS_PROCESS_NOT_IMPLEMENTED / PRODUCT_NOT_FOUND errors.
+      payment: { provider: "customer" },
       source: "speednetrdc-webhook",
       orderType: "preload",
       mvnoRef,
