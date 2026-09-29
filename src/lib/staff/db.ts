@@ -108,6 +108,15 @@ const SCHEMA_STATEMENTS = [
   // msisdn starts NULL for stock that's never been activated and is filled
   // in once Transatel's activation completes (see the Transatel event
   // webhook, src/app/api/transatel/events/route.ts).
+  // is_activated is set explicitly by the importer (scripts/seed-sim-inventory.mjs)
+  // from Transatel's own status field, NOT inferred from msisdn presence —
+  // production stock is delivered with a pre-assigned msisdn well before
+  // it's ever activated on the network (normal telco allocation), so
+  // "has an msisdn" and "is activated" are different facts. Conflating
+  // them previously caused startEsimProvisioning (see the Stripe webhook)
+  // to skip real activation for production SIMs and call placePreloadOrder
+  // on a subscriber that was never turned on, which Transatel rejected
+  // with 400 ORDER_NOT_ALLOWED (confirmed via orders 11 and 12).
   `CREATE TABLE IF NOT EXISTS sim_inventory (
     id INT PRIMARY KEY AUTO_INCREMENT,
     iccid VARCHAR(32) NOT NULL UNIQUE,
@@ -116,12 +125,35 @@ const SCHEMA_STATEMENTS = [
     pin1 VARCHAR(16) NULL,
     puk1 VARCHAR(16) NULL,
     transatel_hlr_status VARCHAR(32) NULL,
+    is_activated TINYINT(1) NOT NULL DEFAULT 0,
     status ENUM('available', 'assigned') NOT NULL DEFAULT 'available',
     assigned_order_id INT NULL,
     created_at DATETIME NOT NULL,
     FOREIGN KEY (assigned_order_id) REFERENCES orders(id)
   )`,
 ];
+
+// sim_inventory columns added after the table already existed in
+// production — same idempotent, information_schema-checked pattern as
+// ORDERS_NEW_COLUMNS below (plain ADD COLUMN isn't safely re-runnable on
+// MySQL versions before 8.0.29, and Hostinger's exact version isn't
+// guaranteed).
+const SIM_INVENTORY_NEW_COLUMNS: { name: string; ddl: string }[] = [
+  { name: "is_activated", ddl: "TINYINT(1) NOT NULL DEFAULT 0" },
+];
+
+async function ensureSimInventoryColumns(pool: mysql.Pool): Promise<void> {
+  const [rows] = await pool.query<(mysql.RowDataPacket & { COLUMN_NAME: string })[]>(
+    `SELECT COLUMN_NAME FROM information_schema.columns
+     WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'sim_inventory'`
+  );
+  const existing = new Set(rows.map((r) => r.COLUMN_NAME));
+  for (const column of SIM_INVENTORY_NEW_COLUMNS) {
+    if (!existing.has(column.name)) {
+      await pool.query(`ALTER TABLE sim_inventory ADD COLUMN ${column.name} ${column.ddl}`);
+    }
+  }
+}
 
 // orders columns added for real Stripe checkout. Plain ADD COLUMN isn't
 // idempotent on MySQL versions before 8.0.29 (no IF NOT EXISTS support),
@@ -150,6 +182,10 @@ const ORDERS_NEW_COLUMNS: { name: string; ddl: string }[] = [
   // events webhook (src/app/api/transatel/events/route.ts) to match an
   // incoming ACTIVATED event back to the order that triggered it.
   { name: "transatel_activation_transaction_id", ddl: "VARCHAR(64) NULL" },
+  // Set inside completeProvisioning() the moment a paid order's plan is
+  // confirmed live on the SIM — distinct from created_at (order/checkout
+  // time). Nothing previously recorded when provisioning actually finished.
+  { name: "provisioned_at", ddl: "DATETIME NULL" },
 ];
 
 async function ensureOrdersColumns(pool: mysql.Pool): Promise<void> {
@@ -170,6 +206,7 @@ async function ensureSchema(pool: mysql.Pool): Promise<void> {
     await pool.query(statement);
   }
   await ensureOrdersColumns(pool);
+  await ensureSimInventoryColumns(pool);
 }
 
 export async function getPool(): Promise<mysql.Pool> {

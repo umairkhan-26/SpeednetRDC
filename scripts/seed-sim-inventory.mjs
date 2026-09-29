@@ -22,10 +22,18 @@
 //      ("Résiliée"/"Terminated") are SKIPPED — they can't be assigned to
 //      a customer.
 //
+// is_activated is set from the status field per format above: format 1
+// rows are always false (a pre-assigned msisdn there is just normal telco
+// allocation, not activation — see src/lib/staff/db.ts); format 2 rows are
+// true only when the status reads "Pré-activée"/"Pre-activée". This is
+// what src/app/api/stripe/webhook/route.ts branches on to decide whether a
+// reserved SIM can skip straight to placePreloadOrder or needs a real
+// activateSim() call first — do not derive it from msisdn presence.
+//
 // Safe to re-run: existing rows (matched by iccid) have their
-// pin1/puk1/hlr_status refreshed but keep their assigned/available status,
-// so re-importing the same file never un-assigns a SIM that's already
-// been handed to a customer.
+// pin1/puk1/hlr_status/is_activated refreshed but keep their
+// assigned/available status, so re-importing the same file never
+// un-assigns a SIM that's already been handed to a customer.
 import fs from "node:fs";
 import mysql from "mysql2/promise";
 
@@ -67,10 +75,21 @@ await connection.query(`CREATE TABLE IF NOT EXISTS sim_inventory (
   pin1 VARCHAR(16) NULL,
   puk1 VARCHAR(16) NULL,
   transatel_hlr_status VARCHAR(32) NULL,
+  is_activated TINYINT(1) NOT NULL DEFAULT 0,
   status ENUM('available', 'assigned') NOT NULL DEFAULT 'available',
   assigned_order_id INT NULL,
   created_at DATETIME NOT NULL
 )`);
+// In case this runs against a database whose sim_inventory predates
+// is_activated (created by an older app boot) — mirrors the
+// information_schema-checked ALTER in src/lib/staff/db.ts.
+const [[existingCol]] = await connection.query(
+  `SELECT COUNT(*) AS count FROM information_schema.columns
+   WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'sim_inventory' AND COLUMN_NAME = 'is_activated'`
+);
+if (existingCol.count === 0) {
+  await connection.query("ALTER TABLE sim_inventory ADD COLUMN is_activated TINYINT(1) NOT NULL DEFAULT 0");
+}
 
 function toMySQLDateTime(date) {
   return date.toISOString().slice(0, 19).replace("T", " ");
@@ -88,6 +107,12 @@ function findCol(header, ...names) {
 }
 
 const TERMINATED_PATTERN = /r[ée]sili|terminat/i;
+// Only matches the portal-export format's "Pré-activée"/"Pre-activée"
+// status. The Transatel delivery file's status ("Available", etc.) never
+// matches this, so freshly-delivered production stock correctly ends up
+// is_activated = false even though it may already carry a pre-assigned
+// msisdn (normal telco allocation, not the same thing as being turned on).
+const ACTIVATED_PATTERN = /pr[eé]-?activ/i;
 
 const lines = fs.readFileSync(csvPath, "utf-8").split(/\r?\n/).filter((line) => line.trim().length > 0);
 const header = lines[0].split(";").map((h) => h.trim());
@@ -105,6 +130,7 @@ if (idx.iccid === -1) {
 let inserted = 0;
 let updated = 0;
 let skippedTerminated = 0;
+let activatedCount = 0;
 const now = toMySQLDateTime(new Date());
 
 for (const line of lines.slice(1)) {
@@ -124,23 +150,26 @@ for (const line of lines.slice(1)) {
   const msisdn = rawMsisdn ? rawMsisdn.replace(/^\+/, "") : null;
   const pin1 = idx.pin1 !== -1 ? cols[idx.pin1] || null : null;
   const puk1 = idx.puk1 !== -1 ? cols[idx.puk1] || null : null;
+  const isActivated = status ? ACTIVATED_PATTERN.test(status) : false;
 
   const [result] = await connection.query(
-    `INSERT INTO sim_inventory (iccid, msisdn, sim_type, pin1, puk1, transatel_hlr_status, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?)
+    `INSERT INTO sim_inventory (iccid, msisdn, sim_type, pin1, puk1, transatel_hlr_status, is_activated, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
      ON DUPLICATE KEY UPDATE
        msisdn = COALESCE(VALUES(msisdn), msisdn),
        pin1 = COALESCE(VALUES(pin1), pin1),
        puk1 = COALESCE(VALUES(puk1), puk1),
-       transatel_hlr_status = VALUES(transatel_hlr_status)`,
-    [iccid, msisdn, simType, pin1, puk1, status, now]
+       transatel_hlr_status = VALUES(transatel_hlr_status),
+       is_activated = VALUES(is_activated)`,
+    [iccid, msisdn, simType, pin1, puk1, status, isActivated, now]
   );
   if (result.affectedRows === 1) inserted++;
   else updated++;
+  if (isActivated) activatedCount++;
 }
 
 console.log(
-  `Imported ${csvPath}: ${inserted} new SIMs, ${updated} existing SIMs refreshed, ${skippedTerminated} terminated SIMs skipped.`
+  `Imported ${csvPath}: ${inserted} new SIMs, ${updated} existing SIMs refreshed, ${skippedTerminated} terminated SIMs skipped, ${activatedCount} marked is_activated.`
 );
 
 const [[{ count: available }]] = await connection.query(

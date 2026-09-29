@@ -21,6 +21,7 @@ export interface CheckoutOrder {
   msisdn: string | null;
   provisioningStatus: ProvisioningStatus;
   transatelActivationTransactionId: string | null;
+  provisionedAt: string | null;
   createdAt: string;
 }
 
@@ -41,6 +42,7 @@ interface OrderRow extends RowDataPacket {
   msisdn: string | null;
   provisioning_status: ProvisioningStatus;
   transatel_activation_transaction_id: string | null;
+  provisioned_at: string | null;
   created_at: string;
 }
 
@@ -62,6 +64,7 @@ function toCheckoutOrder(row: OrderRow): CheckoutOrder {
     msisdn: row.msisdn,
     provisioningStatus: row.provisioning_status,
     transatelActivationTransactionId: row.transatel_activation_transaction_id,
+    provisionedAt: fromMySQLDateTime(row.provisioned_at),
     createdAt: fromMySQLDateTime(row.created_at),
   };
 }
@@ -109,6 +112,7 @@ export async function createPendingOrder(input: {
     msisdn: null,
     provisioningStatus: "pending",
     transatelActivationTransactionId: null,
+    provisionedAt: null,
     createdAt: now.toISOString(),
   };
 }
@@ -211,9 +215,9 @@ export async function completeProvisioning(
   const pool = await getPool();
   await pool.query(
     `UPDATE orders
-     SET msisdn = ?, lpa_activation_code = ?, provisioning_status = 'provisioned'
+     SET msisdn = ?, lpa_activation_code = ?, provisioning_status = 'provisioned', provisioned_at = ?
      WHERE id = ?`,
-    [details.msisdn, details.lpaActivationCode, orderId]
+    [details.msisdn, details.lpaActivationCode, toMySQLDateTime(new Date()), orderId]
   );
 }
 

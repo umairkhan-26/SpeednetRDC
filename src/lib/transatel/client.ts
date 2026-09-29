@@ -131,18 +131,24 @@ export async function placePreloadOrder(params: {
   transactionReference: string;
 }): Promise<TransatelOrderResult> {
   const mvnoRef = getTransatelMvnoRef();
+  const requestBody = {
+    bind: { msisdn: params.msisdn },
+    product: { productId: params.productId },
+    payment: { provider: "customer" },
+    source: "speednetrdc-webhook",
+    orderType: "subscribe",
+    mvnoRef,
+    transactionReference: params.transactionReference,
+  };
+
+  // Logged because this endpoint's exact request shape has changed twice
+  // already (orderType, payment.provider) chasing errors that were opaque
+  // without seeing what was actually sent — see the comment above.
+  console.log("[transatel] placePreloadOrder request:", JSON.stringify(requestBody));
 
   const response = await transatelFetch("/ocs/subscriptions/api/orders/products", {
     method: "POST",
-    body: JSON.stringify({
-      bind: { msisdn: params.msisdn },
-      product: { productId: params.productId },
-      payment: { provider: "customer" },
-      source: "speednetrdc-webhook",
-      orderType: "subscribe",
-      mvnoRef,
-      transactionReference: params.transactionReference,
-    }),
+    body: JSON.stringify(requestBody),
   });
 
   const body = await response.json().catch(() => null);
