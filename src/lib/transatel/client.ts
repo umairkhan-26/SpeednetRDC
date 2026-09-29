@@ -107,11 +107,21 @@ export async function checkProductInCatalog(productId: string): Promise<boolean>
 }
 
 /**
- * Places a "preload" order: adds a product to a Pre-Activated subscriber
- * (i.e. one of our uninstalled physical/eSIM SIMs), to be activated when
- * the customer activates their SIM. This is the right orderType for SIMs
- * that haven't been used yet — see Transatel's OCS subscriptions API docs
- * ("preload" vs "subscribe").
+ * Places a product order for a subscriber (adds a data plan to one of our
+ * SIMs). Despite the function name (kept to avoid touching every call
+ * site), this uses orderType "subscribe", not "preload".
+ *
+ * IMPORTANT: orderType "preload" is NOT valid for our SPC (Service Provider
+ * Connect) account/COS (WW_M2MA_COS_SPC) — sending it caused a
+ * 501 BUSINESS_PROCESS_NOT_IMPLEMENTED "Missing configuration" error on the
+ * demo account and PRODUCT_NOT_FOUND on production. Confirmed by testing
+ * live against the demo account on 2026-09-29: swapping to "subscribe"
+ * (the only orderType shown in Transatel's own OCS subscribe-product guide,
+ * https://developers.transatel.com/docs/ocs-guides-subscribe-product/)
+ * succeeded immediately with status "done". Payment provider "customer"
+ * (per Transatel account manager Emeline Gernet — "credit" is invalid for
+ * this account type) was a real fix too but was NOT sufficient on its own;
+ * orderType was the actual root cause of both errors.
  *
  * POST /ocs/subscriptions/api/orders/products
  */
@@ -127,13 +137,9 @@ export async function placePreloadOrder(params: {
     body: JSON.stringify({
       bind: { msisdn: params.msisdn },
       product: { productId: params.productId },
-      // Per Transatel account manager (Emeline Gernet), the SPC integration
-      // requires "customer" as the payment provider — "credit" is invalid
-      // for this account type and was the likely cause of the 501
-      // BUSINESS_PROCESS_NOT_IMPLEMENTED / PRODUCT_NOT_FOUND errors.
       payment: { provider: "customer" },
       source: "speednetrdc-webhook",
-      orderType: "preload",
+      orderType: "subscribe",
       mvnoRef,
       transactionReference: params.transactionReference,
     }),
