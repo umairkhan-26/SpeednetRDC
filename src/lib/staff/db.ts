@@ -126,11 +126,20 @@ const SCHEMA_STATEMENTS = [
     puk1 VARCHAR(16) NULL,
     transatel_hlr_status VARCHAR(32) NULL,
     is_activated TINYINT(1) NOT NULL DEFAULT 0,
-    status ENUM('available', 'assigned') NOT NULL DEFAULT 'available',
+    status ENUM('available', 'assigned', 'retired') NOT NULL DEFAULT 'available',
     assigned_order_id INT NULL,
     created_at DATETIME NOT NULL,
     FOREIGN KEY (assigned_order_id) REFERENCES orders(id)
   )`,
+  // Widens sim_inventory.status to add 'retired' — a non-destructive way to
+  // permanently exclude a row from reserveSimForOrder's
+  // WHERE status = 'available' pick (see src/lib/transatel/inventory.ts)
+  // without deleting the row or losing its assigned_order_id history (e.g.
+  // the 10 demo/test SIMs that were wrongly assignable to real orders
+  // before production stock existed — see orders 11 and 12). Re-running
+  // MODIFY COLUMN with an identical definition is a no-op, so this is safe
+  // on every boot, same as the orders.status widening above.
+  `ALTER TABLE sim_inventory MODIFY COLUMN status ENUM('available', 'assigned', 'retired') NOT NULL DEFAULT 'available'`,
 ];
 
 // sim_inventory columns added after the table already existed in
