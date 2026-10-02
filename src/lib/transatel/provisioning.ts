@@ -9,6 +9,7 @@ import {
   markProvisioningFailed,
   type CheckoutOrder,
 } from "@/lib/checkout/orders-repository";
+import { orderKind } from "@/lib/checkout/order-kind";
 import {
   getEsimDetails,
   getSubscriberProducts,
@@ -57,6 +58,18 @@ type UsableEsim = { sim: InventorySim; esim: EsimDetails & { activationCode: str
  * from the dashboard.
  */
 export async function provisionEsimOrder(orderId: number): Promise<void> {
+  // Provisioning buys a real plan from Transatel and hands out a real eSIM.
+  // Stripe test-mode payments move no money and public test cards work, so
+  // only live orders are provisioned — unless deliberately allowed while
+  // testing (ESIM_PROVISION_TEST_ORDERS=true).
+  const candidate = await getOrderById(orderId);
+  if (!candidate) return;
+  const kind = orderKind(candidate.stripeCheckoutSessionId);
+  if (kind !== "live" && process.env.ESIM_PROVISION_TEST_ORDERS !== "true") {
+    console.warn(`[transatel] Order ${orderId} is a ${kind} order — not provisioning a real eSIM (ESIM_PROVISION_TEST_ORDERS is not "true")`);
+    return;
+  }
+
   if (!(await claimProvisioning(orderId))) return;
   await ensureAccessToken(orderId);
 

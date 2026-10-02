@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getOrderById, resetProvisioningForRetry } from "@/lib/checkout/orders-repository";
+import { orderKind } from "@/lib/checkout/order-kind";
 import { provisionEsimOrder } from "@/lib/transatel/provisioning";
 import { requireAdminSession } from "./auth";
 
@@ -21,8 +22,13 @@ export async function retryProvisioningAction(orderId: number): Promise<RetryPro
   await requireAdminSession();
 
   const order = await getOrderById(orderId);
-  if (!order || order.status !== "completed" || !order.planId || !order.stripeCheckoutSessionId) {
+  if (!order || order.status !== "completed" || !order.planId) {
     return { ok: false, message: "Not a paid checkout order." };
+  }
+  // Retrying buys a real plan from Transatel: never for Stripe test-mode or
+  // demo orders, whatever ESIM_PROVISION_TEST_ORDERS says.
+  if (orderKind(order.stripeCheckoutSessionId) !== "live") {
+    return { ok: false, message: "Test-mode order — not retried (it would buy a real plan for a payment that never happened)." };
   }
   if (order.provisioningStatus === "provisioned") {
     return { ok: false, message: "Already provisioned." };

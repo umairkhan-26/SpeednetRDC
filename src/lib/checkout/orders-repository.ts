@@ -1,6 +1,7 @@
 import { randomBytes } from "node:crypto";
 import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import { fromMySQLDateTime, getPool, toMySQLDateTime } from "@/lib/staff/db";
+import { LIVE_ORDER_SQL, ORDER_KIND_SQL, type OrderKind } from "./order-kind";
 
 // 24 random bytes -> 32 URL-safe characters for the private order link.
 const newAccessToken = () => randomBytes(24).toString("base64url");
@@ -229,16 +230,16 @@ export async function resetProvisioningForRetry(orderId: number): Promise<boolea
 }
 
 /**
- * Paid checkout orders whose eSIM isn't provisioned and that need an
- * admin's attention: failed, stuck mid-attempt, or never started (Stripe
- * webhook never arrived). Seed/demo rows without a Stripe session are
- * excluded so they can't be "retried" into real Transatel orders.
+ * Paid LIVE orders whose eSIM isn't provisioned and that need an admin's
+ * attention: failed, stuck mid-attempt, or never started (Stripe webhook
+ * never arrived). Stripe test-mode orders and seeded demo rows are never
+ * listed — retrying buys a real plan from Transatel.
  */
 export async function listOrdersNeedingProvisioning(): Promise<CheckoutOrder[]> {
   const pool = await getPool();
   const [rows] = await pool.query<OrderRow[]>(
     `SELECT * FROM orders
-     WHERE status = 'completed' AND plan_id IS NOT NULL AND stripe_checkout_session_id IS NOT NULL
+     WHERE status = 'completed' AND plan_id IS NOT NULL AND ${LIVE_ORDER_SQL}
        AND (
          provisioning_status = 'failed'
          OR (provisioning_status = 'pending' AND created_at < UTC_TIMESTAMP() - INTERVAL 5 MINUTE)
@@ -246,6 +247,38 @@ export async function listOrdersNeedingProvisioning(): Promise<CheckoutOrder[]> 
              AND (provisioning_started_at IS NULL OR provisioning_started_at < UTC_TIMESTAMP() - INTERVAL ${STALE_ATTEMPT_MINUTES} MINUTE))
        )
      ORDER BY id DESC LIMIT 50`
+  );
+  return rows.map(toCheckoutOrder);
+}
+
+export const ADMIN_ORDER_SEARCH_LIMIT = 100;
+
+/**
+ * Admin order search, newest first. `query` matches an order number
+ * ("13" or "ORD-13"), customer name or email, plan, ICCID or MSISDN.
+ */
+export async function searchOrdersForAdmin(query: string, kind: OrderKind | "all"): Promise<CheckoutOrder[]> {
+  const pool = await getPool();
+  const conditions: string[] = [];
+  const params: (string | number)[] = [];
+
+  const q = query.trim();
+  if (q) {
+    const like = `%${q.replace(/[\\%_]/g, (ch) => `\\${ch}`)}%`;
+    const fields = ["customer_name", "customer_email", "plan_name", "iccid", "msisdn"].map((f) => `${f} LIKE ?`);
+    const orderNumber = /^(?:ORD-?)?(\d+)$/i.exec(q);
+    conditions.push(`(${[...fields, ...(orderNumber ? ["id = ?"] : [])].join(" OR ")})`);
+    params.push(...fields.map(() => like), ...(orderNumber ? [Number(orderNumber[1])] : []));
+  }
+  if (kind !== "all") {
+    conditions.push(`${ORDER_KIND_SQL} = ?`);
+    params.push(kind);
+  }
+
+  const [rows] = await pool.query<OrderRow[]>(
+    `SELECT * FROM orders ${conditions.length ? `WHERE ${conditions.join(" AND ")}` : ""}
+     ORDER BY id DESC LIMIT ${ADMIN_ORDER_SEARCH_LIMIT}`,
+    params
   );
   return rows.map(toCheckoutOrder);
 }

@@ -1,8 +1,10 @@
 import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import { fromMySQLDateTime, getPool, toMySQLDateTime } from "./db";
+import { LIVE_ORDER_SQL, orderKind } from "@/lib/checkout/order-kind";
 import type {
   Complaint,
   ComplaintStatus,
+  DeliveryStatus,
   Message,
   OrderStatus,
   Shift,
@@ -292,6 +294,8 @@ interface OrderRow extends RowDataPacket {
   customer_email: string;
   amount_eur: string;
   status: OrderStatus;
+  provisioning_status: DeliveryStatus;
+  stripe_checkout_session_id: string | null;
   created_at: string;
 }
 
@@ -305,10 +309,13 @@ function toOrder(row: OrderRow): StoreOrder {
     customerEmail: row.customer_email,
     amountEur: Number(row.amount_eur),
     status: row.status,
+    deliveryStatus: row.provisioning_status,
+    kind: orderKind(row.stripe_checkout_session_id),
     createdAt: fromMySQLDateTime(row.created_at),
   };
 }
 
+/** Newest orders of every kind (live, test, demo) — each is labelled in the UI. */
 export async function listRecentOrders(limit = 8): Promise<StoreOrder[]> {
   const pool = await getPool();
   const [rows] = await pool.query<OrderRow[]>("SELECT * FROM orders ORDER BY created_at DESC LIMIT ?", [
@@ -317,6 +324,9 @@ export async function listRecentOrders(limit = 8): Promise<StoreOrder[]> {
   return rows.map(toOrder);
 }
 
+// Every business figure below counts live (real-money) orders only — never
+// Stripe test-mode orders or seeded demo rows. See src/lib/checkout/order-kind.ts.
+
 export async function getOrderStats(): Promise<{
   totalRevenue: number;
   totalOrders: number;
@@ -324,10 +334,11 @@ export async function getOrderStats(): Promise<{
 }> {
   const pool = await getPool();
   const [totalsRows] = await pool.query<(RowDataPacket & { total: number; revenue: string | null })[]>(
-    "SELECT COUNT(*) AS total, SUM(CASE WHEN status = 'completed' THEN amount_eur ELSE 0 END) AS revenue FROM orders"
+    `SELECT COUNT(*) AS total, SUM(CASE WHEN status = 'completed' THEN amount_eur ELSE 0 END) AS revenue
+     FROM orders WHERE ${LIVE_ORDER_SQL}`
   );
   const [completedRows] = await pool.query<(RowDataPacket & { count: number })[]>(
-    "SELECT COUNT(*) AS count FROM orders WHERE status = 'completed'"
+    `SELECT COUNT(*) AS count FROM orders WHERE status = 'completed' AND ${LIVE_ORDER_SQL}`
   );
 
   const totals = totalsRows[0];
@@ -345,7 +356,7 @@ export async function getRevenueByDay(days = 14): Promise<{ date: string; revenu
   const [rows] = await pool.query<(RowDataPacket & { date: string; revenue: string | null })[]>(
     `SELECT DATE(created_at) AS date, SUM(amount_eur) AS revenue
      FROM orders
-     WHERE status = 'completed' AND created_at >= DATE_SUB(NOW(), INTERVAL ? DAY)
+     WHERE status = 'completed' AND ${LIVE_ORDER_SQL} AND created_at >= DATE_SUB(NOW(), INTERVAL ? DAY)
      GROUP BY date
      ORDER BY date ASC`,
     [days]
@@ -358,7 +369,7 @@ export async function getOrdersByDay(days = 14): Promise<{ date: string; orders:
   const [rows] = await pool.query<(RowDataPacket & { date: string; orders: number })[]>(
     `SELECT DATE(created_at) AS date, COUNT(*) AS orders
      FROM orders
-     WHERE created_at >= DATE_SUB(NOW(), INTERVAL ? DAY)
+     WHERE ${LIVE_ORDER_SQL} AND created_at >= DATE_SUB(NOW(), INTERVAL ? DAY)
      GROUP BY date
      ORDER BY date ASC`,
     [days]
@@ -375,7 +386,7 @@ export async function getTopCountries(
   >(
     `SELECT country_name AS countryName, country_code AS countryCode, COUNT(*) AS orders
      FROM orders
-     WHERE status = 'completed'
+     WHERE status = 'completed' AND ${LIVE_ORDER_SQL}
      GROUP BY country_code, country_name
      ORDER BY orders DESC
      LIMIT ?`,

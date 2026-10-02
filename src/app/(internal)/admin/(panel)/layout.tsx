@@ -3,11 +3,12 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getStaffSession } from "@/lib/staff/auth";
 import { logoutAction } from "@/lib/staff/actions";
-import { LayoutDashboard, Users } from "lucide-react";
+import { LayoutDashboard, Receipt, Users } from "lucide-react";
 import Logo from "@/components/layout/Logo";
 
 const NAV_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/orders", label: "Orders", icon: Receipt },
   { href: "/admin/staff", label: "Staff Directory", icon: Users },
 ];
 

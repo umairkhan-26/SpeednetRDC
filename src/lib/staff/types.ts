@@ -39,7 +39,11 @@ export interface Complaint {
   createdAt: string;
 }
 
-export type OrderStatus = "completed" | "refunded" | "failed";
+/** Payment status of an order (orders.status). */
+export type OrderStatus = "pending" | "completed" | "refunded" | "failed";
+
+/** eSIM delivery status of an order (orders.provisioning_status). */
+export type DeliveryStatus = "pending" | "activating" | "provisioned" | "failed";
 
 export interface StoreOrder {
   id: number;
@@ -50,6 +54,8 @@ export interface StoreOrder {
   customerEmail: string;
   amountEur: number;
   status: OrderStatus;
+  deliveryStatus: DeliveryStatus;
+  kind: "live" | "test" | "demo";
   createdAt: string;
 }
 

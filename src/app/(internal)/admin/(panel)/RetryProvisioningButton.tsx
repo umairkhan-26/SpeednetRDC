@@ -8,7 +8,7 @@ export default function RetryProvisioningButton({ orderId }: { orderId: number }
   const [result, setResult] = useState<{ ok: boolean; message: string } | null>(null);
 
   function retry() {
-    if (!window.confirm(`Retry eSIM provisioning for ORD-${orderId}? This places the customer's plan with Transatel if it isn't already.`)) return;
+    if (!window.confirm(`This will buy a real plan from Transatel for order ORD-${orderId}. Continue?`)) return;
     setResult(null);
     startTransition(async () => {
       setResult(await retryProvisioningAction(orderId));

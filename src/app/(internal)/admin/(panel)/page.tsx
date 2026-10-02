@@ -14,6 +14,8 @@ import Flag from "@/components/ui/Flag";
 import StatCard from "./StatCard";
 import { OrdersChart, RevenueChart, TopCountriesDonut } from "./DashboardCharts";
 import RetryProvisioningButton from "./RetryProvisioningButton";
+import { DeliveryBadge, KindBadge, PaymentBadge } from "./OrderBadges";
+import Link from "next/link";
 
 const PROVISIONING_LABELS: Record<string, string> = {
   failed: "Failed",
@@ -29,12 +31,6 @@ function formatDateTime(iso: string): string {
     minute: "2-digit",
   });
 }
-
-const ORDER_STATUS_STYLES: Record<string, string> = {
-  completed: "bg-green-100 text-green-700",
-  refunded: "bg-orange/10 text-orange",
-  failed: "bg-red-100 text-red-700",
-};
 
 const COMPLAINT_STATUS_STYLES: Record<string, string> = {
   open: "bg-orange/10 text-orange",
@@ -60,6 +56,10 @@ export default async function AdminDashboardPage() {
       <div>
         <h1 className="text-2xl font-bold text-ink">Dashboard</h1>
         <p className="mt-1 text-sm text-muted">Business overview across staff, orders, and support.</p>
+        <p className="mt-1 text-xs text-muted">
+          Revenue, orders, charts, top countries and conversion count live (real-payment) orders only — Stripe test-mode and demo
+          orders are excluded.
+        </p>
       </div>
 
       {needsProvisioning.length > 0 && (
@@ -131,24 +131,32 @@ export default async function AdminDashboardPage() {
 
       <div className="grid gap-5 lg:grid-cols-2">
         <div className="rounded-2xl border border-line bg-white">
-          <p className="border-b border-line px-5 py-4 text-sm font-semibold text-ink">Recent orders</p>
+          <div className="flex items-center justify-between border-b border-line px-5 py-4">
+            <p className="text-sm font-semibold text-ink">Recent orders</p>
+            <Link href="/admin/orders" className="text-xs font-semibold text-orange hover:underline">
+              All orders
+            </Link>
+          </div>
           <div className="divide-y divide-line">
             {recentOrders.map((order) => (
               <div key={order.id} className="flex items-center justify-between gap-3 px-5 py-3 text-sm">
-                <div className="flex items-center gap-2">
-                  <Flag iso={order.countryCode} className="h-4 w-6" />
-                  <div>
-                    <p className="font-medium text-ink">{order.customerName}</p>
+                <div className="flex min-w-0 items-center gap-2">
+                  <Flag iso={order.countryCode} className="h-4 w-6 shrink-0" />
+                  <div className="min-w-0">
+                    <p className="flex items-center gap-1.5 font-medium text-ink">
+                      {order.customerName} <KindBadge kind={order.kind} />
+                    </p>
                     <p className="text-xs text-muted">
-                      {order.planName} &middot; {formatDateTime(order.createdAt)}
+                      ORD-{order.id} &middot; {order.planName} &middot; {formatDateTime(order.createdAt)}
                     </p>
                   </div>
                 </div>
-                <div className="text-right">
+                <div className="flex shrink-0 flex-col items-end gap-1">
                   <p className="font-semibold text-ink">{formatPrice(order.amountEur)}</p>
-                  <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${ORDER_STATUS_STYLES[order.status]}`}>
-                    {order.status}
-                  </span>
+                  <div className="flex gap-1">
+                    <PaymentBadge status={order.status} />
+                    <DeliveryBadge kind={order.kind} paymentStatus={order.status} deliveryStatus={order.deliveryStatus} />
+                  </div>
                 </div>
               </div>
             ))}
