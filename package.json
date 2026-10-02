@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "seed:staff": "node --env-file=.env.local scripts/seed-staff.mjs",
-    "seed:sims": "node --env-file=.env.local scripts/seed-sim-inventory.mjs"
+    "seed:sims": "node --env-file=.env.local scripts/seed-sim-inventory.mjs",
+    "transatel:check": "node --env-file=.env.local scripts/transatel-check.mjs"
   },
   "dependencies": {
     "@stripe/stripe-js": "^9.16.0",

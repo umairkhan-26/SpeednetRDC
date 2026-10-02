@@ -127,11 +127,26 @@ function bestValueFlags(group) {
   if (best) best.plan.bestValue = true;
 }
 
+// In Transatel's price grid but missing from our account's live OCS catalog
+// (found with `npm run transatel:check`, 2026-10-03), so an order for them
+// would fail with PRODUCT_NOT_FOUND after the customer has paid. Never sold
+// until Transatel adds them; re-run the check after each new grid.
+const NOT_IN_TRANSATEL_CATALOG = new Set([
+  "WW_901O_STACK_ONEOFF_CAMBO_UNLIMITED_7D_FUP20",
+  "WW_901O_STACK_ONEOFF_CONGO_3GB_15D",
+  "WW_901O_STACK_ONEOFF_JPN_1GB_3D",
+]);
+
 const skippedNullPrice = [];
+const skippedNotInCatalog = [];
 const excludedRecurring = [];
 const outPlans = [];
 
 for (const p of plans) {
+  if (NOT_IN_TRANSATEL_CATALOG.has(p.technical_reference)) {
+    skippedNotInCatalog.push(p.technical_reference);
+    continue;
+  }
   if (p.bundle_type !== "One-Off") {
     excludedRecurring.push(p.technical_reference);
     continue;
@@ -246,6 +261,7 @@ console.log("Regions:", outRegions.length, outRegions.map((r) => `${r.slug}(${r.
 console.log("Plans written:", outPlans.length);
 console.log("Plans excluded (recurring bundle):", excludedRecurring.length);
 console.log("Plans skipped (null price):", skippedNullPrice.length, skippedNullPrice);
+console.log("Plans skipped (not in Transatel's live catalog):", skippedNotInCatalog.length, skippedNotInCatalog);
 console.log(
   "Scope breakdown:",
   outPlans.reduce((acc, p) => ((acc[p.scope] = (acc[p.scope] || 0) + 1), acc), {}),

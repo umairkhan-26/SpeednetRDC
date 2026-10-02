@@ -6002,21 +6002,6 @@
     ]
   },
   {
-    "id": "WW_901O_STACK_ONEOFF_CAMBO_UNLIMITED_7D_FUP20",
-    "dataAmountGb": "unlimited",
-    "validityDays": 7,
-    "price": 36.99,
-    "network": "SpeedNetRDC",
-    "speed": "4G/5G",
-    "hotspot": true,
-    "scope": "country",
-    "countrySlug": "cambodia",
-    "name": "Cambodia Unlimited / 7 Days",
-    "countriesIncluded": [
-      "Cambodia"
-    ]
-  },
-  {
     "id": "WW_901O_STACK_ONEOFF_CAMEROON_10GB_30D",
     "dataAmountGb": 10,
     "validityDays": 30,
@@ -6992,21 +6977,6 @@
       "Congo"
     ],
     "bestValue": true
-  },
-  {
-    "id": "WW_901O_STACK_ONEOFF_CONGO_3GB_15D",
-    "dataAmountGb": 3,
-    "validityDays": 15,
-    "price": 12.99,
-    "network": "SpeedNetRDC",
-    "speed": "4G/5G",
-    "hotspot": true,
-    "scope": "country",
-    "countrySlug": "congo",
-    "name": "Congo 3GB / 15 Days",
-    "countriesIncluded": [
-      "Congo"
-    ]
   },
   {
     "id": "WW_901O_STACK_ONEOFF_COSTA-RICA_10GB_30D",
@@ -12060,21 +12030,6 @@
     "scope": "country",
     "countrySlug": "japan",
     "name": "Japan 1GB / 30 Days",
-    "countriesIncluded": [
-      "Japan"
-    ]
-  },
-  {
-    "id": "WW_901O_STACK_ONEOFF_JPN_1GB_3D",
-    "dataAmountGb": 1,
-    "validityDays": 3,
-    "price": 3.99,
-    "network": "SpeedNetRDC",
-    "speed": "4G/5G",
-    "hotspot": true,
-    "scope": "country",
-    "countrySlug": "japan",
-    "name": "Japan 1GB / 3 Days",
     "countriesIncluded": [
       "Japan"
     ]
