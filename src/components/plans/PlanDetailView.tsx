@@ -6,17 +6,20 @@ import type { Plan } from "@/lib/types";
 import { formatData, formatPrice, formatValidity } from "@/lib/format";
 import { useCheckoutStore } from "@/lib/store/checkout-store";
 import { LinkButton, Button } from "@/components/ui/Button";
+import { EsimSalesPausedNotice } from "@/components/checkout/EsimSalesPaused";
 
 export default function PlanDetailView({
   plan,
   title,
   subtitle,
   iconSlot,
+  salesPaused,
 }: {
   plan: Plan;
   title: string;
   subtitle: string;
   iconSlot: React.ReactNode;
+  salesPaused: boolean;
 }) {
   const router = useRouter();
   const startCheckout = useCheckoutStore((s) => s.startCheckout);
@@ -70,17 +73,23 @@ export default function PlanDetailView({
           <p className="text-xs font-semibold uppercase tracking-wide text-muted">Total price</p>
           <p className="mt-1 text-3xl font-bold text-orange">{formatPrice(plan.price)}</p>
 
-          <Button onClick={handleBuy} className="mt-6 w-full" size="lg">
-            Buy This eSIM
-          </Button>
+          {salesPaused ? (
+            <EsimSalesPausedNotice />
+          ) : (
+            <Button onClick={handleBuy} className="mt-6 w-full" size="lg">
+              Buy This eSIM
+            </Button>
+          )}
           <LinkButton href="/device-compatibility" variant="outline" size="lg" className="mt-3 w-full">
             Check Device Compatibility
           </LinkButton>
 
-          <div className="mt-5 flex items-center gap-2 text-xs text-muted">
-            <ShieldCheck className="size-4 text-orange" />
-            Instant delivery &middot; Secure checkout
-          </div>
+          {!salesPaused && (
+            <div className="mt-5 flex items-center gap-2 text-xs text-muted">
+              <ShieldCheck className="size-4 text-orange" />
+              Instant delivery &middot; Secure checkout
+            </div>
+          )}
         </aside>
       </div>
     </div>

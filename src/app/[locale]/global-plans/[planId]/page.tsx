@@ -4,6 +4,7 @@ import { Globe } from "lucide-react";
 import { getPlanById } from "@/data/plans";
 import { formatData, formatValidity } from "@/lib/format";
 import PlanDetailView from "@/components/plans/PlanDetailView";
+import { isEsimCheckoutEnabled } from "@/lib/checkout/availability";
 
 export async function generateMetadata({
   params,
@@ -27,6 +28,7 @@ export default async function GlobalPlanDetailPage({
   return (
     <PlanDetailView
       plan={plan}
+      salesPaused={!isEsimCheckoutEnabled()}
       title={plan.globalTier === "premium" ? "Global Plus eSIM" : "Global eSIM"}
       subtitle={`${formatData(plan.dataAmountGb)} · ${formatValidity(plan.validityDays)}`}
       iconSlot={

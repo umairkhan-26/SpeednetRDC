@@ -5,6 +5,7 @@ import { getPlanById } from "@/data/plans";
 import { getRegionBySlug } from "@/data/regions";
 import { formatData, formatValidity } from "@/lib/format";
 import PlanDetailView from "@/components/plans/PlanDetailView";
+import { isEsimCheckoutEnabled } from "@/lib/checkout/availability";
 import type { RegionSlug } from "@/lib/types";
 
 export async function generateMetadata({
@@ -32,6 +33,7 @@ export default async function RegionalPlanDetailPage({
   return (
     <PlanDetailView
       plan={plan}
+      salesPaused={!isEsimCheckoutEnabled()}
       title={`${region.name} eSIM`}
       subtitle={`${formatData(plan.dataAmountGb)} · ${formatValidity(plan.validityDays)}`}
       iconSlot={

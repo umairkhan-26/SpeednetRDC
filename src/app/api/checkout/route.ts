@@ -5,6 +5,7 @@ import { isValidEmail, isValidFullName } from "@/lib/validation";
 import { resolveDestination } from "@/lib/checkout/destination";
 import { getAppUrl, getStripe } from "@/lib/checkout/stripe";
 import { attachStripeCheckoutSession, createPendingOrder } from "@/lib/checkout/orders-repository";
+import { ESIM_CHECKOUT_PAUSED_ERROR, isEsimCheckoutEnabled } from "@/lib/checkout/availability";
 
 interface CheckoutRequestBody {
   planId?: unknown;
@@ -14,6 +15,10 @@ interface CheckoutRequestBody {
 }
 
 export async function POST(request: Request) {
+  if (!isEsimCheckoutEnabled()) {
+    return NextResponse.json({ error: ESIM_CHECKOUT_PAUSED_ERROR }, { status: 503 });
+  }
+
   let body: CheckoutRequestBody;
   try {
     body = await request.json();
