@@ -1,5 +1,9 @@
+import { randomBytes } from "node:crypto";
 import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import { fromMySQLDateTime, getPool, toMySQLDateTime } from "@/lib/staff/db";
+
+// 24 random bytes -> 32 URL-safe characters for the private order link.
+const newAccessToken = () => randomBytes(24).toString("base64url");
 
 export type PaymentStatus = "pending" | "completed" | "refunded" | "failed";
 export type ProvisioningStatus = "pending" | "activating" | "provisioned" | "failed";
@@ -20,8 +24,10 @@ export interface CheckoutOrder {
   lpaActivationCode: string | null;
   msisdn: string | null;
   provisioningStatus: ProvisioningStatus;
-  transatelActivationTransactionId: string | null;
+  transatelOrderId: string | null;
   provisionedAt: string | null;
+  provisioningStartedAt: string | null;
+  accessToken: string | null;
   createdAt: string;
 }
 
@@ -41,8 +47,10 @@ interface OrderRow extends RowDataPacket {
   lpa_activation_code: string | null;
   msisdn: string | null;
   provisioning_status: ProvisioningStatus;
-  transatel_activation_transaction_id: string | null;
+  transatel_order_id: string | null;
   provisioned_at: string | null;
+  provisioning_started_at: string | null;
+  access_token: string | null;
   created_at: string;
 }
 
@@ -63,8 +71,10 @@ function toCheckoutOrder(row: OrderRow): CheckoutOrder {
     lpaActivationCode: row.lpa_activation_code,
     msisdn: row.msisdn,
     provisioningStatus: row.provisioning_status,
-    transatelActivationTransactionId: row.transatel_activation_transaction_id,
+    transatelOrderId: row.transatel_order_id,
     provisionedAt: fromMySQLDateTime(row.provisioned_at),
+    provisioningStartedAt: fromMySQLDateTime(row.provisioning_started_at),
+    accessToken: row.access_token,
     createdAt: fromMySQLDateTime(row.created_at),
   };
 }
@@ -80,10 +90,11 @@ export async function createPendingOrder(input: {
 }): Promise<CheckoutOrder> {
   const pool = await getPool();
   const now = new Date();
+  const accessToken = newAccessToken();
   const [result] = await pool.query<ResultSetHeader>(
     `INSERT INTO orders
-      (plan_id, plan_name, country_name, country_code, customer_name, customer_email, amount_eur, status, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?)`,
+      (plan_id, plan_name, country_name, country_code, customer_name, customer_email, amount_eur, status, access_token, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?)`,
     [
       input.planId,
       input.planName,
@@ -92,6 +103,7 @@ export async function createPendingOrder(input: {
       input.customerName,
       input.customerEmail,
       input.amountEur,
+      accessToken,
       toMySQLDateTime(now),
     ]
   );
@@ -111,8 +123,10 @@ export async function createPendingOrder(input: {
     lpaActivationCode: null,
     msisdn: null,
     provisioningStatus: "pending",
-    transatelActivationTransactionId: null,
+    transatelOrderId: null,
     provisionedAt: null,
+    provisioningStartedAt: null,
+    accessToken,
     createdAt: now.toISOString(),
   };
 }
@@ -139,17 +153,18 @@ export async function getOrderByStripeCheckoutSessionId(sessionId: string): Prom
   return row ? toCheckoutOrder(row) : null;
 }
 
-// Used by the Transatel events webhook (src/app/api/transatel/events/route.ts)
-// to match an incoming CONNECTIVITY-MANAGEMENT/SUBSCRIBER/ACTIVATED event
-// back to the order whose SIM activation it reports the result of.
-export async function getOrderByActivationTransactionId(transactionId: string): Promise<CheckoutOrder | null> {
+export async function getOrderByAccessToken(token: string): Promise<CheckoutOrder | null> {
+  if (!token) return null;
   const pool = await getPool();
-  const [rows] = await pool.query<OrderRow[]>(
-    "SELECT * FROM orders WHERE transatel_activation_transaction_id = ?",
-    [transactionId]
-  );
+  const [rows] = await pool.query<OrderRow[]>("SELECT * FROM orders WHERE access_token = ?", [token]);
   const row = rows[0];
   return row ? toCheckoutOrder(row) : null;
+}
+
+/** Orders created before private order links existed get a token the first time they're provisioned. */
+export async function ensureAccessToken(orderId: number): Promise<void> {
+  const pool = await getPool();
+  await pool.query("UPDATE orders SET access_token = ? WHERE id = ? AND access_token IS NULL", [newAccessToken(), orderId]);
 }
 
 // Idempotent: only transitions rows that are still 'pending', so a
@@ -174,40 +189,85 @@ export async function markOrderFailed(orderId: number): Promise<boolean> {
 }
 
 // --- Transatel provisioning tracking ---------------------------------
-// `status` above is payment status only. These track the separate,
-// asynchronous process of actually giving the customer a working eSIM:
-//   pending -> activating -> provisioned
-//                        \-> failed
-// See src/app/api/stripe/webhook/route.ts (starts activation right after
-// payment) and src/app/api/transatel/events/route.ts (finishes it once
-// Transatel reports the SIM is active).
+// `status` above is payment status only. provisioning_status tracks giving
+// the customer a working eSIM (see src/lib/transatel/provisioning.ts):
+//   pending -> activating (claimed by one attempt) -> provisioned
+//                                                  \-> failed -> (admin retry) -> pending
 
-// Records which SIM (from sim_inventory, see src/lib/transatel/inventory.ts)
-// was reserved for this order. Called right after reservation regardless
-// of which path the order takes next (see src/app/api/stripe/webhook/route.ts):
-// a SIM that already has an MSISDN goes straight to completeProvisioning;
-// one that doesn't needs attachActivationTransaction + the events webhook
-// first.
+/**
+ * Atomically claims a paid order for provisioning. Exactly one caller wins,
+ * no matter who marked the order paid first (Stripe webhook or the success
+ * page's reconciliation) or how many times the webhook is delivered.
+ */
+export async function claimProvisioning(orderId: number): Promise<boolean> {
+  const pool = await getPool();
+  const [result] = await pool.query<ResultSetHeader>(
+    `UPDATE orders SET provisioning_status = 'activating', provisioning_started_at = ?
+     WHERE id = ? AND status = 'completed' AND provisioning_status = 'pending'`,
+    [toMySQLDateTime(new Date()), orderId]
+  );
+  return result.affectedRows > 0;
+}
+
+// An attempt still 'activating' after this long is assumed dead (e.g. the
+// server restarted mid-way) and may be retried.
+const STALE_ATTEMPT_MINUTES = 10;
+
+/** Puts a failed (or stale) paid order back to 'pending' so it can be claimed again. */
+export async function resetProvisioningForRetry(orderId: number): Promise<boolean> {
+  const pool = await getPool();
+  const [result] = await pool.query<ResultSetHeader>(
+    `UPDATE orders SET provisioning_status = 'pending'
+     WHERE id = ? AND status = 'completed' AND (
+       provisioning_status = 'failed'
+       OR (provisioning_status = 'activating'
+           AND (provisioning_started_at IS NULL OR provisioning_started_at < UTC_TIMESTAMP() - INTERVAL ${STALE_ATTEMPT_MINUTES} MINUTE))
+     )`,
+    [orderId]
+  );
+  return result.affectedRows > 0;
+}
+
+/**
+ * Paid checkout orders whose eSIM isn't provisioned and that need an
+ * admin's attention: failed, stuck mid-attempt, or never started (Stripe
+ * webhook never arrived). Seed/demo rows without a Stripe session are
+ * excluded so they can't be "retried" into real Transatel orders.
+ */
+export async function listOrdersNeedingProvisioning(): Promise<CheckoutOrder[]> {
+  const pool = await getPool();
+  const [rows] = await pool.query<OrderRow[]>(
+    `SELECT * FROM orders
+     WHERE status = 'completed' AND plan_id IS NOT NULL AND stripe_checkout_session_id IS NOT NULL
+       AND (
+         provisioning_status = 'failed'
+         OR (provisioning_status = 'pending' AND created_at < UTC_TIMESTAMP() - INTERVAL 5 MINUTE)
+         OR (provisioning_status = 'activating'
+             AND (provisioning_started_at IS NULL OR provisioning_started_at < UTC_TIMESTAMP() - INTERVAL ${STALE_ATTEMPT_MINUTES} MINUTE))
+       )
+     ORDER BY id DESC LIMIT 50`
+  );
+  return rows.map(toCheckoutOrder);
+}
+
+/** Records which SIM (from sim_inventory) this order uses. */
 export async function attachReservedSim(orderId: number, iccid: string): Promise<void> {
   const pool = await getPool();
-  await pool.query(
-    `UPDATE orders SET iccid = ?, provisioning_status = 'activating' WHERE id = ?`,
-    [iccid, orderId]
-  );
+  await pool.query("UPDATE orders SET iccid = ? WHERE id = ?", [iccid, orderId]);
 }
 
-// Records that we've asked Transatel to activate a brand-new SIM (one with
-// no MSISDN yet) and are now waiting on its ACTIVATED event.
-export async function attachActivationTransaction(orderId: number, activationTransactionId: string): Promise<void> {
+export async function detachSim(orderId: number): Promise<void> {
   const pool = await getPool();
-  await pool.query(`UPDATE orders SET transatel_activation_transaction_id = ? WHERE id = ?`, [
-    activationTransactionId,
-    orderId,
-  ]);
+  await pool.query("UPDATE orders SET iccid = NULL WHERE id = ?", [orderId]);
 }
 
-// Called once Transatel's ACTIVATED event confirms the SIM is live and we've
-// successfully preloaded the customer's purchased plan onto it.
+/** Records the Transatel product order placed on the order's SIM. Never placed twice once set. */
+export async function attachTransatelOrder(orderId: number, transatelOrderId: string, msisdn: string): Promise<void> {
+  const pool = await getPool();
+  await pool.query("UPDATE orders SET transatel_order_id = ?, msisdn = ? WHERE id = ?", [transatelOrderId, msisdn, orderId]);
+}
+
+/** The plan is on the SIM and the customer has an activation code: done. */
 export async function completeProvisioning(
   orderId: number,
   details: { msisdn: string; lpaActivationCode: string | null }

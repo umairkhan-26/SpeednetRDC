@@ -9,7 +9,8 @@
     "lint": "eslint",
     "seed:staff": "node --env-file=.env.local scripts/seed-staff.mjs",
     "seed:sims": "node --env-file=.env.local scripts/seed-sim-inventory.mjs",
-    "transatel:check": "node --env-file=.env.local scripts/transatel-check.mjs"
+    "transatel:check": "node --env-file=.env.local scripts/transatel-check.mjs",
+    "esims:import-sql": "node --env-file=.env.local scripts/import-esims.mjs"
   },
   "dependencies": {
     "@stripe/stripe-js": "^9.16.0",

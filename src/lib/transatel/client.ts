@@ -4,7 +4,6 @@ import {
   getTransatelLogin,
   getTransatelMvnoRef,
   getTransatelPassword,
-  getTransatelRatePlan,
 } from "./config";
 
 /**
@@ -107,21 +106,30 @@ export async function checkProductInCatalog(productId: string): Promise<boolean>
 }
 
 /**
- * Places a product order for a subscriber (adds a data plan to one of our
- * SIMs). Despite the function name (kept to avoid touching every call
- * site), this uses orderType "subscribe", not "preload".
+ * Transatel's order and inventory APIs take the MSISDN as digits only
+ * (pattern [0-9]{6,15}), but SIM Search returns it with a leading "+".
+ */
+export function toMsisdnDigits(msisdn: string): string {
+  const digits = msisdn.replace(/\D/g, "");
+  if (!/^[0-9]{6,15}$/.test(digits)) throw new Error(`Invalid MSISDN "${msisdn}"`);
+  return digits;
+}
+
+/**
+ * Places the customer's data plan on one of our SIMs.
  *
- * IMPORTANT: orderType "preload" is NOT valid for our SPC (Service Provider
- * Connect) account/COS (WW_M2MA_COS_SPC) — sending it caused a
- * 501 BUSINESS_PROCESS_NOT_IMPLEMENTED "Missing configuration" error on the
- * demo account and PRODUCT_NOT_FOUND on production. Confirmed by testing
- * live against the demo account on 2026-09-29: swapping to "subscribe"
- * (the only orderType shown in Transatel's own OCS subscribe-product guide,
- * https://developers.transatel.com/docs/ocs-guides-subscribe-product/)
- * succeeded immediately with status "done". Payment provider "customer"
- * (per Transatel account manager Emeline Gernet — "credit" is invalid for
- * this account type) was a real fix too but was NOT sufficient on its own;
- * orderType was the actual root cause of both errors.
+ * orderType "preload": Transatel's OCS subscriptions spec (v1.87) defines it
+ * as adding "a product on a Pre-Activated subscriber", activated when the
+ * subscriber activates — exactly our Service Provider Connect SIMs, which
+ * arrive pre-activated and activate at first network attach (the bundle
+ * starts when first used in a covered location). "subscribe" is for
+ * subscribers that are already active. History: "preload" once returned
+ * 501 "Missing configuration" on the demo account, which led to a switch
+ * to "subscribe"; production SPC SIMs are pre-activated, so per the spec
+ * this is "preload". Payment provider "customer" per Transatel for this
+ * account type.
+ *
+ * The order is synchronous: success is HTTP 201 with status "done".
  *
  * POST /ocs/subscriptions/api/orders/products
  */
@@ -132,11 +140,11 @@ export async function placePreloadOrder(params: {
 }): Promise<TransatelOrderResult> {
   const mvnoRef = getTransatelMvnoRef();
   const requestBody = {
-    bind: { msisdn: params.msisdn },
+    bind: { msisdn: toMsisdnDigits(params.msisdn) },
     product: { productId: params.productId },
     payment: { provider: "customer" },
     source: "speednetrdc-webhook",
-    orderType: "subscribe",
+    orderType: "preload",
     mvnoRef,
     transactionReference: params.transactionReference,
   };
@@ -165,52 +173,76 @@ export async function placePreloadOrder(params: {
   return body as TransatelOrderResult;
 }
 
-export interface TransatelActivationResult {
-  transactionId: string;
-  simSerial: string;
-  transactionStatus: string;
+async function getJson(path: string, what: string): Promise<{ status: number; body: unknown }> {
+  const response = await transatelFetch(path, { method: "GET" });
+  const body = await response.json().catch(() => null);
+  if (!response.ok && response.status !== 404) {
+    throw new TransatelApiError(`${what} failed (${response.status}): ${JSON.stringify(body)}`, response.status, body);
+  }
+  return { status: response.status, body };
 }
 
 /**
- * Activates a brand-new SIM (one that has never had a subscriber before —
- * status "Available" in Transatel's delivery file, no MSISDN yet) via the
- * Connectivity Management API, using the SIM's ICCID as its serial number.
+ * Looks a SIM up by ICCID in SIM Search. Returns its MSISDN (digits only)
+ * and Transatel status (e.g. "Pre-Activated"), or null if unknown. Transatel
+ * notes SIM Search can lag behind reality slightly.
  *
- * IMPORTANT: this is asynchronous. A successful call only means the
- * activation request was accepted (transactionStatus: "PENDING") — the
- * actual MSISDN is not known yet and is delivered later via a
- * CONNECTIVITY-MANAGEMENT/SUBSCRIBER/ACTIVATED event (see
- * src/app/api/transatel/events/route.ts, which finishes provisioning once
- * that event arrives). Do not call placePreloadOrder with a guessed
- * MSISDN after this — wait for that event.
- *
- * POST /connectivity-management/subscribers/api/subscribers/sim-serial/{iccid}/activate
+ * GET /sim-search/api/sim/search?simSerial=eq:{iccid}
  */
-export async function activateSim(params: {
-  iccid: string;
-  externalReference: string;
-}): Promise<TransatelActivationResult> {
-  const ratePlan = getTransatelRatePlan();
-
-  const response = await transatelFetch(
-    `/connectivity-management/subscribers/api/subscribers/sim-serial/${encodeURIComponent(params.iccid)}/activate`,
-    {
-      method: "POST",
-      body: JSON.stringify({
-        ratePlan,
-        externalReference: params.externalReference,
-      }),
-    }
+export async function searchSimByIccid(iccid: string): Promise<{ msisdn: string | null; status: string | null } | null> {
+  const { body } = await getJson(
+    `/sim-search/api/sim/search?simSerial=${encodeURIComponent(`eq:${iccid}`)}`,
+    "SIM Search"
   );
+  const sim = (body as { sims?: { msisdn?: string; status?: string }[] } | null)?.sims?.[0];
+  if (!sim) return null;
+  return { msisdn: sim.msisdn ? toMsisdnDigits(sim.msisdn) : null, status: sim.status ?? null };
+}
 
-  const body = await response.json().catch(() => null);
-  if (!response.ok) {
-    throw new TransatelApiError(
-      `Transatel SIM activation failed (${response.status}): ${JSON.stringify(body)}`,
-      response.status,
-      body
-    );
+export interface EsimDetails {
+  /** allocated | available | released | downloaded | installed | enabled | disabled | deleted */
+  status: string;
+  /** "1$<SM-DP+ address>$<matching ID>" — only present once the profile is released. */
+  activationCode: string | null;
+  smdpAddress: string | null;
+  /** Set once the profile is bound to (or installed on) a device. */
+  eid: string | null;
+}
+
+/**
+ * Reads an eSIM profile from the SM-DP+. Returns null for a SIM that isn't
+ * an eSIM (Transatel answers 404 "Unknown eSIM", e.g. our physical cards).
+ * Read-only: our account can't release profiles (no PATCH permission), but
+ * our stock was delivered already released, which is all we need.
+ *
+ * GET /sim-management/sims/api/esims/sim-serial/{iccid}
+ */
+export async function getEsimDetails(iccid: string): Promise<EsimDetails | null> {
+  const { status, body } = await getJson(`/sim-management/sims/api/esims/sim-serial/${encodeURIComponent(iccid)}`, "Get eSIM details");
+  if (status === 404) {
+    // Only Transatel's explicit "Unknown eSIM" answer means "not an eSIM".
+    // Any other 404 (wrong path, gateway error) must not be mistaken for it,
+    // or real eSIMs would be re-typed as physical stock.
+    if ((body as { title?: string } | null)?.title === "ESIM_NOT_FOUND") return null;
+    throw new TransatelApiError(`Get eSIM details failed (404): ${JSON.stringify(body)}`, 404, body);
   }
+  const b = body as { status: string; activationCode?: string; smdpAddress?: string; eid?: string };
+  return { status: b.status, activationCode: b.activationCode ?? null, smdpAddress: b.smdpAddress ?? null, eid: b.eid ?? null };
+}
 
-  return body as TransatelActivationResult;
+/**
+ * Products currently on a SIM (any status except terminated). Used before
+ * placing an order so a retried provisioning attempt never puts a second
+ * copy of the plan on the SIM.
+ *
+ * GET /ocs/inventory/api/subscriptions/products?msisdn={digits}
+ */
+export async function getSubscriberProducts(msisdn: string): Promise<{ subscriptionId: string; productId: string; status: string }[]> {
+  const query = new URLSearchParams({ msisdn: toMsisdnDigits(msisdn) });
+  for (const status of ["active", "pending", "pendingForFirstUse", "readyForUse", "scheduled"]) query.append("statuses", status);
+  const { status, body } = await getJson(`/ocs/inventory/api/subscriptions/products?${query}`, "OCS inventory");
+  if (status === 404) return [];
+  const list = (body as { productSubscriptions?: { subscriptionId: string; status: string; productDefinition?: { productId?: string } }[] } | null)
+    ?.productSubscriptions ?? [];
+  return list.map((s) => ({ subscriptionId: s.subscriptionId, productId: s.productDefinition?.productId ?? "", status: s.status }));
 }

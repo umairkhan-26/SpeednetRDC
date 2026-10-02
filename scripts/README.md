@@ -4,6 +4,22 @@ Converts the eSIM provider's raw `plans.json` + `zones.json` export into the
 typed data the app actually consumes (`src/data/generated/*.json`, loaded by
 the thin wrappers in `src/data/{countries,plans,regions}.ts`).
 
+## Transatel operations (read-only towards Transatel)
+
+Both need the production `TRANSATEL_*` values in `.env.local`, and only ever
+make GET requests (`scripts/lib/transatel-readonly.mjs` refuses anything
+else). Neither prints activation codes.
+
+- `npm run transatel:check` — health check: credentials and scopes, which
+  COS works, whether every plan we sell exists in Transatel's catalog, the
+  SIM fleet (physical vs eSIM), eSIM profile states. Re-run after each new
+  price grid: any plan it reports missing must be added to
+  `NOT_IN_TRANSATEL_CATALOG` in `generate-data.mjs`.
+- `npm run esims:import-sql -- <file.sql>` — writes SQL that marks the
+  CSO_7434 delivery as physical SIMs and loads every *usable* eSIM
+  (pre-activated, profile released, not bound to a device) as stock. Save
+  the file outside the repo and run it in phpMyAdmin. Safe to re-run.
+
 ## Re-running after a new data drop from the provider
 
 1. Replace `scripts/source/plans.json` and `scripts/source/zones.json` with the new export.

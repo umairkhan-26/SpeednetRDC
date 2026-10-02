@@ -8,10 +8,18 @@ import {
   listRecentComplaints,
   listRecentOrders,
 } from "@/lib/staff/repository";
+import { listOrdersNeedingProvisioning } from "@/lib/checkout/orders-repository";
 import { formatPrice } from "@/lib/format";
 import Flag from "@/components/ui/Flag";
 import StatCard from "./StatCard";
 import { OrdersChart, RevenueChart, TopCountriesDonut } from "./DashboardCharts";
+import RetryProvisioningButton from "./RetryProvisioningButton";
+
+const PROVISIONING_LABELS: Record<string, string> = {
+  failed: "Failed",
+  pending: "Never started",
+  activating: "Stuck",
+};
 
 function formatDateTime(iso: string): string {
   return new Date(iso).toLocaleString("en-GB", {
@@ -34,7 +42,7 @@ const COMPLAINT_STATUS_STYLES: Record<string, string> = {
 };
 
 export default async function AdminDashboardPage() {
-  const [orderStats, activeStaff, openComplaints, revenueByDay, ordersByDay, topCountries, recentOrders, recentComplaints] =
+  const [orderStats, activeStaff, openComplaints, revenueByDay, ordersByDay, topCountries, recentOrders, recentComplaints, needsProvisioning] =
     await Promise.all([
       getOrderStats(),
       countActiveStaffNow(),
@@ -44,6 +52,7 @@ export default async function AdminDashboardPage() {
       getTopCountries(6),
       listRecentOrders(8),
       listRecentComplaints(5),
+      listOrdersNeedingProvisioning(),
     ]);
 
   return (
@@ -52,6 +61,47 @@ export default async function AdminDashboardPage() {
         <h1 className="text-2xl font-bold text-ink">Dashboard</h1>
         <p className="mt-1 text-sm text-muted">Business overview across staff, orders, and support.</p>
       </div>
+
+      {needsProvisioning.length > 0 && (
+        <div className="rounded-2xl border border-red-200 bg-white">
+          <div className="border-b border-line px-5 py-4">
+            <p className="text-sm font-semibold text-ink">Paid eSIM orders needing attention ({needsProvisioning.length})</p>
+            <p className="mt-0.5 text-xs text-muted">
+              The customer paid but doesn&apos;t have a working eSIM yet. Retry resumes provisioning where it stopped.
+            </p>
+          </div>
+          <div className="divide-y divide-line">
+            {needsProvisioning.map((order) => (
+              <div key={order.id} className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 text-sm">
+                <div className="min-w-0">
+                  <p className="font-medium text-ink">
+                    ORD-{order.id} &middot; {order.customerName}{" "}
+                    <span className="font-normal text-muted">({order.customerEmail})</span>
+                  </p>
+                  <p className="text-xs text-muted">
+                    {order.planName} &middot; {formatDateTime(order.createdAt)}
+                    {order.iccid ? ` · SIM ${order.iccid}` : ""}
+                    {order.accessToken && (
+                      <>
+                        {" · "}
+                        <a href={`/en/order/${order.accessToken}`} target="_blank" rel="noreferrer" className="text-orange hover:underline">
+                          customer page
+                        </a>
+                      </>
+                    )}
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
+                    {PROVISIONING_LABELS[order.provisioningStatus] ?? order.provisioningStatus}
+                  </span>
+                  <RetryProvisioningButton orderId={order.id} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
         <StatCard label="Total Revenue" value={formatPrice(orderStats.totalRevenue)} />

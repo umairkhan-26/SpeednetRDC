@@ -4,14 +4,12 @@
  * `process.env` directly, so a missing variable fails loudly at the call
  * site instead of silently sending an empty/undefined value to Transatel.
  *
- * Required env vars (see .env.example):
- *   TRANSATEL_API_LOGIN
- *   TRANSATEL_API_PASSWORD
- *   TRANSATEL_COS
- *   TRANSATEL_MVNO_REF
- *   TRANSATEL_RATE_PLAN
- *   TRANSATEL_EVENTS_SECRET
- *   TRANSATEL_API_BASE_URL (optional — defaults to Transatel's public gateway)
+ * Env vars (see .env.example):
+ *   TRANSATEL_API_LOGIN, TRANSATEL_API_PASSWORD, TRANSATEL_MVNO_REF — needed
+ *     to provision orders
+ *   TRANSATEL_COS — only for catalog lookups
+ *   TRANSATEL_EVENTS_SECRET — only for the optional events webhook
+ *   TRANSATEL_API_BASE_URL — optional, defaults to Transatel's gateway
  */
 
 function requireEnv(name: string): string {
@@ -31,30 +29,17 @@ export function getTransatelPassword(): string {
 }
 
 /**
- * Class of Service (COS) for this account — confirmed directly by
- * Transatel support as WW_M2MA_COS_SPC. Required alongside a plan's
- * productId (see getTransatelProductId in ./product) for catalog lookups
- * and order placement.
+ * Class of Service (COS) for this account: WW_M2MA_COS_SPC — verified with
+ * scripts/transatel-check.mjs on 2026-10-03 ("COS_SPC" is refused with
+ * INSUFFICIENT_PERMISSION). Used for catalog lookups.
  */
 export function getTransatelCos(): string {
   return requireEnv("TRANSATEL_COS");
 }
 
-/** MVNO reference for this account, required when placing an order. */
+/** MVNO reference for this account (M2MA_WW_TSL_SPEEDNETRDC), required when placing an order. */
 export function getTransatelMvnoRef(): string {
   return requireEnv("TRANSATEL_MVNO_REF");
-}
-
-/**
- * Base connectivity rate plan for this account, assigned by Transatel at
- * contract signature — distinct from the per-customer data plan
- * (productId). Required to activate a brand-new SIM (one that has never
- * had a subscriber before) via the Connectivity Management API; see
- * activateSim in ./client. Ask your Transatel account contact for this
- * value if you don't have it — it isn't listed in any catalog file.
- */
-export function getTransatelRatePlan(): string {
-  return requireEnv("TRANSATEL_RATE_PLAN");
 }
 
 // Confirmed from Transatel's docs: "All Transatel APIs are available
@@ -64,13 +49,11 @@ export function getTransatelApiBaseUrl(): string {
 }
 
 /**
- * Shared secret we choose ourselves and put in the webhook URL we register
- * with Transatel's Console (Data Stream tab) for the
- * CONNECTIVITY-MANAGEMENT/SUBSCRIBER/ACTIVATED event — e.g.
- * https://speednetrdc.com/api/transatel/events?token=<this value>. Checked
- * by src/app/api/transatel/events/route.ts so a stranger can't post fake
- * activation events at that URL. Generate one the same way as
- * STAFF_SESSION_SECRET (see .env.example).
+ * Secret we choose ourselves and enter in the Transatel Console (Data
+ * Stream tab) when registering our webhook. Transatel signs every event
+ * with it (X-TSL-Signature-256 header), which
+ * src/app/api/transatel/events/route.ts verifies so nobody else can post
+ * fake events. Generate one the same way as STAFF_SESSION_SECRET.
  */
 export function getTransatelEventsSecret(): string {
   return requireEnv("TRANSATEL_EVENTS_SECRET");

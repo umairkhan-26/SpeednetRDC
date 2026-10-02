@@ -14,25 +14,21 @@
 // Never prints activation codes, matching IDs, QR codes or tokens: every
 // printed value goes through redact().
 import fs from "node:fs";
+import {
+  api,
+  authenticate,
+  BASE,
+  errorSummary,
+  LOGIN,
+  MVNO_REF,
+  readPhysicalDeliveryIccids,
+  searchAllSims,
+} from "./lib/transatel-readonly.mjs";
 
 const ORDER_13_ICCID = "8988247000148411086";
 const COS_CANDIDATES = ["COS_SPC", "WW_M2MA_COS_SPC"];
 const KNOWN_GOOD_PRODUCT = "WW_901O_STACK_ONEOFF_ALBANIA_1GB_7D";
-const DELIVERY_CSV = "scripts/source/sim-inventory.csv"; // CSO_7434, byte-identical to Transatel's delivery file
 
-// --- Config ---------------------------------------------------------------
-function requireEnv(name) {
-  const value = process.env[name];
-  if (!value) {
-    console.error(`${name} is not set. Add it to .env.local (see the header of this script).`);
-    process.exit(1);
-  }
-  return value;
-}
-const BASE = (process.env.TRANSATEL_API_BASE_URL || "https://api.transatel.com").replace(/\/+$/, "");
-const LOGIN = requireEnv("TRANSATEL_API_LOGIN");
-const PASSWORD = requireEnv("TRANSATEL_API_PASSWORD");
-const MVNO_REF = requireEnv("TRANSATEL_MVNO_REF");
 if (process.env.TRANSATEL_COS && !COS_CANDIDATES.includes(process.env.TRANSATEL_COS)) {
   COS_CANDIDATES.push(process.env.TRANSATEL_COS);
 }
@@ -57,55 +53,12 @@ const tally = (items, key) =>
     return acc;
   }, {});
 
-// --- HTTP -----------------------------------------------------------------
-let token;
-async function authenticate() {
-  const response = await fetch(`${BASE}/authentication/api/token`, {
-    method: "POST",
-    headers: {
-      Authorization: `Basic ${Buffer.from(`${LOGIN}:${PASSWORD}`).toString("base64")}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: "grant_type=client_credentials",
-    signal: AbortSignal.timeout(30_000),
-  });
-  const body = await response.json().catch(() => null);
-  if (!response.ok) return { ok: false, status: response.status, body };
-  token = body.access_token;
-  return { ok: true, status: response.status, expiresIn: body.expires_in, scope: body.scope ?? "(not returned)" };
-}
-
-async function api(method, path, query) {
-  if (method !== "GET" && method !== "OPTIONS") throw new Error(`Refusing ${method} ${path}: this script is read-only`);
-  const url = new URL(BASE + path);
-  for (const [k, v] of Object.entries(query || {})) url.searchParams.set(k, v);
-  const response = await fetch(url, {
-    method,
-    headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
-    signal: AbortSignal.timeout(60_000),
-  });
-  const text = await response.text();
-  let body = null;
-  try {
-    body = text ? JSON.parse(text) : null;
-  } catch {
-    body = text.slice(0, 300);
-  }
-  return { status: response.status, allow: response.headers.get("allow"), body };
-}
-const errorSummary = (r) => (r.body && typeof r.body === "object" ? `${r.body.title ?? ""} ${r.body.detail ?? ""}`.trim() : String(r.body ?? ""));
-
 // --- Local data -----------------------------------------------------------
 const onSaleCodes = JSON.parse(fs.readFileSync("src/data/generated/plans.json", "utf8")).map((p) => p.id);
 const sourceCosts = new Map(
   JSON.parse(fs.readFileSync("scripts/source/plans.json", "utf8")).map((p) => [p.technical_reference, p.wholesale_price_excl_vat_eur])
 );
-const deliveryIccids = fs
-  .readFileSync(DELIVERY_CSV, "utf8")
-  .split(/\r?\n/)
-  .slice(1)
-  .map((line) => line.split(";")[3]?.trim())
-  .filter(Boolean);
+const deliveryIccids = await readPhysicalDeliveryIccids();
 
 // --- 1. Authentication ----------------------------------------------------
 heading("1. Authentication");
@@ -138,35 +91,30 @@ for (const cos of COS_CANDIDATES) {
   if (notSubscribable.length) print(`  Not subscribable (first 10): ${notSubscribable.slice(0, 10).join(", ")}`);
 
   // Informational: compare the catalog's subscription fee with the cost
-  // recorded from the 2026-08-25 grid.
+  // recorded from the 2026-08-25 grid. (On 2026-10-03 the catalog reported
+  // a fee of 0 for every product on our account, i.e. it doesn't expose
+  // prices — costs come from Transatel's price grid only.)
   let same = 0;
+  let zero = 0;
   const differ = [];
   for (const code of onSaleCodes) {
     const fee = byId.get(code)?.prices?.subscriptionFee?.flat?.()?.[0];
     const cost = sourceCosts.get(code);
     if (!fee || typeof cost !== "number") continue;
-    if (fee.amount === Math.round(cost * 100)) same++;
+    if (fee.amount === 0) zero++;
+    else if (fee.amount === Math.round(cost * 100)) same++;
     else differ.push(`${code}: catalog ${fee.amount} ${fee.unit} vs grid €${cost}`);
   }
-  print(`  Catalog fee vs 2026-08-25 grid cost: ${same} match, ${differ.length} differ${differ.length ? ` — e.g. ${differ.slice(0, 5).join("; ")}` : ""}`);
+  print(
+    zero === onSaleCodes.length
+      ? "  Catalog fees: all 0 — this account's catalog doesn't expose prices (nothing to compare)"
+      : `  Catalog fee vs 2026-08-25 grid cost: ${same} match, ${differ.length} differ, ${zero} zero${differ.length ? ` — e.g. ${differ.slice(0, 5).join("; ")}` : ""}`
+  );
 }
 
 // --- 3. SIM fleet ---------------------------------------------------------
 heading("3. SIM Search — our whole fleet");
-const sims = [];
-let page = 1;
-let totalPages = 1;
-let searchError;
-do {
-  const r = await api("GET", "/sim-search/api/sim/search", { size: "10000", page: String(page) });
-  if (r.status !== 200) {
-    searchError = `HTTP ${r.status} ${errorSummary(r)}`;
-    break;
-  }
-  sims.push(...(r.body.sims || []));
-  totalPages = r.body.totalPages || 1;
-  page++;
-} while (page <= totalPages);
+const { sims, error: searchError } = await searchAllSims();
 
 // The 1,000 SIMs in the CSO_7434 delivery file are physical. SIM Search
 // returns no order reference, so the eSIM candidates are identified as the

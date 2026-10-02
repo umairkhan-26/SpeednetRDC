@@ -13,15 +13,13 @@ export interface CheckoutSession {
 
 export type OrderPaymentStatus = "pending" | "completed" | "refunded" | "failed";
 
+export type OrderProvisioningStatus = "pending" | "activating" | "provisioned" | "failed";
+
 export interface OrderStatusResult {
   status: OrderPaymentStatus;
-  order: {
-    id: number;
-    planName: string;
-    countryName: string;
-    iccid: string | null;
-    lpaActivationCode: string | null;
-  };
+  provisioningStatus: OrderProvisioningStatus;
+  /** Token for the private order page (/order/[token]); set once the order is paid. */
+  accessToken: string | null;
 }
 
 // Starts a real Stripe Checkout Session server-side (src/app/api/checkout/route.ts

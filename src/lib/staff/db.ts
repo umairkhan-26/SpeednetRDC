@@ -100,23 +100,15 @@ const SCHEMA_STATEMENTS = [
   // before any money has actually moved. Re-running MODIFY COLUMN with an
   // identical definition is a no-op, so this is safe on every boot.
   `ALTER TABLE orders MODIFY COLUMN status ENUM('pending', 'completed', 'refunded', 'failed') NOT NULL DEFAULT 'pending'`,
-  // Real SIM stock delivered by Transatel (see scripts/seed-sim-inventory.mjs
-  // and scripts/README.md). One row per physical SIM or eSIM Transatel has
-  // shipped/provisioned for this account; `status` tracks whether it's
-  // already been handed to a customer, separately from Transatel's own
-  // HLR status. iccid is the durable identifier (present from day one);
-  // msisdn starts NULL for stock that's never been activated and is filled
-  // in once Transatel's activation completes (see the Transatel event
-  // webhook, src/app/api/transatel/events/route.ts).
-  // is_activated is set explicitly by the importer (scripts/seed-sim-inventory.mjs)
-  // from Transatel's own status field, NOT inferred from msisdn presence —
-  // production stock is delivered with a pre-assigned msisdn well before
-  // it's ever activated on the network (normal telco allocation), so
-  // "has an msisdn" and "is activated" are different facts. Conflating
-  // them previously caused startEsimProvisioning (see the Stripe webhook)
-  // to skip real activation for production SIMs and call placePreloadOrder
-  // on a subscriber that was never turned on, which Transatel rejected
-  // with 400 ORDER_NOT_ALLOWED (confirmed via orders 11 and 12).
+  // Real SIM stock delivered by Transatel (see scripts/import-esims.mjs,
+  // scripts/seed-sim-inventory.mjs and scripts/README.md). One row per
+  // physical SIM or eSIM; `status` tracks whether it's been handed to a
+  // customer, separately from Transatel's own status. Only sim_type 'esim'
+  // rows are ever reserved for eSIM orders. msisdn is stored digits-only
+  // (Transatel's order and inventory APIs reject a leading "+"); if it's
+  // missing, provisioning looks it up via SIM Search. is_activated is
+  // informational only: Service Provider Connect SIMs arrive pre-activated
+  // and nothing branches on it.
   `CREATE TABLE IF NOT EXISTS sim_inventory (
     id INT PRIMARY KEY AUTO_INCREMENT,
     iccid VARCHAR(32) NOT NULL UNIQUE,
@@ -132,7 +124,7 @@ const SCHEMA_STATEMENTS = [
     FOREIGN KEY (assigned_order_id) REFERENCES orders(id)
   )`,
   // Widens sim_inventory.status to add 'retired' — a non-destructive way to
-  // permanently exclude a row from reserveSimForOrder's
+  // permanently exclude a row from reserveEsimForOrder's
   // WHERE status = 'available' pick (see src/lib/transatel/inventory.ts)
   // without deleting the row or losing its assigned_order_id history (e.g.
   // the 10 demo/test SIMs that were wrongly assignable to real orders
@@ -140,6 +132,19 @@ const SCHEMA_STATEMENTS = [
   // MODIFY COLUMN with an identical definition is a no-op, so this is safe
   // on every boot, same as the orders.status widening above.
   `ALTER TABLE sim_inventory MODIFY COLUMN status ENUM('available', 'assigned', 'retired') NOT NULL DEFAULT 'available'`,
+  // Every event Transatel's Data Stream webhook delivers (see
+  // src/app/api/transatel/events/route.ts), keyed by Transatel's eventId so
+  // a redelivered event is stored once. Informational only — no order
+  // depends on an event arriving.
+  `CREATE TABLE IF NOT EXISTS transatel_events (
+    event_id VARCHAR(64) PRIMARY KEY,
+    event_type VARCHAR(100) NOT NULL,
+    msisdn VARCHAR(32) NULL,
+    iccid VARCHAR(32) NULL,
+    event_date DATETIME NULL,
+    payload TEXT NOT NULL,
+    received_at DATETIME NOT NULL
+  )`,
 ];
 
 // sim_inventory columns added after the table already existed in
@@ -175,26 +180,29 @@ const ORDERS_NEW_COLUMNS: { name: string; ddl: string }[] = [
   { name: "iccid", ddl: "VARCHAR(255) NULL" },
   { name: "lpa_activation_code", ddl: "VARCHAR(255) NULL" },
   { name: "msisdn", ddl: "VARCHAR(32) NULL" },
-  // Set right after a "preload" order is submitted for an already-active
-  // SIM/subscriber; NOT set for a brand-new SIM going through the
-  // activate -> ACTIVATED event -> preload flow (see the Transatel
-  // client and events webhook), since that flow's meaningful id is the
-  // activation transactionId below.
+  // Transatel's reference for the product order placed on the order's
+  // SIM. Once set, provisioning never places a second order for it.
   { name: "transatel_order_id", ddl: "VARCHAR(64) NULL" },
   // Tracks Transatel-side provisioning independently of `status` (which
-  // is payment status only). 'pending' until the webhook starts working
-  // on it, 'activating' while waiting on Transatel's asynchronous SIM
-  // activation, 'provisioned' once the customer's plan is confirmed live,
-  // 'failed' if either the activation or the preload order call errors.
+  // is payment status only): 'pending' until claimed, 'activating' while a
+  // provisioning attempt runs, then 'provisioned' or 'failed'. See
+  // src/lib/transatel/provisioning.ts.
   { name: "provisioning_status", ddl: "ENUM('pending', 'activating', 'provisioned', 'failed') NOT NULL DEFAULT 'pending'" },
-  // Transatel's transactionId for the SIM activation call — used by the
-  // events webhook (src/app/api/transatel/events/route.ts) to match an
-  // incoming ACTIVATED event back to the order that triggered it.
+  // Unused since Transatel SPC SIMs arrive pre-activated (we never call the
+  // activation API); kept so existing rows aren't altered.
   { name: "transatel_activation_transaction_id", ddl: "VARCHAR(64) NULL" },
   // Set inside completeProvisioning() the moment a paid order's plan is
   // confirmed live on the SIM — distinct from created_at (order/checkout
   // time). Nothing previously recorded when provisioning actually finished.
   { name: "provisioned_at", ddl: "DATETIME NULL" },
+  // When the current provisioning attempt claimed the order, so an attempt
+  // that died mid-way ('activating' for too long) can be retried by an
+  // admin.
+  { name: "provisioning_started_at", ddl: "DATETIME NULL" },
+  // Unguessable token for the customer's private order page
+  // (/[locale]/order/[token]), which shows their eSIM activation code and
+  // QR code. Treat it like a password: anyone with the link can see them.
+  { name: "access_token", ddl: "VARCHAR(64) NULL" },
 ];
 
 async function ensureOrdersColumns(pool: mysql.Pool): Promise<void> {

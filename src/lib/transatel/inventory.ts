@@ -1,57 +1,102 @@
 import { getPool } from "@/lib/staff/db";
 import type { RowDataPacket } from "mysql2/promise";
 
-export interface ReservedSim {
+export type SimType = "esim" | "physical";
+export type SimStatus = "available" | "assigned" | "retired";
+
+export interface InventorySim {
   iccid: string;
-  // May be non-null even when isActivated is false: production stock
-  // arrives from Transatel with a pre-assigned msisdn well before it's
-  // ever turned on (normal telco allocation), so presence of an msisdn is
-  // NOT a signal that the SIM is activated. Use isActivated for that.
+  /** Digits only, or null if not known yet (provisioning then asks SIM Search). */
   msisdn: string | null;
-  // Set by the importer (scripts/seed-sim-inventory.mjs) from Transatel's
-  // own status field. true only for stock that's genuinely already live
-  // (e.g. the demo account's "Pré-activée" test eSIMs) — that SIM can go
-  // straight to placePreloadOrder, no activation step needed. false for
-  // brand-new stock (e.g. the production delivery file, status
-  // "Available") — that SIM needs activateSim() first; see
-  // src/app/api/stripe/webhook/route.ts for how the caller branches on
-  // this.
-  isActivated: boolean;
+  simType: SimType;
+  status: SimStatus;
+  assignedOrderId: number | null;
+}
+
+interface SimRow extends RowDataPacket {
+  iccid: string;
+  msisdn: string | null;
+  sim_type: SimType;
+  status: SimStatus;
+  assigned_order_id: number | null;
+}
+
+function toSim(row: SimRow): InventorySim {
+  return {
+    iccid: row.iccid,
+    msisdn: row.msisdn,
+    simType: row.sim_type,
+    status: row.status,
+    assignedOrderId: row.assigned_order_id,
+  };
 }
 
 /**
- * Reserves one unused SIM from `sim_inventory` for a paid order, inside a
+ * Reserves one unused eSIM from `sim_inventory` for a paid order, inside a
  * transaction with a row lock (`FOR UPDATE`) so two orders can never be
- * handed the same SIM if their webhooks happen to race.
+ * handed the same SIM. Physical SIMs are never picked.
  *
- * Seed this table first with `npm run seed:sims` — see
- * scripts/seed-sim-inventory.mjs and scripts/README.md.
+ * Load eSIM stock with scripts/import-esims.mjs (see scripts/README.md).
  */
-export async function reserveSimForOrder(orderId: number): Promise<ReservedSim> {
+export async function reserveEsimForOrder(orderId: number): Promise<InventorySim> {
   const pool = await getPool();
   const conn = await pool.getConnection();
   try {
     await conn.beginTransaction();
-
-    const [rows] = await conn.query<
-      (RowDataPacket & { id: number; iccid: string; msisdn: string | null; is_activated: number })[]
-    >("SELECT id, iccid, msisdn, is_activated FROM sim_inventory WHERE status = 'available' LIMIT 1 FOR UPDATE");
+    const [rows] = await conn.query<SimRow[]>(
+      `SELECT iccid, msisdn, sim_type, status, assigned_order_id FROM sim_inventory
+       WHERE sim_type = 'esim' AND status = 'available'
+       ORDER BY id LIMIT 1 FOR UPDATE`
+    );
     const sim = rows[0];
     if (!sim) {
-      throw new Error("No available SIMs left in sim_inventory — restock and re-run npm run seed:sims");
+      throw new Error("No available eSIMs left in sim_inventory — import more with scripts/import-esims.mjs");
     }
-
-    await conn.query("UPDATE sim_inventory SET status = 'assigned', assigned_order_id = ? WHERE id = ?", [
-      orderId,
-      sim.id,
-    ]);
-
+    await conn.query("UPDATE sim_inventory SET status = 'assigned', assigned_order_id = ? WHERE iccid = ?", [orderId, sim.iccid]);
     await conn.commit();
-    return { iccid: sim.iccid, msisdn: sim.msisdn, isActivated: Boolean(sim.is_activated) };
+    return toSim({ ...sim, status: "assigned", assigned_order_id: orderId });
   } catch (error) {
     await conn.rollback();
     throw error;
   } finally {
     conn.release();
   }
+}
+
+export async function getSimByIccid(iccid: string): Promise<InventorySim | null> {
+  const pool = await getPool();
+  const [rows] = await pool.query<SimRow[]>(
+    "SELECT iccid, msisdn, sim_type, status, assigned_order_id FROM sim_inventory WHERE iccid = ?",
+    [iccid]
+  );
+  return rows[0] ? toSim(rows[0]) : null;
+}
+
+/** Gives a SIM back to the pool — only if it's still assigned to this order. */
+export async function releaseSimFromOrder(iccid: string, orderId: number): Promise<void> {
+  const pool = await getPool();
+  await pool.query(
+    "UPDATE sim_inventory SET status = 'available', assigned_order_id = NULL WHERE iccid = ? AND assigned_order_id = ? AND status = 'assigned'",
+    [iccid, orderId]
+  );
+}
+
+/** Takes an eSIM out of circulation for good (e.g. its profile was already used on a device). */
+export async function retireSim(iccid: string): Promise<void> {
+  const pool = await getPool();
+  await pool.query("UPDATE sim_inventory SET status = 'retired' WHERE iccid = ?", [iccid]);
+}
+
+/** Corrects a row recorded as an eSIM that Transatel says isn't one, returning it to physical stock. */
+export async function markSimPhysical(iccid: string): Promise<void> {
+  const pool = await getPool();
+  await pool.query(
+    "UPDATE sim_inventory SET sim_type = 'physical', status = 'available', assigned_order_id = NULL WHERE iccid = ?",
+    [iccid]
+  );
+}
+
+export async function setSimMsisdn(iccid: string, msisdn: string): Promise<void> {
+  const pool = await getPool();
+  await pool.query("UPDATE sim_inventory SET msisdn = ? WHERE iccid = ?", [msisdn, iccid]);
 }

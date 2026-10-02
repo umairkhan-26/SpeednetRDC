@@ -2,6 +2,10 @@
 // (created automatically by src/lib/staff/db.ts on next app boot — no
 // separate migration step needed).
 //
+// For eSIM stock, use scripts/import-esims.mjs instead: it reads Transatel's
+// live data and only imports eSIMs whose profile is usable. This script is
+// for physical-SIM delivery files (pass "physical").
+//
 // Run with:
 //   npm run seed:sims -- <path-to-csv> [esim|physical]
 //
@@ -25,10 +29,9 @@
 // is_activated is set from the status field per format above: format 1
 // rows are always false (a pre-assigned msisdn there is just normal telco
 // allocation, not activation — see src/lib/staff/db.ts); format 2 rows are
-// true only when the status reads "Pré-activée"/"Pre-activée". This is
-// what src/app/api/stripe/webhook/route.ts branches on to decide whether a
-// reserved SIM can skip straight to placePreloadOrder or needs a real
-// activateSim() call first — do not derive it from msisdn presence.
+// true only when the status reads "Pré-activée"/"Pre-activée". It's
+// informational: Service Provider Connect SIMs arrive pre-activated, so
+// provisioning never activates a SIM and nothing branches on it.
 //
 // Safe to re-run: existing rows (matched by iccid) have their
 // pin1/puk1/hlr_status/is_activated refreshed but keep their

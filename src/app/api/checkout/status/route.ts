@@ -32,14 +32,12 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Order not found" }, { status: 404 });
   }
 
+  // The private order page (which shows the activation code) is the
+  // customer's destination once paid; the checkout session id in the
+  // success URL is itself an unguessable secret only the buyer has.
   return NextResponse.json({
     status: order.status,
-    order: {
-      id: order.id,
-      planName: order.planName,
-      countryName: order.countryName,
-      iccid: order.iccid,
-      lpaActivationCode: order.lpaActivationCode,
-    },
+    provisioningStatus: order.provisioningStatus,
+    accessToken: order.status === "completed" ? order.accessToken : null,
   });
 }
