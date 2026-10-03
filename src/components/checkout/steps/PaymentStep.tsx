@@ -55,6 +55,22 @@ export default function PaymentStep({
         </p>
       </div>
 
+      <p className="text-xs text-muted">
+        By continuing you agree to our{" "}
+        <a href={`/${locale}/terms`} target="_blank" rel="noopener" className="font-semibold text-ink underline hover:text-orange">
+          Terms &amp; Conditions
+        </a>{" "}
+        and{" "}
+        <a href={`/${locale}/refunds`} target="_blank" rel="noopener" className="font-semibold text-ink underline hover:text-orange">
+          Refund Policy
+        </a>
+        . Read how we use your data in our{" "}
+        <a href={`/${locale}/privacy`} target="_blank" rel="noopener" className="font-semibold text-ink underline hover:text-orange">
+          Privacy Policy
+        </a>
+        .
+      </p>
+
       {error && <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</p>}
 
       <div className="flex gap-3">

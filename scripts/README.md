@@ -88,3 +88,16 @@ needed before real online checkout can hand out a real eSIM. See
 `src/lib/transatel/inventory.ts` and the Stripe/Transatel webhook routes
 under `src/app/api/` for how a reserved SIM flows through activation and
 plan provisioning.
+
+## First admin account (`invite-admin.mjs`)
+
+Only for a database with no admin yet (e.g. a fresh local dev database):
+
+```
+npm run admin:invite -- you@example.com "Your Name"
+```
+
+It creates the admin account without a password and prints a one-time,
+24-hour link where its owner chooses one. It never sets a password. Start
+the app once first so the tables exist. Once one admin exists, invite
+everyone else from the admin panel (Admins or Staff Directory).

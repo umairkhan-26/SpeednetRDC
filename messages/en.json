@@ -18,7 +18,10 @@
     "deviceCompatibility": "Device Compatibility",
     "helpCenter": "Help Center",
     "copyright": "© {year} SpeedNetRDC. All rights reserved.",
-    "designedBy": "Designed by"
+    "designedBy": "Designed by",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "refunds": "Refund Policy"
   },
   "home": {
     "hero": {

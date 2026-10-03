@@ -72,7 +72,20 @@ export default async function Footer({ locale }: { locale: AppLocale }) {
 
       <div className="border-t border-white/10 py-6">
         <div className="container-page flex flex-col gap-2 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
-          <p>{t("copyright", { year: new Date().getFullYear() })}</p>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">
+            <p>{t("copyright", { year: new Date().getFullYear() })}</p>
+            <nav className="flex flex-wrap gap-x-4 gap-y-1">
+              <Link href="/privacy" className="text-white/60 hover:text-white">
+                {t("privacy")}
+              </Link>
+              <Link href="/terms" className="text-white/60 hover:text-white">
+                {t("terms")}
+              </Link>
+              <Link href="/refunds" className="text-white/60 hover:text-white">
+                {t("refunds")}
+              </Link>
+            </nav>
+          </div>
           <p>
             {t("designedBy")}{" "}
             <a

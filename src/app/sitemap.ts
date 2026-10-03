@@ -12,8 +12,10 @@ const STATIC_PATHS = [
   "/how-it-works",
   "/device-compatibility",
   "/help",
+  "/privacy",
+  "/terms",
+  "/refunds",
   "/login",
-  "/signup",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
