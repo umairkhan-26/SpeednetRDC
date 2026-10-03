@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "admin:invite": "node --env-file=.env.local scripts/invite-admin.mjs",
+    "admin:recovery-link": "node scripts/admin-recovery-link.mjs",
     "seed:sims": "node --env-file=.env.local scripts/seed-sim-inventory.mjs",
     "transatel:check": "node --env-file=.env.local scripts/transatel-check.mjs",
     "esims:import-sql": "node --env-file=.env.local scripts/import-esims.mjs"

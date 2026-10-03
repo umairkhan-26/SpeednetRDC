@@ -71,12 +71,10 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
 
       <H2>7. Right of withdrawal</H2>
       <P>
-        If you are a consumer in the EU or UK, you normally have 14 days to withdraw from a distance contract.{" "}
-        <V>
-          [TO CONFIRM WITH A LAWYER: because an eSIM is digital content supplied immediately, this right may end once supply has begun — but
-          only if you expressly agreed at checkout to immediate supply and acknowledged that you would lose the right. The checkout does not
-          yet ask for that consent.]
-        </V>{" "}
+        If you are a consumer in the EU or UK, you normally have 14 days to withdraw from a distance contract. An eSIM is digital content that
+        we deliver straight after payment, so at checkout we ask you to agree to immediate delivery and to acknowledge that you lose this
+        right once the eSIM has been delivered; we confirm this in your order email. If you change your mind before your eSIM has been
+        delivered, we&apos;ll refund you in full.{" "}
         How refunds work in practice is described in our{" "}
         <Link href="/refunds" className={linkClass}>
           Refund Policy

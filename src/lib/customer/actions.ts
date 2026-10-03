@@ -5,16 +5,16 @@ import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { getAppUrl } from "@/lib/checkout/stripe";
 import { customerHasOrders } from "@/lib/checkout/orders-repository";
-import { sendEmail } from "@/lib/email/send";
+import { isEmailConfigured, sendEmail } from "@/lib/email/send";
 import { customerLoginEmail } from "@/lib/email/templates";
 import { getClientIp, isRateLimited, rateLimitBucket, recordAttempt } from "@/lib/auth/rate-limit";
 import { isValidEmail } from "@/lib/validation";
 import { consumeCustomerLoginToken, createCustomerLoginToken } from "./login-tokens";
-import { clearCustomerSessionCookie, setCustomerSessionCookie } from "./session";
+import { clearCustomerSessionCookie, isCustomerSignInConfigured, setCustomerSessionCookie } from "./session";
 
 /** Status codes the sign-in pages translate (auth.login.* / auth.verify.*). */
 export interface CustomerLoginState {
-  status?: "sent" | "invalidEmail" | "tooMany" | "invalidLink";
+  status?: "sent" | "invalidEmail" | "tooMany" | "invalidLink" | "unavailable";
 }
 
 const pickLocale = (value: FormDataEntryValue | null) => {
@@ -31,6 +31,10 @@ export async function requestCustomerLoginAction(_prev: CustomerLoginState, form
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const locale = pickLocale(formData.get("locale"));
   if (!isValidEmail(email)) return { status: "invalidEmail" };
+  if (!isCustomerSignInConfigured() || !isEmailConfigured()) {
+    console.warn("[customer] Sign-in requested but CUSTOMER_SESSION_SECRET or email isn't configured — sign-in is unavailable");
+    return { status: "unavailable" };
+  }
 
   const ipBucket = rateLimitBucket("customer-login-ip", await getClientIp());
   if (await isRateLimited(ipBucket, 20, 60 * 60)) return { status: "tooMany" };
@@ -50,6 +54,7 @@ export async function requestCustomerLoginAction(_prev: CustomerLoginState, form
 /** The "Sign in" button on the link's page (a POST, so email scanners that open links can't use them up). */
 export async function verifyCustomerLoginAction(_prev: CustomerLoginState, formData: FormData): Promise<CustomerLoginState> {
   const locale = pickLocale(formData.get("locale"));
+  if (!isCustomerSignInConfigured()) return { status: "unavailable" };
   const ipBucket = rateLimitBucket("customer-verify-ip", await getClientIp());
   if (await isRateLimited(ipBucket, 20, 60 * 60)) return { status: "tooMany" };
 

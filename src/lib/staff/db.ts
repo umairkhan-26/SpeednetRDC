@@ -24,6 +24,7 @@ function createPool(): mysql.Pool {
 declare global {
   var __staffPool__: mysql.Pool | undefined;
   var __staffSchemaReady__: Promise<void> | undefined;
+  var __staffSchemaRetryAt__: number | undefined;
 }
 
 // Created lazily (on first getPool() call, i.e. the first real request),
@@ -283,41 +284,84 @@ const ORDERS_NEW_COLUMNS: NewColumn[] = [
   // (customer_details.address.country). Only the country is kept — never
   // the rest of the address, and never the customer's IP address.
   { name: "billing_country", ddl: "CHAR(2) NULL" },
+  // When the customer ticked the checkout box agreeing to immediate
+  // delivery and acknowledging the loss of their 14-day EU withdrawal right
+  // once the eSIM is delivered (only asked once the legal pages are live).
+  { name: "withdrawal_consent_at", ddl: "DATETIME NULL" },
 ];
 
-async function ensureColumns(pool: mysql.Pool, table: string, columns: NewColumn[]): Promise<void> {
-  const [rows] = await pool.query<(mysql.RowDataPacket & { COLUMN_NAME: string })[]>(
-    `SELECT COLUMN_NAME FROM information_schema.columns
-     WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ?`,
-    [table]
-  );
-  const existing = new Set(rows.map((r) => r.COLUMN_NAME));
+// A connection-level failure (database down, wrong credentials) is not a
+// migration problem: it's thrown so the caller fails and the next request
+// retries, exactly as any query would.
+function isConnectionError(error: unknown): boolean {
+  const e = error as { fatal?: boolean; code?: string };
+  return e?.fatal === true || ["ECONNREFUSED", "ETIMEDOUT", "ENOTFOUND", "ECONNRESET", "ER_ACCESS_DENIED_ERROR", "ER_DBACCESS_DENIED_ERROR"].includes(e?.code ?? "");
+}
+
+type Step = (label: string, run: () => Promise<unknown>) => Promise<void>;
+
+async function ensureColumns(pool: mysql.Pool, table: string, columns: NewColumn[], step: Step): Promise<void> {
+  let existing: Set<string> | null = null;
+  await step(`read columns of ${table}`, async () => {
+    const [rows] = await pool.query<(mysql.RowDataPacket & { COLUMN_NAME: string })[]>(
+      `SELECT COLUMN_NAME FROM information_schema.columns
+       WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ?`,
+      [table]
+    );
+    existing = new Set(rows.map((r) => r.COLUMN_NAME));
+  });
+  if (!existing) return;
   for (const column of columns) {
-    if (!existing.has(column.name)) {
-      await pool.query(`ALTER TABLE ${table} ADD COLUMN ${column.name} ${column.ddl}`);
+    if (!(existing as Set<string>).has(column.name)) {
+      await step(`add ${table}.${column.name}`, () => pool.query(`ALTER TABLE ${table} ADD COLUMN ${column.name} ${column.ddl}`));
     }
   }
 }
 
-async function ensureSchema(pool: mysql.Pool): Promise<void> {
+/**
+ * Runs every migration step independently: a step that fails (say, a new
+ * feature's table) is logged and retried a minute later, and only breaks
+ * the feature that needs it — never checkout, provisioning or sign-in,
+ * whose tables already exist. Returns how many steps failed.
+ */
+async function ensureSchema(pool: mysql.Pool): Promise<number> {
+  let failures = 0;
+  const step: Step = async (label, run) => {
+    try {
+      await run();
+    } catch (error) {
+      if (isConnectionError(error)) throw error;
+      failures++;
+      console.error(`[db] Schema step failed (${label}); will retry in a minute:`, error);
+    }
+  };
   for (const statement of SCHEMA_STATEMENTS) {
-    await pool.query(statement);
+    await step(statement.trim().split("\n")[0].replace(/\s*\($/, ""), () => pool.query(statement));
   }
-  await ensureColumns(pool, "staff_members", STAFF_MEMBERS_NEW_COLUMNS);
-  await ensureColumns(pool, "orders", ORDERS_NEW_COLUMNS);
-  await ensureColumns(pool, "sim_inventory", SIM_INVENTORY_NEW_COLUMNS);
+  await ensureColumns(pool, "staff_members", STAFF_MEMBERS_NEW_COLUMNS, step);
+  await ensureColumns(pool, "orders", ORDERS_NEW_COLUMNS, step);
+  await ensureColumns(pool, "sim_inventory", SIM_INVENTORY_NEW_COLUMNS, step);
+  return failures;
 }
+
+const SCHEMA_RETRY_MS = 60_000;
 
 export async function getPool(): Promise<mysql.Pool> {
   const pool = getOrCreatePool();
-  if (!globalThis.__staffSchemaReady__) {
-    // If a migration step fails (e.g. a brief database outage), forget the
-    // failed attempt so the next request retries, instead of every request
-    // failing until the server restarts.
-    globalThis.__staffSchemaReady__ = ensureSchema(pool).catch((error) => {
-      globalThis.__staffSchemaReady__ = undefined;
-      throw error;
-    });
+  const retryAt = globalThis.__staffSchemaRetryAt__;
+  if (!globalThis.__staffSchemaReady__ || (retryAt !== undefined && Date.now() >= retryAt)) {
+    globalThis.__staffSchemaRetryAt__ = undefined;
+    globalThis.__staffSchemaReady__ = ensureSchema(pool).then(
+      (failures) => {
+        if (failures > 0) globalThis.__staffSchemaRetryAt__ = Date.now() + SCHEMA_RETRY_MS;
+      },
+      (error) => {
+        // Couldn't reach the database at all: forget this attempt so the
+        // next request retries, instead of failing until a restart.
+        globalThis.__staffSchemaReady__ = undefined;
+        throw error;
+      }
+    );
   }
   await globalThis.__staffSchemaReady__;
   return pool;

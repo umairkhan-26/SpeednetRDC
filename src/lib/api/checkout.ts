@@ -5,6 +5,8 @@ export interface CheckoutPayload {
   fullName: string;
   email: string;
   locale: string;
+  /** The checkout's withdrawal-right consent box (only shown once the legal pages are live). */
+  withdrawalConsent?: boolean;
 }
 
 export interface CheckoutSession {
@@ -35,6 +37,7 @@ export async function submitOrder(payload: CheckoutPayload): Promise<CheckoutSes
       fullName: payload.fullName,
       email: payload.email,
       locale: payload.locale,
+      withdrawalConsent: payload.withdrawalConsent === true,
     }),
   });
 

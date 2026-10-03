@@ -15,6 +15,11 @@ interface CustomerSessionPayload {
   exp: number;
 }
 
+/** False until CUSTOMER_SESSION_SECRET is set: customer sign-in is then switched off (nobody is signed in), nothing crashes. */
+export function isCustomerSignInConfigured(): boolean {
+  return Boolean(process.env.CUSTOMER_SESSION_SECRET);
+}
+
 function sign(data: string): string {
   const secret = process.env.CUSTOMER_SESSION_SECRET;
   if (!secret) throw new Error("CUSTOMER_SESSION_SECRET environment variable is not set");
@@ -58,5 +63,6 @@ export async function clearCustomerSessionCookie(): Promise<void> {
 export const getCustomerEmail = cache(async (): Promise<string | null> => {
   const cookieStore = await cookies();
   const token = cookieStore.get(CUSTOMER_SESSION_COOKIE)?.value;
-  return token ? (verify(token)?.email ?? null) : null;
+  if (!token || !isCustomerSignInConfigured()) return null;
+  return verify(token)?.email ?? null;
 });

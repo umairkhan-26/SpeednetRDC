@@ -83,7 +83,8 @@
       "sentTitle": "Revisa tu bandeja de entrada",
       "sentBody": "Si {email} ha hecho un pedido con nosotros, le hemos enviado un enlace de acceso. Funciona una sola vez y caduca en 15 minutos.",
       "tooMany": "Demasiados intentos. Inténtalo de nuevo más tarde.",
-      "useDifferent": "Usar otro correo"
+      "useDifferent": "Usar otro correo",
+      "unavailable": "El inicio de sesión no está disponible en este momento. El enlace de tu eSIM está en el correo de confirmación del pedido, o contacta con soporte."
     },
     "verify": {
       "title": "Iniciar sesión en SpeedNetRDC",
@@ -93,7 +94,8 @@
       "invalidTitle": "Este enlace ha caducado",
       "invalidBody": "Los enlaces de acceso funcionan una sola vez y caducan a los 15 minutos.",
       "newLink": "Obtener un nuevo enlace",
-      "tooMany": "Demasiados intentos. Inténtalo de nuevo más tarde."
+      "tooMany": "Demasiados intentos. Inténtalo de nuevo más tarde.",
+      "unavailable": "El inicio de sesión no está disponible en este momento. El enlace de tu eSIM está en el correo de confirmación del pedido, o contacta con soporte."
     }
   },
   "regions": {

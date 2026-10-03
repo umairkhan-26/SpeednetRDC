@@ -32,6 +32,7 @@ export interface CheckoutOrder {
   locale: string | null;
   confirmationEmailSentAt: string | null;
   billingCountry: string | null;
+  withdrawalConsentAt: string | null;
   createdAt: string;
 }
 
@@ -58,6 +59,7 @@ interface OrderRow extends RowDataPacket {
   locale: string | null;
   confirmation_email_sent_at: string | null;
   billing_country: string | null;
+  withdrawal_consent_at?: string | null;
   created_at: string;
 }
 
@@ -85,6 +87,7 @@ function toCheckoutOrder(row: OrderRow): CheckoutOrder {
     locale: row.locale,
     confirmationEmailSentAt: fromMySQLDateTime(row.confirmation_email_sent_at),
     billingCountry: row.billing_country,
+    withdrawalConsentAt: fromMySQLDateTime(row.withdrawal_consent_at ?? null),
     createdAt: fromMySQLDateTime(row.created_at),
   };
 }
@@ -142,8 +145,23 @@ export async function createPendingOrder(input: {
     locale: input.locale,
     confirmationEmailSentAt: null,
     billingCountry: null,
+    withdrawalConsentAt: null,
     createdAt: now.toISOString(),
   };
+}
+
+/**
+ * Records that the customer ticked the withdrawal-right consent box at
+ * checkout. A failure is logged, not thrown, so it can't block a sale (the
+ * box was already required in the browser and checked by the API).
+ */
+export async function recordWithdrawalConsent(orderId: number): Promise<void> {
+  try {
+    const pool = await getPool();
+    await pool.query("UPDATE orders SET withdrawal_consent_at = ? WHERE id = ?", [toMySQLDateTime(new Date()), orderId]);
+  } catch (error) {
+    console.error(`[checkout] Couldn't record withdrawal-right consent for order ${orderId}:`, error);
+  }
 }
 
 export async function markConfirmationEmailSent(orderId: number): Promise<void> {
@@ -151,11 +169,19 @@ export async function markConfirmationEmailSent(orderId: number): Promise<void> 
   await pool.query("UPDATE orders SET confirmation_email_sent_at = ? WHERE id = ?", [toMySQLDateTime(new Date()), orderId]);
 }
 
-/** Keeps only the billing country's ISO code from Stripe; ignores anything that isn't one. */
+/**
+ * Keeps only the billing country's ISO code from Stripe; ignores anything
+ * that isn't one. Never throws: it's called from the payment webhook,
+ * which must go on to provision the eSIM whatever happens here.
+ */
 export async function recordBillingCountry(orderId: number, country: string | null | undefined): Promise<void> {
   if (!country || !/^[A-Z]{2}$/.test(country)) return;
-  const pool = await getPool();
-  await pool.query("UPDATE orders SET billing_country = ? WHERE id = ? AND billing_country IS NULL", [country, orderId]);
+  try {
+    const pool = await getPool();
+    await pool.query("UPDATE orders SET billing_country = ? WHERE id = ? AND billing_country IS NULL", [country, orderId]);
+  } catch (error) {
+    console.error(`[checkout] Couldn't record the billing country for order ${orderId}:`, error);
+  }
 }
 
 export async function attachStripeCheckoutSession(orderId: number, sessionId: string): Promise<void> {

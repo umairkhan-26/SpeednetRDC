@@ -22,12 +22,17 @@ export interface SendEmailInput {
 
 export type SendEmailResult = { ok: true; id: string } | { ok: false; error: string };
 
+/** False until RESEND_API_KEY and EMAIL_FROM are set: emails are then skipped (and logged), never fatal. */
+export function isEmailConfigured(): boolean {
+  return Boolean(process.env.RESEND_API_KEY && process.env.EMAIL_FROM);
+}
+
 export async function sendEmail(input: SendEmailInput): Promise<SendEmailResult> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.EMAIL_FROM;
   if (!apiKey || !from) {
     const error = "Email not configured (RESEND_API_KEY / EMAIL_FROM not set)";
-    console.error(`[email] ${error} — not sending "${input.subject}"`);
+    console.warn(`[email] ${error} — skipped "${input.subject}"`);
     return { ok: false, error };
   }
 

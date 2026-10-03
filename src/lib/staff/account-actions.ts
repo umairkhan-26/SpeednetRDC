@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getAppUrl } from "@/lib/checkout/stripe";
-import { sendEmail } from "@/lib/email/send";
+import { isEmailConfigured, sendEmail } from "@/lib/email/send";
 import {
   emailChangeConfirmEmail,
   emailChangedNoticeEmail,
@@ -42,6 +42,8 @@ export interface AccountActionResult {
 
 const HOUR = 60 * 60;
 
+const EMAIL_NOT_SET_UP = "Email isn't set up on this server yet (RESEND_API_KEY / EMAIL_FROM), so this link can't be sent.";
+
 function revalidateAccountPages() {
   revalidatePath("/admin/admins");
   revalidatePath("/admin/staff");
@@ -70,6 +72,7 @@ export async function inviteStaffAction(_prev: AccountFormState, formData: FormD
   if (!name || name.length > 255) return { error: "Enter their name." };
   if (!isValidEmail(email)) return { error: "Enter a valid email address." };
   if (role !== "staff" && role !== "admin") return { error: "Invalid role." };
+  if (!isEmailConfigured()) return { error: EMAIL_NOT_SET_UP };
 
   const existing = await getStaffAccountByEmail(email);
   if (existing) {
@@ -101,6 +104,7 @@ export async function resendInviteAction(staffId: number): Promise<AccountAction
   const session = await requireAdminSession();
   const account = await getStaffAccountById(staffId);
   if (!account || account.status !== "invited") return { ok: false, message: "That account isn't waiting for an invite." };
+  if (!isEmailConfigured()) return { ok: false, message: EMAIL_NOT_SET_UP };
 
   const bucket = rateLimitBucket("staff-invite", account.email);
   if (await isRateLimited(bucket, 3, HOUR)) return { ok: false, message: "Too many invites to that address in the last hour. Try again later." };
@@ -155,6 +159,7 @@ const RESET_SENT_MESSAGE = "If there's an account for that email, we've sent it 
 export async function forgotPasswordAction(_prev: AccountFormState, formData: FormData): Promise<AccountFormState> {
   const email = normalizeEmail(String(formData.get("email") ?? ""));
   if (!isValidEmail(email)) return { error: "Enter a valid email address." };
+  if (!isEmailConfigured()) return { error: "Password reset emails aren't set up on this server yet. Ask another admin, or see the recovery steps in scripts/README.md." };
 
   const ipBucket = rateLimitBucket("staff-reset-ip", await getClientIp());
   if (await isRateLimited(ipBucket, 10, HOUR)) return { error: "Too many reset requests. Try again in an hour." };
@@ -216,6 +221,7 @@ export async function requestEmailChangeAction(_prev: AccountFormState, formData
   const newEmail = normalizeEmail(String(formData.get("email") ?? ""));
   if (!isValidEmail(newEmail)) return { error: "Enter a valid email address." };
   if (newEmail === account.email) return { error: "That's already your email address." };
+  if (!isEmailConfigured()) return { error: EMAIL_NOT_SET_UP };
   const wrong = await checkCurrentPassword(account, String(formData.get("current") ?? ""));
   if (wrong) return { error: wrong };
   if (await getStaffAccountByEmail(newEmail)) return { error: "Another account already uses that email address." };

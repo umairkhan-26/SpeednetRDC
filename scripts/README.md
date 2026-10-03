@@ -101,3 +101,20 @@ It creates the admin account without a password and prints a one-time,
 24-hour link where its owner chooses one. It never sets a password. Start
 the app once first so the tables exist. Once one admin exists, invite
 everyone else from the admin panel (Admins or Staff Directory).
+
+## Locked out of the admin panel (`admin-recovery-link.mjs`)
+
+- **Too many wrong passwords:** sign-in for that email unlocks by itself
+  after 15 minutes.
+- **Forgotten password and email not set up yet** (or not arriving): run
+
+  ```
+  npm run admin:recovery-link -- you@example.com
+  ```
+
+  It needs no database connection and no email. It prints a short SQL
+  snippet to run in Hostinger's phpMyAdmin (SQL tab, SpeedNetRDC database)
+  and a one-time link, valid for 1 hour after you run the SQL, where you
+  choose a new password. The SQL holds only a hash of the link; the link
+  itself is the secret, so don't share it. It also clears sign-in rate
+  limits.

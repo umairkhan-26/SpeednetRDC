@@ -46,6 +46,7 @@ export default function VerifyClient({ token, email }: { token: string; email: s
               <input type="hidden" name="token" value={token} />
               <input type="hidden" name="locale" value={locale} />
               {state.status === "tooMany" && <p className="text-sm text-red-600">{t("tooMany")}</p>}
+              {state.status === "unavailable" && <p className="text-sm text-red-600">{t("unavailable")}</p>}
               <SubmitButton />
             </form>
           )}

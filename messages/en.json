@@ -83,7 +83,8 @@
       "sentTitle": "Check your inbox",
       "sentBody": "If {email} has placed an order with us, we've sent it a sign-in link. It works once and expires in 15 minutes.",
       "tooMany": "Too many attempts. Please try again later.",
-      "useDifferent": "Use a different email"
+      "useDifferent": "Use a different email",
+      "unavailable": "Signing in isn't available right now. Your eSIM link is in your order confirmation email — or contact support."
     },
     "verify": {
       "title": "Sign in to SpeedNetRDC",
@@ -93,7 +94,8 @@
       "invalidTitle": "This link has expired",
       "invalidBody": "Sign-in links work once and expire after 15 minutes.",
       "newLink": "Get a new sign-in link",
-      "tooMany": "Too many attempts. Please try again later."
+      "tooMany": "Too many attempts. Please try again later.",
+      "unavailable": "Signing in isn't available right now. Your eSIM link is in your order confirmation email — or contact support."
     }
   },
   "regions": {

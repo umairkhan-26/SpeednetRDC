@@ -6,7 +6,8 @@ import { calculateOrderTotals } from "@/lib/pricing";
 import { isValidEmail, isValidFullName } from "@/lib/validation";
 import { resolveDestination } from "@/lib/checkout/destination";
 import { getAppUrl, getStripe } from "@/lib/checkout/stripe";
-import { attachStripeCheckoutSession, createPendingOrder } from "@/lib/checkout/orders-repository";
+import { attachStripeCheckoutSession, createPendingOrder, recordWithdrawalConsent } from "@/lib/checkout/orders-repository";
+import { legalPagesLive } from "@/lib/legal";
 import { ESIM_CHECKOUT_PAUSED_ERROR, isEsimCheckoutEnabled } from "@/lib/checkout/availability";
 
 interface CheckoutRequestBody {
@@ -14,6 +15,7 @@ interface CheckoutRequestBody {
   fullName?: unknown;
   email?: unknown;
   locale?: unknown;
+  withdrawalConsent?: unknown;
 }
 
 export async function POST(request: Request) {
@@ -44,6 +46,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unknown plan" }, { status: 400 });
   }
 
+  // Asked only once the legal pages are published (src/lib/legal.ts).
+  const consentRequired = legalPagesLive();
+  if (consentRequired && body.withdrawalConsent !== true) {
+    return NextResponse.json({ error: "Please tick the box to confirm immediate delivery of your eSIM." }, { status: 400 });
+  }
+
   const resolvedLocale = hasLocale(routing.locales, locale) ? locale : routing.defaultLocale;
   const totals = calculateOrderTotals(plan.price);
   const destination = resolveDestination(plan);
@@ -58,6 +66,7 @@ export async function POST(request: Request) {
     amountEur: totals.total,
     locale: resolvedLocale,
   });
+  if (consentRequired) await recordWithdrawalConsent(order.id);
 
   const appUrl = getAppUrl();
   const stripe = getStripe();

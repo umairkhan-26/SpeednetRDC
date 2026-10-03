@@ -77,6 +77,7 @@ export default function LoginPage() {
                 )}
               </div>
               {state.status === "tooMany" && <p className="text-sm text-red-600">{t("tooMany")}</p>}
+              {state.status === "unavailable" && <p className="text-sm text-red-600">{t("unavailable")}</p>}
               <SubmitButton />
             </form>
           </>

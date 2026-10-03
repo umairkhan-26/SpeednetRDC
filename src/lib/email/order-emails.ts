@@ -26,7 +26,7 @@ export async function sendOrderReadyEmail(orderId: number, opts: { resend?: bool
     const url = orderPageUrl(order);
     if (!url) return { ok: false, message: "Order has no private link." };
 
-    const email = orderReadyEmail({ customerName: order.customerName, planName: order.planName, orderNumber: order.id, orderUrl: url });
+    const email = orderReadyEmail({ customerName: order.customerName, planName: order.planName, orderNumber: order.id, orderUrl: url, withdrawalConsentAt: order.withdrawalConsentAt });
     const result = await sendEmail({
       to: order.customerEmail,
       ...email,

@@ -37,14 +37,25 @@ function plain(lines: (string | false | undefined)[]): string {
   return lines.filter(Boolean).join("\n\n") + "\n\n— SpeedNetRDC\n";
 }
 
-export function orderReadyEmail(opts: { customerName: string; planName: string; orderNumber: number; orderUrl: string }): EmailContent {
+export function orderReadyEmail(opts: {
+  customerName: string;
+  planName: string;
+  orderNumber: number;
+  orderUrl: string;
+  /** Set when the customer gave the checkout's withdrawal-right consent: confirmed here, as EU law requires. */
+  withdrawalConsentAt?: string | null;
+}): EmailContent {
   const intro = `Hi ${opts.customerName}, your eSIM for ${opts.planName} (order ORD-${opts.orderNumber}) is ready to install.`;
   const how = "Open your order page to see your QR code and step-by-step install instructions. Install it while you have Wi-Fi, ideally before you travel. Your plan only starts the first time you connect in a country it covers.";
+  const consent = opts.withdrawalConsentAt
+    ? "At checkout you asked for your eSIM to be delivered immediately and acknowledged that you lose your 14-day right of withdrawal once it has been delivered."
+    : undefined;
   const warn = "Keep this link private: anyone with it can install your eSIM, and it can only be installed once.";
+  const footnote = consent ? `${warn} ${consent}` : warn;
   return {
     subject: `Your eSIM is ready — order ORD-${opts.orderNumber}`,
-    html: layout({ heading: "Your eSIM is ready", paragraphs: [intro, how], button: { label: "View my eSIM", url: opts.orderUrl }, footnote: warn }),
-    text: plain([intro, how, `Your order page: ${opts.orderUrl}`, warn]),
+    html: layout({ heading: "Your eSIM is ready", paragraphs: [intro, how], button: { label: "View my eSIM", url: opts.orderUrl }, footnote }),
+    text: plain([intro, how, `Your order page: ${opts.orderUrl}`, warn, consent]),
   };
 }
 

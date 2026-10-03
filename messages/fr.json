@@ -83,7 +83,8 @@
       "sentTitle": "Consultez votre boîte de réception",
       "sentBody": "Si {email} a passé une commande chez nous, nous lui avons envoyé un lien de connexion. Il fonctionne une seule fois et expire dans 15 minutes.",
       "tooMany": "Trop de tentatives. Veuillez réessayer plus tard.",
-      "useDifferent": "Utiliser un autre e-mail"
+      "useDifferent": "Utiliser un autre e-mail",
+      "unavailable": "La connexion n'est pas disponible pour le moment. Le lien de votre eSIM se trouve dans votre e-mail de confirmation, ou contactez le support."
     },
     "verify": {
       "title": "Connexion à SpeedNetRDC",
@@ -93,7 +94,8 @@
       "invalidTitle": "Ce lien a expiré",
       "invalidBody": "Les liens de connexion ne fonctionnent qu'une fois et expirent après 15 minutes.",
       "newLink": "Recevoir un nouveau lien",
-      "tooMany": "Trop de tentatives. Veuillez réessayer plus tard."
+      "tooMany": "Trop de tentatives. Veuillez réessayer plus tard.",
+      "unavailable": "La connexion n'est pas disponible pour le moment. Le lien de votre eSIM se trouve dans votre e-mail de confirmation, ou contactez le support."
     }
   },
   "regions": {
