@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
+import { languageTag } from "@/i18n/routing";
 import { CheckCircle2, Clock, RotateCcw } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { customerLogoutAction } from "@/lib/customer/actions";
@@ -24,7 +25,7 @@ const STATE_STYLE = {
 export default function AccountView({ email, orders }: { email: string; orders: CustomerOrderSummary[] }) {
   const locale = useLocale();
   const t = useTranslations("account");
-  const formatDate = (iso: string) => new Date(iso).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
+  const formatDate = (iso: string) => new Date(iso).toLocaleDateString(languageTag(locale), { day: "numeric", month: "long", year: "numeric" });
 
   return (
     <div className="container-page max-w-3xl py-14">

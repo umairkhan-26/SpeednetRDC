@@ -1,7 +1,10 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { Globe, Zap } from "lucide-react";
-import { formatPrice } from "@/lib/format";
+import { useNames } from "@/i18n/use-names";
 
 export default function DestinationTile({
   href,
@@ -24,6 +27,8 @@ export default function DestinationTile({
   speed?: string;
   size?: "sm" | "md";
 }) {
+  const t = useTranslations("destinationTile");
+  const names = useNames();
   return (
     <Link
       href={href}
@@ -52,7 +57,7 @@ export default function DestinationTile({
         <div className="absolute inset-x-0 bottom-0 p-3">
           <p className="text-sm font-semibold text-white">{name}</p>
           <p className="text-[11px] text-white/75">
-            {subtitle} &middot; from <span className="font-semibold text-orange-soft">{formatPrice(fromPrice)}</span>
+            {subtitle} &middot; {t("from")} <span className="font-semibold text-orange-soft">{names.price(fromPrice)}</span>
           </p>
         </div>
       </div>

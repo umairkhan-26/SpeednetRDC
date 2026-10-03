@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Check } from "lucide-react";
 import { clsx } from "clsx";
 import type { CheckoutStep } from "@/lib/store/checkout-store";
@@ -6,15 +9,11 @@ import type { CheckoutStep } from "@/lib/store/checkout-store";
 // flow — it's no longer a CheckoutStep the store tracks, since payment
 // success now lands on its own route (/checkout/success) after a real
 // Stripe redirect, rather than being a step within this SPA flow.
-const steps: { key: CheckoutStep | "confirmation"; label: string }[] = [
-  { key: "plan", label: "Plan" },
-  { key: "account", label: "Account" },
-  { key: "payment", label: "Payment" },
-  { key: "confirmation", label: "Confirmation" },
-];
+const steps: (CheckoutStep | "confirmation")[] = ["plan", "account", "payment", "confirmation"];
 
 export default function StepIndicator({ current }: { current: CheckoutStep }) {
-  const currentIndex = steps.findIndex((s) => s.key === current);
+  const t = useTranslations("checkout.steps");
+  const currentIndex = steps.findIndex((s) => s === current);
 
   return (
     <ol className="flex items-center justify-between gap-2">
@@ -22,7 +21,7 @@ export default function StepIndicator({ current }: { current: CheckoutStep }) {
         const done = i < currentIndex;
         const active = i === currentIndex;
         return (
-          <li key={step.key} className="flex flex-1 items-center gap-2">
+          <li key={step} className="flex flex-1 items-center gap-2">
             <div className="flex items-center gap-2">
               <span
                 className={clsx(
@@ -40,7 +39,7 @@ export default function StepIndicator({ current }: { current: CheckoutStep }) {
                   active ? "text-ink" : "text-muted",
                 )}
               >
-                {step.label}
+                {t(step)}
               </span>
             </div>
             {i < steps.length - 1 && (

@@ -60,7 +60,7 @@ export default function Header() {
 
         <button
           type="button"
-          aria-label="Toggle menu"
+          aria-label={t("toggleMenu")}
           onClick={() => setOpen((v) => !v)}
           className="flex size-10 items-center justify-center rounded-full border border-line xl:hidden"
         >

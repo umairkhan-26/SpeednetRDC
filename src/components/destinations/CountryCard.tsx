@@ -1,26 +1,18 @@
+"use client";
+
 import type { Country } from "@/lib/types";
+import { useNames } from "@/i18n/use-names";
 import DestinationTile from "./DestinationTile";
 
-const regionLabels: Record<string, string> = {
-  africa: "Africa",
-  asia: "Asia",
-  caribbean: "Caribbean",
-  europe: "Europe",
-  global: "Global",
-  "latin-america": "Latin America",
-  "middle-east": "Middle East",
-  oceania: "Oceania",
-  "north-america": "North America",
-};
-
 export default function CountryCard({ country }: { country: Country }) {
+  const names = useNames();
   return (
     <DestinationTile
       href={`/destinations/${country.slug}`}
       imageUrl={country.heroImage}
       code={country.iso}
-      name={country.name}
-      subtitle={regionLabels[country.region]}
+      name={names.country(country)}
+      subtitle={names.region(country.region)}
       fromPrice={country.fromPrice}
       speed={country.speed}
     />

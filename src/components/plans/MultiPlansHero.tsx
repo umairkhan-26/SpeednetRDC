@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { CalendarDays, Globe2, Radio, SignalHigh, Wifi } from "lucide-react";
 import type { Plan } from "@/lib/types";
 import PlanCard from "./PlanCard";
@@ -21,6 +24,7 @@ export default function MultiPlansHero({
   networks: string[];
   speed?: string;
 }) {
+  const t = useTranslations("coverage");
   const statIcons = [Globe2, SignalHigh, Wifi, CalendarDays];
 
   return (
@@ -48,7 +52,7 @@ export default function MultiPlansHero({
       </section>
 
       <section className="container-page py-16">
-        <h2 className="text-2xl font-bold text-ink">Data options</h2>
+        <h2 className="text-2xl font-bold text-ink">{t("dataOptions")}</h2>
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {plans.map((plan) => (
             <PlanCard key={plan.id} plan={plan} />
@@ -58,16 +62,16 @@ export default function MultiPlansHero({
 
       <section className="bg-white py-16">
         <div className="container-page">
-          <h2 className="text-2xl font-bold text-ink">Coverage & networks</h2>
+          <h2 className="text-2xl font-bold text-ink">{t("title")}</h2>
           <div className="mt-6 grid gap-5 lg:grid-cols-[2fr_1fr]">
             <div className="rounded-2xl border border-line bg-cream p-5">
-              <p className="text-sm font-semibold text-ink">Countries covered ({countriesIncluded.length})</p>
+              <p className="text-sm font-semibold text-ink">{t("countriesCovered", { count: countriesIncluded.length })}</p>
               <p className="mt-3 text-sm leading-relaxed text-muted">{countriesIncluded.join(", ")}</p>
             </div>
             <div className="space-y-4">
               <div className="rounded-2xl border border-line bg-cream p-5">
                 <p className="flex items-center gap-1.5 text-sm font-semibold text-ink">
-                  <Radio className="size-4" /> Available networks
+                  <Radio className="size-4" /> {t("availableNetworks")}
                 </p>
                 <ul className="mt-3 space-y-1.5 text-sm text-muted">
                   {networks.map((n) => (
@@ -76,7 +80,7 @@ export default function MultiPlansHero({
                 </ul>
               </div>
               <div className="flex items-center justify-between rounded-2xl border border-line bg-cream p-5">
-                <p className="text-sm font-semibold text-ink">Speed</p>
+                <p className="text-sm font-semibold text-ink">{t("speed")}</p>
                 <span className="inline-flex items-center gap-1 rounded-full bg-amber-400 px-3 py-1 text-xs font-bold text-ink">
                   <Wifi className="size-3.5" /> {speed}
                 </span>

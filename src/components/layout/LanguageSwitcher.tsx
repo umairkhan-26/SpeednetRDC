@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing, LOCALE_LABELS, type AppLocale } from "@/i18n/routing";
@@ -9,6 +9,7 @@ import { clsx } from "clsx";
 
 export default function LanguageSwitcher({ theme = "light" }: { theme?: "light" | "dark" }) {
   const locale = useLocale();
+  const t = useTranslations("nav");
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
@@ -31,7 +32,7 @@ export default function LanguageSwitcher({ theme = "light" }: { theme?: "light" 
       )}
     >
       <Globe className="size-4 shrink-0" />
-      <span className="sr-only">Language</span>
+      <span className="sr-only">{t("language")}</span>
       <select
         value={locale}
         onChange={(e) => handleChange(e.target.value)}

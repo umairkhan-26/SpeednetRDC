@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Clock, CreditCard, Mail, MapPin, Package, Smartphone, Truck } from "lucide-react";
-import { formatPrice } from "@/lib/format";
+import { useNames } from "@/i18n/use-names";
 import { CONTACT_EMAIL, SHIPPING_PRICE_EUR, SIM_CARD_PRICE_EUR } from "@/components/physical-sim/facts";
 
 const STEPS = [
@@ -15,6 +15,7 @@ const FAQ = ["what", "phones", "price", "shipping", "when"] as const;
 
 export default function PhysicalSimView() {
   const t = useTranslations("physicalSim");
+  const names = useNames();
   const prices = { sim: SIM_CARD_PRICE_EUR, shipping: SHIPPING_PRICE_EUR };
   const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t("contactSubject"))}`;
   const faqValues: Record<(typeof FAQ)[number], Record<string, string | number>> = {
@@ -84,16 +85,16 @@ export default function PhysicalSimView() {
           <dl className="mt-3 space-y-2 text-sm">
             <div className="flex items-center justify-between">
               <dt className="text-muted">{t("simLine")}</dt>
-              <dd className="font-medium text-ink">{formatPrice(SIM_CARD_PRICE_EUR)}</dd>
+              <dd className="font-medium text-ink">{names.price(SIM_CARD_PRICE_EUR)}</dd>
             </div>
             <div className="flex items-center justify-between">
               <dt className="text-muted">{t("shippingLine")}</dt>
-              <dd className="font-medium text-ink">{formatPrice(SHIPPING_PRICE_EUR)}</dd>
+              <dd className="font-medium text-ink">{names.price(SHIPPING_PRICE_EUR)}</dd>
             </div>
           </dl>
           <div className="mt-3 flex items-center justify-between border-t border-line pt-3">
             <span className="font-semibold text-ink">{t("total")}</span>
-            <span className="text-2xl font-bold text-orange">{formatPrice(SIM_CARD_PRICE_EUR + SHIPPING_PRICE_EUR)}</span>
+            <span className="text-2xl font-bold text-orange">{names.price(SIM_CARD_PRICE_EUR + SHIPPING_PRICE_EUR)}</span>
           </div>
           <p className="mt-1 text-xs text-muted">{t("taxNote")}</p>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useCheckoutStore } from "@/lib/store/checkout-store";
 import StepIndicator from "@/components/checkout/StepIndicator";
@@ -11,16 +12,15 @@ import { calculateOrderTotals } from "@/lib/pricing";
 import { LinkButton } from "@/components/ui/Button";
 
 export default function CheckoutClient() {
+  const t = useTranslations("checkout");
   const { plan, step, fullName, email, setStep, setAccountDetails } = useCheckoutStore();
 
   if (!plan) {
     return (
       <div className="container-page flex flex-col items-center gap-4 py-24 text-center">
-        <h1 className="text-2xl font-bold text-ink">No plan selected yet</h1>
-        <p className="max-w-sm text-muted">
-          Pick an eSIM plan first, then come back here to check out.
-        </p>
-        <LinkButton href="/esim-store">Browse eSIM Plans</LinkButton>
+        <h1 className="text-2xl font-bold text-ink">{t("noPlanTitle")}</h1>
+        <p className="max-w-sm text-muted">{t("noPlanText")}</p>
+        <LinkButton href="/esim-store">{t("browsePlans")}</LinkButton>
       </div>
     );
   }
@@ -64,7 +64,10 @@ export default function CheckoutClient() {
       </div>
 
       <p className="mt-8 text-center text-xs text-muted">
-        Having trouble? <Link href="/help" className="font-semibold text-orange hover:underline">Get help</Link>
+        {t("trouble")}{" "}
+        <Link href="/help" className="font-semibold text-orange hover:underline">
+          {t("getHelp")}
+        </Link>
       </p>
     </div>
   );

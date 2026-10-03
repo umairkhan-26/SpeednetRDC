@@ -1,9 +1,11 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { CalendarDays, Database, Globe, SignalHigh, Zap } from "lucide-react";
 import type { Plan } from "@/lib/types";
-import { formatData, formatPrice, formatValidity } from "@/lib/format";
 import { getCountryBySlug } from "@/data/countries";
-import { getRegionBySlug } from "@/data/regions";
+import { useNames } from "@/i18n/use-names";
 
 const regionCodes: Record<string, string> = {
   africa: "AF",
@@ -17,11 +19,6 @@ const regionCodes: Record<string, string> = {
   "north-america": "NA",
 };
 
-const BADGE_COPY: Record<NonNullable<Plan["badge"]>, string> = {
-  "price-drop": "Price Drop",
-  new: "New",
-};
-
 function planHref(plan: Plan) {
   if (plan.scope === "country") return `/destinations/${plan.countrySlug}/plans/${plan.id}`;
   if (plan.scope === "global") return `/global-plans/${plan.id}`;
@@ -29,10 +26,10 @@ function planHref(plan: Plan) {
 }
 
 export default function PlanCard({ plan }: { plan: Plan }) {
+  const t = useTranslations("planCard");
+  const names = useNames();
   const country = plan.countrySlug ? getCountryBySlug(plan.countrySlug) : undefined;
-  const region = plan.scope === "regional" && plan.regionSlug ? getRegionBySlug(plan.regionSlug) : undefined;
-  const label =
-    country?.name ?? region?.name ?? (plan.globalTier === "premium" ? "Global Plus" : "Global");
+  const label = names.planArea(plan);
   const code = country?.iso ?? (plan.regionSlug ? regionCodes[plan.regionSlug] : undefined);
 
   return (
@@ -42,14 +39,14 @@ export default function PlanCard({ plan }: { plan: Plan }) {
     >
       {plan.bestValue && (
         <span className="absolute -top-2.5 left-5 rounded-full bg-orange px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow">
-          Best value
+          {t("bestValue")}
         </span>
       )}
       {plan.badge && (
         <span
           className={`absolute -top-2.5 right-5 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow ${plan.badge === "new" ? "bg-emerald-600" : "bg-sky-600"}`}
         >
-          {BADGE_COPY[plan.badge]}
+          {plan.badge === "new" ? t("badgeNew") : t("badgePriceDrop")}
         </span>
       )}
 
@@ -81,25 +78,25 @@ export default function PlanCard({ plan }: { plan: Plan }) {
       <div className="grid grid-cols-2 gap-2">
         <div className="rounded-lg bg-cream p-2.5">
           <p className="flex items-center gap-1 text-[10px] text-muted">
-            <Database className="size-3" /> Data
+            <Database className="size-3" /> {t("data")}
           </p>
-          <p className="text-sm font-bold text-ink">{formatData(plan.dataAmountGb)}</p>
+          <p className="text-sm font-bold text-ink">{names.data(plan.dataAmountGb)}</p>
         </div>
         <div className="rounded-lg bg-cream p-2.5">
           <p className="flex items-center gap-1 text-[10px] text-muted">
-            <CalendarDays className="size-3" /> Validity
+            <CalendarDays className="size-3" /> {t("validity")}
           </p>
-          <p className="text-sm font-bold text-ink">{formatValidity(plan.validityDays)}</p>
+          <p className="text-sm font-bold text-ink">{names.validity(plan.validityDays)}</p>
         </div>
       </div>
 
       <div className="flex items-center justify-between border-t border-line pt-4">
         <div>
-          <p className="text-xs text-muted">From</p>
-          <p className="text-lg font-bold text-orange">{formatPrice(plan.price)}</p>
+          <p className="text-xs text-muted">{t("from")}</p>
+          <p className="text-lg font-bold text-orange">{names.price(plan.price)}</p>
         </div>
         <span className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white transition-colors group-hover:bg-orange">
-          View Plan
+          {t("viewPlan")}
         </span>
       </div>
     </Link>

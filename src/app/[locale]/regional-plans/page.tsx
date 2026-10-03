@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { regions } from "@/data/regions";
-import { formatPrice } from "@/lib/format";
 import Flag from "@/components/ui/Flag";
 import { Globe } from "lucide-react";
+import { getNames } from "@/i18n/get-names";
+import { pageMetadata } from "@/i18n/metadata";
 
-export const metadata: Metadata = { title: "Regional Plans — SpeedNetRDC" };
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return pageMetadata(locale, "regionalPlans");
+}
 
 const regionIcons: Record<string, string> = {
   africa: "🌍",
@@ -18,14 +23,16 @@ const regionIcons: Record<string, string> = {
   "north-america": "🗽",
 };
 
-export default function RegionalPlansPage() {
+export default async function RegionalPlansPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "regionalPlans" });
+  const names = await getNames(locale);
+
   return (
     <div className="container-page py-14">
       <div className="max-w-2xl">
-        <h1 className="text-3xl font-bold text-ink sm:text-4xl">One eSIM for your whole trip</h1>
-        <p className="mt-3 text-muted">
-          Crossing multiple borders in a region? One plan covers every country in it.
-        </p>
+        <h1 className="text-3xl font-bold text-ink sm:text-4xl">{t("title")}</h1>
+        <p className="mt-3 text-muted">{t("subtitle")}</p>
       </div>
 
       <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -43,9 +50,9 @@ export default function RegionalPlansPage() {
               </span>
             )}
             <div>
-              <p className="font-semibold text-ink">{region.name}</p>
-              <p className="text-sm text-muted">{region.countryCount} countries</p>
-              <p className="mt-1 text-sm font-semibold text-orange">from {formatPrice(region.fromPrice)}</p>
+              <p className="font-semibold text-ink">{names.region(region.slug, region.name)}</p>
+              <p className="text-sm text-muted">{t("countries", { count: region.countryCount })}</p>
+              <p className="mt-1 text-sm font-semibold text-orange">{t("from", { price: names.price(region.fromPrice) })}</p>
             </div>
           </Link>
         ))}

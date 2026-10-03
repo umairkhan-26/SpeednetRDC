@@ -33,10 +33,14 @@ function planRegion(plan: Plan): RegionSlug | undefined {
   return undefined;
 }
 
-function planMatchesDestination(plan: Plan, query: string): boolean {
+/** Searches also match names in the visitor's language (e.g. "Espanha" on /pt). */
+export type LocalizedPlanNames = (plan: Plan) => string[];
+
+function planMatchesDestination(plan: Plan, query: string, localizedNames?: LocalizedPlanNames): boolean {
   const q = query.trim().toLowerCase();
   if (!q) return true;
   if (plan.name.toLowerCase().includes(q)) return true;
+  if (localizedNames?.(plan).some((name) => name.toLowerCase().includes(q))) return true;
   const country = plan.countrySlug ? getCountryBySlug(plan.countrySlug) : undefined;
   if (country?.name.toLowerCase().includes(q)) return true;
   if (q === "global" && plan.scope === "global") return true;
@@ -49,9 +53,9 @@ function dataValueGb(amount: Plan["dataAmountGb"]): number {
   return amount === "unlimited" ? Number.POSITIVE_INFINITY : amount;
 }
 
-export function filterAndSortPlans(plans: Plan[], filters: PlanFilters): Plan[] {
+export function filterAndSortPlans(plans: Plan[], filters: PlanFilters, localizedNames?: LocalizedPlanNames): Plan[] {
   let result = plans.filter((plan) => {
-    if (!planMatchesDestination(plan, filters.destination)) return false;
+    if (!planMatchesDestination(plan, filters.destination, localizedNames)) return false;
     if (filters.region !== "all" && planRegion(plan) !== filters.region) return false;
     if (filters.network !== "all" && plan.network !== filters.network) return false;
     if (filters.unlimitedOnly && plan.dataAmountGb !== "unlimited") return false;

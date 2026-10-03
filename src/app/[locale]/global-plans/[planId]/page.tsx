@@ -2,35 +2,41 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Globe } from "lucide-react";
 import { getPlanById } from "@/data/plans";
-import { formatData, formatValidity } from "@/lib/format";
+import { getTranslations } from "next-intl/server";
+import { getNames } from "@/i18n/get-names";
+import { pageMetadata } from "@/i18n/metadata";
 import PlanDetailView from "@/components/plans/PlanDetailView";
 import { isEsimCheckoutEnabled } from "@/lib/checkout/availability";
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ planId: string }>;
+  params: Promise<{ planId: string; locale: string }>;
 }): Promise<Metadata> {
-  const { planId } = await params;
+  const { planId, locale } = await params;
   const plan = getPlanById(planId);
-  return { title: plan ? `${plan.name} — SpeedNetRDC` : "Plan — SpeedNetRDC" };
+  if (!plan) return pageMetadata(locale, "planFallback");
+  const names = await getNames(locale);
+  return { title: `${names.planName(plan)} — SpeedNetRDC` };
 }
 
 export default async function GlobalPlanDetailPage({
   params,
 }: {
-  params: Promise<{ planId: string }>;
+  params: Promise<{ planId: string; locale: string }>;
 }) {
-  const { planId } = await params;
+  const { planId, locale } = await params;
   const plan = getPlanById(planId);
   if (!plan || plan.scope !== "global") notFound();
+  const t = await getTranslations({ locale, namespace: "planDetail" });
+  const names = await getNames(locale);
 
   return (
     <PlanDetailView
       plan={plan}
       salesPaused={!isEsimCheckoutEnabled()}
-      title={plan.globalTier === "premium" ? "Global Plus eSIM" : "Global eSIM"}
-      subtitle={`${formatData(plan.dataAmountGb)} · ${formatValidity(plan.validityDays)}`}
+      title={t("title", { area: names.planArea(plan) })}
+      subtitle={`${names.data(plan.dataAmountGb)} · ${names.validity(plan.validityDays)}`}
       iconSlot={
         <span className="flex h-10 w-[3.75rem] shrink-0 items-center justify-center rounded-md bg-orange/10 text-orange">
           <Globe className="size-6" />

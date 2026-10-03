@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { LinkButton } from "@/components/ui/Button";
@@ -20,14 +21,15 @@ type ViewState =
   | { kind: "stillPreparing"; token: string | null }
   | { kind: "paymentFailed" }
   | { kind: "timeout" }
-  | { kind: "error"; message: string };
+  | { kind: "error"; missingSession: boolean };
 
 export default function SuccessClient() {
+  const t = useTranslations("checkout.success");
   const router = useRouter();
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const [pollState, setState] = useState<ViewState>({ kind: "confirming" });
-  const state: ViewState = sessionId ? pollState : { kind: "error", message: "Missing checkout session." };
+  const state: ViewState = sessionId ? pollState : { kind: "error", missingSession: true };
 
   useEffect(() => {
     if (!sessionId) return;
@@ -54,9 +56,9 @@ export default function SuccessClient() {
           return setState({ kind: "timeout" });
         }
         setTimeout(poll, POLL_INTERVAL_MS);
-      } catch (err) {
+      } catch {
         if (cancelled) return;
-        setState({ kind: "error", message: err instanceof Error ? err.message : "Something went wrong." });
+        setState({ kind: "error", missingSession: false });
       }
     }
 
@@ -72,30 +74,27 @@ export default function SuccessClient() {
         <>
           <Loader2 className="size-10 animate-spin text-orange" />
           <h1 className="text-2xl font-bold text-ink">
-            {state.kind === "confirming" ? "Confirming your payment…" : "Payment received — setting up your eSIM…"}
+            {state.kind === "confirming" ? t("confirming") : t("settingUp")}
           </h1>
-          <p className="max-w-sm text-muted">This usually takes a few seconds. Don&apos;t close this page.</p>
+          <p className="max-w-sm text-muted">{t("fewSeconds")}</p>
         </>
       )}
 
       {(state.kind === "provisioningFailed" || state.kind === "stillPreparing") && (
         <>
           <h1 className="text-2xl font-bold text-ink">
-            {state.kind === "provisioningFailed" ? "Payment received — your eSIM needs a moment" : "Payment received — still preparing your eSIM"}
+            {state.kind === "provisioningFailed" ? t("needsMomentTitle") : t("stillPreparingTitle")}
           </h1>
           <p className="max-w-md text-muted">
-            {state.kind === "provisioningFailed"
-              ? "We hit a snag setting up your eSIM automatically. It's been flagged for our team, who will finish setting it up for you."
-              : "This is taking longer than usual."}{" "}
-            Your eSIM and QR code will appear on your private order page. Bookmark it — anyone with the link can see your eSIM.
+            {state.kind === "provisioningFailed" ? t("needsMomentText") : t("stillPreparingText")} {t("orderPageNote")}
           </p>
           {state.token && (
             <LinkButton href={`/order/${state.token}`} size="lg">
-              Open my order page
+              {t("openOrderPage")}
             </LinkButton>
           )}
           <Link href="/help" className="text-sm font-semibold text-orange hover:underline">
-            Get help
+            {t("getHelp")}
           </Link>
         </>
       )}
@@ -103,20 +102,20 @@ export default function SuccessClient() {
       {(state.kind === "paymentFailed" || state.kind === "timeout" || state.kind === "error") && (
         <>
           <h1 className="text-2xl font-bold text-ink">
-            {state.kind === "paymentFailed" ? "Payment didn't go through" : "We couldn't confirm your payment yet"}
+            {state.kind === "paymentFailed" ? t("paymentFailedTitle") : t("notConfirmedTitle")}
           </h1>
           <p className="max-w-sm text-muted">
-            {state.kind === "paymentFailed"
-              ? "Your card wasn't charged. You can try again or use a different payment method."
-              : "This can happen if confirmation is taking longer than usual. If you were charged, contact support and we'll sort it out."}
+            {state.kind === "paymentFailed" ? t("paymentFailedText") : t("notConfirmedText")}
           </p>
-          {state.kind === "error" && <p className="text-xs text-muted">{state.message}</p>}
+          {state.kind === "error" && (
+            <p className="text-xs text-muted">{state.missingSession ? t("missingSession") : t("somethingWrong")}</p>
+          )}
           <div className="mt-2 flex gap-3">
             <LinkButton href="/esim-store" size="lg">
-              Back to plans
+              {t("backToPlans")}
             </LinkButton>
             <Link href="/help" className="inline-flex items-center px-4 text-sm font-semibold text-orange hover:underline">
-              Get help
+              {t("getHelp")}
             </Link>
           </div>
         </>

@@ -2,14 +2,18 @@
 
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { plans } from "@/data/plans";
 import { defaultFilters, filterAndSortPlans, type PlanFilters } from "@/lib/filter-plans";
 import FilterSidebar from "@/components/plans/FilterSidebar";
 import SortControl from "@/components/plans/SortControl";
 import PlanCard from "@/components/plans/PlanCard";
+import { useNames } from "@/i18n/use-names";
 import { SearchX } from "lucide-react";
 
 export default function EsimStoreClient() {
+  const t = useTranslations("store");
+  const names = useNames();
   const searchParams = useSearchParams();
   const initialDestination = searchParams.get("destination") ?? "";
 
@@ -18,7 +22,10 @@ export default function EsimStoreClient() {
     destination: initialDestination,
   });
 
-  const allResults = useMemo(() => filterAndSortPlans(plans, filters), [filters]);
+  const allResults = useMemo(
+    () => filterAndSortPlans(plans, filters, names.localized ? (plan) => [names.planArea(plan), names.planName(plan)] : undefined),
+    [filters, names]
+  );
   const CAP = 60;
   const results = allResults.slice(0, CAP);
 
@@ -26,14 +33,12 @@ export default function EsimStoreClient() {
     <div className="container-page py-10">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-ink sm:text-4xl">
-          Plans for &ldquo;{filters.destination || "Everywhere"}&rdquo;
+          {t("title", { destination: filters.destination || t("everywhere") })}
         </h1>
-        <p className="mt-2 text-muted">
-          Filter by destination, region, data, and duration to find the right eSIM.
-        </p>
+        <p className="mt-2 text-muted">{t("subtitle")}</p>
         <p className="mt-1 text-sm font-medium text-orange">
-          {allResults.length} plans found
-          {allResults.length > CAP && ` — showing the first ${CAP}, narrow your search to see more`}
+          {t("found", { count: allResults.length })}
+          {allResults.length > CAP && t("capped", { cap: CAP })}
         </p>
       </div>
 
@@ -48,8 +53,8 @@ export default function EsimStoreClient() {
           {results.length === 0 ? (
             <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-line bg-white py-20 text-center">
               <SearchX className="size-8 text-muted" />
-              <p className="font-semibold text-ink">No plans match those filters</p>
-              <p className="text-sm text-muted">Try clearing a filter or searching a different destination.</p>
+              <p className="font-semibold text-ink">{t("noResultsTitle")}</p>
+              <p className="text-sm text-muted">{t("noResultsText")}</p>
             </div>
           ) : (
             <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">

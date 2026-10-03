@@ -8,7 +8,8 @@
     "help": "Help",
     "myEsims": "My eSIMs",
     "language": "Language",
-    "physicalSim": "Physical SIM"
+    "physicalSim": "Physical SIM",
+    "toggleMenu": "Toggle menu"
   },
   "footer": {
     "tagline": "Stay Connected. Anywhere. Instant eSIM data in 190+ destinations, no roaming stress and no physical SIM.",
@@ -59,7 +60,31 @@
     "popularDestinations": {
       "eyebrow": "Popular destinations",
       "title": "Where travelers connect most",
-      "allDestinations": "All destinations"
+      "allDestinations": "All destinations",
+      "names": {
+        "australia": "Australia",
+        "canada": "Canada",
+        "europe": "Europe",
+        "global": "Global",
+        "japan": "Japan",
+        "saudi-arabia": "Saudi Arabia",
+        "thailand": "Thailand",
+        "turkey": "Turkey",
+        "uae": "UAE",
+        "united-kingdom": "United Kingdom"
+      },
+      "subtitles": {
+        "australia": "Oceania",
+        "canada": "North America",
+        "europe": "22+ countries",
+        "global": "81+ countries",
+        "japan": "Asia",
+        "saudi-arabia": "Middle East",
+        "thailand": "Asia",
+        "turkey": "Europe",
+        "uae": "Middle East",
+        "united-kingdom": "Europe"
+      }
     },
     "regionalStrip": {
       "eyebrow": "Multi-country coverage",
@@ -106,7 +131,10 @@
     "caribbean": "Caribbean",
     "europe": "Europe",
     "middle-east": "Middle East",
-    "global": "Global"
+    "global": "Global",
+    "latin-america": "Latin America",
+    "oceania": "Oceania",
+    "north-america": "North America"
   },
   "account": {
     "title": "My eSIMs",
@@ -174,5 +202,573 @@
       "whenQ": "When can I order it?",
       "whenA": "Soon. Email us at {email} and we'll tell you as soon as you can order."
     }
+  },
+  "meta": {
+    "siteTitle": "SpeedNetRDC — Instant eSIM Data, Anywhere",
+    "siteDescription": "Stay connected in 190+ destinations with instant eSIM data. No roaming stress, no physical SIM.",
+    "store": "eSIM Store",
+    "destinations": "Destinations",
+    "destination": "{country} eSIM",
+    "destinationFallback": "Destination",
+    "regionalPlans": "Regional Plans",
+    "regionPlans": "{region} Plans",
+    "planFallback": "Plan",
+    "globalPlans": "Global Plans",
+    "help": "Help Center",
+    "howItWorks": "How It Works",
+    "deviceCompatibility": "Device Compatibility",
+    "checkout": "Checkout",
+    "checkoutSuccess": "Order confirmed",
+    "checkoutCancelled": "Checkout cancelled",
+    "order": "Your eSIM",
+    "account": "My eSIMs",
+    "physicalSim": "Physical SIM card"
+  },
+  "format": {
+    "unlimited": "Unlimited",
+    "days": "{count, plural, one {# Day} other {# Days}}",
+    "global": "Global",
+    "globalPlus": "Global Plus",
+    "planName": "{area} {data} / {validity}"
+  },
+  "planCard": {
+    "bestValue": "Best value",
+    "badgePriceDrop": "Price Drop",
+    "badgeNew": "New",
+    "data": "Data",
+    "validity": "Validity",
+    "from": "From",
+    "viewPlan": "View Plan"
+  },
+  "store": {
+    "title": "Plans for “{destination}”",
+    "everywhere": "Everywhere",
+    "subtitle": "Filter by destination, region, data, and duration to find the right eSIM.",
+    "found": "{count, plural, one {# plan found} other {# plans found}}",
+    "capped": " — showing the first {cap}, narrow your search to see more",
+    "noResultsTitle": "No plans match those filters",
+    "noResultsText": "Try clearing a filter or searching a different destination."
+  },
+  "sort": {
+    "sortBy": "Sort by",
+    "recommended": "Recommended",
+    "price": "Lowest price",
+    "data": "Most data",
+    "validity": "Longest validity",
+    "value": "Best value"
+  },
+  "filters": {
+    "destination": "Destination",
+    "destinationPlaceholder": "Search country or region",
+    "region": "Region",
+    "allRegions": "All regions",
+    "dataAmount": "Data amount",
+    "anyData": "Any data",
+    "dataMin": "{amount}GB+",
+    "duration": "Duration",
+    "anyDuration": "Any duration",
+    "days": "{count, plural, one {# day} other {# days}}",
+    "maxPrice": "Max price",
+    "anyPrice": "Any price",
+    "under": "Under {price}",
+    "network": "Network",
+    "allNetworks": "All networks",
+    "unlimitedOnly": "Unlimited data only",
+    "fiveG": "5G available"
+  },
+  "destinations": {
+    "title": "Every country, one tap away",
+    "subtitle": "Browse eSIM data plans in 190+ destinations, grouped by region.",
+    "filterPlaceholder": "Filter countries...",
+    "noMatch": "No countries match “{query}”."
+  },
+  "destinationTile": {
+    "from": "from"
+  },
+  "installSteps": {
+    "openSettings": "Open your phone settings",
+    "selectMobile": "Select Mobile / Cellular",
+    "addEsim": "Add eSIM",
+    "scanQr": "Scan the SpeedNetRDC QR code",
+    "enableData": "Enable SpeedNetRDC for mobile data"
+  },
+  "destination": {
+    "title": "{country} eSIM",
+    "oneCountry": "1 country covered",
+    "networks": "{count, plural, one {# network} other {# networks}}",
+    "plansEyebrow": "Plans",
+    "plansTitle": "Choose your plan",
+    "setupEyebrow": "Setup",
+    "installTitle": "Installation in five steps",
+    "deviceEyebrow": "Device check",
+    "deviceTitle": "Is your phone compatible?",
+    "needDifferent": "Need a different country?",
+    "browseAll": "Browse all destinations"
+  },
+  "coverage": {
+    "eyebrow": "Coverage",
+    "title": "Coverage & networks",
+    "countriesCovered": "Countries covered ({count})",
+    "availableNetworks": "Available networks",
+    "speed": "Speed",
+    "dataOptions": "Data options"
+  },
+  "taglines": {
+    "default": "Instant eSIM data for {country}.",
+    "custom": {
+      "argentina": "Buenos Aires to Patagonia.",
+      "australia": "Sydney to the Outback, fully covered.",
+      "bahamas": "Island-hop without losing signal.",
+      "brazil": "Rio to the Amazon, dependable data.",
+      "canada": "From Vancouver to Toronto, always connected.",
+      "colombia": "Bogotá to Cartagena, seamless.",
+      "dominican-republic": "Resort to city, always connected.",
+      "egypt": "Cairo to the Red Sea, stay connected.",
+      "fiji": "Island resorts, reliable data.",
+      "france": "From the Eiffel Tower to the Riviera, stay online everywhere.",
+      "germany": "Fast, reliable data across all 16 states.",
+      "indonesia": "From Bali beaches to Jakarta traffic.",
+      "israel": "Coast to desert, stay in touch.",
+      "italy": "Data that keeps up with your Italian getaway.",
+      "japan": "Blazing-fast 5G from Tokyo to Kyoto.",
+      "kenya": "Nairobi and safari country, covered.",
+      "mexico": "Beach towns to Mexico City, always on.",
+      "morocco": "Marrakech markets to the Sahara.",
+      "new-zealand": "North to South Island, always on.",
+      "qatar": "Doha's skyline, your data included.",
+      "saudi-arabia": "Riyadh to Jeddah, dependable coverage.",
+      "singapore": "City-wide 5G, zero dead zones.",
+      "south-africa": "Cape Town to Kruger, always reachable.",
+      "south-korea": "Some of the fastest networks on Earth.",
+      "spain": "Coast to city, seamless coverage across Spain.",
+      "thailand": "Bangkok streets to island beaches, always on.",
+      "turkey": "Istanbul to the coast, never lose signal.",
+      "uae": "Dubai and Abu Dhabi, fully connected.",
+      "united-kingdom": "London to the Highlands, always connected.",
+      "united-states": "Coast to coast, no roaming surprises.",
+      "vietnam": "Reliable data the length of the coast."
+    }
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Frequently asked questions",
+    "destination": [
+      {
+        "question": "What is an eSIM?",
+        "answer": "An eSIM is a digital SIM built into your phone. Instead of swapping a physical card, you install a plan by scanning a QR code or tapping a link — no store visit, no waiting."
+      },
+      {
+        "question": "When should I install my eSIM?",
+        "answer": "You can install it any time after purchase, but we recommend installing before you travel while you still have Wi-Fi. The plan only activates once you connect to a supported network at your destination."
+      },
+      {
+        "question": "Can I keep my regular number?",
+        "answer": "Yes. Your eSIM adds a second, data-only line alongside your existing SIM, so you keep receiving calls and texts on your regular number."
+      },
+      {
+        "question": "Does my plan include hotspot?",
+        "answer": "Most SpeedNetRDC plans support personal hotspot / tethering at no extra cost. Check the \"Hotspot\" field on the plan details page to confirm for your specific plan."
+      },
+      {
+        "question": "What if I run out of data?",
+        "answer": "You can top up in a few taps from My SpeedNetRDC → your active eSIM → Top Up Data, without reinstalling anything."
+      }
+    ],
+    "help": [
+      {
+        "question": "How long does eSIM delivery take?",
+        "answer": "Instantly. Your QR code and activation details are ready in your account and inbox as soon as payment completes."
+      },
+      {
+        "question": "What happens if my phone isn't eSIM compatible?",
+        "answer": "Run the Device Compatibility Checker before you buy. If your phone can't take an eSIM, we'll flag it before checkout so you're never charged for a plan you can't use."
+      },
+      {
+        "question": "Can I get a refund?",
+        "answer": "Unused eSIMs can be refunded within 30 days of purchase, as long as the eSIM hasn't been installed on a device."
+      },
+      {
+        "question": "Which payment methods do you accept?",
+        "answer": "Credit and debit cards, Apple Pay, Google Pay, and PayPal."
+      },
+      {
+        "question": "How do I contact a human?",
+        "answer": "Use the live chat bubble in the bottom-right corner for the fastest response, or email contact@speednetrdc.com — we reply within 24 hours."
+      }
+    ]
+  },
+  "regionalPlans": {
+    "title": "One eSIM for your whole trip",
+    "subtitle": "Crossing multiple borders in a region? One plan covers every country in it.",
+    "countries": "{count, plural, one {# country} other {# countries}}",
+    "from": "from {price}"
+  },
+  "regionPage": {
+    "eyebrow": "{region} eSIM",
+    "titleStart": "One eSIM.",
+    "titleEnd": "All of {region}.",
+    "subtitle": "A single plan that works across {count} countries in {region} — no swapping SIMs between borders.",
+    "statCountries": "Countries covered",
+    "statNetwork": "Network",
+    "statSpeed": "Speed",
+    "statValidity": "Validity",
+    "validityRange": "3–30 days"
+  },
+  "globalPlans": {
+    "budget": {
+      "label": "Global",
+      "eyebrow": "Global eSIM",
+      "titleStart": "One eSIM.",
+      "titleEnd": "The World Is Yours.",
+      "subtitle": "Our everyday global plan — broad coverage at the lowest price per GB."
+    },
+    "premium": {
+      "label": "Global Plus",
+      "eyebrow": "Global Plus eSIM",
+      "titleStart": "Global Plus.",
+      "titleEnd": "Wider Coverage, Faster Networks.",
+      "subtitle": "Our premium global tier — broader carrier coverage for travelers who need it everywhere."
+    },
+    "statCountries": "Countries covered",
+    "statNetwork": "Network",
+    "statSpeed": "Speed",
+    "statPlans": "Plans"
+  },
+  "planDetail": {
+    "title": "{area} eSIM",
+    "dataAllowance": "Data allowance",
+    "validity": "Validity",
+    "network": "Network",
+    "speed": "Speed",
+    "hotspot": "Hotspot",
+    "supported": "Supported",
+    "notSupported": "Not supported",
+    "activationPolicy": "Activation policy",
+    "activationPolicyValue": "Activates automatically on first connection to a supported network",
+    "supportedDevices": "Supported devices",
+    "supportedDevicesValue": "eSIM-capable, unlocked phones",
+    "refunds": "Refunds",
+    "refundsValue": "30 days if not installed",
+    "totalPrice": "Total price",
+    "buy": "Buy This eSIM",
+    "checkDevice": "Check Device Compatibility",
+    "instantSecure": "Instant delivery · Secure checkout"
+  },
+  "salesPaused": {
+    "title": "eSIM orders are temporarily unavailable",
+    "notice": "We're making a few improvements and will be back soon.",
+    "page": "We're making a few improvements behind the scenes and will be back soon. In the meantime you can still browse plans and check whether your phone supports eSIM.",
+    "browsePlans": "Browse plans",
+    "checkPhone": "Check my phone",
+    "questions": "Questions?",
+    "getHelp": "Get help"
+  },
+  "checkout": {
+    "noPlanTitle": "No plan selected yet",
+    "noPlanText": "Pick an eSIM plan first, then come back here to check out.",
+    "browsePlans": "Browse eSIM Plans",
+    "trouble": "Having trouble?",
+    "getHelp": "Get help",
+    "steps": {
+      "plan": "Plan",
+      "account": "Account",
+      "payment": "Payment",
+      "confirmation": "Confirmation"
+    },
+    "planStep": {
+      "title": "Confirm your plan",
+      "subtitle": "Double-check the details before you continue.",
+      "changePlan": "Not the right plan? Change plan",
+      "continue": "Continue"
+    },
+    "accountStep": {
+      "title": "Your account",
+      "subtitle": "We'll send your eSIM and receipt to this email.",
+      "fullName": "Full name",
+      "namePlaceholder": "Alex Johnson",
+      "nameError": "Enter your full name.",
+      "email": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "emailError": "Enter a valid email address.",
+      "back": "Back",
+      "continue": "Continue to payment"
+    },
+    "paymentStep": {
+      "title": "Payment",
+      "intro": "You'll enter your card details on Stripe's secure checkout page — we never see or store your card number.",
+      "methods": "Card, Apple Pay, Google Pay, and other methods enabled on our account will be offered on the next screen. Payment is processed by Stripe; nothing is charged until you confirm there.",
+      "consent": "I want my eSIM delivered immediately after payment, and I understand that I lose my 14-day right of withdrawal once it has been delivered.",
+      "legal": "By continuing you agree to our <terms>Terms & Conditions</terms> and <refunds>Refund Policy</refunds>. Read how we use your data in our <privacy>Privacy Policy</privacy>.",
+      "back": "Back",
+      "pay": "Continue to secure payment · {total}",
+      "errorPaused": "eSIM orders are temporarily unavailable. We'll be back soon — please try again later.",
+      "errorDetails": "Enter a valid name and email address",
+      "errorPlan": "Unknown plan",
+      "errorConsent": "Please tick the box to confirm immediate delivery of your eSIM.",
+      "errorGeneric": "Could not start checkout. Please try again."
+    },
+    "summary": {
+      "title": "Order summary",
+      "destination": "Destination",
+      "plan": "Plan",
+      "validity": "Validity",
+      "data": "Data",
+      "price": "Price",
+      "taxes": "Taxes & fees",
+      "total": "Total",
+      "footer": "Encrypted checkout · Instant delivery · 30-day refund on uninstalled eSIMs"
+    },
+    "cancelled": {
+      "title": "Checkout cancelled",
+      "text": "You weren't charged. Your cart wasn't saved, but you can pick your plan again in a couple of taps.",
+      "backToPlans": "Back to plans",
+      "getHelp": "Get help"
+    },
+    "success": {
+      "confirming": "Confirming your payment…",
+      "settingUp": "Payment received — setting up your eSIM…",
+      "fewSeconds": "This usually takes a few seconds. Don't close this page.",
+      "needsMomentTitle": "Payment received — your eSIM needs a moment",
+      "stillPreparingTitle": "Payment received — still preparing your eSIM",
+      "needsMomentText": "We hit a snag setting up your eSIM automatically. It's been flagged for our team, who will finish setting it up for you.",
+      "stillPreparingText": "This is taking longer than usual.",
+      "orderPageNote": "Your eSIM and QR code will appear on your private order page. Bookmark it — anyone with the link can see your eSIM.",
+      "openOrderPage": "Open my order page",
+      "getHelp": "Get help",
+      "paymentFailedTitle": "Payment didn't go through",
+      "notConfirmedTitle": "We couldn't confirm your payment yet",
+      "paymentFailedText": "Your card wasn't charged. You can try again or use a different payment method.",
+      "notConfirmedText": "This can happen if confirmation is taking longer than usual. If you were charged, contact support and we'll sort it out.",
+      "missingSession": "Missing checkout session.",
+      "somethingWrong": "Something went wrong.",
+      "backToPlans": "Back to plans"
+    }
+  },
+  "orderPage": {
+    "orderNumber": "Order ORD-{id}",
+    "readyTitle": "Your eSIM is ready to install",
+    "readyText": "Your plan starts the first time your phone connects to a network in a country it covers, not before.",
+    "qrAlt": "eSIM installation QR code",
+    "scanTitle": "Scan this QR code with the phone you're installing the eSIM on",
+    "iphoneSteps": "Settings › Mobile/Cellular › Add eSIM › Use QR code",
+    "androidSteps": "Settings › Network & internet › SIMs › Add eSIM (wording varies by brand)",
+    "roaming": "Turn on data roaming for this eSIM when you arrive.",
+    "wifi": "Install it while you have Wi-Fi — ideally before you travel.",
+    "manualTitle": "Can't scan? Enter it manually",
+    "smdpAddress": "SM-DP+ address",
+    "activationCode": "Activation code",
+    "keepPrivate": "Keep this page private: anyone with this link or QR code can install your eSIM, and it can only be installed once. Bookmark it so you can come back.",
+    "failedTitle": "Your eSIM needs a little more time",
+    "settingUpTitle": "We're setting up your eSIM",
+    "failedText": "Your payment went through, but we hit a snag setting up your eSIM automatically. It's been flagged for our team, who will finish it and contact you at {email} if needed.",
+    "settingUpText": "Your payment went through. This usually takes less than a minute — refresh this page shortly.",
+    "qrWillAppear": "Your QR code will appear here once it's ready, so bookmark this page.",
+    "yourEmail": "your email",
+    "questions": "Questions?",
+    "getHelp": "Get help"
+  },
+  "help": {
+    "title": "How can we help?",
+    "subtitle": "Find quick answers or reach a real person — we are online 24/7 across every time zone.",
+    "categories": {
+      "installation": {
+        "title": "Installation help",
+        "description": "Step-by-step QR and manual setup."
+      },
+      "compatibility": {
+        "title": "Device compatibility",
+        "description": "Check if your phone supports eSIM."
+      },
+      "payment": {
+        "title": "Payment help",
+        "description": "Cards, wallets, receipts and refunds."
+      },
+      "activation": {
+        "title": "eSIM activation",
+        "description": "Turning your plan on when you land."
+      }
+    },
+    "liveChat": "Live chat",
+    "liveChatText": "Average reply under 2 minutes.",
+    "startChat": "Start chat",
+    "emailSupport": "Email support",
+    "emailSupportText": "We answer every message within 24 hours."
+  },
+  "howItWorks": {
+    "title": "From search to <accent>connected</accent> in minutes",
+    "subtitle": "No SIM trays, no store visits, no roaming surprises. Here's exactly how SpeedNetRDC gets you online.",
+    "explore": "Explore eSIM Plans",
+    "setupEyebrow": "Setup",
+    "setupTitle": "Installing your eSIM"
+  },
+  "deviceChecker": {
+    "pickBrand": "1 · Pick your brand",
+    "otherBrand": "Other",
+    "selectModel": "2 · Select your model",
+    "chooseModel": "Choose a model...",
+    "compatible": "eSIM compatible",
+    "mayNotSupport": "May not support eSIM",
+    "compatibleText": "Your {model} supports eSIM. Before buying, make sure it is carrier-unlocked and running the latest software, and that you have Wi-Fi to install.",
+    "unconfirmedText": "We couldn't confirm eSIM support for the {model}. Check your device settings or contact support.",
+    "models": [
+      {
+        "model": "iPhone 13 series",
+        "label": "iPhone 13 series"
+      },
+      {
+        "model": "iPhone 12 series",
+        "label": "iPhone 12 series"
+      },
+      {
+        "model": "iPhone 11 series",
+        "label": "iPhone 11 series"
+      },
+      {
+        "model": "iPhone SE (2nd gen or later)",
+        "label": "iPhone SE (2nd gen or later)"
+      },
+      {
+        "model": "iPhone SE (1st gen)",
+        "label": "iPhone SE (1st gen)"
+      },
+      {
+        "model": "iPhone X / 8 / 8 Plus or earlier",
+        "label": "iPhone X / 8 / 8 Plus or earlier"
+      },
+      {
+        "model": "Galaxy S25 series",
+        "label": "Galaxy S25 series"
+      },
+      {
+        "model": "Galaxy S24 series",
+        "label": "Galaxy S24 series"
+      },
+      {
+        "model": "Galaxy S23 series",
+        "label": "Galaxy S23 series"
+      },
+      {
+        "model": "Galaxy S22 series",
+        "label": "Galaxy S22 series"
+      },
+      {
+        "model": "Galaxy S21 series",
+        "label": "Galaxy S21 series"
+      },
+      {
+        "model": "Galaxy S20 series",
+        "label": "Galaxy S20 series",
+        "notes": "Some carrier variants ship eSIM-locked to that carrier."
+      },
+      {
+        "model": "Galaxy Z Fold / Z Flip (all generations)",
+        "label": "Galaxy Z Fold / Z Flip (all generations)"
+      },
+      {
+        "model": "Galaxy Note 20 series",
+        "label": "Galaxy Note 20 series"
+      },
+      {
+        "model": "Galaxy S10 series or earlier",
+        "label": "Galaxy S10 series or earlier"
+      },
+      {
+        "model": "Galaxy A-series (budget line)",
+        "label": "Galaxy A-series (budget line)",
+        "notes": "Most A-series phones do not include an eSIM chip."
+      },
+      {
+        "model": "Pixel 9 series",
+        "label": "Pixel 9 series"
+      },
+      {
+        "model": "Pixel 8 series",
+        "label": "Pixel 8 series"
+      },
+      {
+        "model": "Pixel 7 series",
+        "label": "Pixel 7 series"
+      },
+      {
+        "model": "Pixel 6 series",
+        "label": "Pixel 6 series"
+      },
+      {
+        "model": "Pixel 4 series",
+        "label": "Pixel 4 series"
+      },
+      {
+        "model": "Pixel 3a / 3a XL",
+        "label": "Pixel 3a / 3a XL",
+        "notes": "The 3a line shipped without an eSIM chip."
+      },
+      {
+        "model": "Xiaomi 14 / 14 Ultra",
+        "label": "Xiaomi 14 / 14 Ultra",
+        "notes": "eSIM support varies by region — confirm your unit was sold in an eSIM-enabled market."
+      },
+      {
+        "model": "Xiaomi 13 / 13 Pro",
+        "label": "Xiaomi 13 / 13 Pro",
+        "notes": "eSIM support varies by region — confirm your unit was sold in an eSIM-enabled market."
+      },
+      {
+        "model": "Redmi / Poco series",
+        "label": "Redmi / Poco series",
+        "notes": "Redmi and Poco phones do not currently ship with eSIM."
+      },
+      {
+        "model": "Other Xiaomi model",
+        "label": "Other Xiaomi model"
+      },
+      {
+        "model": "Razr / Razr+ (all generations)",
+        "label": "Razr / Razr+ (all generations)"
+      },
+      {
+        "model": "Edge 40 / 50 series",
+        "label": "Edge 40 / 50 series"
+      },
+      {
+        "model": "Moto G series",
+        "label": "Moto G series",
+        "notes": "The G line does not include an eSIM chip."
+      },
+      {
+        "model": "Other Motorola model",
+        "label": "Other Motorola model"
+      },
+      {
+        "model": "My device isn't listed",
+        "label": "My device isn't listed",
+        "notes": "We couldn't confirm eSIM support automatically — check your device settings for \"Add eSIM\" under Mobile/Cellular, or contact support."
+      }
+    ]
+  },
+  "devicePage": {
+    "title": "Will SpeedNetRDC work on my phone?",
+    "subtitle": "Pick your device below and we'll tell you instantly whether it supports eSIM.",
+    "cards": {
+      "capable": {
+        "title": "eSIM-capable phone",
+        "description": "Most phones released after 2018 support eSIM — check your model above to confirm."
+      },
+      "unlocked": {
+        "title": "Carrier-unlocked",
+        "description": "Locked phones can't install a third-party eSIM. Ask your carrier to unlock it first."
+      },
+      "wifi": {
+        "title": "Wi-Fi to install",
+        "description": "You'll need an internet connection for the roughly 2-minute setup — Wi-Fi works best."
+      }
+    }
+  },
+  "chat": {
+    "title": "SpeedNetRDC Support",
+    "replyTime": "Average reply under 2 minutes",
+    "greeting": "Hi! Need help picking a plan or installing your eSIM? Ask away.",
+    "placeholder": "Type a message...",
+    "send": "Send",
+    "open": "Open live chat"
   }
 }

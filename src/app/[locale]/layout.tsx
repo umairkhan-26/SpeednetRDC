@@ -6,7 +6,9 @@ import "../globals.css";
 import SiteChrome from "@/components/layout/SiteChrome";
 import Providers from "../providers";
 import { SITE_URL } from "@/lib/site";
-import { routing } from "@/i18n/routing";
+import { languageTag, routing } from "@/i18n/routing";
+import { getTranslations } from "next-intl/server";
+import { loadMessages } from "@/i18n/messages";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -14,9 +16,6 @@ const manrope = Manrope({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const TITLE = "SpeedNetRDC — Instant eSIM Data, Anywhere";
-const DESCRIPTION =
-  "Stay connected in 190+ destinations with instant eSIM data. No roaming stress, no physical SIM.";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -28,10 +27,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale: hasLocale(routing.locales, locale) ? locale : routing.defaultLocale, namespace: "meta" });
+  const TITLE = t("siteTitle");
+  const DESCRIPTION = t("siteDescription");
 
+  // hreflang: one entry per site language, keyed by its language tag
+  // (European Portuguese is "pt-PT").
   const languages: Record<string, string> = {};
   for (const l of routing.locales) {
-    languages[l] = `${SITE_URL}/${l}`;
+    languages[languageTag(l)] = `${SITE_URL}/${l}`;
   }
   languages["x-default"] = `${SITE_URL}/${routing.defaultLocale}`;
 
@@ -74,10 +78,10 @@ export default async function LocaleRootLayout({
   // way never reached a Server Component's headers() read). params.locale
   // is Next's own dynamic route segment resolution, independently verified
   // reliable via the <html lang> attribute.
-  const messages = (await import(`../../../messages/${locale}.json`)).default;
+  const messages = await loadMessages(locale);
 
   return (
-    <html lang={locale} className={`${manrope.variable} h-full antialiased`}>
+    <html lang={languageTag(locale)} className={`${manrope.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-cream text-ink">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>

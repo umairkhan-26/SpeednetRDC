@@ -5,9 +5,11 @@ import { Link } from "@/i18n/navigation";
 import { popularDestinations } from "@/data/popular-destinations";
 import SectionHeading from "@/components/ui/SectionHeading";
 import DestinationTile from "@/components/destinations/DestinationTile";
+import { useNames } from "@/i18n/use-names";
 
 export default function PopularDestinations() {
   const t = useTranslations("home.popularDestinations");
+  const names = useNames();
 
   return (
     <section className="container-page py-16 sm:py-20">
@@ -29,8 +31,8 @@ export default function PopularDestinations() {
             imageUrl={d.heroImage}
             code={d.iso}
             isGlobal={d.iso === "GLOBAL"}
-            name={d.name}
-            subtitle={d.subtitle}
+            name={names.localized ? t(`names.${d.slug}`) : d.name}
+            subtitle={names.localized ? t(`subtitles.${d.slug}`) : d.subtitle}
             fromPrice={d.fromPrice}
           />
         ))}

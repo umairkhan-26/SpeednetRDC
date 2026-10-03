@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { ArrowRight, Globe } from "lucide-react";
 import { getRegionBySlug } from "@/data/regions";
 import { getGlobalPlans } from "@/data/plans";
-import { formatPrice } from "@/lib/format";
+import { useNames } from "@/i18n/use-names";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Flag from "@/components/ui/Flag";
 
@@ -21,6 +21,7 @@ const FEATURED_REGIONS: { slug: string; icon: string; href: string }[] = [
 export default function RegionalStrip() {
   const t = useTranslations("home.regionalStrip");
   const tRegions = useTranslations("regions");
+  const names = useNames();
   const globalPlans = getGlobalPlans("budget");
   const globalFromPrice = Math.min(...globalPlans.map((p) => p.price));
   const globalCountryCount = globalPlans[0]?.countriesIncluded?.length ?? 0;
@@ -47,7 +48,7 @@ export default function RegionalStrip() {
             <Globe className="size-8 text-orange" />
             <p className="text-sm font-semibold text-ink">{t("global")}</p>
             <p className="text-xs text-muted">{t("countriesCount", { count: globalCountryCount })}</p>
-            <p className="text-xs font-semibold text-orange">{t("fromPrice", { price: formatPrice(globalFromPrice) })}</p>
+            <p className="text-xs font-semibold text-orange">{t("fromPrice", { price: names.price(globalFromPrice) })}</p>
           </Link>
 
           {FEATURED_REGIONS.map(({ slug, icon, href }) => {
@@ -62,7 +63,7 @@ export default function RegionalStrip() {
                 {slug === "europe" ? <Flag iso="EU" className="h-8 w-12" /> : <span className="text-3xl">{icon}</span>}
                 <p className="text-sm font-semibold text-ink">{tRegions(slug as never)}</p>
                 <p className="text-xs text-muted">{t("countriesCountPlain", { count: region.countryCount })}</p>
-                <p className="text-xs font-semibold text-orange">{t("fromPrice", { price: formatPrice(region.fromPrice) })}</p>
+                <p className="text-xs font-semibold text-orange">{t("fromPrice", { price: names.price(region.fromPrice) })}</p>
               </Link>
             );
           })}
