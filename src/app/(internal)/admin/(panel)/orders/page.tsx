@@ -2,6 +2,7 @@ import { ADMIN_ORDER_SEARCH_LIMIT, searchOrdersForAdmin } from "@/lib/checkout/o
 import { orderKind, type OrderKind } from "@/lib/checkout/order-kind";
 import { formatPrice } from "@/lib/format";
 import { DeliveryBadge, KindBadge, PaymentBadge } from "../OrderBadges";
+import ResendEmailButton from "./ResendEmailButton";
 
 const KIND_FILTERS: { value: OrderKind | "all"; label: string }[] = [
   { value: "all", label: "All orders" },
@@ -110,9 +111,19 @@ export default async function AdminOrdersPage({
                     </td>
                     <td className="px-4 py-3">
                       {order.accessToken && order.status === "completed" ? (
-                        <a href={`/en/order/${order.accessToken}`} target="_blank" rel="noreferrer" className="text-xs font-semibold text-orange hover:underline">
-                          Open
-                        </a>
+                        <div className="flex flex-col gap-1">
+                          <a href={`/en/order/${order.accessToken}`} target="_blank" rel="noreferrer" className="text-xs font-semibold text-orange hover:underline">
+                            Open
+                          </a>
+                          {order.provisioningStatus === "provisioned" && (
+                            <>
+                              <span className="text-xs text-muted">
+                                {order.confirmationEmailSentAt ? `Emailed ${formatDateTime(order.confirmationEmailSentAt)}` : "Not emailed"}
+                              </span>
+                              <ResendEmailButton orderId={order.id} email={order.customerEmail} />
+                            </>
+                          )}
+                        </div>
                       ) : (
                         <span className="text-xs text-muted">—</span>
                       )}

@@ -29,6 +29,8 @@ export interface CheckoutOrder {
   provisionedAt: string | null;
   provisioningStartedAt: string | null;
   accessToken: string | null;
+  locale: string | null;
+  confirmationEmailSentAt: string | null;
   createdAt: string;
 }
 
@@ -52,6 +54,8 @@ interface OrderRow extends RowDataPacket {
   provisioned_at: string | null;
   provisioning_started_at: string | null;
   access_token: string | null;
+  locale: string | null;
+  confirmation_email_sent_at: string | null;
   created_at: string;
 }
 
@@ -76,6 +80,8 @@ function toCheckoutOrder(row: OrderRow): CheckoutOrder {
     provisionedAt: fromMySQLDateTime(row.provisioned_at),
     provisioningStartedAt: fromMySQLDateTime(row.provisioning_started_at),
     accessToken: row.access_token,
+    locale: row.locale,
+    confirmationEmailSentAt: fromMySQLDateTime(row.confirmation_email_sent_at),
     createdAt: fromMySQLDateTime(row.created_at),
   };
 }
@@ -88,14 +94,15 @@ export async function createPendingOrder(input: {
   customerName: string;
   customerEmail: string;
   amountEur: number;
+  locale: string;
 }): Promise<CheckoutOrder> {
   const pool = await getPool();
   const now = new Date();
   const accessToken = newAccessToken();
   const [result] = await pool.query<ResultSetHeader>(
     `INSERT INTO orders
-      (plan_id, plan_name, country_name, country_code, customer_name, customer_email, amount_eur, status, access_token, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?)`,
+      (plan_id, plan_name, country_name, country_code, customer_name, customer_email, amount_eur, status, access_token, locale, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?)`,
     [
       input.planId,
       input.planName,
@@ -105,6 +112,7 @@ export async function createPendingOrder(input: {
       input.customerEmail,
       input.amountEur,
       accessToken,
+      input.locale,
       toMySQLDateTime(now),
     ]
   );
@@ -128,8 +136,15 @@ export async function createPendingOrder(input: {
     provisionedAt: null,
     provisioningStartedAt: null,
     accessToken,
+    locale: input.locale,
+    confirmationEmailSentAt: null,
     createdAt: now.toISOString(),
   };
+}
+
+export async function markConfirmationEmailSent(orderId: number): Promise<void> {
+  const pool = await getPool();
+  await pool.query("UPDATE orders SET confirmation_email_sent_at = ? WHERE id = ?", [toMySQLDateTime(new Date()), orderId]);
 }
 
 export async function attachStripeCheckoutSession(orderId: number, sessionId: string): Promise<void> {

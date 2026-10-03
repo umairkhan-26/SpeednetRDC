@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { getOrderById, resetProvisioningForRetry } from "@/lib/checkout/orders-repository";
 import { orderKind } from "@/lib/checkout/order-kind";
+import { sendOrderReadyEmail } from "@/lib/email/order-emails";
 import { provisionEsimOrder } from "@/lib/transatel/provisioning";
 import { requireAdminSession } from "./auth";
 
@@ -43,4 +44,12 @@ export async function retryProvisioningAction(orderId: number): Promise<RetryPro
   return after?.provisioningStatus === "provisioned"
     ? { ok: true, message: "Provisioned — the customer's order page now shows their QR code." }
     : { ok: false, message: `Still ${after?.provisioningStatus ?? "unknown"} — check the server logs ([transatel] lines) for the reason.` };
+}
+
+/** Admin-only: sends the "your eSIM is ready" email (with the private order link) again. */
+export async function resendOrderEmailAction(orderId: number): Promise<RetryProvisioningResult> {
+  await requireAdminSession();
+  const result = await sendOrderReadyEmail(orderId, { resend: true });
+  revalidatePath("/admin/orders");
+  return result;
 }

@@ -147,33 +147,17 @@ const SCHEMA_STATEMENTS = [
   )`,
 ];
 
-// sim_inventory columns added after the table already existed in
-// production — same idempotent, information_schema-checked pattern as
-// ORDERS_NEW_COLUMNS below (plain ADD COLUMN isn't safely re-runnable on
-// MySQL versions before 8.0.29, and Hostinger's exact version isn't
-// guaranteed).
-const SIM_INVENTORY_NEW_COLUMNS: { name: string; ddl: string }[] = [
+// Columns added after a table already existed in production. Plain ADD
+// COLUMN isn't idempotent on MySQL versions before 8.0.29 (no IF NOT EXISTS
+// support), and Hostinger's MySQL version isn't guaranteed, so existence
+// is checked via information_schema first (see ensureColumns).
+type NewColumn = { name: string; ddl: string };
+
+const SIM_INVENTORY_NEW_COLUMNS: NewColumn[] = [
   { name: "is_activated", ddl: "TINYINT(1) NOT NULL DEFAULT 0" },
 ];
 
-async function ensureSimInventoryColumns(pool: mysql.Pool): Promise<void> {
-  const [rows] = await pool.query<(mysql.RowDataPacket & { COLUMN_NAME: string })[]>(
-    `SELECT COLUMN_NAME FROM information_schema.columns
-     WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'sim_inventory'`
-  );
-  const existing = new Set(rows.map((r) => r.COLUMN_NAME));
-  for (const column of SIM_INVENTORY_NEW_COLUMNS) {
-    if (!existing.has(column.name)) {
-      await pool.query(`ALTER TABLE sim_inventory ADD COLUMN ${column.name} ${column.ddl}`);
-    }
-  }
-}
-
-// orders columns added for real Stripe checkout. Plain ADD COLUMN isn't
-// idempotent on MySQL versions before 8.0.29 (no IF NOT EXISTS support),
-// and the Hostinger MySQL version isn't guaranteed, so existence is checked
-// via information_schema first instead of relying on that syntax.
-const ORDERS_NEW_COLUMNS: { name: string; ddl: string }[] = [
+const ORDERS_NEW_COLUMNS: NewColumn[] = [
   { name: "plan_id", ddl: "VARCHAR(255) NULL" },
   { name: "stripe_checkout_session_id", ddl: "VARCHAR(255) NULL" },
   { name: "stripe_payment_intent_id", ddl: "VARCHAR(255) NULL" },
@@ -203,17 +187,24 @@ const ORDERS_NEW_COLUMNS: { name: string; ddl: string }[] = [
   // (/[locale]/order/[token]), which shows their eSIM activation code and
   // QR code. Treat it like a password: anyone with the link can see them.
   { name: "access_token", ddl: "VARCHAR(64) NULL" },
+  // Site language the customer checked out in (en/fr/es), so emails link
+  // to their order page in that language.
+  { name: "locale", ddl: "VARCHAR(8) NULL" },
+  // Set once the "your eSIM is ready" email was accepted by Resend, so a
+  // provisioning retry never emails the customer twice.
+  { name: "confirmation_email_sent_at", ddl: "DATETIME NULL" },
 ];
 
-async function ensureOrdersColumns(pool: mysql.Pool): Promise<void> {
+async function ensureColumns(pool: mysql.Pool, table: string, columns: NewColumn[]): Promise<void> {
   const [rows] = await pool.query<(mysql.RowDataPacket & { COLUMN_NAME: string })[]>(
     `SELECT COLUMN_NAME FROM information_schema.columns
-     WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'orders'`
+     WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ?`,
+    [table]
   );
   const existing = new Set(rows.map((r) => r.COLUMN_NAME));
-  for (const column of ORDERS_NEW_COLUMNS) {
+  for (const column of columns) {
     if (!existing.has(column.name)) {
-      await pool.query(`ALTER TABLE orders ADD COLUMN ${column.name} ${column.ddl}`);
+      await pool.query(`ALTER TABLE ${table} ADD COLUMN ${column.name} ${column.ddl}`);
     }
   }
 }
@@ -222,14 +213,20 @@ async function ensureSchema(pool: mysql.Pool): Promise<void> {
   for (const statement of SCHEMA_STATEMENTS) {
     await pool.query(statement);
   }
-  await ensureOrdersColumns(pool);
-  await ensureSimInventoryColumns(pool);
+  await ensureColumns(pool, "orders", ORDERS_NEW_COLUMNS);
+  await ensureColumns(pool, "sim_inventory", SIM_INVENTORY_NEW_COLUMNS);
 }
 
 export async function getPool(): Promise<mysql.Pool> {
   const pool = getOrCreatePool();
   if (!globalThis.__staffSchemaReady__) {
-    globalThis.__staffSchemaReady__ = ensureSchema(pool);
+    // If a migration step fails (e.g. a brief database outage), forget the
+    // failed attempt so the next request retries, instead of every request
+    // failing until the server restarts.
+    globalThis.__staffSchemaReady__ = ensureSchema(pool).catch((error) => {
+      globalThis.__staffSchemaReady__ = undefined;
+      throw error;
+    });
   }
   await globalThis.__staffSchemaReady__;
   return pool;

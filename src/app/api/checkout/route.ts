@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { hasLocale } from "next-intl";
+import { routing } from "@/i18n/routing";
 import { getPlanById } from "@/data/plans";
 import { calculateOrderTotals } from "@/lib/pricing";
 import { isValidEmail, isValidFullName } from "@/lib/validation";
@@ -42,7 +44,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unknown plan" }, { status: 400 });
   }
 
-  const resolvedLocale = typeof locale === "string" && locale ? locale : "en";
+  const resolvedLocale = hasLocale(routing.locales, locale) ? locale : routing.defaultLocale;
   const totals = calculateOrderTotals(plan.price);
   const destination = resolveDestination(plan);
 
@@ -54,6 +56,7 @@ export async function POST(request: Request) {
     customerName: fullName.trim(),
     customerEmail: email.trim(),
     amountEur: totals.total,
+    locale: resolvedLocale,
   });
 
   const appUrl = getAppUrl();

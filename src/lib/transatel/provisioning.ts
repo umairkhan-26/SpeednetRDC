@@ -10,6 +10,7 @@ import {
   type CheckoutOrder,
 } from "@/lib/checkout/orders-repository";
 import { orderKind } from "@/lib/checkout/order-kind";
+import { sendOrderReadyEmail } from "@/lib/email/order-emails";
 import {
   getEsimDetails,
   getSubscriberProducts,
@@ -92,6 +93,9 @@ export async function provisionEsimOrder(orderId: number): Promise<void> {
 
     const code = esim.activationCode.startsWith("LPA:") ? esim.activationCode : `LPA:${esim.activationCode}`;
     await completeProvisioning(orderId, { msisdn, lpaActivationCode: code });
+    // Never throws, and a failed email doesn't undo a working eSIM — the
+    // admin Orders page can resend it.
+    await sendOrderReadyEmail(orderId);
   } catch (error) {
     if (error instanceof TransatelApiError) {
       console.error(`[transatel] Order ${orderId} provisioning failed (${error.status}):`, error.body);
