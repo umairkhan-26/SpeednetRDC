@@ -6,7 +6,6 @@
     "globalPlans": "Planes globales",
     "howItWorks": "Cómo funciona",
     "help": "Ayuda",
-    "orders": "Pedidos",
     "myEsims": "Mis eSIM",
     "language": "Idioma"
   },
@@ -72,30 +71,26 @@
   "auth": {
     "login": {
       "title": "Iniciar sesión",
-      "subtitle": "Bienvenido de nuevo a SpeedNetRDC.",
+      "subtitle": "Introduce el correo que usaste al comprar. Te enviaremos un enlace para iniciar sesión, sin contraseña.",
       "emailLabel": "Correo electrónico",
       "emailPlaceholder": "tu@ejemplo.com",
-      "emailError": "Introduce un correo electrónico válido.",
-      "passwordLabel": "Contraseña",
-      "passwordError": "Al menos 6 caracteres.",
-      "submit": "Iniciar sesión",
-      "noAccount": "¿Nuevo por aquí?",
-      "createAccount": "Crear una cuenta"
+      "emailError": "Introduce un correo válido.",
+      "submit": "Enviarme un enlace de acceso",
+      "sending": "Enviando…",
+      "sentTitle": "Revisa tu bandeja de entrada",
+      "sentBody": "Si {email} ha hecho un pedido con nosotros, le hemos enviado un enlace de acceso. Funciona una sola vez y caduca en 15 minutos.",
+      "tooMany": "Demasiados intentos. Inténtalo de nuevo más tarde.",
+      "useDifferent": "Usar otro correo"
     },
-    "signup": {
-      "title": "Crea tu cuenta",
-      "subtitle": "Conéctate en más de 190 destinos.",
-      "fullNameLabel": "Nombre completo",
-      "fullNamePlaceholder": "Alex Johnson",
-      "fullNameError": "Introduce tu nombre completo.",
-      "emailLabel": "Correo electrónico",
-      "emailPlaceholder": "tu@ejemplo.com",
-      "emailError": "Introduce un correo electrónico válido.",
-      "passwordLabel": "Contraseña",
-      "passwordError": "Al menos 6 caracteres.",
-      "submit": "Crear cuenta",
-      "hasAccount": "¿Ya tienes una cuenta?",
-      "login": "Iniciar sesión"
+    "verify": {
+      "title": "Iniciar sesión en SpeedNetRDC",
+      "body": "Vas a iniciar sesión como {email}.",
+      "submit": "Iniciar sesión",
+      "signingIn": "Iniciando sesión…",
+      "invalidTitle": "Este enlace ha caducado",
+      "invalidBody": "Los enlaces de acceso funcionan una sola vez y caducan a los 15 minutos.",
+      "newLink": "Obtener un nuevo enlace",
+      "tooMany": "Demasiados intentos. Inténtalo de nuevo más tarde."
     }
   },
   "regions": {
@@ -106,5 +101,22 @@
     "europe": "Europa",
     "middle-east": "Oriente Medio",
     "global": "Global"
+  },
+  "account": {
+    "title": "Mis eSIM",
+    "subtitle": "Sesión iniciada como {email}. Todas las eSIM compradas con este correo.",
+    "signOut": "Cerrar sesión",
+    "emptyTitle": "Aún no hay pedidos con este correo",
+    "emptyBody": "Los pedidos aparecen aquí una vez pagados.",
+    "emptyCta": "Ver planes eSIM",
+    "orderNumber": "Pedido ORD-{id}",
+    "bought": "Comprada el {date}",
+    "statusReady": "Lista para instalar",
+    "statusPreparing": "En preparación",
+    "statusRefunded": "Reembolsada",
+    "viewEsim": "Ver eSIM y código QR",
+    "preparingNote": "Te enviaremos un correo en cuanto esté lista.",
+    "help": "¿Falta un pedido? Aparece con el correo usado al pagar. ¿Necesitas ayuda?",
+    "contactSupport": "Contactar con soporte"
   }
 }

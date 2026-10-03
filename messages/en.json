@@ -6,7 +6,6 @@
     "globalPlans": "Global Plans",
     "howItWorks": "How It Works",
     "help": "Help",
-    "orders": "Orders",
     "myEsims": "My eSIMs",
     "language": "Language"
   },
@@ -71,31 +70,27 @@
   },
   "auth": {
     "login": {
-      "title": "Log in",
-      "subtitle": "Welcome back to SpeedNetRDC.",
+      "title": "Sign in",
+      "subtitle": "Enter the email you used at checkout. We'll email you a sign-in link — no password needed.",
       "emailLabel": "Email",
       "emailPlaceholder": "you@example.com",
       "emailError": "Enter a valid email.",
-      "passwordLabel": "Password",
-      "passwordError": "At least 6 characters.",
-      "submit": "Log in",
-      "noAccount": "New here?",
-      "createAccount": "Create an account"
+      "submit": "Email me a sign-in link",
+      "sending": "Sending…",
+      "sentTitle": "Check your inbox",
+      "sentBody": "If {email} has placed an order with us, we've sent it a sign-in link. It works once and expires in 15 minutes.",
+      "tooMany": "Too many attempts. Please try again later.",
+      "useDifferent": "Use a different email"
     },
-    "signup": {
-      "title": "Create your account",
-      "subtitle": "Get connected in 190+ destinations.",
-      "fullNameLabel": "Full name",
-      "fullNamePlaceholder": "Alex Johnson",
-      "fullNameError": "Enter your full name.",
-      "emailLabel": "Email",
-      "emailPlaceholder": "you@example.com",
-      "emailError": "Enter a valid email.",
-      "passwordLabel": "Password",
-      "passwordError": "At least 6 characters.",
-      "submit": "Create account",
-      "hasAccount": "Already have an account?",
-      "login": "Log in"
+    "verify": {
+      "title": "Sign in to SpeedNetRDC",
+      "body": "You're signing in as {email}.",
+      "submit": "Sign in",
+      "signingIn": "Signing in…",
+      "invalidTitle": "This link has expired",
+      "invalidBody": "Sign-in links work once and expire after 15 minutes.",
+      "newLink": "Get a new sign-in link",
+      "tooMany": "Too many attempts. Please try again later."
     }
   },
   "regions": {
@@ -106,5 +101,22 @@
     "europe": "Europe",
     "middle-east": "Middle East",
     "global": "Global"
+  },
+  "account": {
+    "title": "My eSIMs",
+    "subtitle": "Signed in as {email}. Every eSIM bought with this email.",
+    "signOut": "Sign out",
+    "emptyTitle": "No orders for this email yet",
+    "emptyBody": "Orders appear here once they're paid.",
+    "emptyCta": "Browse eSIM plans",
+    "orderNumber": "Order ORD-{id}",
+    "bought": "Bought {date}",
+    "statusReady": "Ready to install",
+    "statusPreparing": "Being prepared",
+    "statusRefunded": "Refunded",
+    "viewEsim": "View eSIM & QR code",
+    "preparingNote": "We'll email you as soon as it's ready.",
+    "help": "Missing an order? It's listed under the email used at checkout. Need help?",
+    "contactSupport": "Contact support"
   }
 }

@@ -177,6 +177,26 @@ export async function getOrderByAccessToken(token: string): Promise<CheckoutOrde
   return row ? toCheckoutOrder(row) : null;
 }
 
+// A customer's orders, for "My eSIMs": paid (or since refunded) orders
+// placed through Stripe with that email at checkout. Matched
+// case-insensitively, since the address is typed in by hand each time.
+const CUSTOMER_ORDERS_SQL =
+  "LOWER(customer_email) = ? AND status IN ('completed', 'refunded') AND stripe_checkout_session_id IS NOT NULL";
+
+export async function customerHasOrders(email: string): Promise<boolean> {
+  const pool = await getPool();
+  const [rows] = await pool.query<RowDataPacket[]>(`SELECT 1 FROM orders WHERE ${CUSTOMER_ORDERS_SQL} LIMIT 1`, [email.trim().toLowerCase()]);
+  return rows.length > 0;
+}
+
+export async function listOrdersForCustomer(email: string): Promise<CheckoutOrder[]> {
+  const pool = await getPool();
+  const [rows] = await pool.query<OrderRow[]>(`SELECT * FROM orders WHERE ${CUSTOMER_ORDERS_SQL} ORDER BY id DESC LIMIT 200`, [
+    email.trim().toLowerCase(),
+  ]);
+  return rows.map(toCheckoutOrder);
+}
+
 /** Orders created before private order links existed get a token the first time they're provisioned. */
 export async function ensureAccessToken(orderId: number): Promise<void> {
   const pool = await getPool();

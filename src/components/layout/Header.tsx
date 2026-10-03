@@ -48,9 +48,6 @@ export default function Header() {
 
         <div className="hidden items-center gap-4 lg:flex">
           <LanguageSwitcher />
-          <Link href="/account/orders" className="text-sm font-medium text-ink/80 hover:text-ink">
-            {t("orders")}
-          </Link>
           <Link
             href="/account"
             className="inline-flex items-center gap-2 rounded-full bg-orange px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-orange-soft"
@@ -83,13 +80,6 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/account/orders"
-              onClick={() => setOpen(false)}
-              className="rounded-lg px-2 py-2.5 text-sm font-medium text-ink hover:bg-ink/5"
-            >
-              {t("orders")}
-            </Link>
             <Link
               href="/account"
               onClick={() => setOpen(false)}

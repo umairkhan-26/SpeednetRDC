@@ -6,7 +6,6 @@
     "globalPlans": "Forfaits mondiaux",
     "howItWorks": "Comment ça marche",
     "help": "Aide",
-    "orders": "Commandes",
     "myEsims": "Mes eSIM",
     "language": "Langue"
   },
@@ -72,30 +71,26 @@
   "auth": {
     "login": {
       "title": "Connexion",
-      "subtitle": "Ravis de vous revoir sur SpeedNetRDC.",
+      "subtitle": "Saisissez l'e-mail utilisé lors de votre commande. Nous vous enverrons un lien de connexion, sans mot de passe.",
       "emailLabel": "E-mail",
       "emailPlaceholder": "vous@exemple.com",
-      "emailError": "Saisissez une adresse e-mail valide.",
-      "passwordLabel": "Mot de passe",
-      "passwordError": "Au moins 6 caractères.",
-      "submit": "Se connecter",
-      "noAccount": "Nouveau ici ?",
-      "createAccount": "Créer un compte"
+      "emailError": "Saisissez un e-mail valide.",
+      "submit": "Recevoir un lien de connexion",
+      "sending": "Envoi…",
+      "sentTitle": "Consultez votre boîte de réception",
+      "sentBody": "Si {email} a passé une commande chez nous, nous lui avons envoyé un lien de connexion. Il fonctionne une seule fois et expire dans 15 minutes.",
+      "tooMany": "Trop de tentatives. Veuillez réessayer plus tard.",
+      "useDifferent": "Utiliser un autre e-mail"
     },
-    "signup": {
-      "title": "Créez votre compte",
-      "subtitle": "Restez connecté dans plus de 190 destinations.",
-      "fullNameLabel": "Nom complet",
-      "fullNamePlaceholder": "Alex Johnson",
-      "fullNameError": "Saisissez votre nom complet.",
-      "emailLabel": "E-mail",
-      "emailPlaceholder": "vous@exemple.com",
-      "emailError": "Saisissez une adresse e-mail valide.",
-      "passwordLabel": "Mot de passe",
-      "passwordError": "Au moins 6 caractères.",
-      "submit": "Créer le compte",
-      "hasAccount": "Vous avez déjà un compte ?",
-      "login": "Se connecter"
+    "verify": {
+      "title": "Connexion à SpeedNetRDC",
+      "body": "Vous vous connectez en tant que {email}.",
+      "submit": "Se connecter",
+      "signingIn": "Connexion…",
+      "invalidTitle": "Ce lien a expiré",
+      "invalidBody": "Les liens de connexion ne fonctionnent qu'une fois et expirent après 15 minutes.",
+      "newLink": "Recevoir un nouveau lien",
+      "tooMany": "Trop de tentatives. Veuillez réessayer plus tard."
     }
   },
   "regions": {
@@ -106,5 +101,22 @@
     "europe": "Europe",
     "middle-east": "Moyen-Orient",
     "global": "Mondial"
+  },
+  "account": {
+    "title": "Mes eSIM",
+    "subtitle": "Connecté en tant que {email}. Toutes les eSIM achetées avec cet e-mail.",
+    "signOut": "Se déconnecter",
+    "emptyTitle": "Aucune commande pour cet e-mail",
+    "emptyBody": "Les commandes apparaissent ici une fois payées.",
+    "emptyCta": "Voir les forfaits eSIM",
+    "orderNumber": "Commande ORD-{id}",
+    "bought": "Achetée le {date}",
+    "statusReady": "Prête à installer",
+    "statusPreparing": "En préparation",
+    "statusRefunded": "Remboursée",
+    "viewEsim": "Voir l'eSIM et le QR code",
+    "preparingNote": "Nous vous enverrons un e-mail dès qu'elle sera prête.",
+    "help": "Une commande manque ? Elle figure sous l'e-mail utilisé lors du paiement. Besoin d'aide ?",
+    "contactSupport": "Contacter le support"
   }
 }
