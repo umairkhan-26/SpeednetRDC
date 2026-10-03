@@ -1,5 +1,6 @@
 import type { OrderKind } from "@/lib/checkout/order-kind";
 import type { StaffAccountStatus } from "@/lib/staff/types";
+import { USAGE_STATUS_LABELS, type UsageStatus } from "@/lib/sims/status";
 
 const PILL = "inline-block whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-medium";
 
@@ -50,4 +51,15 @@ const ACCOUNT_STATUS: Record<StaffAccountStatus, [label: string, style: string]>
 export function AccountStatusBadge({ status }: { status: StaffAccountStatus }) {
   const [label, style] = ACCOUNT_STATUS[status];
   return <span className={`${PILL} ${style}`}>{label}</span>;
+}
+
+const USAGE_STYLE: Record<UsageStatus, string> = {
+  active: "bg-green-100 text-green-700",
+  not_used: "bg-sky-100 text-sky-700",
+  expired: "bg-ink/10 text-ink/60",
+  unknown: "bg-ink/5 text-muted",
+};
+
+export function UsageBadge({ status }: { status: UsageStatus }) {
+  return <span className={`${PILL} ${USAGE_STYLE[status]}`}>{USAGE_STATUS_LABELS[status]}</span>;
 }

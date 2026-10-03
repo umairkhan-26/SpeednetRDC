@@ -246,3 +246,132 @@ export async function getSubscriberProducts(msisdn: string): Promise<{ subscript
     ?.productSubscriptions ?? [];
   return list.map((s) => ({ subscriptionId: s.subscriptionId, productId: s.productDefinition?.productId ?? "", status: s.status }));
 }
+
+// --- Read-only status lookups for the admin SIMs page ----------------------
+
+/** What SIM Search tells us about one SIM (dates are Transatel's ISO strings). */
+export interface SimSearchRecord {
+  iccid: string;
+  msisdn: string | null;
+  /** e.g. "Pre-Activated", "Active" */
+  status: string | null;
+  activationDate: string | null;
+  lastEsimProfileStatus: string | null;
+  lastEsimProfileDate: string | null;
+  lastSeenDate: string | null;
+  lastOriginCountry: string | null;
+}
+
+type RawSim = {
+  simSerial?: string;
+  msisdn?: string;
+  status?: string;
+  activationDate?: string;
+  lastEsimProfileStatus?: string;
+  lastEsimProfileDate?: string;
+  lastSeenDate?: string;
+  lastOriginCountry?: string;
+};
+
+function toSimRecord(sim: RawSim): SimSearchRecord {
+  const digits = sim.msisdn?.replace(/\D/g, "") ?? "";
+  return {
+    iccid: sim.simSerial ?? "",
+    msisdn: digits || null,
+    status: sim.status ?? null,
+    activationDate: sim.activationDate ?? null,
+    lastEsimProfileStatus: sim.lastEsimProfileStatus ?? null,
+    lastEsimProfileDate: sim.lastEsimProfileDate ?? null,
+    lastSeenDate: sim.lastSeenDate ?? null,
+    lastOriginCountry: sim.lastOriginCountry ?? null,
+  };
+}
+
+/**
+ * Every SIM on our account, in as few calls as possible (SIM Search pages
+ * of up to 10,000). Keyed by ICCID. Transatel notes SIM Search can lag
+ * slightly behind reality.
+ *
+ * GET /sim-search/api/sim/search?size=10000&page={n}
+ */
+export async function searchAllSims(): Promise<Map<string, SimSearchRecord>> {
+  const sims = new Map<string, SimSearchRecord>();
+  for (let page = 1, totalPages = 1; page <= totalPages; page++) {
+    const { body } = await getJson(`/sim-search/api/sim/search?size=10000&page=${page}`, "SIM Search");
+    const data = body as { sims?: RawSim[]; totalPages?: number } | null;
+    for (const sim of data?.sims ?? []) {
+      const record = toSimRecord(sim);
+      if (record.iccid) sims.set(record.iccid, record);
+    }
+    totalPages = data?.totalPages ?? 1;
+  }
+  return sims;
+}
+
+/** SIM Search for one SIM. GET /sim-search/api/sim/search?simSerial=eq:{iccid} */
+export async function getSimSearchRecord(iccid: string): Promise<SimSearchRecord | null> {
+  const { body } = await getJson(`/sim-search/api/sim/search?simSerial=${encodeURIComponent(`eq:${iccid}`)}`, "SIM Search");
+  const sim = (body as { sims?: RawSim[] } | null)?.sims?.[0];
+  return sim ? toSimRecord(sim) : null;
+}
+
+export interface PlanSubscription {
+  subscriptionId: string;
+  productId: string;
+  /** active | pending | pendingForFirstUse | readyForUse | scheduled | terminated */
+  status: string;
+  subscriptionDate: string | null;
+  activationDate: string | null;
+  expirationDate: string | null;
+  /** Data allowance and what's left of it, in KB (null if Transatel returned no data balance). */
+  dataTotalKb: number | null;
+  dataRemainingKb: number | null;
+}
+
+/**
+ * Every plan ever put on a SIM (terminated ones included), with remaining
+ * data balances.
+ *
+ * GET /ocs/inventory/api/subscriptions/products?msisdn={digits}&statuses=…&withBalances=true
+ */
+export async function getPlanSubscriptions(msisdn: string): Promise<PlanSubscription[]> {
+  const query = new URLSearchParams({ msisdn: toMsisdnDigits(msisdn), withBalances: "true" });
+  for (const status of ["active", "pending", "pendingForFirstUse", "readyForUse", "scheduled", "terminated"]) query.append("statuses", status);
+  const { status, body } = await getJson(`/ocs/inventory/api/subscriptions/products?${query}`, "OCS inventory");
+  if (status === 404) return [];
+  type Balance = { resourceUnit?: string; resourceStartValue?: number; resourceValue?: number };
+  type Allowance = { resourceUnit?: string; resourceValue?: number };
+  const list =
+    (
+      body as {
+        productSubscriptions?: {
+          subscriptionId: string;
+          status: string;
+          subscriptionDate?: string;
+          activationDate?: string;
+          expirationDate?: string;
+          productDefinition?: { productId?: string; allowances?: { data?: Allowance[] } };
+          balances?: { data?: Balance[] };
+        }[];
+      } | null
+    )?.productSubscriptions ?? [];
+  const toKb = (value: number | undefined, unit: string | undefined): number | null => {
+    if (typeof value !== "number") return null;
+    const factor = { B: 1 / 1024, KB: 1, MB: 1024, GB: 1024 * 1024 }[(unit ?? "KB").toUpperCase()];
+    return factor === undefined ? null : Math.round(value * factor);
+  };
+  return list.map((s) => {
+    const balance = s.balances?.data?.[0];
+    const allowance = s.productDefinition?.allowances?.data?.[0];
+    return {
+      subscriptionId: s.subscriptionId,
+      productId: s.productDefinition?.productId ?? "",
+      status: s.status,
+      subscriptionDate: s.subscriptionDate ?? null,
+      activationDate: s.activationDate ?? null,
+      expirationDate: s.expirationDate ?? null,
+      dataTotalKb: toKb(balance?.resourceStartValue, balance?.resourceUnit) ?? toKb(allowance?.resourceValue, allowance?.resourceUnit),
+      dataRemainingKb: toKb(balance?.resourceValue, balance?.resourceUnit),
+    };
+  });
+}

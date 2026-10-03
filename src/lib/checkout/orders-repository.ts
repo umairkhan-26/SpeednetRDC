@@ -31,6 +31,7 @@ export interface CheckoutOrder {
   accessToken: string | null;
   locale: string | null;
   confirmationEmailSentAt: string | null;
+  billingCountry: string | null;
   createdAt: string;
 }
 
@@ -56,6 +57,7 @@ interface OrderRow extends RowDataPacket {
   access_token: string | null;
   locale: string | null;
   confirmation_email_sent_at: string | null;
+  billing_country: string | null;
   created_at: string;
 }
 
@@ -82,6 +84,7 @@ function toCheckoutOrder(row: OrderRow): CheckoutOrder {
     accessToken: row.access_token,
     locale: row.locale,
     confirmationEmailSentAt: fromMySQLDateTime(row.confirmation_email_sent_at),
+    billingCountry: row.billing_country,
     createdAt: fromMySQLDateTime(row.created_at),
   };
 }
@@ -138,6 +141,7 @@ export async function createPendingOrder(input: {
     accessToken,
     locale: input.locale,
     confirmationEmailSentAt: null,
+    billingCountry: null,
     createdAt: now.toISOString(),
   };
 }
@@ -145,6 +149,13 @@ export async function createPendingOrder(input: {
 export async function markConfirmationEmailSent(orderId: number): Promise<void> {
   const pool = await getPool();
   await pool.query("UPDATE orders SET confirmation_email_sent_at = ? WHERE id = ?", [toMySQLDateTime(new Date()), orderId]);
+}
+
+/** Keeps only the billing country's ISO code from Stripe; ignores anything that isn't one. */
+export async function recordBillingCountry(orderId: number, country: string | null | undefined): Promise<void> {
+  if (!country || !/^[A-Z]{2}$/.test(country)) return;
+  const pool = await getPool();
+  await pool.query("UPDATE orders SET billing_country = ? WHERE id = ? AND billing_country IS NULL", [country, orderId]);
 }
 
 export async function attachStripeCheckoutSession(orderId: number, sessionId: string): Promise<void> {

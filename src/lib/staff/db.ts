@@ -185,6 +185,29 @@ const SCHEMA_STATEMENTS = [
     INDEX (email),
     INDEX (expires_at)
   )`,
+  // Last known Transatel status of each sold SIM, for the admin SIMs page
+  // (refreshed on demand with read-only API calls, never on page load).
+  // plans_json holds every plan seen on the SIM: product, status, dates
+  // and data balances in KB. Never holds an activation code.
+  `CREATE TABLE IF NOT EXISTS sim_status_snapshot (
+    iccid VARCHAR(32) PRIMARY KEY,
+    msisdn VARCHAR(32) NULL,
+    sim_status VARCHAR(32) NULL,
+    esim_profile_status VARCHAR(32) NULL,
+    esim_profile_date VARCHAR(40) NULL,
+    sim_activation_date VARCHAR(40) NULL,
+    last_seen_date VARCHAR(40) NULL,
+    last_origin_country VARCHAR(64) NULL,
+    plan_status VARCHAR(32) NULL,
+    plan_activation_date VARCHAR(40) NULL,
+    plan_expiry_date VARCHAR(40) NULL,
+    data_total_kb BIGINT NULL,
+    data_remaining_kb BIGINT NULL,
+    plans_json TEXT NULL,
+    fetched_at DATETIME NULL,
+    error VARCHAR(512) NULL,
+    error_at DATETIME NULL
+  )`,
   // Who did what in the admin panel: sign-ins, invites, deactivations,
   // email and password changes. No IP addresses.
   `CREATE TABLE IF NOT EXISTS admin_audit_log (
@@ -256,6 +279,10 @@ const ORDERS_NEW_COLUMNS: NewColumn[] = [
   // Set once the "your eSIM is ready" email was accepted by Resend, so a
   // provisioning retry never emails the customer twice.
   { name: "confirmation_email_sent_at", ddl: "DATETIME NULL" },
+  // ISO country code of the card's billing address, from Stripe Checkout
+  // (customer_details.address.country). Only the country is kept — never
+  // the rest of the address, and never the customer's IP address.
+  { name: "billing_country", ddl: "CHAR(2) NULL" },
 ];
 
 async function ensureColumns(pool: mysql.Pool, table: string, columns: NewColumn[]): Promise<void> {

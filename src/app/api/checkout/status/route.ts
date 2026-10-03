@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getStripe } from "@/lib/checkout/stripe";
-import { getOrderByStripeCheckoutSessionId, markOrderPaid } from "@/lib/checkout/orders-repository";
+import { getOrderByStripeCheckoutSessionId, markOrderPaid, recordBillingCountry } from "@/lib/checkout/orders-repository";
 
 export async function GET(request: Request) {
   const sessionId = new URL(request.url).searchParams.get("session_id");
@@ -24,6 +24,7 @@ export async function GET(request: Request) {
       const paymentIntentId =
         typeof session.payment_intent === "string" ? session.payment_intent : (session.payment_intent?.id ?? null);
       await markOrderPaid(order.id, paymentIntentId);
+      await recordBillingCountry(order.id, session.customer_details?.address?.country);
       order = await getOrderByStripeCheckoutSessionId(sessionId);
     }
   }

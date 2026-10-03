@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getStripe } from "@/lib/checkout/stripe";
-import { markOrderFailed, markOrderPaid } from "@/lib/checkout/orders-repository";
+import { markOrderFailed, markOrderPaid, recordBillingCountry } from "@/lib/checkout/orders-repository";
 import { provisionEsimOrder } from "@/lib/transatel/provisioning";
 
 function orderIdFromMetadata(metadata: Stripe.Metadata | null | undefined): number | null {
@@ -36,6 +36,7 @@ export async function POST(request: Request) {
         const paymentIntentId =
           typeof session.payment_intent === "string" ? session.payment_intent : (session.payment_intent?.id ?? null);
         await markOrderPaid(orderId, paymentIntentId);
+        await recordBillingCountry(orderId, session.customer_details?.address?.country);
         // Always attempt provisioning, even if the success page marked the
         // order paid first — gating this on "we flipped it to paid" used to
         // skip provisioning entirely in that race. provisionEsimOrder claims
