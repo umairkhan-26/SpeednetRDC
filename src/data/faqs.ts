@@ -47,6 +47,6 @@ export const helpFaqs: FaqItem[] = [
   },
   {
     question: "How do I contact a human?",
-    answer: "Use the live chat bubble in the bottom-right corner for the fastest response, or email support@speednetrdc.com — we reply within 24 hours.",
+    answer: "Use the live chat bubble in the bottom-right corner for the fastest response, or email contact@speednetrdc.com — we reply within 24 hours.",
   },
 ];

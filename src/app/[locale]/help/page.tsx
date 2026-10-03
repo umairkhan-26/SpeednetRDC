@@ -60,10 +60,10 @@ export default function HelpPage() {
           <p className="text-lg font-bold text-ink">Email support</p>
           <p className="text-sm text-muted">We answer every message within 24 hours.</p>
           <a
-            href="mailto:support@speednetrdc.com"
+            href="mailto:contact@speednetrdc.com"
             className="mt-2 w-fit rounded-full bg-orange px-5 py-2.5 text-sm font-semibold text-white"
           >
-            support@speednetrdc.com
+            contact@speednetrdc.com
           </a>
         </div>
       </div>

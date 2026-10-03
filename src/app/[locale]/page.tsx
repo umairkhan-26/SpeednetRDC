@@ -3,6 +3,7 @@ import PopularDestinations from "@/components/home/PopularDestinations";
 import RegionalStrip from "@/components/home/RegionalStrip";
 import StepsSection from "@/components/home/StepsSection";
 import ValueProps from "@/components/home/ValueProps";
+import PhysicalSimPromo from "@/components/home/PhysicalSimPromo";
 
 export default function HomePage() {
   return (
@@ -11,6 +12,7 @@ export default function HomePage() {
       <PopularDestinations />
       <RegionalStrip />
       <StepsSection />
+      <PhysicalSimPromo />
       <ValueProps />
     </>
   );

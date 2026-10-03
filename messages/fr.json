@@ -7,7 +7,8 @@
     "howItWorks": "Comment ça marche",
     "help": "Aide",
     "myEsims": "Mes eSIM",
-    "language": "Langue"
+    "language": "Langue",
+    "physicalSim": "Carte SIM"
   },
   "footer": {
     "tagline": "Restez connecté. Partout. Données eSIM instantanées dans plus de 190 destinations, sans stress d'itinérance et sans carte SIM physique.",
@@ -123,5 +124,55 @@
     "preparingNote": "Nous vous enverrons un e-mail dès qu'elle sera prête.",
     "help": "Une commande manque ? Elle figure sous l'e-mail utilisé lors du paiement. Besoin d'aide ?",
     "contactSupport": "Contacter le support"
+  },
+  "homePhysicalSim": {
+    "eyebrow": "Carte SIM physique · Bientôt disponible",
+    "title": "Pas d'eSIM sur votre téléphone ? Prenez une carte SIM",
+    "text": "Une carte SIM SpeedNetRDC pour tout téléphone débloqué, expédiée depuis la Belgique partout en Europe en 3 à 5 jours ouvrés.",
+    "price": "{sim} € la SIM + {shipping} € de livraison, hors taxes",
+    "cta": "En savoir plus"
+  },
+  "physicalSim": {
+    "metaTitle": "Carte SIM physique — SpeedNetRDC",
+    "eyebrow": "Carte SIM physique",
+    "title": "Pas d'eSIM sur votre téléphone ? Prenez une carte SIM SpeedNetRDC",
+    "subtitle": "Une vraie carte SIM pour tout téléphone débloqué, expédiée depuis la Belgique. Des forfaits data pour la SIM seront disponibles sur notre site.",
+    "priceTitle": "Prix",
+    "simLine": "Carte SIM",
+    "shippingLine": "Livraison (Europe)",
+    "total": "Total",
+    "taxNote": "Prix hors taxes.",
+    "features": {
+      "shipsFrom": "Expédiée depuis la Belgique",
+      "delivery": "Livrée partout en Europe en 3 à 5 jours ouvrés",
+      "unlocked": "Fonctionne dans tout téléphone débloqué",
+      "data": "Des forfaits data pour la SIM seront disponibles sur notre site"
+    },
+    "howTitle": "Comment ça fonctionnera",
+    "steps": {
+      "shipTitle": "Nous l'expédions",
+      "shipText": "Nous postons votre carte SIM depuis la Belgique ; elle arrive en 3 à 5 jours ouvrés partout en Europe.",
+      "insertTitle": "Insérez-la",
+      "insertText": "Placez la SIM dans un téléphone débloqué.",
+      "dataTitle": "Ajoutez des données",
+      "dataText": "Des forfaits data pour la SIM seront disponibles sur notre site."
+    },
+    "comingSoonTitle": "Bientôt disponible",
+    "comingSoonText": "La carte SIM ne peut pas encore être commandée. Intéressé ? Écrivez-nous et nous vous préviendrons dès qu'elle sera disponible.",
+    "contactButton": "Nous contacter",
+    "contactSubject": "Carte SIM physique",
+    "faqTitle": "Questions",
+    "faq": {
+      "whatQ": "Qu'est-ce que la carte SIM SpeedNetRDC ?",
+      "whatA": "Une carte SIM physique pour les téléphones qui ne prennent pas en charge l'eSIM. Des forfaits data pour la SIM seront disponibles sur notre site.",
+      "phonesQ": "Avec quels téléphones fonctionne-t-elle ?",
+      "phonesA": "Tout téléphone non verrouillé par un opérateur et acceptant une carte SIM standard.",
+      "priceQ": "Combien coûte-t-elle ?",
+      "priceA": "{sim} € pour la carte SIM et {shipping} € de livraison, hors taxes.",
+      "shippingQ": "Où livrez-vous et en combien de temps ?",
+      "shippingA": "Nous expédions depuis la Belgique partout en Europe. La livraison prend 3 à 5 jours ouvrés.",
+      "whenQ": "Quand pourrai-je la commander ?",
+      "whenA": "Bientôt. Écrivez-nous à {email} et nous vous préviendrons dès qu'elle pourra être commandée."
+    }
   }
 }

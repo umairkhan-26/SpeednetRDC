@@ -19,6 +19,7 @@ export default function Header() {
     { label: t("destinations"), href: "/destinations" },
     { label: t("regionalPlans"), href: "/regional-plans" },
     { label: t("globalPlans"), href: "/global-plans" },
+    { label: t("physicalSim"), href: "/physical-sim" },
     { label: t("howItWorks"), href: "/how-it-works" },
     { label: t("help"), href: "/help" },
   ];
@@ -28,7 +29,7 @@ export default function Header() {
       <div className="container-page flex h-16 items-center justify-between">
         <Logo href={`/${locale}`} />
 
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="hidden items-center gap-7 xl:flex">
           {navLinks.map((link) => {
             const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
             return (
@@ -36,7 +37,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 className={clsx(
-                  "text-sm font-medium transition-colors",
+                  "whitespace-nowrap text-sm font-medium transition-colors",
                   active ? "text-orange" : "text-ink/80 hover:text-ink",
                 )}
               >
@@ -46,7 +47,7 @@ export default function Header() {
           })}
         </nav>
 
-        <div className="hidden items-center gap-4 lg:flex">
+        <div className="hidden items-center gap-4 xl:flex">
           <LanguageSwitcher />
           <Link
             href="/account"
@@ -61,14 +62,14 @@ export default function Header() {
           type="button"
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
-          className="flex size-10 items-center justify-center rounded-full border border-line lg:hidden"
+          className="flex size-10 items-center justify-center rounded-full border border-line xl:hidden"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
       </div>
 
       {open && (
-        <div className="border-t border-line bg-cream lg:hidden">
+        <div className="border-t border-line bg-cream xl:hidden">
           <nav className="container-page flex flex-col gap-1 py-3">
             {navLinks.map((link) => (
               <Link

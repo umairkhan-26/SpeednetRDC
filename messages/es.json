@@ -7,7 +7,8 @@
     "howItWorks": "Cómo funciona",
     "help": "Ayuda",
     "myEsims": "Mis eSIM",
-    "language": "Idioma"
+    "language": "Idioma",
+    "physicalSim": "Tarjeta SIM"
   },
   "footer": {
     "tagline": "Mantente conectado. En cualquier lugar. Datos eSIM al instante en más de 190 destinos, sin estrés de roaming y sin tarjeta SIM física.",
@@ -123,5 +124,55 @@
     "preparingNote": "Te enviaremos un correo en cuanto esté lista.",
     "help": "¿Falta un pedido? Aparece con el correo usado al pagar. ¿Necesitas ayuda?",
     "contactSupport": "Contactar con soporte"
+  },
+  "homePhysicalSim": {
+    "eyebrow": "Tarjeta SIM física · Próximamente",
+    "title": "¿Tu móvil no tiene eSIM? Consigue una tarjeta SIM",
+    "text": "Una tarjeta SIM de SpeedNetRDC para cualquier móvil libre, enviada desde Bélgica a toda Europa en 3–5 días laborables.",
+    "price": "{sim} € la SIM + {shipping} € de envío, impuestos no incluidos",
+    "cta": "Más información"
+  },
+  "physicalSim": {
+    "metaTitle": "Tarjeta SIM física — SpeedNetRDC",
+    "eyebrow": "Tarjeta SIM física",
+    "title": "¿Tu móvil no tiene eSIM? Consigue una tarjeta SIM de SpeedNetRDC",
+    "subtitle": "Una tarjeta SIM de verdad para cualquier móvil libre, enviada desde Bélgica. Habrá planes de datos para la SIM en nuestra web.",
+    "priceTitle": "Precio",
+    "simLine": "Tarjeta SIM",
+    "shippingLine": "Envío (Europa)",
+    "total": "Total",
+    "taxNote": "Precios sin impuestos.",
+    "features": {
+      "shipsFrom": "Enviada desde Bélgica",
+      "delivery": "Entrega en toda Europa en 3–5 días laborables",
+      "unlocked": "Funciona en cualquier móvil libre",
+      "data": "Habrá planes de datos para la SIM en nuestra web"
+    },
+    "howTitle": "Cómo funcionará",
+    "steps": {
+      "shipTitle": "La enviamos",
+      "shipText": "Enviamos tu tarjeta SIM desde Bélgica; llega en 3–5 días laborables a cualquier punto de Europa.",
+      "insertTitle": "Insértala",
+      "insertText": "Pon la SIM en cualquier móvil libre.",
+      "dataTitle": "Añade datos",
+      "dataText": "Habrá planes de datos para la SIM en nuestra web."
+    },
+    "comingSoonTitle": "Próximamente",
+    "comingSoonText": "La tarjeta SIM aún no se puede pedir. ¿Te interesa? Escríbenos y te avisaremos en cuanto esté disponible.",
+    "contactButton": "Contactar",
+    "contactSubject": "Tarjeta SIM física",
+    "faqTitle": "Preguntas",
+    "faq": {
+      "whatQ": "¿Qué es la tarjeta SIM de SpeedNetRDC?",
+      "whatA": "Una tarjeta SIM física para móviles que no admiten eSIM. Habrá planes de datos para la SIM en nuestra web.",
+      "phonesQ": "¿En qué móviles funciona?",
+      "phonesA": "En cualquier móvil que no esté bloqueado por un operador y admita una tarjeta SIM estándar.",
+      "priceQ": "¿Cuánto cuesta?",
+      "priceA": "{sim} € la tarjeta SIM y {shipping} € de envío, impuestos no incluidos.",
+      "shippingQ": "¿A dónde enviáis y cuánto tarda?",
+      "shippingA": "Enviamos desde Bélgica a toda Europa. La entrega tarda 3–5 días laborables.",
+      "whenQ": "¿Cuándo podré pedirla?",
+      "whenA": "Pronto. Escríbenos a {email} y te avisaremos en cuanto se pueda pedir."
+    }
   }
 }

@@ -14,6 +14,7 @@ const STATIC_PATHS = [
   "/device-compatibility",
   "/help",
   "/login",
+  "/physical-sim",
 ];
 
 // Hidden until the company details are filled in (see src/lib/legal.ts).
