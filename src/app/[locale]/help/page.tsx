@@ -6,6 +6,7 @@ import Accordion from "@/components/ui/Accordion";
 import SectionHeading from "@/components/ui/SectionHeading";
 import type { FaqItem } from "@/lib/types";
 import { pageMetadata } from "@/i18n/metadata";
+import { SUPPORT_EMAIL, whatsappUrl } from "@/lib/contact";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -23,6 +24,8 @@ export default async function HelpPage({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "help" });
   const tFaq = await getTranslations({ locale, namespace: "faq" });
+  const tChat = await getTranslations({ locale, namespace: "chat" });
+  const whatsapp = whatsappUrl(tChat("whatsappMessage"));
   return (
     <div className="container-page py-14">
       <div className="mx-auto max-w-2xl text-center">
@@ -48,28 +51,32 @@ export default async function HelpPage({ params }: { params: Promise<{ locale: s
         ))}
       </div>
 
-      <div className="mt-8 grid gap-5 sm:grid-cols-2">
-        <div className="flex flex-col gap-3 rounded-2xl bg-gradient-to-br from-orange to-orange-soft p-6 text-white">
-          <MessageCircle className="size-7" />
-          <p className="text-lg font-bold">{t("liveChat")}</p>
-          <p className="text-sm text-white/85">{t("liveChatText")}</p>
-          <button
-            type="button"
-            className="mt-2 w-fit rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-orange"
-          >
-            {t("startChat")}
-          </button>
-        </div>
+      <div className={`mt-8 grid gap-5 ${whatsapp ? "sm:grid-cols-2" : "mx-auto max-w-xl"}`}>
+        {whatsapp && (
+          <div className="flex flex-col gap-3 rounded-2xl bg-gradient-to-br from-orange to-orange-soft p-6 text-white">
+            <MessageCircle className="size-7" />
+            <p className="text-lg font-bold">{t("whatsappTitle")}</p>
+            <p className="text-sm text-white/85">{t("whatsappText")}</p>
+            <a
+              href={whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 w-fit rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-orange"
+            >
+              {t("whatsappButton")}
+            </a>
+          </div>
+        )}
 
         <div className="flex flex-col gap-3 rounded-2xl border border-line bg-white p-6">
           <Mail className="size-7 text-orange" />
           <p className="text-lg font-bold text-ink">{t("emailSupport")}</p>
           <p className="text-sm text-muted">{t("emailSupportText")}</p>
           <a
-            href="mailto:contact@speednetrdc.com"
+            href={`mailto:${SUPPORT_EMAIL}`}
             className="mt-2 w-fit rounded-full bg-orange px-5 py-2.5 text-sm font-semibold text-white"
           >
-            contact@speednetrdc.com
+            {SUPPORT_EMAIL}
           </a>
         </div>
       </div>

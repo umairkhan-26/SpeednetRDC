@@ -1,12 +1,12 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Headset, RefreshCcw, ShieldCheck, Zap } from "lucide-react";
+import { Headset, Phone, ShieldCheck, Zap } from "lucide-react";
 
 const props = [
   { icon: Zap, titleKey: "instantDeliveryTitle", descriptionKey: "instantDeliveryDescription" },
   { icon: ShieldCheck, titleKey: "securePaymentsTitle", descriptionKey: "securePaymentsDescription" },
-  { icon: RefreshCcw, titleKey: "topUpTitle", descriptionKey: "topUpDescription" },
+  { icon: Phone, titleKey: "keepNumberTitle", descriptionKey: "keepNumberDescription" },
   { icon: Headset, titleKey: "supportTitle", descriptionKey: "supportDescription" },
 ] as const;
 

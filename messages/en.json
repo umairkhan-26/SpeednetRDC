@@ -39,11 +39,11 @@
       "instantDeliveryTitle": "Instant delivery",
       "instantDeliveryDescription": "QR code and activation details the moment you pay.",
       "securePaymentsTitle": "Secure payments",
-      "securePaymentsDescription": "Encrypted checkout with cards, Apple Pay, Google Pay & PayPal.",
-      "topUpTitle": "Top up anytime",
-      "topUpDescription": "Running low? Add more data in a couple of taps.",
+      "securePaymentsDescription": "Encrypted card checkout, with Apple Pay and Google Pay on supported devices.",
+      "keepNumberTitle": "Keep your number",
+      "keepNumberDescription": "Your usual SIM stays on for calls and texts while the eSIM handles your data.",
       "supportTitle": "24/7 human support",
-      "supportDescription": "Real people, live chat, replies in minutes."
+      "supportDescription": "Quick answers in the chat, and real people by email."
     },
     "steps": {
       "eyebrow": "How it works",
@@ -354,46 +354,51 @@
     "title": "Frequently asked questions",
     "destination": [
       {
+        "id": "what-is-esim",
         "question": "What is an eSIM?",
         "answer": "An eSIM is a digital SIM built into your phone. Instead of swapping a physical card, you install a plan by scanning a QR code or tapping a link — no store visit, no waiting."
       },
       {
+        "id": "when-install",
         "question": "When should I install my eSIM?",
         "answer": "You can install it any time after purchase, but we recommend installing before you travel while you still have Wi-Fi. The plan only activates once you connect to a supported network at your destination."
       },
       {
+        "id": "keep-number",
         "question": "Can I keep my regular number?",
         "answer": "Yes. Your eSIM adds a second, data-only line alongside your existing SIM, so you keep receiving calls and texts on your regular number."
       },
       {
+        "id": "hotspot",
         "question": "Does my plan include hotspot?",
         "answer": "Most SpeedNetRDC plans support personal hotspot / tethering at no extra cost. Check the \"Hotspot\" field on the plan details page to confirm for your specific plan."
-      },
-      {
-        "question": "What if I run out of data?",
-        "answer": "You can top up in a few taps from My SpeedNetRDC → your active eSIM → Top Up Data, without reinstalling anything."
       }
     ],
     "help": [
       {
-        "question": "How long does eSIM delivery take?",
-        "answer": "Instantly. Your QR code and activation details are ready in your account and inbox as soon as payment completes."
+        "id": "delivery",
+        "question": null,
+        "answer": null
       },
       {
-        "question": "What happens if my phone isn't eSIM compatible?",
-        "answer": "Run the Device Compatibility Checker before you buy. If your phone can't take an eSIM, we'll flag it before checkout so you're never charged for a plan you can't use."
+        "id": "compatible",
+        "question": null,
+        "answer": null
       },
       {
+        "id": "refund",
         "question": "Can I get a refund?",
-        "answer": "Unused eSIMs can be refunded within 30 days of purchase, as long as the eSIM hasn't been installed on a device."
+        "answer": "For refund requests, contact us at contact@speednetrdc.com."
       },
       {
+        "id": "payment",
         "question": "Which payment methods do you accept?",
-        "answer": "Credit and debit cards, Apple Pay, Google Pay, and PayPal."
+        "answer": "Debit and credit cards on Stripe’s secure checkout. Apple Pay and Google Pay are offered on devices that support them."
       },
       {
+        "id": "contact",
         "question": "How do I contact a human?",
-        "answer": "Use the live chat bubble in the bottom-right corner for the fastest response, or email contact@speednetrdc.com — we reply within 24 hours."
+        "answer": "Email us at contact@speednetrdc.com — we reply within 24 hours. For quick answers to common questions, tap the chat button in the bottom-right corner."
       }
     ]
   },
@@ -448,7 +453,7 @@
     "supportedDevices": "Supported devices",
     "supportedDevicesValue": "eSIM-capable, unlocked phones",
     "refunds": "Refunds",
-    "refundsValue": "30 days if not installed",
+    "refundsValue": "For refund requests, contact contact@speednetrdc.com",
     "totalPrice": "Total price",
     "buy": "Buy This eSIM",
     "checkDevice": "Check Device Compatibility",
@@ -516,7 +521,7 @@
       "price": "Price",
       "taxes": "Taxes & fees",
       "total": "Total",
-      "footer": "Encrypted checkout · Instant delivery · 30-day refund on uninstalled eSIMs"
+      "footer": "Encrypted checkout · Instant delivery · Refund requests: contact@speednetrdc.com"
     },
     "cancelled": {
       "title": "Checkout cancelled",
@@ -588,9 +593,9 @@
         "description": "Turning your plan on when you land."
       }
     },
-    "liveChat": "Live chat",
-    "liveChatText": "Average reply under 2 minutes.",
-    "startChat": "Start chat",
+    "whatsappTitle": "WhatsApp",
+    "whatsappText": "Send us a message on WhatsApp.",
+    "whatsappButton": "Talk to us on WhatsApp",
     "emailSupport": "Email support",
     "emailSupportText": "We answer every message within 24 hours."
   },
@@ -764,11 +769,14 @@
     }
   },
   "chat": {
-    "title": "SpeedNetRDC Support",
-    "replyTime": "Average reply under 2 minutes",
-    "greeting": "Hi! Need help picking a plan or installing your eSIM? Ask away.",
-    "placeholder": "Type a message...",
-    "send": "Send",
-    "open": "Open live chat"
+    "title": "SpeedNetRDC Help",
+    "subtitle": "Answers to common questions",
+    "greeting": "Hi! Here are the questions we’re asked most. Tap one to see the answer.",
+    "more": "Anything else? Pick another question.",
+    "whatsapp": "Talk to us on WhatsApp",
+    "whatsappMessage": "Hi SpeedNetRDC, I have a question.",
+    "emailUs": "Email us",
+    "open": "Open help",
+    "close": "Close help"
   }
 }

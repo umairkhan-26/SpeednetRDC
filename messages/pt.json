@@ -39,11 +39,11 @@
       "instantDeliveryTitle": "Entrega imediata",
       "instantDeliveryDescription": "QR code e dados de ativação assim que paga.",
       "securePaymentsTitle": "Pagamentos seguros",
-      "securePaymentsDescription": "Pagamento encriptado com cartão, Apple Pay, Google Pay e PayPal.",
-      "topUpTitle": "Carregue quando quiser",
-      "topUpDescription": "Está a ficar sem dados? Adicione mais em poucos toques.",
+      "securePaymentsDescription": "Pagamento com cartão encriptado, com Apple Pay e Google Pay nos aparelhos compatíveis.",
+      "keepNumberTitle": "Mantenha o seu número",
+      "keepNumberDescription": "O seu cartão SIM habitual continua ativo para chamadas e SMS, enquanto o eSIM trata dos dados.",
       "supportTitle": "Apoio humano 24/7",
-      "supportDescription": "Pessoas reais, chat ao vivo e respostas em minutos."
+      "supportDescription": "Respostas rápidas no chat e pessoas reais por e-mail."
     },
     "steps": {
       "eyebrow": "Como funciona",
@@ -354,46 +354,51 @@
     "title": "Perguntas frequentes",
     "destination": [
       {
+        "id": "what-is-esim",
         "question": "O que é um eSIM?",
         "answer": "Um eSIM é um cartão SIM digital integrado no seu telemóvel. Em vez de trocar de cartão, instala um plano lendo um QR code ou tocando numa ligação — sem ir a uma loja e sem esperas."
       },
       {
+        "id": "when-install",
         "question": "Quando devo instalar o meu eSIM?",
         "answer": "Pode instalá-lo em qualquer altura depois da compra, mas recomendamos que o faça antes de viajar, enquanto ainda tem Wi-Fi. O plano só se ativa quando se ligar a uma rede compatível no seu destino."
       },
       {
+        "id": "keep-number",
         "question": "Posso manter o meu número habitual?",
         "answer": "Sim. O eSIM acrescenta uma segunda linha, só de dados, ao seu cartão SIM atual, por isso continua a receber chamadas e SMS no número de sempre."
       },
       {
+        "id": "hotspot",
         "question": "O meu plano permite partilhar a ligação (hotspot)?",
         "answer": "A maioria dos planos SpeedNetRDC permite partilhar a ligação (hotspot pessoal) sem custos adicionais. Confirme no campo \"Hotspot\" da página de detalhes do seu plano."
-      },
-      {
-        "question": "E se ficar sem dados?",
-        "answer": "Pode carregar mais dados em poucos toques em Os meus eSIM → o seu eSIM ativo → Carregar dados, sem ter de reinstalar nada."
       }
     ],
     "help": [
       {
+        "id": "delivery",
         "question": "Quanto tempo demora a entrega do eSIM?",
         "answer": "É imediata. O QR code e os dados de ativação ficam disponíveis na sua conta e no seu e-mail assim que o pagamento é concluído."
       },
       {
+        "id": "compatible",
         "question": "E se o meu telemóvel não for compatível com eSIM?",
         "answer": "Use o verificador de compatibilidade antes de comprar. Se o seu telemóvel não suportar eSIM, avisamos antes do pagamento para nunca pagar por um plano que não pode usar."
       },
       {
+        "id": "refund",
         "question": "Posso pedir um reembolso?",
-        "answer": "Os eSIM não utilizados podem ser reembolsados até 30 dias após a compra, desde que o eSIM não tenha sido instalado em nenhum aparelho."
+        "answer": "Para pedidos de reembolso, contacte-nos através de contact@speednetrdc.com."
       },
       {
+        "id": "payment",
         "question": "Que métodos de pagamento aceitam?",
-        "answer": "Cartões de crédito e de débito, Apple Pay, Google Pay e PayPal."
+        "answer": "Cartões de débito e de crédito, na página de pagamento segura da Stripe. O Apple Pay e o Google Pay estão disponíveis nos aparelhos compatíveis."
       },
       {
+        "id": "contact",
         "question": "Como falo com uma pessoa?",
-        "answer": "Use o chat ao vivo no canto inferior direito para obter a resposta mais rápida, ou envie um e-mail para contact@speednetrdc.com — respondemos em 24 horas."
+        "answer": "Envie-nos um e-mail para contact@speednetrdc.com — respondemos em 24 horas. Para respostas rápidas às perguntas mais comuns, toque no botão de chat no canto inferior direito."
       }
     ]
   },
@@ -448,7 +453,7 @@
     "supportedDevices": "Aparelhos compatíveis",
     "supportedDevicesValue": "Telemóveis desbloqueados compatíveis com eSIM",
     "refunds": "Reembolsos",
-    "refundsValue": "30 dias, se não tiver sido instalado",
+    "refundsValue": "Para pedidos de reembolso, contacte contact@speednetrdc.com",
     "totalPrice": "Preço total",
     "buy": "Comprar este eSIM",
     "checkDevice": "Verificar compatibilidade",
@@ -516,7 +521,7 @@
       "price": "Preço",
       "taxes": "Impostos e taxas",
       "total": "Total",
-      "footer": "Pagamento encriptado · Entrega imediata · Reembolso em 30 dias para eSIM não instalados"
+      "footer": "Pagamento encriptado · Entrega imediata · Pedidos de reembolso: contact@speednetrdc.com"
     },
     "cancelled": {
       "title": "Compra cancelada",
@@ -588,9 +593,9 @@
         "description": "Como ativar o plano quando chegar."
       }
     },
-    "liveChat": "Chat ao vivo",
-    "liveChatText": "Resposta média em menos de 2 minutos.",
-    "startChat": "Iniciar conversa",
+    "whatsappTitle": "WhatsApp",
+    "whatsappText": "Envie-nos uma mensagem pelo WhatsApp.",
+    "whatsappButton": "Fale connosco pelo WhatsApp",
     "emailSupport": "Apoio por e-mail",
     "emailSupportText": "Respondemos a todas as mensagens em 24 horas."
   },
@@ -764,11 +769,14 @@
     }
   },
   "chat": {
-    "title": "Apoio SpeedNetRDC",
-    "replyTime": "Resposta média em menos de 2 minutos",
-    "greeting": "Olá! Precisa de ajuda para escolher um plano ou instalar o seu eSIM? Pergunte à vontade.",
-    "placeholder": "Escreva uma mensagem...",
-    "send": "Enviar",
-    "open": "Abrir o chat ao vivo"
+    "title": "Ajuda SpeedNetRDC",
+    "subtitle": "Respostas às perguntas mais comuns",
+    "greeting": "Olá! Estas são as perguntas que mais nos fazem. Toque numa para ver a resposta.",
+    "more": "Mais alguma dúvida? Escolha outra pergunta.",
+    "whatsapp": "Fale connosco pelo WhatsApp",
+    "whatsappMessage": "Olá SpeedNetRDC, tenho uma pergunta.",
+    "emailUs": "Enviar e-mail",
+    "open": "Abrir a ajuda",
+    "close": "Fechar a ajuda"
   }
 }

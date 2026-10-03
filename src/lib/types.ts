@@ -62,6 +62,8 @@ export interface Plan {
 }
 
 export interface FaqItem {
+  /** Stable id, used by the chat helper to pick questions. */
+  id?: string;
   question: string;
   answer: string;
 }

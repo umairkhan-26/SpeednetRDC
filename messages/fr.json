@@ -38,11 +38,11 @@
       "instantDeliveryTitle": "Livraison instantanée",
       "instantDeliveryDescription": "Code QR et détails d'activation dès le paiement.",
       "securePaymentsTitle": "Paiements sécurisés",
-      "securePaymentsDescription": "Paiement chiffré par carte, Apple Pay, Google Pay et PayPal.",
-      "topUpTitle": "Rechargez à tout moment",
-      "topUpDescription": "Presque à court de données ? Ajoutez-en en quelques clics.",
+      "securePaymentsDescription": "Paiement par carte chiffré, avec Apple Pay et Google Pay sur les appareils compatibles.",
+      "keepNumberTitle": "Gardez votre numéro",
+      "keepNumberDescription": "Votre SIM habituelle reste active pour les appels et SMS, l’eSIM s’occupe des données.",
       "supportTitle": "Assistance humaine 24/7",
-      "supportDescription": "De vraies personnes, chat en direct, réponses en quelques minutes."
+      "supportDescription": "Des réponses rapides dans le chat, et de vraies personnes par e-mail."
     },
     "steps": {
       "eyebrow": "Comment ça marche",
