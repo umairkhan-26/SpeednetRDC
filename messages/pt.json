@@ -42,8 +42,8 @@
       "securePaymentsDescription": "Pagamento com cartão encriptado, com Apple Pay e Google Pay nos aparelhos compatíveis.",
       "keepNumberTitle": "Mantenha o seu número",
       "keepNumberDescription": "O seu cartão SIM habitual continua ativo para chamadas e SMS, enquanto o eSIM trata dos dados.",
-      "supportTitle": "Apoio humano 24/7",
-      "supportDescription": "Respostas rápidas no chat e pessoas reais por e-mail."
+      "supportTitle": "Apoio por e-mail e WhatsApp",
+      "supportDescription": "Respondem-lhe pessoas reais, normalmente no prazo de um dia útil."
     },
     "steps": {
       "eyebrow": "Como funciona",
@@ -383,7 +383,7 @@
       {
         "id": "compatible",
         "question": "E se o meu telemóvel não for compatível com eSIM?",
-        "answer": "Use o verificador de compatibilidade antes de comprar. Se o seu telemóvel não suportar eSIM, avisamos antes do pagamento para nunca pagar por um plano que não pode usar."
+        "answer": "Verifique o seu telemóvel na nossa página de compatibilidade antes de comprar. Um plano eSIM só funciona num telemóvel que suporte eSIM."
       },
       {
         "id": "refund",
@@ -398,7 +398,7 @@
       {
         "id": "contact",
         "question": "Como falo com uma pessoa?",
-        "answer": "Envie-nos um e-mail para contact@speednetrdc.com — respondemos em 24 horas. Para respostas rápidas às perguntas mais comuns, toque no botão de chat no canto inferior direito."
+        "answer": "Envie-nos um e-mail para contact@speednetrdc.com — normalmente respondemos no prazo de um dia útil. Para respostas rápidas às perguntas mais comuns, toque no botão de chat no canto inferior direito."
       }
     ]
   },
@@ -574,7 +574,7 @@
   },
   "help": {
     "title": "Como podemos ajudar?",
-    "subtitle": "Encontre respostas rápidas ou fale com uma pessoa — estamos disponíveis 24/7, em todos os fusos horários.",
+    "subtitle": "Encontre respostas rápidas ou fale com uma pessoa por e-mail ou WhatsApp.",
     "categories": {
       "installation": {
         "title": "Ajuda com a instalação",
@@ -597,7 +597,7 @@
     "whatsappText": "Envie-nos uma mensagem pelo WhatsApp.",
     "whatsappButton": "Fale connosco pelo WhatsApp",
     "emailSupport": "Apoio por e-mail",
-    "emailSupportText": "Respondemos a todas as mensagens em 24 horas."
+    "emailSupportText": "Normalmente respondemos no prazo de um dia útil."
   },
   "howItWorks": {
     "title": "Da pesquisa à <accent>ligação</accent> em minutos",

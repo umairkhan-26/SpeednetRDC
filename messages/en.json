@@ -42,8 +42,8 @@
       "securePaymentsDescription": "Encrypted card checkout, with Apple Pay and Google Pay on supported devices.",
       "keepNumberTitle": "Keep your number",
       "keepNumberDescription": "Your usual SIM stays on for calls and texts while the eSIM handles your data.",
-      "supportTitle": "24/7 human support",
-      "supportDescription": "Quick answers in the chat, and real people by email."
+      "supportTitle": "Email and WhatsApp support",
+      "supportDescription": "Real people answer — we usually reply within one working day."
     },
     "steps": {
       "eyebrow": "How it works",
@@ -377,13 +377,13 @@
     "help": [
       {
         "id": "delivery",
-        "question": null,
-        "answer": null
+        "question": "How long does eSIM delivery take?",
+        "answer": "Instantly. Your QR code and activation details are ready in your account and inbox as soon as payment completes."
       },
       {
         "id": "compatible",
-        "question": null,
-        "answer": null
+        "question": "What happens if my phone isn't eSIM compatible?",
+        "answer": "Check your phone on our device compatibility page before you buy. An eSIM plan only works on a phone that supports eSIM."
       },
       {
         "id": "refund",
@@ -398,7 +398,7 @@
       {
         "id": "contact",
         "question": "How do I contact a human?",
-        "answer": "Email us at contact@speednetrdc.com — we reply within 24 hours. For quick answers to common questions, tap the chat button in the bottom-right corner."
+        "answer": "Email us at contact@speednetrdc.com — we usually reply within one working day. For quick answers to common questions, tap the chat button in the bottom-right corner."
       }
     ]
   },
@@ -574,7 +574,7 @@
   },
   "help": {
     "title": "How can we help?",
-    "subtitle": "Find quick answers or reach a real person — we are online 24/7 across every time zone.",
+    "subtitle": "Find quick answers, or reach a real person by email or WhatsApp.",
     "categories": {
       "installation": {
         "title": "Installation help",
@@ -597,7 +597,7 @@
     "whatsappText": "Send us a message on WhatsApp.",
     "whatsappButton": "Talk to us on WhatsApp",
     "emailSupport": "Email support",
-    "emailSupportText": "We answer every message within 24 hours."
+    "emailSupportText": "We usually reply within one working day."
   },
   "howItWorks": {
     "title": "From search to <accent>connected</accent> in minutes",

@@ -41,8 +41,8 @@
       "securePaymentsDescription": "Pago con tarjeta cifrado, con Apple Pay y Google Pay en los dispositivos compatibles.",
       "keepNumberTitle": "Conserva tu número",
       "keepNumberDescription": "Tu SIM de siempre sigue activa para llamadas y SMS mientras la eSIM se encarga de los datos.",
-      "supportTitle": "Soporte humano 24/7",
-      "supportDescription": "Respuestas rápidas en el chat y personas reales por correo electrónico."
+      "supportTitle": "Soporte por correo electrónico y WhatsApp",
+      "supportDescription": "Te responden personas reales, normalmente en un día laborable."
     },
     "steps": {
       "eyebrow": "Cómo funciona",

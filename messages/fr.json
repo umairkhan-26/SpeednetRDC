@@ -41,8 +41,8 @@
       "securePaymentsDescription": "Paiement par carte chiffré, avec Apple Pay et Google Pay sur les appareils compatibles.",
       "keepNumberTitle": "Gardez votre numéro",
       "keepNumberDescription": "Votre SIM habituelle reste active pour les appels et SMS, l’eSIM s’occupe des données.",
-      "supportTitle": "Assistance humaine 24/7",
-      "supportDescription": "Des réponses rapides dans le chat, et de vraies personnes par e-mail."
+      "supportTitle": "Assistance par e-mail et WhatsApp",
+      "supportDescription": "De vraies personnes vous répondent, en général sous un jour ouvré."
     },
     "steps": {
       "eyebrow": "Comment ça marche",
