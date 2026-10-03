@@ -288,6 +288,12 @@ const ORDERS_NEW_COLUMNS: NewColumn[] = [
   // delivery and acknowledging the loss of their 14-day EU withdrawal right
   // once the eSIM is delivered (only asked once the legal pages are live).
   { name: "withdrawal_consent_at", ddl: "DATETIME NULL" },
+  // What the plan cost us at Transatel (wholesale, excl. VAT) when the order
+  // was placed, so past orders keep their real cost when the grid changes.
+  // Only counted as a cost once the eSIM is delivered (provisioned).
+  { name: "plan_cost_eur", ddl: "DECIMAL(10,2) NULL" },
+  // Stripe's processing fee for the payment, from its balance transaction.
+  { name: "stripe_fee_eur", ddl: "DECIMAL(10,2) NULL" },
 ];
 
 // A connection-level failure (database down, wrong credentials) is not a

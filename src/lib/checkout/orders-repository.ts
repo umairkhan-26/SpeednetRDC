@@ -2,6 +2,7 @@ import { randomBytes } from "node:crypto";
 import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import { fromMySQLDateTime, getPool, toMySQLDateTime } from "@/lib/staff/db";
 import { LIVE_ORDER_SQL, ORDER_KIND_SQL, type OrderKind } from "./order-kind";
+import { getPlanCostEur } from "./plan-cost";
 
 // 24 random bytes -> 32 URL-safe characters for the private order link.
 const newAccessToken = () => randomBytes(24).toString("base64url");
@@ -33,6 +34,10 @@ export interface CheckoutOrder {
   confirmationEmailSentAt: string | null;
   billingCountry: string | null;
   withdrawalConsentAt: string | null;
+  /** Transatel wholesale cost saved when the order was placed (see plan-cost.ts). */
+  planCostEur: number | null;
+  /** Stripe's fee for the payment, once fetched. */
+  stripeFeeEur: number | null;
   createdAt: string;
 }
 
@@ -60,6 +65,8 @@ interface OrderRow extends RowDataPacket {
   confirmation_email_sent_at: string | null;
   billing_country: string | null;
   withdrawal_consent_at?: string | null;
+  plan_cost_eur?: string | null;
+  stripe_fee_eur?: string | null;
   created_at: string;
 }
 
@@ -88,6 +95,8 @@ function toCheckoutOrder(row: OrderRow): CheckoutOrder {
     confirmationEmailSentAt: fromMySQLDateTime(row.confirmation_email_sent_at),
     billingCountry: row.billing_country,
     withdrawalConsentAt: fromMySQLDateTime(row.withdrawal_consent_at ?? null),
+    planCostEur: row.plan_cost_eur == null ? null : Number(row.plan_cost_eur),
+    stripeFeeEur: row.stripe_fee_eur == null ? null : Number(row.stripe_fee_eur),
     createdAt: fromMySQLDateTime(row.created_at),
   };
 }
@@ -122,6 +131,8 @@ export async function createPendingOrder(input: {
       toMySQLDateTime(now),
     ]
   );
+  const planCostEur = getPlanCostEur(input.planId);
+  await recordPlanCost(result.insertId, planCostEur);
   return {
     id: result.insertId,
     planId: input.planId,
@@ -146,8 +157,71 @@ export async function createPendingOrder(input: {
     confirmationEmailSentAt: null,
     billingCountry: null,
     withdrawalConsentAt: null,
+    planCostEur,
+    stripeFeeEur: null,
     createdAt: now.toISOString(),
   };
+}
+
+/** Saves the plan's current wholesale cost on the order. Never throws: it must not block a sale. */
+async function recordPlanCost(orderId: number, costEur: number | null): Promise<void> {
+  if (costEur === null) return;
+  try {
+    const pool = await getPool();
+    await pool.query("UPDATE orders SET plan_cost_eur = ? WHERE id = ? AND plan_cost_eur IS NULL", [costEur, orderId]);
+  } catch (error) {
+    console.error(`[checkout] Couldn't record the plan cost for order ${orderId}:`, error);
+  }
+}
+
+declare global {
+  var __planCostsBackfilled__: Promise<void> | undefined;
+}
+
+/**
+ * Orders placed before costs were recorded get their plan's cost from the
+ * current grid — once per server start, and only for rows still missing
+ * it, so a later grid never overwrites a recorded cost. Never throws.
+ */
+export function ensurePlanCostsBackfilled(): Promise<void> {
+  globalThis.__planCostsBackfilled__ ??= (async () => {
+    try {
+      const pool = await getPool();
+      const [rows] = await pool.query<(RowDataPacket & { id: number; plan_id: string })[]>(
+        "SELECT id, plan_id FROM orders WHERE plan_cost_eur IS NULL AND plan_id IS NOT NULL"
+      );
+      for (const row of rows) {
+        const cost = getPlanCostEur(row.plan_id);
+        if (cost !== null) await pool.query("UPDATE orders SET plan_cost_eur = ? WHERE id = ? AND plan_cost_eur IS NULL", [cost, row.id]);
+      }
+    } catch (error) {
+      globalThis.__planCostsBackfilled__ = undefined;
+      console.error("[checkout] Plan cost backfill failed; will retry:", error);
+    }
+  })();
+  return globalThis.__planCostsBackfilled__;
+}
+
+/** Stripe's processing fee for an order's payment (EUR). Never throws. */
+export async function recordStripeFee(orderId: number, feeEur: number): Promise<void> {
+  try {
+    const pool = await getPool();
+    await pool.query("UPDATE orders SET stripe_fee_eur = ? WHERE id = ?", [feeEur, orderId]);
+  } catch (error) {
+    console.error(`[checkout] Couldn't record the Stripe fee for order ${orderId}:`, error);
+  }
+}
+
+/** Paid live orders whose Stripe fee hasn't been fetched yet. */
+export async function listOrdersMissingStripeFee(limit: number): Promise<{ id: number; paymentIntentId: string }[]> {
+  const pool = await getPool();
+  const [rows] = await pool.query<(RowDataPacket & { id: number; stripe_payment_intent_id: string })[]>(
+    `SELECT id, stripe_payment_intent_id FROM orders
+     WHERE stripe_fee_eur IS NULL AND stripe_payment_intent_id IS NOT NULL AND status = 'completed' AND ${LIVE_ORDER_SQL}
+     ORDER BY id DESC LIMIT ?`,
+    [limit]
+  );
+  return rows.map((row) => ({ id: row.id, paymentIntentId: row.stripe_payment_intent_id }));
 }
 
 /**
@@ -330,6 +404,7 @@ export const ADMIN_ORDER_SEARCH_LIMIT = 100;
  * ("13" or "ORD-13"), customer name or email, plan, ICCID or MSISDN.
  */
 export async function searchOrdersForAdmin(query: string, kind: OrderKind | "all"): Promise<CheckoutOrder[]> {
+  await ensurePlanCostsBackfilled();
   const pool = await getPool();
   const conditions: string[] = [];
   const params: (string | number)[] = [];

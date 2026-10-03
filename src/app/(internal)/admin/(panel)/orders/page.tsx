@@ -3,6 +3,8 @@ import { orderKind, type OrderKind } from "@/lib/checkout/order-kind";
 import { formatPrice } from "@/lib/format";
 import { DeliveryBadge, KindBadge, PaymentBadge } from "../Badges";
 import ResendEmailButton from "./ResendEmailButton";
+import FetchFeesButton from "./FetchFeesButton";
+import { orderProfit } from "@/lib/checkout/order-profit";
 
 const KIND_FILTERS: { value: OrderKind | "all"; label: string }[] = [
   { value: "all", label: "All orders" },
@@ -13,6 +15,31 @@ const KIND_FILTERS: { value: OrderKind | "all"; label: string }[] = [
 
 function formatDateTime(iso: string): string {
   return new Date(iso).toLocaleString("en-GB", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+}
+
+function ProfitCell({ order }: { order: Parameters<typeof orderProfit>[0] }) {
+  const p = orderProfit(order);
+  if (p.profit === null) return <span className="text-muted">—</span>;
+  return (
+    <div className="space-y-0.5">
+      <p className="text-muted">
+        Cost:{" "}
+        {p.cost !== null ? (
+          <span className="text-ink">{formatPrice(p.cost)}</span>
+        ) : p.costUnknown ? (
+          <span className="text-red-700">unknown</span>
+        ) : (
+          "none yet (not delivered)"
+        )}
+      </p>
+      <p className="font-semibold text-ink">Profit: {formatPrice(p.profit)}</p>
+      {p.profitAfterStripeFee !== null && (
+        <p className="text-muted">
+          After Stripe fee ({formatPrice(order.stripeFeeEur ?? 0)}): {formatPrice(p.profitAfterStripeFee)}
+        </p>
+      )}
+    </div>
+  );
 }
 
 export default async function AdminOrdersPage({
@@ -34,6 +61,13 @@ export default async function AdminOrdersPage({
           Every order, newest first. A customer page link shows that customer&apos;s eSIM QR code — treat it like a password and
           only send it to the customer.
         </p>
+        <p className="mt-1 text-xs text-muted">
+          Cost is the Transatel wholesale price saved when the order was placed, counted once the eSIM is delivered. Profit is the amount
+          paid (incl. the 5% taxes &amp; fees line) minus that cost, before Stripe fees and VAT.
+        </p>
+        <div className="mt-2">
+          <FetchFeesButton />
+        </div>
       </div>
 
       <form method="get" className="flex flex-wrap items-center gap-3">
@@ -73,6 +107,7 @@ export default async function AdminOrdersPage({
                 <th className="px-4 py-3 font-semibold">Customer</th>
                 <th className="px-4 py-3 font-semibold">Plan</th>
                 <th className="px-4 py-3 font-semibold">Amount</th>
+                <th className="px-4 py-3 font-semibold">Cost / profit</th>
                 <th className="px-4 py-3 font-semibold">Payment</th>
                 <th className="px-4 py-3 font-semibold">Delivery</th>
                 <th className="px-4 py-3 font-semibold">SIM</th>
@@ -99,6 +134,9 @@ export default async function AdminOrdersPage({
                       <p className="text-xs text-muted">{order.countryName}</p>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-ink">{formatPrice(order.amountEur)}</td>
+                    <td className="px-4 py-3 text-xs whitespace-nowrap">
+                      <ProfitCell order={order} />
+                    </td>
                     <td className="px-4 py-3">
                       <PaymentBadge status={order.status} />
                     </td>

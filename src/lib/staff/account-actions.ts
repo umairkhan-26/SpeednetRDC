@@ -13,6 +13,7 @@ import {
 import { getClientIp, isRateLimited, rateLimitBucket, recordAttempt } from "@/lib/auth/rate-limit";
 import {
   changeStaffEmail,
+  cleanDisplayName,
   consumeStaffToken,
   createInvitedStaff,
   createStaffToken,
@@ -23,6 +24,7 @@ import {
   logAudit,
   normalizeEmail,
   reactivateStaff,
+  renameStaff,
   setStaffPassword,
   type StaffAccount,
 } from "./accounts";
@@ -251,6 +253,34 @@ export async function confirmEmailChangeAction(_prev: AccountFormState, formData
   await sendEmail({ to: account.email, ...emailChangedNoticeEmail({ newEmail: info.newEmail }) });
   revalidateAccountPages();
   return { success: `Your email address is now ${info.newEmail}. Use it the next time you sign in.` };
+}
+
+// --- Display names ---------------------------------------------------------
+
+async function rename(actorId: number, targetId: number, rawName: string): Promise<AccountActionResult> {
+  const name = cleanDisplayName(rawName);
+  if (!name) return { ok: false, message: "Enter a name of 1 to 100 characters." };
+  const account = await getStaffAccountById(targetId);
+  if (!account) return { ok: false, message: "Account not found." };
+  if (account.name === name) return { ok: true, message: "Name unchanged." };
+  await renameStaff(targetId, name);
+  await logAudit(actorId, "name_changed", targetId, `${account.name} → ${name}`);
+  revalidateAccountPages();
+  revalidatePath("/admin", "layout");
+  return { ok: true, message: "Name updated." };
+}
+
+/** Admin-only: change any admin's or staff member's display name. Email changes still go through the confirmation link. */
+export async function renameStaffAction(staffId: number, name: string): Promise<AccountActionResult> {
+  const session = await requireAdminSession();
+  return rename(session.staffId, staffId, name);
+}
+
+/** Change your own display name (Account page). */
+export async function changeOwnNameAction(_prev: AccountFormState, formData: FormData): Promise<AccountFormState> {
+  const session = await requireStaffSession();
+  const result = await rename(session.staffId, session.staffId, String(formData.get("name") ?? ""));
+  return result.ok ? { success: result.message } : { error: result.message };
 }
 
 // --- Deactivate / reactivate ------------------------------------------------

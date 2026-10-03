@@ -1,6 +1,10 @@
 import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import { fromMySQLDateTime, getPool, toMySQLDateTime } from "./db";
 import { LIVE_ORDER_SQL, orderKind } from "@/lib/checkout/order-kind";
+import { ensurePlanCostsBackfilled } from "@/lib/checkout/orders-repository";
+
+/** A paid order whose eSIM was delivered: the only kind that has a cost. */
+const DELIVERED_SQL = "status = 'completed' AND provisioning_status = 'provisioned'";
 import type {
   Complaint,
   ComplaintStatus,
@@ -296,41 +300,85 @@ export async function listRecentOrders(limit = 8): Promise<StoreOrder[]> {
 // Every business figure below counts live (real-money) orders only — never
 // Stripe test-mode orders or seeded demo rows. See src/lib/checkout/order-kind.ts.
 
+/**
+ * Headline figures, live orders only. Revenue is what customers paid
+ * (amount_eur: plan price plus the 5% "taxes & fees" line) for paid,
+ * non-refunded orders. Cost is the Transatel wholesale cost saved on each
+ * order, counted only once its eSIM was delivered; a paid order whose
+ * delivery failed has revenue but no cost yet, and a refunded one has
+ * neither. Profit = revenue - cost, before Stripe fees and VAT.
+ */
 export async function getOrderStats(): Promise<{
   totalRevenue: number;
   totalOrders: number;
   conversionRate: number;
+  totalCost: number;
+  totalProfit: number;
+  /** Profit as a % of revenue, or null with no revenue. */
+  profitMargin: number | null;
+  /** Delivered orders with no recorded cost (plan missing from the grid). */
+  ordersWithoutCost: number;
+  stripeFees: number;
+  /** Paid orders whose Stripe fee hasn't been fetched yet. */
+  ordersWithoutStripeFee: number;
 }> {
+  await ensurePlanCostsBackfilled();
   const pool = await getPool();
-  const [totalsRows] = await pool.query<(RowDataPacket & { total: number; revenue: string | null })[]>(
-    `SELECT COUNT(*) AS total, SUM(CASE WHEN status = 'completed' THEN amount_eur ELSE 0 END) AS revenue
+  const [rows] = await pool.query<
+    (RowDataPacket & {
+      total: number;
+      completed: string | number | null;
+      revenue: string | null;
+      cost: string | null;
+      cost_unknown: string | number | null;
+      fees: string | null;
+      fees_missing: string | number | null;
+    })[]
+  >(
+    `SELECT COUNT(*) AS total,
+            SUM(status = 'completed') AS completed,
+            SUM(CASE WHEN status = 'completed' THEN amount_eur ELSE 0 END) AS revenue,
+            SUM(CASE WHEN ${DELIVERED_SQL} THEN COALESCE(plan_cost_eur, 0) ELSE 0 END) AS cost,
+            SUM(CASE WHEN ${DELIVERED_SQL} AND plan_cost_eur IS NULL THEN 1 ELSE 0 END) AS cost_unknown,
+            SUM(CASE WHEN status = 'completed' THEN COALESCE(stripe_fee_eur, 0) ELSE 0 END) AS fees,
+            SUM(CASE WHEN status = 'completed' AND stripe_fee_eur IS NULL THEN 1 ELSE 0 END) AS fees_missing
      FROM orders WHERE ${LIVE_ORDER_SQL}`
   );
-  const [completedRows] = await pool.query<(RowDataPacket & { count: number })[]>(
-    `SELECT COUNT(*) AS count FROM orders WHERE status = 'completed' AND ${LIVE_ORDER_SQL}`
-  );
-
-  const totals = totalsRows[0];
-  const completed = completedRows[0];
-
+  const r = rows[0];
+  const revenue = Number(r.revenue ?? 0);
+  const cost = Number(r.cost ?? 0);
+  const profit = Math.round((revenue - cost) * 100) / 100;
+  const completed = Number(r.completed ?? 0);
   return {
-    totalRevenue: totals.revenue ? Number(totals.revenue) : 0,
-    totalOrders: totals.total,
-    conversionRate: totals.total > 0 ? (completed.count / totals.total) * 100 : 0,
+    totalRevenue: revenue,
+    totalOrders: r.total,
+    conversionRate: r.total > 0 ? (completed / r.total) * 100 : 0,
+    totalCost: cost,
+    totalProfit: profit,
+    profitMargin: revenue > 0 ? (profit / revenue) * 100 : null,
+    ordersWithoutCost: Number(r.cost_unknown ?? 0),
+    stripeFees: Number(r.fees ?? 0),
+    ordersWithoutStripeFee: Number(r.fees_missing ?? 0),
   };
 }
 
-export async function getRevenueByDay(days = 14): Promise<{ date: string; revenue: number }[]> {
+/** Revenue and profit per day (live orders), on the same basis as getOrderStats. */
+export async function getRevenueByDay(days = 14): Promise<{ date: string; revenue: number; profit: number }[]> {
+  await ensurePlanCostsBackfilled();
   const pool = await getPool();
-  const [rows] = await pool.query<(RowDataPacket & { date: string; revenue: string | null })[]>(
-    `SELECT DATE(created_at) AS date, SUM(amount_eur) AS revenue
+  const [rows] = await pool.query<(RowDataPacket & { date: string; revenue: string | null; cost: string | null })[]>(
+    `SELECT DATE(created_at) AS date, SUM(amount_eur) AS revenue,
+            SUM(CASE WHEN provisioning_status = 'provisioned' THEN COALESCE(plan_cost_eur, 0) ELSE 0 END) AS cost
      FROM orders
      WHERE status = 'completed' AND ${LIVE_ORDER_SQL} AND created_at >= DATE_SUB(NOW(), INTERVAL ? DAY)
      GROUP BY date
      ORDER BY date ASC`,
     [days]
   );
-  return rows.map((r) => ({ date: r.date, revenue: r.revenue ? Number(r.revenue) : 0 }));
+  return rows.map((r) => {
+    const revenue = r.revenue ? Number(r.revenue) : 0;
+    return { date: r.date, revenue, profit: Math.round((revenue - Number(r.cost ?? 0)) * 100) / 100 };
+  });
 }
 
 export async function getOrdersByDay(days = 14): Promise<{ date: string; orders: number }[]> {

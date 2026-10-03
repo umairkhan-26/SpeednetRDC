@@ -9,6 +9,7 @@ import {
 } from "@/lib/staff/repository";
 import InviteForm from "../InviteForm";
 import AccountRowActions from "../AccountRowActions";
+import EditNameButton from "../EditNameButton";
 import { AccountStatusBadge } from "../Badges";
 import MessageButton from "./MessageButton";
 import TeamBroadcastButton from "./TeamBroadcastButton";
@@ -79,6 +80,7 @@ export default async function AdminStaffDirectoryPage() {
                 <p className="w-28 text-right text-sm text-muted">
                   {openShift ? `Since ${formatTime(openShift.loginTime)}` : "Not clocked in"}
                 </p>
+                <EditNameButton staffId={member.id} name={member.name} />
                 <AccountRowActions staffId={member.id} name={member.name} status={member.status} isSelf={member.id === session.staffId} />
                 {member.id !== session.staffId && member.status === "active" && (
                   <MessageButton

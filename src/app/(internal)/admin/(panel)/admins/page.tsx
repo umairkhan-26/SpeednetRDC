@@ -1,6 +1,7 @@
 import { requireAdminSession } from "@/lib/staff/auth";
 import { getPendingInviteExpiries, listAuditLog, listStaffAccounts, type AuditAction } from "@/lib/staff/accounts";
 import AccountRowActions from "../AccountRowActions";
+import EditNameButton from "../EditNameButton";
 import InviteForm from "../InviteForm";
 import { AccountStatusBadge } from "../Badges";
 
@@ -16,6 +17,7 @@ const ACTION_LABELS: Record<AuditAction, string> = {
   email_changed: "changed their email",
   deactivated: "deactivated",
   reactivated: "reactivated",
+  name_changed: "changed a name",
 };
 
 function formatDateTime(iso: string | null): string {
@@ -73,7 +75,10 @@ export default async function AdminsPage() {
                     {admin.invitedByName && <p>by {admin.invitedByName}</p>}
                   </td>
                   <td className="px-4 py-3">
-                    <AccountRowActions staffId={admin.id} name={admin.name} status={admin.status} isSelf={admin.id === session.staffId} />
+                    <div className="flex flex-col items-start gap-1.5">
+                      <EditNameButton staffId={admin.id} name={admin.name} />
+                      <AccountRowActions staffId={admin.id} name={admin.name} status={admin.status} isSelf={admin.id === session.staffId} />
+                    </div>
                   </td>
                 </tr>
               );

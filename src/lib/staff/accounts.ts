@@ -85,6 +85,18 @@ export async function recordStaffLogin(staffId: number): Promise<void> {
   }
 }
 
+/** Display names: trimmed, 1–100 characters, no control characters. Returns null if invalid. */
+export function cleanDisplayName(raw: string): string | null {
+  const name = raw.replace(/\s+/g, " ").trim();
+  if (!name || name.length > 100 || /[\u0000-\u001f\u007f]/.test(name)) return null;
+  return name;
+}
+
+export async function renameStaff(staffId: number, name: string): Promise<void> {
+  const pool = await getPool();
+  await pool.query("UPDATE staff_members SET name = ? WHERE id = ?", [name, staffId]);
+}
+
 /** False if another account already uses the address. */
 export async function changeStaffEmail(staffId: number, newEmail: string): Promise<boolean> {
   const pool = await getPool();
@@ -264,7 +276,8 @@ export type AuditAction =
   | "email_change_requested"
   | "email_changed"
   | "deactivated"
-  | "reactivated";
+  | "reactivated"
+  | "name_changed";
 
 /** Never throws: a failed audit write is logged, and never blocks a sign-in or account change. */
 export async function logAudit(actorId: number | null, action: AuditAction, targetId: number | null, detail: string | null = null): Promise<void> {

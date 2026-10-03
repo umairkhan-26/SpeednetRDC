@@ -12,6 +12,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  Legend,
   CartesianGrid,
 } from "recharts";
 
@@ -21,7 +22,7 @@ function formatShortDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
 }
 
-export function RevenueChart({ data }: { data: { date: string; revenue: number }[] }) {
+export function RevenueChart({ data }: { data: { date: string; revenue: number; profit: number }[] }) {
   const chartData = data.map((d) => ({ ...d, label: formatShortDate(d.date) }));
 
   return (
@@ -31,10 +32,12 @@ export function RevenueChart({ data }: { data: { date: string; revenue: number }
         <XAxis dataKey="label" tick={{ fontSize: 12, fill: "#6B6560" }} axisLine={false} tickLine={false} />
         <YAxis tick={{ fontSize: 12, fill: "#6B6560" }} axisLine={false} tickLine={false} width={40} />
         <Tooltip
-          formatter={(value) => [`€${Number(value).toFixed(2)}`, "Revenue"]}
+          formatter={(value, name) => [`€${Number(value).toFixed(2)}`, name === "profit" ? "Profit" : "Revenue"]}
           contentStyle={{ borderRadius: 12, borderColor: "#E7DCCF" }}
         />
+        <Legend formatter={(name) => (name === "profit" ? "Profit" : "Revenue")} wrapperStyle={{ fontSize: 12 }} />
         <Line type="monotone" dataKey="revenue" stroke="#F06104" strokeWidth={2.5} dot={false} />
+        <Line type="monotone" dataKey="profit" stroke="#0A0A0A" strokeWidth={2} strokeDasharray="5 4" dot={false} />
       </LineChart>
     </ResponsiveContainer>
   );

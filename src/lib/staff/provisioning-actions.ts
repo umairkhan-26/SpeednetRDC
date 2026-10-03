@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { getOrderById, resetProvisioningForRetry } from "@/lib/checkout/orders-repository";
 import { orderKind } from "@/lib/checkout/order-kind";
 import { sendOrderReadyEmail } from "@/lib/email/order-emails";
+import { backfillStripeFees } from "@/lib/checkout/stripe-fees";
 import { provisionEsimOrder } from "@/lib/transatel/provisioning";
 import { requireAdminSession } from "./auth";
 
@@ -52,4 +53,18 @@ export async function resendOrderEmailAction(orderId: number): Promise<RetryProv
   const result = await sendOrderReadyEmail(orderId, { resend: true });
   revalidatePath("/admin/orders");
   return result;
+}
+
+/** Admin-only: reads Stripe's fee for paid live orders that don't have one yet (read-only Stripe calls). */
+export async function fetchStripeFeesAction(): Promise<RetryProvisioningResult> {
+  await requireAdminSession();
+  try {
+    const { filled, missing } = await backfillStripeFees(50);
+    revalidatePath("/admin");
+    revalidatePath("/admin/orders");
+    if (filled === 0 && missing === 0) return { ok: true, message: "All paid orders already have their Stripe fee." };
+    return { ok: missing === 0, message: `Fetched ${filled} fee(s).${missing ? ` ${missing} not available from Stripe yet.` : ""}` };
+  } catch (error) {
+    return { ok: false, message: `Couldn't read fees from Stripe: ${error instanceof Error ? error.message : String(error)}` };
+  }
 }

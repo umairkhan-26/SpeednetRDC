@@ -1,6 +1,6 @@
 import { requireAdminSession } from "@/lib/staff/auth";
 import { getStaffAccountById } from "@/lib/staff/accounts";
-import { changePasswordAction, requestEmailChangeAction } from "@/lib/staff/account-actions";
+import { changeOwnNameAction, changePasswordAction, requestEmailChangeAction } from "@/lib/staff/account-actions";
 import { MIN_PASSWORD_LENGTH } from "@/lib/staff/password";
 import AccountForm, { Field } from "@/components/staff/AccountForm";
 
@@ -17,6 +17,14 @@ export default async function AccountSettingsPage() {
           Signed in as {account.name} ({account.email}).
         </p>
       </div>
+
+      <section className="rounded-2xl border border-line bg-white p-6">
+        <h2 className="text-lg font-bold text-ink">Display name</h2>
+        <p className="mt-1 text-sm text-muted">Shown in the admin panel, the staff portal and the account activity log.</p>
+        <AccountForm action={changeOwnNameAction} submitLabel="Save name">
+          <Field label="Name" name="name" required maxLength={100} defaultValue={account.name} autoComplete="name" />
+        </AccountForm>
+      </section>
 
       <section className="rounded-2xl border border-line bg-white p-6">
         <h2 className="text-lg font-bold text-ink">Change email</h2>

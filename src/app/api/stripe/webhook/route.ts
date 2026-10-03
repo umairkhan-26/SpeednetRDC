@@ -3,6 +3,7 @@ import type Stripe from "stripe";
 import { getStripe } from "@/lib/checkout/stripe";
 import { markOrderFailed, markOrderPaid, recordBillingCountry } from "@/lib/checkout/orders-repository";
 import { provisionEsimOrder } from "@/lib/transatel/provisioning";
+import { recordStripeFeeForOrder } from "@/lib/checkout/stripe-fees";
 
 function orderIdFromMetadata(metadata: Stripe.Metadata | null | undefined): number | null {
   const raw = metadata?.order_id;
@@ -42,6 +43,8 @@ export async function POST(request: Request) {
         // skip provisioning entirely in that race. provisionEsimOrder claims
         // the order atomically, so duplicate deliveries are no-ops.
         await provisionEsimOrder(orderId);
+        // After provisioning, so it can never delay or block the eSIM.
+        await recordStripeFeeForOrder(orderId, paymentIntentId);
       }
       break;
     }

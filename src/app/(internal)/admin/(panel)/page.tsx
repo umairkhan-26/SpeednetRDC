@@ -103,8 +103,37 @@ export default async function AdminDashboardPage() {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
-        <StatCard label="Total Revenue" value={formatPrice(orderStats.totalRevenue)} />
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <StatCard label="Total Revenue" value={formatPrice(orderStats.totalRevenue)} note="What customers paid, incl. the 5% taxes & fees line" />
+        <StatCard
+          label="Total Cost"
+          value={formatPrice(orderStats.totalCost)}
+          note={
+            orderStats.ordersWithoutCost > 0
+              ? `Transatel wholesale, delivered eSIMs only. ${orderStats.ordersWithoutCost} delivered order(s) have no known cost.`
+              : "Transatel wholesale, delivered eSIMs only"
+          }
+        />
+        <StatCard
+          label="Total Profit"
+          value={formatPrice(orderStats.totalProfit)}
+          note={
+            <>
+              Before Stripe fees and VAT
+              <br />
+              After Stripe fees: <span className="font-semibold text-ink">{formatPrice(orderStats.totalProfit - orderStats.stripeFees)}</span>
+              {orderStats.ordersWithoutStripeFee > 0 && <> ({orderStats.ordersWithoutStripeFee} fee(s) not fetched yet)</>}
+            </>
+          }
+        />
+        <StatCard
+          label="Profit Margin"
+          value={orderStats.profitMargin === null ? "—" : `${orderStats.profitMargin.toFixed(1)}%`}
+          note="Profit ÷ revenue, before Stripe fees and VAT"
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <StatCard label="Total Orders" value={String(orderStats.totalOrders)} />
         <StatCard label="Active Staff Right Now" value={String(activeStaff)} />
         <StatCard label="Total Complaints" value={String(openComplaints)} />
@@ -113,7 +142,7 @@ export default async function AdminDashboardPage() {
 
       <div className="grid gap-5 lg:grid-cols-2">
         <div className="rounded-2xl border border-line bg-white p-5">
-          <p className="text-sm font-semibold text-ink">Revenue (last 14 days)</p>
+          <p className="text-sm font-semibold text-ink">Revenue and profit (last 14 days)</p>
           <RevenueChart data={revenueByDay} />
         </div>
         <div className="rounded-2xl border border-line bg-white p-5">
