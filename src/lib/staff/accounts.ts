@@ -75,9 +75,14 @@ export async function setStaffPassword(staffId: number, passwordHash: string): P
   return rows[0].session_version;
 }
 
+/** Never throws: "last sign-in" is informational and must not block signing in. */
 export async function recordStaffLogin(staffId: number): Promise<void> {
-  const pool = await getPool();
-  await pool.query("UPDATE staff_members SET last_login_at = ? WHERE id = ?", [toMySQLDateTime(new Date()), staffId]);
+  try {
+    const pool = await getPool();
+    await pool.query("UPDATE staff_members SET last_login_at = ? WHERE id = ?", [toMySQLDateTime(new Date()), staffId]);
+  } catch (error) {
+    console.error(`[staff] Couldn't record sign-in time for staff ${staffId}:`, error);
+  }
 }
 
 /** False if another account already uses the address. */
@@ -261,15 +266,20 @@ export type AuditAction =
   | "deactivated"
   | "reactivated";
 
+/** Never throws: a failed audit write is logged, and never blocks a sign-in or account change. */
 export async function logAudit(actorId: number | null, action: AuditAction, targetId: number | null, detail: string | null = null): Promise<void> {
-  const pool = await getPool();
-  await pool.query("INSERT INTO admin_audit_log (actor_id, action, target_id, detail, created_at) VALUES (?, ?, ?, ?, ?)", [
-    actorId,
-    action,
-    targetId,
-    detail ? detail.slice(0, 512) : null,
-    toMySQLDateTime(new Date()),
-  ]);
+  try {
+    const pool = await getPool();
+    await pool.query("INSERT INTO admin_audit_log (actor_id, action, target_id, detail, created_at) VALUES (?, ?, ?, ?, ?)", [
+      actorId,
+      action,
+      targetId,
+      detail ? detail.slice(0, 512) : null,
+      toMySQLDateTime(new Date()),
+    ]);
+  } catch (error) {
+    console.error(`[audit] Couldn't record "${action}":`, error);
+  }
 }
 
 export interface AuditEntry {

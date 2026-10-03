@@ -7,6 +7,10 @@ import { getPool, toMySQLDateTime } from "@/lib/staff/db";
 // A bucket is a keyed hash of what's being limited (an email address or an
 // IP address) — the raw value is never stored — and rows are deleted after
 // 24 hours.
+//
+// If the table can't be used (a failed migration, say), these fail open:
+// the error is logged and sign-in carries on unlimited, rather than locking
+// everyone — including the only admin — out.
 
 const RETENTION_MS = 24 * 60 * 60 * 1000;
 
@@ -29,25 +33,38 @@ export async function getClientIp(): Promise<string> {
 }
 
 export async function isRateLimited(bucket: string, max: number, windowSeconds: number): Promise<boolean> {
-  const pool = await getPool();
-  const since = toMySQLDateTime(new Date(Date.now() - windowSeconds * 1000));
-  const [rows] = await pool.query<(RowDataPacket & { count: number })[]>(
-    "SELECT COUNT(*) AS count FROM auth_rate_limits WHERE bucket = ? AND attempted_at > ?",
-    [bucket, since]
-  );
-  return rows[0].count >= max;
+  try {
+    const pool = await getPool();
+    const since = toMySQLDateTime(new Date(Date.now() - windowSeconds * 1000));
+    const [rows] = await pool.query<(RowDataPacket & { count: number })[]>(
+      "SELECT COUNT(*) AS count FROM auth_rate_limits WHERE bucket = ? AND attempted_at > ?",
+      [bucket, since]
+    );
+    return rows[0].count >= max;
+  } catch (error) {
+    console.error("[rate-limit] Check failed; allowing the attempt:", error);
+    return false;
+  }
 }
 
 export async function recordAttempt(...buckets: string[]): Promise<void> {
-  const pool = await getPool();
-  const now = new Date();
-  for (const bucket of buckets) {
-    await pool.query("INSERT INTO auth_rate_limits (bucket, attempted_at) VALUES (?, ?)", [bucket, toMySQLDateTime(now)]);
+  try {
+    const pool = await getPool();
+    const now = new Date();
+    for (const bucket of buckets) {
+      await pool.query("INSERT INTO auth_rate_limits (bucket, attempted_at) VALUES (?, ?)", [bucket, toMySQLDateTime(now)]);
+    }
+    await pool.query("DELETE FROM auth_rate_limits WHERE attempted_at < ?", [toMySQLDateTime(new Date(now.getTime() - RETENTION_MS))]);
+  } catch (error) {
+    console.error("[rate-limit] Couldn't record an attempt:", error);
   }
-  await pool.query("DELETE FROM auth_rate_limits WHERE attempted_at < ?", [toMySQLDateTime(new Date(now.getTime() - RETENTION_MS))]);
 }
 
 export async function clearAttempts(bucket: string): Promise<void> {
-  const pool = await getPool();
-  await pool.query("DELETE FROM auth_rate_limits WHERE bucket = ?", [bucket]);
+  try {
+    const pool = await getPool();
+    await pool.query("DELETE FROM auth_rate_limits WHERE bucket = ?", [bucket]);
+  } catch (error) {
+    console.error("[rate-limit] Couldn't clear attempts:", error);
+  }
 }
