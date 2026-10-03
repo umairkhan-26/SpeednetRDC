@@ -3,17 +3,22 @@ import {
   attachTransatelOrder,
   claimProvisioning,
   completeProvisioning,
+  completeTopUp,
   detachSim,
   ensureAccessToken,
   getOrderById,
+  listSubscriptionIdsClaimedByOtherOrders,
   markProvisioningFailed,
   type CheckoutOrder,
 } from "@/lib/checkout/orders-repository";
 import { orderKind } from "@/lib/checkout/order-kind";
-import { sendOrderReadyEmail } from "@/lib/email/order-emails";
+import { sendOrderReadyEmail, sendTopUpReadyEmail } from "@/lib/email/order-emails";
 import {
   getEsimDetails,
+  getPlanSubscriptions,
+  getSimSearchRecord,
   getSubscriberProducts,
+  placePlanOrder,
   placePreloadOrder,
   searchSimByIccid,
   toMsisdnDigits,
@@ -65,11 +70,16 @@ export async function provisionEsimOrder(orderId: number): Promise<void> {
   // testing (ESIM_PROVISION_TEST_ORDERS=true).
   const candidate = await getOrderById(orderId);
   if (!candidate) return;
+  // A SIM card is posted, never provisioned: no eSIM reservation, no
+  // activation code. A top-up adds a plan to the customer's own SIM.
+  if (candidate.productType === "physical_sim") return;
   const kind = orderKind(candidate.stripeCheckoutSessionId);
   if (kind !== "live" && process.env.ESIM_PROVISION_TEST_ORDERS !== "true") {
     console.warn(`[transatel] Order ${orderId} is a ${kind} order — not provisioning a real eSIM (ESIM_PROVISION_TEST_ORDERS is not "true")`);
     return;
   }
+
+  if (candidate.productType === "topup") return provisionTopUp(orderId);
 
   if (!(await claimProvisioning(orderId))) return;
   await ensureAccessToken(orderId);
@@ -157,4 +167,74 @@ async function resolveMsisdn(sim: InventorySim): Promise<string> {
   if (!found?.msisdn) throw new Error(`SIM ${sim.iccid} has no MSISDN in Transatel's SIM Search`);
   await setSimMsisdn(sim.iccid, found.msisdn);
   return found.msisdn;
+}
+
+// --- Top-ups ------------------------------------------------------------------
+
+/** How far our clock and Transatel's may disagree when matching a plan to an order. */
+const CLOCK_SKEW_MS = 5 * 60 * 1000;
+
+/**
+ * Adds a paid plan to the customer's existing SIM (orders.iccid, verified at
+ * checkout). No SIM is reserved and there's no activation code. Same safety
+ * as eSIMs: claimed once, resumable, failures recorded for an admin retry.
+ *
+ * Order type follows the SIM's state: "preload" while it has never been used
+ * (Pre-Activated), "subscribe" once it's Active. Plans stack on the SIM.
+ *
+ * Duplicate protection: the eSIM rule ("this plan is already on the SIM, so
+ * reuse it") would be wrong here — a customer may buy the same plan again.
+ * Instead, a plan of this product only counts as this order's if Transatel
+ * created it after the order was placed and no other order has claimed it;
+ * that is the plan an attempt that crashed before saving it would have left.
+ */
+async function provisionTopUp(orderId: number): Promise<void> {
+  if (!(await claimProvisioning(orderId))) return;
+  await ensureAccessToken(orderId);
+
+  try {
+    const order = await getOrderById(orderId);
+    if (!order) throw new Error(`Order ${orderId} not found`);
+    if (!order.planId) throw new Error(`Order ${orderId} has no plan`);
+    if (!order.iccid) throw new Error(`Top-up order ${orderId} has no target SIM`);
+    const productId = getTransatelProductId({ id: order.planId });
+
+    const sim = await getSimByIccid(order.iccid);
+    if (!sim || sim.status !== "assigned") throw new Error(`Top-up order ${orderId}: SIM ${order.iccid} isn't one of our customers' SIMs`);
+    const msisdn = await resolveMsisdn(sim);
+
+    if (!order.transatelOrderId) {
+      const since = Date.parse(order.createdAt) - CLOCK_SKEW_MS;
+      const ofThisProduct = (await getPlanSubscriptions(msisdn)).filter(
+        (p) => p.productId === productId && p.subscriptionDate !== null && Date.parse(p.subscriptionDate) >= since
+      );
+      const claimed = await listSubscriptionIdsClaimedByOtherOrders(
+        ofThisProduct.map((p) => p.subscriptionId),
+        orderId
+      );
+      const leftOver = ofThisProduct.find((p) => !claimed.has(p.subscriptionId));
+
+      let subscriptionId = leftOver?.subscriptionId;
+      if (!subscriptionId) {
+        const record = await getSimSearchRecord(sim.iccid);
+        const state = (record?.status ?? "").toLowerCase().replace(/[^a-z]/g, "");
+        if (state !== "preactivated" && state !== "active") {
+          throw new Error(`Top-up order ${orderId}: SIM ${sim.iccid} is "${record?.status ?? "unknown"}" at Transatel — can't add a plan`);
+        }
+        const orderType = state === "preactivated" ? "preload" : "subscribe";
+        subscriptionId = (await placePlanOrder({ msisdn, productId, transactionReference: `order-${orderId}`, orderType })).subscriptionId;
+      }
+      await attachTransatelOrder(orderId, subscriptionId, msisdn);
+    }
+
+    await completeTopUp(orderId, msisdn);
+    await sendTopUpReadyEmail(orderId);
+  } catch (error) {
+    if (error instanceof TransatelApiError) {
+      console.error(`[transatel] Top-up order ${orderId} failed (${error.status}):`, error.body);
+    } else {
+      console.error(`[transatel] Top-up order ${orderId} failed:`, error);
+    }
+    await markProvisioningFailed(orderId);
+  }
 }

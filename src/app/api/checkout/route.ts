@@ -9,6 +9,9 @@ import { getAppUrl, getStripe } from "@/lib/checkout/stripe";
 import { attachStripeCheckoutSession, createPendingOrder, recordWithdrawalConsent } from "@/lib/checkout/orders-repository";
 import { legalPagesLive } from "@/lib/legal";
 import { ESIM_CHECKOUT_PAUSED_ERROR, isEsimCheckoutEnabled } from "@/lib/checkout/availability";
+import { isPhysicalSimEnabled } from "@/lib/physical-sim";
+import { findTopUpTarget } from "@/lib/sims/eligibility";
+import { getClientIp, isRateLimited, rateLimitBucket, recordAttempt } from "@/lib/auth/rate-limit";
 
 interface CheckoutRequestBody {
   planId?: unknown;
@@ -16,6 +19,8 @@ interface CheckoutRequestBody {
   email?: unknown;
   locale?: unknown;
   withdrawalConsent?: unknown;
+  /** "Add to my SIM": the ICCID of a SIM the customer already has. */
+  topUpIccid?: unknown;
 }
 
 export async function POST(request: Request) {
@@ -52,6 +57,26 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Please tick the box to confirm immediate delivery of your eSIM." }, { status: 400 });
   }
 
+  // "Add to my SIM": re-check the SIM here (never trust the browser) — it
+  // must be one of our SIMs that reached a customer. Failed lookups are
+  // rate-limited so the endpoint can't be used to probe ICCIDs.
+  let topUpIccid: string | undefined;
+  if (body.topUpIccid !== undefined && body.topUpIccid !== null && body.topUpIccid !== "") {
+    if (!isPhysicalSimEnabled()) {
+      return NextResponse.json({ error: "Adding a plan to an existing SIM isn't available yet." }, { status: 400 });
+    }
+    const ipBucket = rateLimitBucket("topup-iccid-ip", await getClientIp());
+    if (await isRateLimited(ipBucket, 20, 60 * 60)) {
+      return NextResponse.json({ error: "Too many attempts. Please try again later." }, { status: 429 });
+    }
+    const target = typeof body.topUpIccid === "string" ? await findTopUpTarget(body.topUpIccid) : null;
+    if (!target) {
+      await recordAttempt(ipBucket);
+      return NextResponse.json({ error: "We couldn't find that SIM. Check the number printed on your SIM card." }, { status: 400 });
+    }
+    topUpIccid = target.iccid;
+  }
+
   const resolvedLocale = hasLocale(routing.locales, locale) ? locale : routing.defaultLocale;
   const totals = calculateOrderTotals(plan.price);
   const destination = resolveDestination(plan);
@@ -65,6 +90,7 @@ export async function POST(request: Request) {
     customerEmail: email.trim(),
     amountEur: totals.total,
     locale: resolvedLocale,
+    topUpIccid,
   });
   if (consentRequired) await recordWithdrawalConsent(order.id);
 
@@ -81,7 +107,9 @@ export async function POST(request: Request) {
           unit_amount: Math.round(totals.total * 100),
           product_data: {
             name: plan.name,
-            description: `${destination.name} — ${plan.validityDays} days`,
+            description: topUpIccid
+              ? `${destination.name} — ${plan.validityDays} days · added to SIM ending ${topUpIccid.slice(-4)}`
+              : `${destination.name} — ${plan.validityDays} days`,
           },
         },
         quantity: 1,

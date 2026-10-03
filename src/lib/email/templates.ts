@@ -121,3 +121,61 @@ export function passwordChangedNoticeEmail(): EmailContent {
     text: plain([intro, warn]),
   };
 }
+
+// --- Physical SIM cards and top-ups ------------------------------------------
+
+export function simOnItsWayEmail(opts: {
+  customerName: string;
+  orderNumber: number;
+  orderUrl: string;
+  deliveryEstimate: string;
+  shipsFrom: string;
+  returnsText: string;
+}): EmailContent {
+  const intro = `Hi ${opts.customerName}, thanks for your order ORD-${opts.orderNumber}. Your SpeedNetRDC SIM card is being prepared and ships from ${opts.shipsFrom}.`;
+  const when = `It usually arrives within ${opts.deliveryEstimate} of posting. We'll email you again when it's on its way.`;
+  const next = "When it arrives: insert it in any unlocked phone, then buy a data plan for it on our site with “Add to my SIM”.";
+  return {
+    subject: `Your SIM is on its way — order ORD-${opts.orderNumber}`,
+    html: layout({ heading: "Your SIM is on its way", paragraphs: [intro, when, next], button: { label: "View my order", url: opts.orderUrl }, footnote: opts.returnsText }),
+    text: plain([intro, when, next, `Your order: ${opts.orderUrl}`, opts.returnsText]),
+  };
+}
+
+export function simShippedEmail(opts: {
+  customerName: string;
+  orderNumber: number;
+  orderUrl: string;
+  trackingNumber: string | null;
+  deliveryEstimate: string;
+}): EmailContent {
+  const intro = `Hi ${opts.customerName}, your SIM card (order ORD-${opts.orderNumber}) has been posted. It should arrive within ${opts.deliveryEstimate}.`;
+  const tracking = opts.trackingNumber ? `Tracking number: ${opts.trackingNumber}` : undefined;
+  const next = "Once it arrives, insert it and add a data plan from our site. Your SIM is listed under My SIMs when you sign in with this email address.";
+  return {
+    subject: `Your SIM has shipped — order ORD-${opts.orderNumber}`,
+    html: layout({ heading: "Your SIM has shipped", paragraphs: tracking ? [intro, tracking, next] : [intro, next], button: { label: "View my order", url: opts.orderUrl } }),
+    text: plain([intro, tracking, next, `Your order: ${opts.orderUrl}`]),
+  };
+}
+
+export function topUpReadyEmail(opts: {
+  customerName: string;
+  planName: string;
+  orderNumber: number;
+  simEnding: string;
+  orderUrl: string;
+  startWindowText: string;
+  withdrawalConsentAt?: string | null;
+}): EmailContent {
+  const intro = `Hi ${opts.customerName}, your ${opts.planName} plan (order ORD-${opts.orderNumber}) has been added to your SIM ending ${opts.simEnding}.`;
+  const how = `There's nothing to install: the plan starts the first time your phone connects in a country it covers ${opts.startWindowText}. Make sure data roaming is on for this SIM.`;
+  const consent = opts.withdrawalConsentAt
+    ? "At checkout you asked for your plan to be delivered immediately and acknowledged that you lose your 14-day right of withdrawal once it has been delivered."
+    : undefined;
+  return {
+    subject: `Data added to your SIM — order ORD-${opts.orderNumber}`,
+    html: layout({ heading: "Your data plan is on your SIM", paragraphs: [intro, how], button: { label: "View my order", url: opts.orderUrl }, footnote: consent }),
+    text: plain([intro, how, `Your order: ${opts.orderUrl}`, consent]),
+  };
+}

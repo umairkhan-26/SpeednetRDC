@@ -4,15 +4,21 @@ import { formatData, formatPrice, formatValidity } from "@/lib/format";
 import { getCountryBySlug } from "@/data/countries";
 import { Button } from "@/components/ui/Button";
 import { Globe } from "lucide-react";
+import { useCheckoutStore } from "@/lib/store/checkout-store";
+import TopUpSimPicker from "../TopUpSimPicker";
 
 export default function PlanStep({ plan, onContinue }: { plan: Plan; onContinue: () => void }) {
   const country = plan.countrySlug ? getCountryBySlug(plan.countrySlug) : undefined;
+  const { mode, topUpIccid } = useCheckoutStore();
+  const isTopUp = mode === "topup";
 
   return (
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-bold text-ink">Confirm your plan</h2>
-        <p className="mt-1 text-sm text-muted">Double-check the details before you continue.</p>
+        <p className="mt-1 text-sm text-muted">
+          {isTopUp ? "This plan will be added to a SIM you already have — no new eSIM to install." : "Double-check the details before you continue."}
+        </p>
       </div>
 
       <div className="flex items-center gap-4 rounded-2xl border border-line bg-cream p-5">
@@ -34,11 +40,13 @@ export default function PlanStep({ plan, onContinue }: { plan: Plan; onContinue:
         <p className="text-lg font-bold text-orange">{formatPrice(plan.price)}</p>
       </div>
 
+      {isTopUp && <TopUpSimPicker />}
+
       <Link href="/esim-store" className="inline-block text-sm font-semibold text-orange hover:underline">
         Not the right plan? Change plan
       </Link>
 
-      <Button onClick={onContinue} size="lg" className="w-full sm:w-auto">
+      <Button onClick={onContinue} size="lg" className="w-full sm:w-auto" disabled={isTopUp && !topUpIccid}>
         Continue
       </Button>
     </div>

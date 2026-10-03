@@ -3,6 +3,7 @@ import { SITE_URL } from "@/lib/site";
 import { countries } from "@/data/countries";
 import { regions } from "@/data/regions";
 import { legalPagesLive } from "@/lib/legal";
+import { isPhysicalSimEnabled } from "@/lib/physical-sim";
 
 const STATIC_PATHS = [
   "",
@@ -20,7 +21,7 @@ const STATIC_PATHS = [
 const LEGAL_PATHS = ["/privacy", "/terms", "/refunds"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticEntries: MetadataRoute.Sitemap = [...STATIC_PATHS, ...(legalPagesLive() ? LEGAL_PATHS : [])].map((path) => ({
+  const staticEntries: MetadataRoute.Sitemap = [...STATIC_PATHS, ...(legalPagesLive() ? LEGAL_PATHS : []), ...(isPhysicalSimEnabled() ? ["/physical-sim"] : [])].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: new Date(),
   }));

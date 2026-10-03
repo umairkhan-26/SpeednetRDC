@@ -6,6 +6,7 @@ import { getRegionBySlug } from "@/data/regions";
 import { formatData, formatValidity } from "@/lib/format";
 import PlanDetailView from "@/components/plans/PlanDetailView";
 import { isEsimCheckoutEnabled } from "@/lib/checkout/availability";
+import { isPhysicalSimEnabled } from "@/lib/physical-sim";
 import type { RegionSlug } from "@/lib/types";
 
 export async function generateMetadata({
@@ -34,6 +35,7 @@ export default async function RegionalPlanDetailPage({
     <PlanDetailView
       plan={plan}
       salesPaused={!isEsimCheckoutEnabled()}
+      topUpEnabled={isPhysicalSimEnabled()}
       title={`${region.name} eSIM`}
       subtitle={`${formatData(plan.dataAmountGb)} · ${formatValidity(plan.validityDays)}`}
       iconSlot={

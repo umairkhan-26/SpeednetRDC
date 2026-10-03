@@ -1,7 +1,7 @@
 import { ADMIN_ORDER_SEARCH_LIMIT, searchOrdersForAdmin } from "@/lib/checkout/orders-repository";
 import { orderKind, type OrderKind } from "@/lib/checkout/order-kind";
 import { formatPrice } from "@/lib/format";
-import { DeliveryBadge, KindBadge, PaymentBadge } from "../Badges";
+import { KindBadge, OrderDeliveryBadge, PaymentBadge } from "../Badges";
 import ResendEmailButton from "./ResendEmailButton";
 import FetchFeesButton from "./FetchFeesButton";
 import { orderProfit } from "@/lib/checkout/order-profit";
@@ -17,7 +17,8 @@ function formatDateTime(iso: string): string {
   return new Date(iso).toLocaleString("en-GB", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
 }
 
-function ProfitCell({ order }: { order: Parameters<typeof orderProfit>[0] }) {
+function ProfitCell({ order }: { order: Parameters<typeof orderProfit>[0] & { productType: string } }) {
+  if (order.productType === "physical_sim") return <span className="text-muted">SIM card sale — not in profit</span>;
   const p = orderProfit(order);
   if (p.profit === null) return <span className="text-muted">—</span>;
   return (
@@ -131,7 +132,13 @@ export default async function AdminOrdersPage({
                     </td>
                     <td className="px-4 py-3">
                       <p className="text-ink">{order.planName}</p>
-                      <p className="text-xs text-muted">{order.countryName}</p>
+                      <p className="text-xs text-muted">
+                        {order.productType === "physical_sim"
+                          ? `Ships to ${order.shippingCountry ?? "—"}`
+                          : order.productType === "topup"
+                            ? `${order.countryName} · added to SIM …${order.iccid?.slice(-4) ?? "????"}`
+                            : order.countryName}
+                      </p>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-ink">{formatPrice(order.amountEur)}</td>
                     <td className="px-4 py-3 text-xs whitespace-nowrap">
@@ -141,7 +148,13 @@ export default async function AdminOrdersPage({
                       <PaymentBadge status={order.status} />
                     </td>
                     <td className="px-4 py-3">
-                      <DeliveryBadge kind={orderKindValue} paymentStatus={order.status} deliveryStatus={order.provisioningStatus} />
+                      <OrderDeliveryBadge
+                        kind={orderKindValue}
+                        productType={order.productType}
+                        paymentStatus={order.status}
+                        deliveryStatus={order.provisioningStatus}
+                        shippingStatus={order.shippingStatus}
+                      />
                     </td>
                     <td className="px-4 py-3 font-mono text-xs text-ink">
                       {order.iccid ?? <span className="font-sans text-muted">—</span>}
@@ -153,7 +166,7 @@ export default async function AdminOrdersPage({
                           <a href={`/en/order/${order.accessToken}`} target="_blank" rel="noreferrer" className="text-xs font-semibold text-orange hover:underline">
                             Open
                           </a>
-                          {order.provisioningStatus === "provisioned" && (
+                          {order.provisioningStatus === "provisioned" && order.productType !== "physical_sim" && (
                             <>
                               <span className="text-xs text-muted">
                                 {order.confirmationEmailSentAt ? `Emailed ${formatDateTime(order.confirmationEmailSentAt)}` : "Not emailed"}

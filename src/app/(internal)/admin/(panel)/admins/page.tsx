@@ -18,6 +18,8 @@ const ACTION_LABELS: Record<AuditAction, string> = {
   deactivated: "deactivated",
   reactivated: "reactivated",
   name_changed: "changed a name",
+  sim_shipped: "shipped a SIM card",
+  sim_delivered: "marked a SIM card delivered",
 };
 
 function formatDateTime(iso: string | null): string {

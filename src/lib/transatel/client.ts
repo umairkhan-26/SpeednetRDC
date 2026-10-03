@@ -138,13 +138,28 @@ export async function placePreloadOrder(params: {
   productId: string;
   transactionReference: string;
 }): Promise<TransatelOrderResult> {
+  return placePlanOrder({ ...params, orderType: "preload" });
+}
+
+/**
+ * Places a plan with the order type the SIM's state calls for (OCS products
+ * docs): "preload" only works on a Pre-Activated SIM (never used); once a SIM
+ * has been used (status Active), a plan must be added with "subscribe".
+ * One-off plans stack: each keeps its own data and expiry.
+ */
+export async function placePlanOrder(params: {
+  msisdn: string;
+  productId: string;
+  transactionReference: string;
+  orderType: "preload" | "subscribe";
+}): Promise<TransatelOrderResult> {
   const mvnoRef = getTransatelMvnoRef();
   const requestBody = {
     bind: { msisdn: toMsisdnDigits(params.msisdn) },
     product: { productId: params.productId },
     payment: { provider: "customer" },
     source: "speednetrdc-webhook",
-    orderType: "preload",
+    orderType: params.orderType,
     mvnoRef,
     transactionReference: params.transactionReference,
   };
@@ -152,7 +167,7 @@ export async function placePreloadOrder(params: {
   // Logged because this endpoint's exact request shape has changed twice
   // already (orderType, payment.provider) chasing errors that were opaque
   // without seeing what was actually sent — see the comment above.
-  console.log("[transatel] placePreloadOrder request:", JSON.stringify(requestBody));
+  console.log("[transatel] placePlanOrder request:", JSON.stringify(requestBody));
 
   const response = await transatelFetch("/ocs/subscriptions/api/orders/products", {
     method: "POST",

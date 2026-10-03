@@ -3,12 +3,14 @@ import type { Plan } from "@/lib/types";
 import { formatData, formatPrice, formatValidity } from "@/lib/format";
 import { calculateOrderTotals } from "@/lib/pricing";
 import { getCountryBySlug } from "@/data/countries";
+import { useCheckoutStore } from "@/lib/store/checkout-store";
 
 export default function OrderSummarySidebar({ plan }: { plan: Plan }) {
   const country = plan.countrySlug ? getCountryBySlug(plan.countrySlug) : undefined;
   const fallbackDestination = plan.name.split(" / ")[0].replace(/\s*\d.*$/, "").trim() || plan.name;
   const destination = country?.name ?? fallbackDestination;
   const totals = calculateOrderTotals(plan.price);
+  const { mode, topUpIccid } = useCheckoutStore();
 
   return (
     <aside className="h-max rounded-2xl border border-line bg-white p-6 lg:sticky lg:top-24">
@@ -19,6 +21,7 @@ export default function OrderSummarySidebar({ plan }: { plan: Plan }) {
         <Row label="Plan" value={plan.name} />
         <Row label="Validity" value={formatValidity(plan.validityDays)} />
         <Row label="Data" value={formatData(plan.dataAmountGb)} />
+        {mode === "topup" && <Row label="Added to" value={topUpIccid ? `SIM ending ${topUpIccid.slice(-4)}` : "Your SIM (choose it)"} />}
       </dl>
 
       <div className="mt-4 space-y-2 border-t border-line pt-4 text-sm">
@@ -33,7 +36,7 @@ export default function OrderSummarySidebar({ plan }: { plan: Plan }) {
 
       <p className="mt-4 flex items-start gap-1.5 text-xs text-muted">
         <ShieldCheck className="mt-0.5 size-3.5 shrink-0 text-emerald-600" />
-        Encrypted checkout &middot; Instant delivery &middot; 30-day refund on uninstalled eSIMs
+        {mode === "topup" ? "Encrypted checkout · Added to your SIM within minutes" : "Encrypted checkout · Instant delivery · 30-day refund on uninstalled eSIMs"}
       </p>
     </aside>
   );

@@ -3,7 +3,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getStaffSession } from "@/lib/staff/auth";
 import { logoutAction } from "@/lib/staff/actions";
-import { CreditCard, LayoutDashboard, Receipt, ShieldCheck, Users } from "lucide-react";
+import { CreditCard, LayoutDashboard, Receipt, ShieldCheck, Truck, Users } from "lucide-react";
+import { isPhysicalSimEnabled } from "@/lib/physical-sim";
 import Logo from "@/components/layout/Logo";
 
 const NAV_ITEMS = [
@@ -31,7 +32,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           <p className="mt-2 text-sm font-semibold text-white/70">Admin panel</p>
         </div>
         <nav className="flex-1 space-y-1 px-3">
-          {NAV_ITEMS.map(({ href, label, icon: Icon }) => (
+          {[...NAV_ITEMS, ...(isPhysicalSimEnabled() ? [{ href: "/admin/shipping", label: "Shipping", icon: Truck }] : [])].map(({ href, label, icon: Icon }) => (
             <Link
               key={href}
               href={href}

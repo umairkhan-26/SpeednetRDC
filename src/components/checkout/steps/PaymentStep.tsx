@@ -8,6 +8,7 @@ import { formatPrice } from "@/lib/format";
 import { submitOrder } from "@/lib/api/checkout";
 import type { Plan } from "@/lib/types";
 import { legalPagesLive } from "@/lib/legal";
+import { useCheckoutStore } from "@/lib/store/checkout-store";
 
 export default function PaymentStep({
   plan,
@@ -29,12 +30,14 @@ export default function PaymentStep({
   // pages are published (src/lib/legal.ts); the API then requires the box.
   const showLegal = legalPagesLive();
   const [withdrawalConsent, setWithdrawalConsent] = useState(false);
+  const { mode, topUpIccid } = useCheckoutStore();
+  const isTopUp = mode === "topup";
 
   async function handlePay() {
     setError(null);
     setSubmitting(true);
     try {
-      const session = await submitOrder({ plan, fullName, email, locale, withdrawalConsent });
+      const session = await submitOrder({ plan, fullName, email, locale, withdrawalConsent, topUpIccid: isTopUp ? topUpIccid : null });
       window.location.href = session.url;
     } catch (err) {
       setSubmitting(false);
@@ -70,8 +73,8 @@ export default function PaymentStep({
               className="mt-0.5 size-4 shrink-0 accent-orange"
             />
             <span>
-              I want my eSIM delivered immediately after payment, and I understand that I lose my 14-day right of withdrawal once it has been
-              delivered.
+              I want my {isTopUp ? "data plan" : "eSIM"} delivered immediately after payment, and I understand that I lose my 14-day right of
+              withdrawal once it has been delivered.
             </span>
           </label>
           <p className="text-xs text-muted">

@@ -33,6 +33,32 @@ export function DeliveryBadge({ kind, paymentStatus, deliveryStatus }: { kind: O
   return <span className={`${PILL} ${style}`}>{label}</span>;
 }
 
+const SHIPPING: Record<string, [label: string, style: string]> = {
+  awaiting: ["Awaiting shipment", "bg-orange/10 text-orange"],
+  shipped: ["Shipped", "bg-sky-100 text-sky-700"],
+  delivered: ["Delivered", "bg-green-100 text-green-700"],
+};
+
+/** Delivery for any product: shipping for SIM cards, provisioning for eSIMs and top-ups. */
+export function OrderDeliveryBadge({
+  kind,
+  productType,
+  paymentStatus,
+  deliveryStatus,
+  shippingStatus,
+}: {
+  kind: OrderKind;
+  productType: string;
+  paymentStatus: string;
+  deliveryStatus: string;
+  shippingStatus: string | null;
+}) {
+  if (productType !== "physical_sim") return <DeliveryBadge kind={kind} paymentStatus={paymentStatus} deliveryStatus={deliveryStatus} />;
+  if (paymentStatus !== "completed" || !shippingStatus) return <span className="text-xs text-muted">—</span>;
+  const [label, style] = SHIPPING[shippingStatus] ?? [shippingStatus, "bg-ink/5 text-muted"];
+  return <span className={`${PILL} ${style}`}>{label}</span>;
+}
+
 export function KindBadge({ kind }: { kind: OrderKind }) {
   if (kind === "live") return null;
   return (

@@ -8,7 +8,7 @@ import { clsx } from "clsx";
 import Logo from "./Logo";
 import LanguageSwitcher from "./LanguageSwitcher";
 
-export default function Header() {
+export default function Header({ showPhysicalSim = false }: { showPhysicalSim?: boolean }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const locale = useLocale();
@@ -19,6 +19,7 @@ export default function Header() {
     { label: t("destinations"), href: "/destinations" },
     { label: t("regionalPlans"), href: "/regional-plans" },
     { label: t("globalPlans"), href: "/global-plans" },
+    ...(showPhysicalSim ? [{ label: t("physicalSim"), href: "/physical-sim" }] : []),
     { label: t("howItWorks"), href: "/how-it-works" },
     { label: t("help"), href: "/help" },
   ];

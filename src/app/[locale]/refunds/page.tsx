@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
+import { isPhysicalSimEnabled, pendingAnswer } from "@/lib/physical-sim";
 import LegalPage, { H2, P, UL, V } from "@/components/legal/LegalPage";
 
 export const metadata: Metadata = { title: "Refund Policy — SpeedNetRDC" };
@@ -55,6 +56,14 @@ export default async function RefundPolicyPage({ params }: { params: Promise<{ l
         Refunds go back to the card or payment method you used, through Stripe, usually within 5–10 business days of our approval depending on
         your bank. Once an order is refunded, we may deactivate its eSIM.
       </P>
+
+      {isPhysicalSimEnabled() && (
+        <>
+          <H2>SIM cards</H2>
+          <P>{pendingAnswer("returns", "en")}</P>
+          <P>Data plans you add to a SIM card follow the rules above for plans.</P>
+        </>
+      )}
 
       <H2>4. Your right of withdrawal</H2>
       <P>

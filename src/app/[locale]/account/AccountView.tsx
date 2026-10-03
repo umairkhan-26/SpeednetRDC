@@ -4,6 +4,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { CheckCircle2, Clock, RotateCcw } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { customerLogoutAction } from "@/lib/customer/actions";
+import type { CustomerSimStatus } from "@/lib/sims/customer-sims";
+import MySims from "./MySims";
 
 export interface CustomerOrderSummary {
   id: number;
@@ -11,6 +13,8 @@ export interface CustomerOrderSummary {
   countryName: string;
   createdAt: string;
   state: "ready" | "preparing" | "refunded";
+  /** What was bought: a new eSIM (QR code on its page), a SIM card, or data for an existing SIM. */
+  productType: "esim" | "physical_sim" | "topup";
   /** The private order page (QR code), when there is one. */
   orderPath: string | null;
 }
@@ -21,7 +25,7 @@ const STATE_STYLE = {
   refunded: { icon: RotateCcw, className: "bg-ink/5 text-muted", key: "statusRefunded" },
 } as const;
 
-export default function AccountView({ email, orders }: { email: string; orders: CustomerOrderSummary[] }) {
+export default function AccountView({ email, orders, sims = [] }: { email: string; orders: CustomerOrderSummary[]; sims?: CustomerSimStatus[] }) {
   const locale = useLocale();
   const t = useTranslations("account");
   const formatDate = (iso: string) => new Date(iso).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
@@ -40,6 +44,8 @@ export default function AccountView({ email, orders }: { email: string; orders: 
           </button>
         </form>
       </div>
+
+      <MySims sims={sims} />
 
       {orders.length === 0 ? (
         <div className="mt-10 rounded-2xl border border-dashed border-line bg-white py-16 text-center">
@@ -69,7 +75,7 @@ export default function AccountView({ email, orders }: { email: string; orders: 
                   </span>
                   {order.state === "ready" && order.orderPath && (
                     <Link href={order.orderPath} className="text-sm font-semibold text-orange hover:underline">
-                      {t("viewEsim")} →
+                      {order.productType === "esim" ? t("viewEsim") : t("viewOrder")} →
                     </Link>
                   )}
                   {order.state === "preparing" && <p className="text-xs text-muted">{t("preparingNote")}</p>}

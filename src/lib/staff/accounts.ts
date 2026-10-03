@@ -277,7 +277,9 @@ export type AuditAction =
   | "email_changed"
   | "deactivated"
   | "reactivated"
-  | "name_changed";
+  | "name_changed"
+  | "sim_shipped"
+  | "sim_delivered";
 
 /** Never throws: a failed audit write is logged, and never blocks a sign-in or account change. */
 export async function logAudit(actorId: number | null, action: AuditAction, targetId: number | null, detail: string | null = null): Promise<void> {

@@ -7,6 +7,8 @@ export interface CheckoutPayload {
   locale: string;
   /** The checkout's withdrawal-right consent box (only shown once the legal pages are live). */
   withdrawalConsent?: boolean;
+  /** "Add to my SIM": the ICCID of the customer's SIM (already checked). */
+  topUpIccid?: string | null;
 }
 
 export interface CheckoutSession {
@@ -22,6 +24,8 @@ export interface OrderStatusResult {
   provisioningStatus: OrderProvisioningStatus;
   /** Token for the private order page (/order/[token]); set once the order is paid. */
   accessToken: string | null;
+  /** esim | physical_sim | topup (older servers don't send it: treat as esim). */
+  productType?: "esim" | "physical_sim" | "topup";
 }
 
 // Starts a real Stripe Checkout Session server-side (src/app/api/checkout/route.ts
@@ -38,6 +42,7 @@ export async function submitOrder(payload: CheckoutPayload): Promise<CheckoutSes
       email: payload.email,
       locale: payload.locale,
       withdrawalConsent: payload.withdrawalConsent === true,
+      ...(payload.topUpIccid ? { topUpIccid: payload.topUpIccid } : {}),
     }),
   });
 

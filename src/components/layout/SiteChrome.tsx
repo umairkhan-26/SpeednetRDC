@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import ChatBubble from "./ChatBubble";
 import CursorTrail from "./CursorTrail";
+import { isPhysicalSimEnabled } from "@/lib/physical-sim";
 
 export default function SiteChrome({
   children,
@@ -14,7 +15,7 @@ export default function SiteChrome({
 }) {
   return (
     <>
-      <Header />
+      <Header showPhysicalSim={isPhysicalSimEnabled()} />
       <main className="flex-1">{children}</main>
       <Footer locale={locale} />
       <ChatBubble />

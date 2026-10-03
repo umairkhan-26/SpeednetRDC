@@ -25,11 +25,20 @@ import {
 
 const CONCURRENCY = 4;
 
-/** The plan this order bought: the subscription provisioning recorded, else the newest one for the product, else the newest. */
+const UPCOMING = new Set(["pending", "pendingForFirstUse", "readyForUse", "scheduled"]);
+
+/**
+ * The plan to show for a SIM, which may carry several (top-ups stack): one
+ * that's active now, else one waiting to start, else the plan this order
+ * bought (the subscription provisioning recorded, or the newest of its
+ * product), else the newest.
+ */
 function pickPlan(sim: SoldSim, plans: PlanSubscription[]): PlanSubscription | null {
+  const newestFirst = [...plans].sort((a, b) => (b.subscriptionDate ?? "").localeCompare(a.subscriptionDate ?? ""));
+  const current = newestFirst.find((p) => p.status === "active") ?? newestFirst.find((p) => UPCOMING.has(p.status));
+  if (current) return current;
   const byId = sim.transatelSubscriptionId ? plans.find((p) => p.subscriptionId === sim.transatelSubscriptionId) : undefined;
   if (byId) return byId;
-  const newestFirst = [...plans].sort((a, b) => (b.subscriptionDate ?? "").localeCompare(a.subscriptionDate ?? ""));
   const productId = sim.planId ? getTransatelProductId({ id: sim.planId }) : null;
   return newestFirst.find((p) => p.productId === productId) ?? newestFirst[0] ?? null;
 }
@@ -129,7 +138,8 @@ export async function refreshAllSimStatuses(): Promise<RefreshSummary> {
 
 /** One SIM, with the eSIM profile status read live from the SM-DP+ (the activation code is discarded). */
 export async function refreshSimStatus(iccid: string): Promise<{ ok: true } | { ok: false; error: string }> {
-  const [sim] = await getSoldSimsByIccid(iccid);
+  const sales = await getSoldSimsByIccid(iccid);
+  const sim = sales.find((s) => s.productType !== "topup") ?? sales[0];
   if (!sim) return { ok: false, error: "No sold SIM with that ICCID." };
   try {
     const record = await getSimSearchRecord(iccid);

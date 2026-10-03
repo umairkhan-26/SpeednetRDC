@@ -5,6 +5,7 @@ import { getPlanById } from "@/data/plans";
 import { formatData, formatValidity } from "@/lib/format";
 import PlanDetailView from "@/components/plans/PlanDetailView";
 import { isEsimCheckoutEnabled } from "@/lib/checkout/availability";
+import { isPhysicalSimEnabled } from "@/lib/physical-sim";
 
 export async function generateMetadata({
   params,
@@ -30,6 +31,7 @@ export default async function CountryPlanDetailPage({
     <PlanDetailView
       plan={plan}
       salesPaused={!isEsimCheckoutEnabled()}
+      topUpEnabled={isPhysicalSimEnabled()}
       title={`${country.name} eSIM`}
       subtitle={`${formatData(plan.dataAmountGb)} · ${formatValidity(plan.validityDays)}`}
       iconSlot={

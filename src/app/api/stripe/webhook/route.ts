@@ -4,6 +4,7 @@ import { getStripe } from "@/lib/checkout/stripe";
 import { markOrderFailed, markOrderPaid, recordBillingCountry } from "@/lib/checkout/orders-repository";
 import { provisionEsimOrder } from "@/lib/transatel/provisioning";
 import { recordStripeFeeForOrder } from "@/lib/checkout/stripe-fees";
+import { fulfilPaidPhysicalSim } from "@/lib/checkout/physical-fulfilment";
 
 function orderIdFromMetadata(metadata: Stripe.Metadata | null | undefined): number | null {
   const raw = metadata?.order_id;
@@ -38,6 +39,9 @@ export async function POST(request: Request) {
           typeof session.payment_intent === "string" ? session.payment_intent : (session.payment_intent?.id ?? null);
         await markOrderPaid(orderId, paymentIntentId);
         await recordBillingCountry(orderId, session.customer_details?.address?.country);
+        // SIM card orders: save the shipping address, email "on its way".
+        // No-op for eSIM and top-up orders (provisioned just below).
+        await fulfilPaidPhysicalSim(orderId, session);
         // Always attempt provisioning, even if the success page marked the
         // order paid first — gating this on "we flipped it to paid" used to
         // skip provisioning entirely in that race. provisionEsimOrder claims

@@ -61,6 +61,8 @@ export interface StoreOrder {
   status: OrderStatus;
   deliveryStatus: DeliveryStatus;
   kind: "live" | "test" | "demo";
+  productType: "esim" | "physical_sim" | "topup";
+  shippingStatus: "awaiting" | "shipped" | "delivered" | null;
   createdAt: string;
 }
 

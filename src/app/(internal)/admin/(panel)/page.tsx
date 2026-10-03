@@ -14,7 +14,7 @@ import Flag from "@/components/ui/Flag";
 import StatCard from "./StatCard";
 import { OrdersChart, RevenueChart, TopCountriesDonut } from "./DashboardCharts";
 import RetryProvisioningButton from "./RetryProvisioningButton";
-import { DeliveryBadge, KindBadge, PaymentBadge } from "./Badges";
+import { KindBadge, OrderDeliveryBadge, PaymentBadge } from "./Badges";
 import Link from "next/link";
 
 const PROVISIONING_LABELS: Record<string, string> = {
@@ -104,9 +104,17 @@ export default async function AdminDashboardPage() {
       )}
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard label="Total Revenue" value={formatPrice(orderStats.totalRevenue)} note="What customers paid, incl. the 5% taxes & fees line" />
         <StatCard
-          label="Total Cost"
+          label="Total Revenue"
+          value={formatPrice(orderStats.totalRevenue)}
+          note={
+            orderStats.simCardRevenue > 0
+              ? `What customers paid, incl. the 5% taxes & fees line. Includes ${formatPrice(orderStats.simCardRevenue)} from SIM card sales.`
+              : "What customers paid, incl. the 5% taxes & fees line"
+          }
+        />
+        <StatCard
+          label="Total Cost (data plans)"
           value={formatPrice(orderStats.totalCost)}
           note={
             orderStats.ordersWithoutCost > 0
@@ -115,11 +123,11 @@ export default async function AdminDashboardPage() {
           }
         />
         <StatCard
-          label="Total Profit"
+          label="Profit (data plans)"
           value={formatPrice(orderStats.totalProfit)}
           note={
             <>
-              Before Stripe fees and VAT
+              Data plans only, before Stripe fees and VAT
               <br />
               After Stripe fees: <span className="font-semibold text-ink">{formatPrice(orderStats.totalProfit - orderStats.stripeFees)}</span>
               {orderStats.ordersWithoutStripeFee > 0 && <> ({orderStats.ordersWithoutStripeFee} fee(s) not fetched yet)</>}
@@ -127,9 +135,9 @@ export default async function AdminDashboardPage() {
           }
         />
         <StatCard
-          label="Profit Margin"
+          label="Profit Margin (data plans)"
           value={orderStats.profitMargin === null ? "—" : `${orderStats.profitMargin.toFixed(1)}%`}
-          note="Profit ÷ revenue, before Stripe fees and VAT"
+          note="Profit ÷ data-plan revenue, before Stripe fees and VAT"
         />
       </div>
 
@@ -184,7 +192,13 @@ export default async function AdminDashboardPage() {
                   <p className="font-semibold text-ink">{formatPrice(order.amountEur)}</p>
                   <div className="flex gap-1">
                     <PaymentBadge status={order.status} />
-                    <DeliveryBadge kind={order.kind} paymentStatus={order.status} deliveryStatus={order.deliveryStatus} />
+                    <OrderDeliveryBadge
+                      kind={order.kind}
+                      productType={order.productType}
+                      paymentStatus={order.status}
+                      deliveryStatus={order.deliveryStatus}
+                      shippingStatus={order.shippingStatus}
+                    />
                   </div>
                 </div>
               </div>
