@@ -1,4 +1,5 @@
 import type { OrderKind } from "@/lib/checkout/order-kind";
+import type { StaffAccountStatus } from "@/lib/staff/types";
 
 const PILL = "inline-block whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-medium";
 
@@ -38,4 +39,15 @@ export function KindBadge({ kind }: { kind: OrderKind }) {
       {kind === "test" ? "Test" : "Demo"}
     </span>
   );
+}
+
+const ACCOUNT_STATUS: Record<StaffAccountStatus, [label: string, style: string]> = {
+  active: ["Active", "bg-green-100 text-green-700"],
+  invited: ["Invite pending", "bg-orange/10 text-orange"],
+  deactivated: ["Deactivated", "bg-ink/10 text-ink/60"],
+};
+
+export function AccountStatusBadge({ status }: { status: StaffAccountStatus }) {
+  const [label, style] = ACCOUNT_STATUS[status];
+  return <span className={`${PILL} ${style}`}>{label}</span>;
 }

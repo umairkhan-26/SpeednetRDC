@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getStaffSession } from "@/lib/staff/auth";
 import { loginAction } from "@/lib/staff/actions";
@@ -16,6 +17,11 @@ export default async function StaffLoginPage() {
         <h1 className="mt-1 text-2xl font-bold text-ink">Staff sign in</h1>
         <p className="mt-1 text-sm text-muted">This is a separate login from the customer account area.</p>
         <LoginForm action={loginAction} />
+        <p className="mt-4 text-center text-sm">
+          <Link href="/admin/forgot-password" className="font-medium text-muted hover:text-orange">
+            Forgot your password?
+          </Link>
+        </p>
       </div>
     </div>
   );

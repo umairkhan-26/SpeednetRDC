@@ -3,90 +3,85 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import {
-  createStaffSessionToken,
-  STAFF_SESSION_COOKIE,
-  STAFF_SESSION_MAX_AGE,
-  type StaffSessionPayload,
-} from "./session";
-import { hashPassword, verifyPassword } from "./password";
+import { STAFF_SESSION_COOKIE } from "./session";
+import { setStaffSessionCookie } from "./session-cookie";
+import { verifyPasswordConstantTime } from "./password";
+import { clearAttempts, getClientIp, isRateLimited, rateLimitBucket, recordAttempt } from "@/lib/auth/rate-limit";
+import { getStaffAccountByEmail, logAudit, normalizeEmail, recordStaffLogin } from "./accounts";
 import {
   clockIn as clockInRow,
   clockOut as clockOutRow,
   createMessage,
-  createStaffMember,
   createTask,
   getOpenShift,
-  getStaffByEmail,
   getTaskById,
-  hasAnyAdmin,
   listStaff,
   updateTaskStatus as updateTaskStatusRow,
 } from "./repository";
 import { getStaffSession, requireAdminSession, requireStaffSession } from "./auth";
-import type { StaffRole, TaskStatus } from "./types";
+import type { TaskStatus } from "./types";
 
 function taskTitleFromMessage(message: string): string {
   return message.length > 80 ? `${message.slice(0, 77)}...` : message;
-}
-
-async function setStaffSessionCookie(payload: StaffSessionPayload): Promise<void> {
-  const token = createStaffSessionToken(payload);
-  const cookieStore = await cookies();
-  cookieStore.set(STAFF_SESSION_COOKIE, token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: STAFF_SESSION_MAX_AGE,
-  });
 }
 
 export interface LoginActionState {
   error?: string;
 }
 
-export async function loginAction(
-  _prevState: LoginActionState,
-  formData: FormData
-): Promise<LoginActionState> {
-  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+const LOGIN_WINDOW_SECONDS = 15 * 60;
+const MAX_FAILURES_PER_EMAIL = 5;
+const MAX_FAILURES_PER_IP = 30;
+
+/**
+ * Shared by the staff and admin sign-in forms. Failed attempts are
+ * rate-limited per email address and per (hashed) IP address, and an
+ * unknown email takes as long to reject as a wrong password.
+ */
+async function signIn(formData: FormData, adminOnly: boolean): Promise<LoginActionState> {
+  const email = normalizeEmail(String(formData.get("email") ?? ""));
   const password = String(formData.get("password") ?? "");
 
   if (!email || !password) {
     return { error: "Enter your email and password." };
   }
 
-  const staff = await getStaffByEmail(email);
-  if (!staff || !verifyPassword(password, staff.passwordHash)) {
+  const emailBucket = rateLimitBucket("staff-login-email", email);
+  const ipBucket = rateLimitBucket("staff-login-ip", await getClientIp());
+  if (
+    (await isRateLimited(emailBucket, MAX_FAILURES_PER_EMAIL, LOGIN_WINDOW_SECONDS)) ||
+    (await isRateLimited(ipBucket, MAX_FAILURES_PER_IP, LOGIN_WINDOW_SECONDS))
+  ) {
+    return { error: "Too many failed attempts. Wait 15 minutes and try again, or reset your password." };
+  }
+
+  const staff = await getStaffAccountByEmail(email);
+  if (!staff || !verifyPasswordConstantTime(password, staff.passwordHash)) {
+    await recordAttempt(emailBucket, ipBucket);
+    if (staff) await logAudit(null, "login_failed", staff.id, "wrong password");
     return { error: "Incorrect email or password." };
   }
-
-  await setStaffSessionCookie({ staffId: staff.id, role: staff.role, name: staff.name });
-  redirect(staff.role === "admin" ? "/admin" : "/staff");
-}
-
-export async function adminLoginAction(
-  _prevState: LoginActionState,
-  formData: FormData
-): Promise<LoginActionState> {
-  const email = String(formData.get("email") ?? "").trim().toLowerCase();
-  const password = String(formData.get("password") ?? "");
-
-  if (!email || !password) {
-    return { error: "Enter your email and password." };
+  if (staff.status === "deactivated") {
+    await logAudit(null, "login_failed", staff.id, "account deactivated");
+    return { error: "This account has been deactivated. Ask an admin if you need access again." };
   }
-
-  const staff = await getStaffByEmail(email);
-  if (!staff || !verifyPassword(password, staff.passwordHash)) {
-    return { error: "Incorrect email or password." };
-  }
-  if (staff.role !== "admin") {
+  if (adminOnly && staff.role !== "admin") {
     return { error: "This sign-in is for admin accounts only." };
   }
 
-  await setStaffSessionCookie({ staffId: staff.id, role: staff.role, name: staff.name });
-  redirect("/admin");
+  await clearAttempts(emailBucket);
+  await recordStaffLogin(staff.id);
+  await logAudit(staff.id, "login", staff.id, adminOnly ? "admin sign-in" : "staff sign-in");
+  await setStaffSessionCookie({ staffId: staff.id, role: staff.role, name: staff.name, sv: staff.sessionVersion });
+  redirect(staff.role === "admin" ? "/admin" : "/staff");
+}
+
+export async function loginAction(_prevState: LoginActionState, formData: FormData): Promise<LoginActionState> {
+  return signIn(formData, false);
+}
+
+export async function adminLoginAction(_prevState: LoginActionState, formData: FormData): Promise<LoginActionState> {
+  return signIn(formData, true);
 }
 
 export async function logoutAction(): Promise<void> {
@@ -130,40 +125,6 @@ export async function updateTaskStatusAction(taskId: number, status: TaskStatus)
   revalidatePath("/admin");
 }
 
-export interface CreateStaffActionState {
-  error?: string;
-  success?: boolean;
-}
-
-export async function createStaffAction(
-  _prevState: CreateStaffActionState,
-  formData: FormData
-): Promise<CreateStaffActionState> {
-  await requireAdminSession();
-
-  const name = String(formData.get("name") ?? "").trim();
-  const email = String(formData.get("email") ?? "").trim().toLowerCase();
-  const password = String(formData.get("password") ?? "");
-  const role = String(formData.get("role") ?? "staff") as StaffRole;
-
-  if (!name || !email || !password) {
-    return { error: "Fill in name, email, and a temporary password." };
-  }
-  if (password.length < 8) {
-    return { error: "Password must be at least 8 characters." };
-  }
-  if (role !== "staff" && role !== "admin") {
-    return { error: "Invalid role." };
-  }
-  if (await getStaffByEmail(email)) {
-    return { error: "A staff member with that email already exists." };
-  }
-
-  await createStaffMember({ name, email, passwordHash: hashPassword(password), role });
-  revalidatePath("/admin/staff");
-  return { success: true };
-}
-
 export async function sendAdminDirectMessageAction(
   recipientId: number,
   message: string,
@@ -198,7 +159,7 @@ export async function sendTeamBroadcastAction(message: string, attachAsTask: boo
   await createMessage({ senderId: session.staffId, recipientId: null, message: trimmed, isTeamBroadcast: true });
 
   if (attachAsTask) {
-    for (const member of await listStaff()) {
+    for (const member of (await listStaff()).filter((m) => m.status === "active")) {
       await createTask({
         title: taskTitleFromMessage(trimmed),
         description: trimmed,
@@ -232,51 +193,4 @@ export async function postTeamReplyAction(message: string): Promise<void> {
   await createMessage({ senderId: session.staffId, recipientId: null, message: trimmed, isTeamBroadcast: true });
   revalidatePath("/staff/messages");
   revalidatePath("/admin/staff");
-}
-
-export interface SetupAdminActionState {
-  error?: string;
-  success?: boolean;
-}
-
-/**
- * One-time bootstrap for environments with no terminal/SSH access to create
- * the first admin account. Gated by SETUP_ADMIN_SECRET (a server-only env
- * var, separate from STAFF_SESSION_SECRET) and refuses once any admin
- * account exists. Delete the /setup-admin route once it's no longer needed.
- */
-export async function setupAdminAction(
-  _prevState: SetupAdminActionState,
-  formData: FormData
-): Promise<SetupAdminActionState> {
-  const expectedSecret = process.env.SETUP_ADMIN_SECRET;
-  if (!expectedSecret) {
-    return { error: "Setup is disabled on this server (SETUP_ADMIN_SECRET is not set)." };
-  }
-
-  const secret = String(formData.get("secret") ?? "");
-  if (secret !== expectedSecret) {
-    return { error: "Incorrect setup secret." };
-  }
-
-  if (await hasAnyAdmin()) {
-    return { error: "An admin account already exists. Use the Staff Directory in /admin to add more." };
-  }
-
-  const name = String(formData.get("name") ?? "").trim();
-  const email = String(formData.get("email") ?? "").trim().toLowerCase();
-  const password = String(formData.get("password") ?? "");
-
-  if (!name || !email || !password) {
-    return { error: "Fill in your name, email, and a password." };
-  }
-  if (password.length < 8) {
-    return { error: "Password must be at least 8 characters." };
-  }
-  if (await getStaffByEmail(email)) {
-    return { error: "An account with that email already exists." };
-  }
-
-  await createStaffMember({ name, email, passwordHash: hashPassword(password), role: "admin" });
-  return { success: true };
 }

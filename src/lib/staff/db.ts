@@ -145,6 +145,57 @@ const SCHEMA_STATEMENTS = [
     payload TEXT NOT NULL,
     received_at DATETIME NOT NULL
   )`,
+  // An invited account has no password until its owner sets one through
+  // the invite link (passwords are never set or emailed by an admin).
+  `ALTER TABLE staff_members MODIFY COLUMN password_hash VARCHAR(255) NULL`,
+  // One-time links for staff accounts: 'invite' (24h), 'password_reset'
+  // (1h) and 'email_change' (24h, sent to the new address). Only a SHA-256
+  // of the token is stored, so a database leak can't be turned into links.
+  `CREATE TABLE IF NOT EXISTS staff_tokens (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    staff_id INT NOT NULL,
+    purpose ENUM('invite', 'password_reset', 'email_change') NOT NULL,
+    token_hash CHAR(64) NOT NULL UNIQUE,
+    new_email VARCHAR(255) NULL,
+    expires_at DATETIME NOT NULL,
+    used_at DATETIME NULL,
+    created_at DATETIME NOT NULL,
+    INDEX (staff_id, purpose),
+    FOREIGN KEY (staff_id) REFERENCES staff_members(id)
+  )`,
+  // Failed sign-in / reset attempts for rate limiting. `bucket` is a keyed
+  // hash (of an email address or IP address, never the raw value), and
+  // rows older than 24 hours are deleted as new ones are written.
+  `CREATE TABLE IF NOT EXISTS auth_rate_limits (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    bucket CHAR(64) NOT NULL,
+    attempted_at DATETIME NOT NULL,
+    INDEX (bucket, attempted_at),
+    INDEX (attempted_at)
+  )`,
+  // One-time sign-in links for customers ("My eSIMs"), stored as a SHA-256
+  // of the token. Rows are deleted a day after they expire.
+  `CREATE TABLE IF NOT EXISTS customer_login_tokens (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(255) NOT NULL,
+    token_hash CHAR(64) NOT NULL UNIQUE,
+    expires_at DATETIME NOT NULL,
+    used_at DATETIME NULL,
+    created_at DATETIME NOT NULL,
+    INDEX (email),
+    INDEX (expires_at)
+  )`,
+  // Who did what in the admin panel: sign-ins, invites, deactivations,
+  // email and password changes. No IP addresses.
+  `CREATE TABLE IF NOT EXISTS admin_audit_log (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    actor_id INT NULL,
+    action VARCHAR(64) NOT NULL,
+    target_id INT NULL,
+    detail VARCHAR(512) NULL,
+    created_at DATETIME NOT NULL,
+    INDEX (created_at)
+  )`,
 ];
 
 // Columns added after a table already existed in production. Plain ADD
@@ -155,6 +206,18 @@ type NewColumn = { name: string; ddl: string };
 
 const SIM_INVENTORY_NEW_COLUMNS: NewColumn[] = [
   { name: "is_activated", ddl: "TINYINT(1) NOT NULL DEFAULT 0" },
+];
+
+const STAFF_MEMBERS_NEW_COLUMNS: NewColumn[] = [
+  { name: "last_login_at", ddl: "DATETIME NULL" },
+  // Set instead of deleting an account, so its history (shifts, tasks,
+  // messages, audit log) stays intact. A deactivated account can't sign in.
+  { name: "deactivated_at", ddl: "DATETIME NULL" },
+  // Embedded in the session cookie; bumping it signs the account out
+  // everywhere (password change, deactivation).
+  { name: "session_version", ddl: "INT NOT NULL DEFAULT 0" },
+  { name: "invited_by", ddl: "INT NULL" },
+  { name: "created_at", ddl: "DATETIME NULL" },
 ];
 
 const ORDERS_NEW_COLUMNS: NewColumn[] = [
@@ -213,6 +276,7 @@ async function ensureSchema(pool: mysql.Pool): Promise<void> {
   for (const statement of SCHEMA_STATEMENTS) {
     await pool.query(statement);
   }
+  await ensureColumns(pool, "staff_members", STAFF_MEMBERS_NEW_COLUMNS);
   await ensureColumns(pool, "orders", ORDERS_NEW_COLUMNS);
   await ensureColumns(pool, "sim_inventory", SIM_INVENTORY_NEW_COLUMNS);
 }

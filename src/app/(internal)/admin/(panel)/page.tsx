@@ -14,7 +14,7 @@ import Flag from "@/components/ui/Flag";
 import StatCard from "./StatCard";
 import { OrdersChart, RevenueChart, TopCountriesDonut } from "./DashboardCharts";
 import RetryProvisioningButton from "./RetryProvisioningButton";
-import { DeliveryBadge, KindBadge, PaymentBadge } from "./OrderBadges";
+import { DeliveryBadge, KindBadge, PaymentBadge } from "./Badges";
 import Link from "next/link";
 
 const PROVISIONING_LABELS: Record<string, string> = {

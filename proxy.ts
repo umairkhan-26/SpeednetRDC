@@ -4,7 +4,15 @@ import createMiddleware from "next-intl/middleware";
 import { STAFF_SESSION_COOKIE, verifyStaffSessionToken } from "@/lib/staff/session";
 import { routing } from "@/i18n/routing";
 
-const PUBLIC_STAFF_PATHS = new Set(["/staff/login", "/admin/login"]);
+// Sign-in pages and the pages behind one-time email links (invite,
+// password reset, email change), which work without a session.
+const PUBLIC_STAFF_PATHS = new Set([
+  "/staff/login",
+  "/admin/login",
+  "/admin/forgot-password",
+  "/admin/set-password",
+  "/admin/confirm-email",
+]);
 const handleI18nRouting = createMiddleware(routing);
 
 export function proxy(request: NextRequest) {
@@ -54,5 +62,5 @@ export const config = {
   // in this Next.js version (verified empirically — every other path does,
   // including "/staff"), so next.config.mjs's redirects() handles the root
   // redirect to the default locale independently of this proxy.
-  matcher: ["/", "/((?!api|_next|_vercel|icon|apple-icon|setup-admin|.*\\..*).*)"],
+  matcher: ["/", "/((?!api|_next|_vercel|icon|apple-icon|.*\\..*).*)"],
 };

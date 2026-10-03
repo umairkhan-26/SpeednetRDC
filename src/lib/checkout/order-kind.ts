@@ -3,7 +3,7 @@
  * through (Stripe ids carry the mode they were created in):
  *   live — real money (cs_live_…)
  *   test — Stripe test mode (cs_test_…): no money moved, public test cards work
- *   demo — no Stripe session: sample rows from scripts/seed-staff.mjs
+ *   demo — no Stripe session: sample rows from the old (now removed) dev seed script
  * Only live orders count in business figures or get real eSIMs.
  */
 export type OrderKind = "live" | "test" | "demo";

@@ -3,13 +3,14 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getStaffSession } from "@/lib/staff/auth";
 import { logoutAction } from "@/lib/staff/actions";
-import { LayoutDashboard, Receipt, Users } from "lucide-react";
+import { LayoutDashboard, Receipt, ShieldCheck, Users } from "lucide-react";
 import Logo from "@/components/layout/Logo";
 
 const NAV_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/orders", label: "Orders", icon: Receipt },
   { href: "/admin/staff", label: "Staff Directory", icon: Users },
+  { href: "/admin/admins", label: "Admins", icon: ShieldCheck },
 ];
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
@@ -43,6 +44,9 @@ export default async function AdminLayout({ children }: { children: ReactNode })
         <div className="border-t border-white/10 px-6 py-4">
           <p className="text-sm font-medium text-white">{session.name}</p>
           <div className="mt-2 flex items-center gap-3">
+            <Link href="/admin/account" className="text-xs font-medium text-white/60 hover:text-orange">
+              Account
+            </Link>
             <Link href="/staff" className="text-xs font-medium text-white/60 hover:text-orange">
               Staff view
             </Link>

@@ -7,7 +7,9 @@ import {
   getTeamBroadcasts,
   listStaff,
 } from "@/lib/staff/repository";
-import NewStaffForm from "./NewStaffForm";
+import InviteForm from "../InviteForm";
+import AccountRowActions from "../AccountRowActions";
+import { AccountStatusBadge } from "../Badges";
 import MessageButton from "./MessageButton";
 import TeamBroadcastButton from "./TeamBroadcastButton";
 
@@ -38,11 +40,13 @@ export default async function AdminStaffDirectoryPage() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-ink">Staff Directory</h1>
-          <p className="mt-1 text-sm text-muted">Every staff and admin account, with today&apos;s shift status.</p>
+          <p className="mt-1 text-sm text-muted">
+            Every staff and admin account, with today&apos;s shift status. New people are invited by email and choose their own password.
+          </p>
         </div>
         <div className="flex items-center gap-3">
           <TeamBroadcastButton messages={teamBroadcasts} />
-          <NewStaffForm />
+          <InviteForm />
         </div>
       </div>
 
@@ -67,6 +71,7 @@ export default async function AdminStaffDirectoryPage() {
                 <span className="rounded-full bg-orange/10 px-3 py-1 text-xs font-semibold capitalize text-orange">
                   {member.role}
                 </span>
+                {member.status !== "active" && <AccountStatusBadge status={member.status} />}
                 <div className="flex items-center gap-2 text-sm">
                   <span className={`size-2 rounded-full ${isOnline ? "bg-green-500" : "bg-muted-light"}`} />
                   <span className="font-medium text-ink">{isOnline ? "Online" : "Offline"}</span>
@@ -74,7 +79,8 @@ export default async function AdminStaffDirectoryPage() {
                 <p className="w-28 text-right text-sm text-muted">
                   {openShift ? `Since ${formatTime(openShift.loginTime)}` : "Not clocked in"}
                 </p>
-                {member.id !== session.staffId && (
+                <AccountRowActions staffId={member.id} name={member.name} status={member.status} isSelf={member.id === session.staffId} />
+                {member.id !== session.staffId && member.status === "active" && (
                   <MessageButton
                     recipientId={member.id}
                     recipientName={member.name}

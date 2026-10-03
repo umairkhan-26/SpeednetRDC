@@ -1,7 +1,7 @@
 import { ADMIN_ORDER_SEARCH_LIMIT, searchOrdersForAdmin } from "@/lib/checkout/orders-repository";
 import { orderKind, type OrderKind } from "@/lib/checkout/order-kind";
 import { formatPrice } from "@/lib/format";
-import { DeliveryBadge, KindBadge, PaymentBadge } from "../OrderBadges";
+import { DeliveryBadge, KindBadge, PaymentBadge } from "../Badges";
 import ResendEmailButton from "./ResendEmailButton";
 
 const KIND_FILTERS: { value: OrderKind | "all"; label: string }[] = [

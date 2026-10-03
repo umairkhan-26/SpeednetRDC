@@ -1,11 +1,16 @@
 export type StaffRole = "staff" | "admin";
 
+/** active: can sign in; invited: hasn't set a password yet; deactivated: can't sign in. */
+export type StaffAccountStatus = "active" | "invited" | "deactivated";
+
 export interface StaffMember {
   id: number;
   name: string;
   email: string;
   role: StaffRole;
   profilePhoto: string | null;
+  status: StaffAccountStatus;
+  lastLoginAt: string | null;
 }
 
 export interface Shift {

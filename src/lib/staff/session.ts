@@ -8,6 +8,10 @@ export interface StaffSessionPayload {
   staffId: number;
   role: StaffRole;
   name: string;
+  /** staff_members.session_version when the cookie was issued. */
+  sv: number;
+  /** Expiry, in seconds since the epoch (the cookie's own max-age is only a hint to the browser). */
+  exp: number;
 }
 
 function getSecret(): string {
@@ -22,8 +26,9 @@ function sign(data: string): string {
   return createHmac("sha256", getSecret()).update(data).digest("base64url");
 }
 
-export function createStaffSessionToken(payload: StaffSessionPayload): string {
-  const body = Buffer.from(JSON.stringify(payload)).toString("base64url");
+export function createStaffSessionToken(payload: Omit<StaffSessionPayload, "exp">): string {
+  const full: StaffSessionPayload = { ...payload, exp: Math.floor(Date.now() / 1000) + STAFF_SESSION_MAX_AGE };
+  const body = Buffer.from(JSON.stringify(full)).toString("base64url");
   return `${body}.${sign(body)}`;
 }
 
@@ -43,6 +48,9 @@ export function verifyStaffSessionToken(token: string): StaffSessionPayload | nu
     if (
       typeof payload?.staffId !== "number" ||
       typeof payload?.name !== "string" ||
+      typeof payload?.sv !== "number" ||
+      typeof payload?.exp !== "number" ||
+      payload.exp < Date.now() / 1000 ||
       (payload?.role !== "staff" && payload?.role !== "admin")
     ) {
       return null;

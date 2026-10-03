@@ -15,33 +15,30 @@ import type {
   TaskStatus,
 } from "./types";
 
-interface StaffRow extends RowDataPacket {
+export interface StaffRow extends RowDataPacket {
   id: number;
   name: string;
   email: string;
-  password_hash: string;
+  password_hash: string | null;
   role: StaffRole;
   profile_photo: string | null;
+  last_login_at: string | null;
+  deactivated_at: string | null;
+  session_version: number;
+  invited_by: number | null;
+  created_at: string | null;
 }
 
-function toStaffMember(row: StaffRow): StaffMember {
+export function toStaffMember(row: StaffRow): StaffMember {
   return {
     id: row.id,
     name: row.name,
     email: row.email,
     role: row.role,
     profilePhoto: row.profile_photo,
+    status: row.deactivated_at ? "deactivated" : row.password_hash ? "active" : "invited",
+    lastLoginAt: fromMySQLDateTime(row.last_login_at),
   };
-}
-
-export async function getStaffByEmail(
-  email: string
-): Promise<(StaffMember & { passwordHash: string }) | null> {
-  const pool = await getPool();
-  const [rows] = await pool.query<StaffRow[]>("SELECT * FROM staff_members WHERE email = ?", [email]);
-  const row = rows[0];
-  if (!row) return null;
-  return { ...toStaffMember(row), passwordHash: row.password_hash };
 }
 
 export async function getStaffById(id: number): Promise<StaffMember | null> {
@@ -55,34 +52,6 @@ export async function listStaff(): Promise<StaffMember[]> {
   const pool = await getPool();
   const [rows] = await pool.query<StaffRow[]>("SELECT * FROM staff_members ORDER BY name");
   return rows.map(toStaffMember);
-}
-
-export async function hasAnyAdmin(): Promise<boolean> {
-  const pool = await getPool();
-  const [rows] = await pool.query<(RowDataPacket & { count: number })[]>(
-    "SELECT COUNT(*) AS count FROM staff_members WHERE role = 'admin'"
-  );
-  return rows[0].count > 0;
-}
-
-export async function createStaffMember(input: {
-  name: string;
-  email: string;
-  passwordHash: string;
-  role: StaffRole;
-}): Promise<StaffMember> {
-  const pool = await getPool();
-  const [result] = await pool.query<ResultSetHeader>(
-    "INSERT INTO staff_members (name, email, password_hash, role, profile_photo) VALUES (?, ?, ?, ?, NULL)",
-    [input.name, input.email, input.passwordHash, input.role]
-  );
-  return {
-    id: result.insertId,
-    name: input.name,
-    email: input.email,
-    role: input.role,
-    profilePhoto: null,
-  };
 }
 
 interface ShiftRow extends RowDataPacket {

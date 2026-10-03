@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getStaffSession } from "@/lib/staff/auth";
 import { adminLoginAction } from "@/lib/staff/actions";
@@ -18,6 +19,11 @@ export default async function AdminLoginPage() {
           This is a separate login from the staff and customer account areas.
         </p>
         <LoginForm action={adminLoginAction} emailPlaceholder="you@speednetrdc.com" />
+        <p className="mt-4 text-center text-sm">
+          <Link href="/admin/forgot-password" className="font-medium text-muted hover:text-orange">
+            Forgot your password?
+          </Link>
+        </p>
       </div>
     </div>
   );
