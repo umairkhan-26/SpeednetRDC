@@ -147,7 +147,10 @@ export async function setPasswordWithTokenAction(_prev: SetPasswordState, formDa
   if (info.purpose === "password_reset") {
     await sendEmail({ to: account.email, ...passwordChangedNoticeEmail() });
   }
-  revalidateAccountPages();
+  // No revalidatePath here: any revalidation in an action makes Next.js
+  // re-render the current page, and this link's page now sees a used token
+  // and shows "Link expired" over the success message. The admin lists are
+  // rendered fresh on every visit anyway.
   return {
     success: info.purpose === "invite" ? "Your password is set — you can sign in now." : "Your password has been changed — sign in with the new one.",
     signInPath: account.role === "admin" ? "/admin/login" : "/staff/login",
@@ -251,7 +254,7 @@ export async function confirmEmailChangeAction(_prev: AccountFormState, formData
   }
   await logAudit(account.id, "email_changed", account.id, `${account.email} → ${info.newEmail}`);
   await sendEmail({ to: account.email, ...emailChangedNoticeEmail({ newEmail: info.newEmail }) });
-  revalidateAccountPages();
+  // No revalidatePath here, for the same reason as in setPasswordWithTokenAction.
   return { success: `Your email address is now ${info.newEmail}. Use it the next time you sign in.` };
 }
 
