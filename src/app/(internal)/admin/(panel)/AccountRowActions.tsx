@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import {
   deactivateStaffAction,
+  deleteStaffAction,
   reactivateStaffAction,
   resendInviteAction,
   type AccountActionResult,
@@ -53,6 +54,21 @@ export default function AccountRowActions({
         {status === "deactivated" && (
           <button type="button" disabled={isPending} className={buttonClass} onClick={() => run(`Reactivate ${name}? They'll be able to sign in again.`, reactivateStaffAction)}>
             Reactivate
+          </button>
+        )}
+        {status === "deactivated" && !isSelf && (
+          <button
+            type="button"
+            disabled={isPending}
+            className="text-xs font-semibold text-red-700 hover:underline disabled:opacity-50"
+            onClick={() =>
+              run(
+                `Delete ${name} permanently? They'll disappear from the staff lists and can't be reactivated. Their past shifts, tasks and messages are kept, and their email address can be invited again.`,
+                deleteStaffAction
+              )
+            }
+          >
+            Delete
           </button>
         )}
       </div>

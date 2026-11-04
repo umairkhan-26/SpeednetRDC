@@ -242,6 +242,10 @@ const STAFF_MEMBERS_NEW_COLUMNS: NewColumn[] = [
   { name: "session_version", ddl: "INT NOT NULL DEFAULT 0" },
   { name: "invited_by", ddl: "INT NULL" },
   { name: "created_at", ddl: "DATETIME NULL" },
+  // Set when an admin deletes a deactivated account. The row stays so its
+  // history (shifts, tasks, messages, audit log) keeps pointing at a name,
+  // but it's hidden everywhere and its email is freed for a new invite.
+  { name: "removed_at", ddl: "DATETIME NULL" },
 ];
 
 const ORDERS_NEW_COLUMNS: NewColumn[] = [
@@ -294,6 +298,10 @@ const ORDERS_NEW_COLUMNS: NewColumn[] = [
   { name: "plan_cost_eur", ddl: "DECIMAL(10,2) NULL" },
   // Stripe's processing fee for the payment, from its balance transaction.
   { name: "stripe_fee_eur", ddl: "DECIMAL(10,2) NULL" },
+  // Set when an admin removes a paid order from the dashboard's "needing
+  // attention" list (refunded, or resolved some other way). The order and
+  // its payment record are kept; only the dashboard alert goes away.
+  { name: "attention_dismissed_at", ddl: "DATETIME NULL" },
 ];
 
 // A connection-level failure (database down, wrong credentials) is not a

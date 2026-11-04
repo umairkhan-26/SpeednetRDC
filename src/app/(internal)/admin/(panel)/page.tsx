@@ -14,6 +14,7 @@ import Flag from "@/components/ui/Flag";
 import StatCard from "./StatCard";
 import { OrdersChart, RevenueChart, TopCountriesDonut } from "./DashboardCharts";
 import RetryProvisioningButton from "./RetryProvisioningButton";
+import DismissOrderButton from "./DismissOrderButton";
 import { DeliveryBadge, KindBadge, PaymentBadge } from "./Badges";
 import Link from "next/link";
 
@@ -67,7 +68,8 @@ export default async function AdminDashboardPage() {
           <div className="border-b border-line px-5 py-4">
             <p className="text-sm font-semibold text-ink">Paid eSIM orders needing attention ({needsProvisioning.length})</p>
             <p className="mt-0.5 text-xs text-muted">
-              The customer paid but doesn&apos;t have a working eSIM yet. Retry resumes provisioning where it stopped.
+              The customer paid but doesn&apos;t have a working eSIM yet. Retry resumes provisioning where it stopped. If you refunded
+              the customer or solved it another way, Remove takes it off this list (the order itself is kept).
             </p>
           </div>
           <div className="divide-y divide-line">
@@ -96,6 +98,7 @@ export default async function AdminDashboardPage() {
                     {PROVISIONING_LABELS[order.provisioningStatus] ?? order.provisioningStatus}
                   </span>
                   <RetryProvisioningButton orderId={order.id} />
+                  <DismissOrderButton orderId={order.id} />
                 </div>
               </div>
             ))}

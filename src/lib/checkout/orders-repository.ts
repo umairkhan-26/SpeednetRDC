@@ -386,6 +386,7 @@ export async function listOrdersNeedingProvisioning(): Promise<CheckoutOrder[]> 
   const [rows] = await pool.query<OrderRow[]>(
     `SELECT * FROM orders
      WHERE status = 'completed' AND plan_id IS NOT NULL AND ${LIVE_ORDER_SQL}
+       AND attention_dismissed_at IS NULL
        AND (
          provisioning_status = 'failed'
          OR (provisioning_status = 'pending' AND created_at < UTC_TIMESTAMP() - INTERVAL 5 MINUTE)
@@ -395,6 +396,22 @@ export async function listOrdersNeedingProvisioning(): Promise<CheckoutOrder[]> 
      ORDER BY id DESC LIMIT 50`
   );
   return rows.map(toCheckoutOrder);
+}
+
+/**
+ * Takes a paid order off the dashboard's "needing attention" list. With
+ * `refunded`, the order is also marked refunded (only call that after
+ * Stripe confirmed a full refund), so it stops counting as revenue. The
+ * order row and its payment details are always kept.
+ */
+export async function dismissOrderAttention(orderId: number, refunded: boolean): Promise<boolean> {
+  const pool = await getPool();
+  const [result] = await pool.query<ResultSetHeader>(
+    `UPDATE orders SET attention_dismissed_at = ?${refunded ? ", status = 'refunded'" : ""}
+     WHERE id = ? AND status = 'completed' AND attention_dismissed_at IS NULL`,
+    [toMySQLDateTime(new Date()), orderId]
+  );
+  return result.affectedRows === 1;
 }
 
 export const ADMIN_ORDER_SEARCH_LIMIT = 100;

@@ -50,7 +50,7 @@ export async function listStaffAccounts(role?: StaffRole): Promise<(StaffAccount
   const [rows] = await pool.query<(StaffRow & { invited_by_name: string | null })[]>(
     `SELECT s.*, inviter.name AS invited_by_name
      FROM staff_members s LEFT JOIN staff_members inviter ON inviter.id = s.invited_by
-     ${role ? "WHERE s.role = ?" : ""}
+     WHERE s.removed_at IS NULL ${role ? "AND s.role = ?" : ""}
      ORDER BY s.deactivated_at IS NOT NULL, s.name`,
     role ? [role] : []
   );
@@ -156,10 +156,31 @@ export async function deactivateStaff(actorId: number, targetId: number): Promis
   });
 }
 
+/**
+ * Deletes a deactivated account from the admin panel. The row is kept (its
+ * shifts, tasks, messages and audit entries still point at it), but it's
+ * hidden from every list, can never sign in, and its email address is
+ * replaced so the same person can be invited again later.
+ */
+export async function removeStaff(actorId: number, targetId: number): Promise<DeactivationResult> {
+  if (actorId === targetId) return { ok: false, error: "You can't delete your own account." };
+  const pool = await getPool();
+  const now = toMySQLDateTime(new Date());
+  const [result] = await pool.query<ResultSetHeader>(
+    `UPDATE staff_members
+     SET removed_at = ?, email = CONCAT('removed-', id, '@removed.invalid'), password_hash = NULL, session_version = session_version + 1
+     WHERE id = ? AND deactivated_at IS NOT NULL AND removed_at IS NULL`,
+    [now, targetId]
+  );
+  if (result.affectedRows !== 1) return { ok: false, error: "Only a deactivated account can be deleted. Deactivate it first." };
+  await pool.query("UPDATE staff_tokens SET used_at = ? WHERE staff_id = ? AND used_at IS NULL", [now, targetId]);
+  return { ok: true };
+}
+
 export async function reactivateStaff(targetId: number): Promise<DeactivationResult> {
   const pool = await getPool();
   const [result] = await pool.query<ResultSetHeader>(
-    "UPDATE staff_members SET deactivated_at = NULL WHERE id = ? AND deactivated_at IS NOT NULL",
+    "UPDATE staff_members SET deactivated_at = NULL WHERE id = ? AND deactivated_at IS NOT NULL AND removed_at IS NULL",
     [targetId]
   );
   return result.affectedRows === 1 ? { ok: true } : { ok: false, error: "That account isn't deactivated." };
@@ -277,7 +298,10 @@ export type AuditAction =
   | "email_changed"
   | "deactivated"
   | "reactivated"
-  | "name_changed";
+  | "deleted"
+  | "name_changed"
+  | "order_marked_refunded"
+  | "order_attention_dismissed";
 
 /** Never throws: a failed audit write is logged, and never blocks a sign-in or account change. */
 export async function logAudit(actorId: number | null, action: AuditAction, targetId: number | null, detail: string | null = null): Promise<void> {

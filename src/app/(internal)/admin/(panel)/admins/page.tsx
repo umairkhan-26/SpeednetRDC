@@ -17,7 +17,10 @@ const ACTION_LABELS: Record<AuditAction, string> = {
   email_changed: "changed their email",
   deactivated: "deactivated",
   reactivated: "reactivated",
+  deleted: "deleted an account",
   name_changed: "changed a name",
+  order_marked_refunded: "marked an order refunded",
+  order_attention_dismissed: "removed an order from the attention list",
 };
 
 function formatDateTime(iso: string | null): string {

@@ -24,6 +24,7 @@ import {
   logAudit,
   normalizeEmail,
   reactivateStaff,
+  removeStaff,
   renameStaff,
   setStaffPassword,
   type StaffAccount,
@@ -295,6 +296,17 @@ export async function deactivateStaffAction(staffId: number): Promise<AccountAct
   await logAudit(session.staffId, "deactivated", staffId);
   revalidateAccountPages();
   return { ok: true, message: "Account deactivated and signed out." };
+}
+
+export async function deleteStaffAction(staffId: number): Promise<AccountActionResult> {
+  const session = await requireAdminSession();
+  const account = await getStaffAccountById(staffId);
+  const result = await removeStaff(session.staffId, staffId);
+  if (!result.ok) return { ok: false, message: result.error };
+  // The account's email is replaced on delete, so record who it was.
+  await logAudit(session.staffId, "deleted", staffId, account ? `${account.name} <${account.email}>` : null);
+  revalidateAccountPages();
+  return { ok: true, message: "Account deleted." };
 }
 
 export async function reactivateStaffAction(staffId: number): Promise<AccountActionResult> {

@@ -54,7 +54,7 @@ export async function getStaffById(id: number): Promise<StaffMember | null> {
 
 export async function listStaff(): Promise<StaffMember[]> {
   const pool = await getPool();
-  const [rows] = await pool.query<StaffRow[]>("SELECT * FROM staff_members ORDER BY name");
+  const [rows] = await pool.query<StaffRow[]>("SELECT * FROM staff_members WHERE removed_at IS NULL ORDER BY name");
   return rows.map(toStaffMember);
 }
 
