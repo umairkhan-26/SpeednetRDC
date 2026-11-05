@@ -97,8 +97,8 @@ export async function clockInAction(): Promise<void> {
     await clockInRow(session.staffId);
   }
   revalidatePath("/staff");
-  revalidatePath("/admin");
-  revalidatePath("/admin/staff");
+  // The whole admin panel: the sidebar shows the admin's own shift on every page.
+  revalidatePath("/admin", "layout");
 }
 
 export async function clockOutAction(): Promise<void> {
@@ -108,8 +108,8 @@ export async function clockOutAction(): Promise<void> {
     await clockOutRow(openShift.id);
   }
   revalidatePath("/staff");
-  revalidatePath("/admin");
-  revalidatePath("/admin/staff");
+  // The whole admin panel: the sidebar shows the admin's own shift on every page.
+  revalidatePath("/admin", "layout");
 }
 
 export async function updateTaskStatusAction(taskId: number, status: TaskStatus): Promise<void> {

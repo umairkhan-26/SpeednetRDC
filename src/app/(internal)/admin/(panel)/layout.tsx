@@ -3,8 +3,10 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getStaffSession } from "@/lib/staff/auth";
 import { logoutAction } from "@/lib/staff/actions";
+import { getOpenShift } from "@/lib/staff/repository";
 import { CreditCard, LayoutDashboard, Receipt, ShieldCheck, Users } from "lucide-react";
 import Logo from "@/components/layout/Logo";
+import AdminClockControl from "./AdminClockControl";
 
 const NAV_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -22,6 +24,11 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   if (session.role !== "admin") {
     redirect("/staff");
   }
+
+  const openShift = await getOpenShift(session.staffId);
+  const clockedInSince = openShift
+    ? new Date(openShift.loginTime).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })
+    : null;
 
   return (
     <div className="flex min-h-screen bg-cream">
@@ -42,6 +49,9 @@ export default async function AdminLayout({ children }: { children: ReactNode })
             </Link>
           ))}
         </nav>
+        <div className="px-3 pb-4">
+          <AdminClockControl since={clockedInSince} />
+        </div>
         <div className="border-t border-white/10 px-6 py-4">
           <p className="text-sm font-medium text-white">{session.name}</p>
           <div className="mt-2 flex items-center gap-3">
