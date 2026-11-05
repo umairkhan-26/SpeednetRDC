@@ -59,6 +59,10 @@ export async function generateMetadata({
       title: TITLE,
       description: DESCRIPTION,
     },
+    // Meta Business domain verification (a public value, not a secret).
+    verification: {
+      other: { "facebook-domain-verification": "ytdt36unujf4wlsxfdsywh8sos9op7" },
+    },
   };
 }
 
