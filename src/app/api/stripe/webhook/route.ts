@@ -1,9 +1,10 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getStripe } from "@/lib/checkout/stripe";
 import { markOrderFailed, markOrderPaid, recordBillingCountry } from "@/lib/checkout/orders-repository";
 import { provisionEsimOrder } from "@/lib/transatel/provisioning";
 import { recordStripeFeeForOrder } from "@/lib/checkout/stripe-fees";
+import { sendMetaPurchase } from "@/lib/meta/capi";
 
 function orderIdFromMetadata(metadata: Stripe.Metadata | null | undefined): number | null {
   const raw = metadata?.order_id;
@@ -38,6 +39,10 @@ export async function POST(request: Request) {
           typeof session.payment_intent === "string" ? session.payment_intent : (session.payment_intent?.id ?? null);
         await markOrderPaid(orderId, paymentIntentId);
         await recordBillingCountry(orderId, session.customer_details?.address?.country);
+        // Meta Conversions API Purchase, only if the buyer accepted Meta
+        // cookies. It runs after Stripe has its response, never throws, and
+        // doesn't depend on provisioning succeeding.
+        after(() => sendMetaPurchase(orderId));
         // Always attempt provisioning, even if the success page marked the
         // order paid first — gating this on "we flipped it to paid" used to
         // skip provisioning entirely in that race. provisionEsimOrder claims

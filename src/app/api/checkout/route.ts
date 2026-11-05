@@ -9,6 +9,7 @@ import { getAppUrl, getStripe } from "@/lib/checkout/stripe";
 import { attachStripeCheckoutSession, createPendingOrder, recordWithdrawalConsent } from "@/lib/checkout/orders-repository";
 import { legalPagesLive } from "@/lib/legal";
 import { ESIM_CHECKOUT_PAUSED_ERROR, isEsimCheckoutEnabled } from "@/lib/checkout/availability";
+import { recordMetaConsent } from "@/lib/meta/consent-repository";
 
 interface CheckoutRequestBody {
   planId?: unknown;
@@ -16,6 +17,12 @@ interface CheckoutRequestBody {
   email?: unknown;
   locale?: unknown;
   withdrawalConsent?: unknown;
+  meta?: unknown;
+}
+
+/** Meta's _fbp / _fbc cookie values: short, printable, nothing else accepted. */
+function metaId(value: unknown): string | null {
+  return typeof value === "string" && /^fb\.\d\.\d+\.[\w.-]{1,200}$/.test(value) ? value : null;
 }
 
 export async function POST(request: Request) {
@@ -67,6 +74,23 @@ export async function POST(request: Request) {
     locale: resolvedLocale,
   });
   if (consentRequired) await recordWithdrawalConsent(order.id);
+
+  // Only when the buyer accepted Meta cookies: what the server-side Purchase
+  // event needs later. A problem here must never stop the checkout.
+  const meta = body.meta as { consent?: unknown; fbp?: unknown; fbc?: unknown } | undefined;
+  if (meta?.consent === true) {
+    try {
+      await recordMetaConsent({
+        orderId: order.id,
+        eventId: crypto.randomUUID(),
+        fbp: metaId(meta.fbp),
+        fbc: metaId(meta.fbc),
+        userAgent: request.headers.get("user-agent")?.slice(0, 512) ?? null,
+      });
+    } catch (error) {
+      console.error(`[meta] Couldn't record consent for ORD-${order.id}:`, error instanceof Error ? error.message : error);
+    }
+  }
 
   const appUrl = getAppUrl();
   const stripe = getStripe();

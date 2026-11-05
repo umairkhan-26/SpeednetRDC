@@ -23,7 +23,8 @@
     "designedBy": "Designed by",
     "privacy": "Privacy Policy",
     "terms": "Terms & Conditions",
-    "refunds": "Refund Policy"
+    "refunds": "Refund Policy",
+    "cookieSettings": "Cookie settings"
   },
   "home": {
     "hero": {
@@ -778,5 +779,12 @@
     "emailUs": "Email us",
     "open": "Open help",
     "close": "Close help"
+  },
+  "consent": {
+    "title": "Cookies",
+    "text": "We’d like to use Meta (Facebook) cookies to measure our ads and show you relevant ones. They’re only used if you accept. You can change your choice any time with “Cookie settings” at the bottom of the page.",
+    "accept": "Accept",
+    "reject": "Reject",
+    "learnMore": "Privacy Policy"
   }
 }

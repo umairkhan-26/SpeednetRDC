@@ -7,6 +7,8 @@ export interface CheckoutPayload {
   locale: string;
   /** The checkout's withdrawal-right consent box (only shown once the legal pages are live). */
   withdrawalConsent?: boolean;
+  /** Set only when the visitor accepted Meta cookies. */
+  meta?: { consent: true; fbp?: string; fbc?: string };
 }
 
 export interface CheckoutSession {
@@ -22,6 +24,8 @@ export interface OrderStatusResult {
   provisioningStatus: OrderProvisioningStatus;
   /** Token for the private order page (/order/[token]); set once the order is paid. */
   accessToken: string | null;
+  /** Present only when the buyer accepted Meta cookies; event_id shared with the server event. */
+  metaPurchase: { eventId: string; value: number; currency: string; contentId: string | null } | null;
 }
 
 // Starts a real Stripe Checkout Session server-side (src/app/api/checkout/route.ts
@@ -38,6 +42,7 @@ export async function submitOrder(payload: CheckoutPayload): Promise<CheckoutSes
       email: payload.email,
       locale: payload.locale,
       withdrawalConsent: payload.withdrawalConsent === true,
+      ...(payload.meta ? { meta: payload.meta } : {}),
     }),
   });
 

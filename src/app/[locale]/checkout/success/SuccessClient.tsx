@@ -6,7 +6,8 @@ import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { LinkButton } from "@/components/ui/Button";
-import { getOrderStatus } from "@/lib/api/checkout";
+import { getOrderStatus, type OrderStatusResult } from "@/lib/api/checkout";
+import { trackMeta } from "@/lib/meta/pixel";
 
 const POLL_INTERVAL_MS = 1500;
 // Payment confirmation usually takes a few seconds; setting up the eSIM
@@ -22,6 +23,23 @@ type ViewState =
   | { kind: "paymentFailed" }
   | { kind: "timeout" }
   | { kind: "error"; missingSession: boolean };
+
+/** Browser Purchase event, once per order (same event_id as the server event, so Meta counts it once). */
+function trackPurchaseOnce(purchase: OrderStatusResult["metaPurchase"]) {
+  if (!purchase) return;
+  const key = `meta-purchase-${purchase.eventId}`;
+  try {
+    if (sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, "1");
+  } catch {
+    // Storage unavailable: still send; Meta drops the duplicate by event_id.
+  }
+  trackMeta(
+    "Purchase",
+    { value: purchase.value, currency: purchase.currency, content_ids: purchase.contentId ? [purchase.contentId] : [], content_type: "product", num_items: 1 },
+    purchase.eventId
+  );
+}
 
 export default function SuccessClient() {
   const t = useTranslations("checkout.success");
@@ -45,6 +63,7 @@ export default function SuccessClient() {
 
         if (result.status === "failed") return setState({ kind: "paymentFailed" });
         if (result.status === "completed") {
+          trackPurchaseOnce(result.metaPurchase);
           if (result.provisioningStatus === "provisioned" && result.accessToken) {
             router.replace(`/order/${result.accessToken}`);
             return;

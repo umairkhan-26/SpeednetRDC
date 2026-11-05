@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import type { AppLocale } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import { legalPagesLive } from "@/lib/legal";
+import CookieSettingsButton from "@/components/consent/CookieSettingsButton";
 import Logo from "./Logo";
 import LanguageSwitcher from "./LanguageSwitcher";
 
@@ -75,6 +76,9 @@ export default async function Footer({ locale }: { locale: AppLocale }) {
         <div className="container-page flex flex-col gap-2 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">
             <p>{t("copyright", { year: new Date().getFullYear() })}</p>
+            {/^\d{5,20}$/.test(process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "") && (
+              <CookieSettingsButton label={t("cookieSettings")} className="text-left text-white/60 hover:text-white" />
+            )}
             {legalPagesLive() && (
             <nav className="flex flex-wrap gap-x-4 gap-y-1">
               <Link href="/privacy" className="text-white/60 hover:text-white">

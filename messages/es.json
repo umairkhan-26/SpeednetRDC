@@ -22,7 +22,8 @@
     "designedBy": "Diseñado por",
     "privacy": "Política de privacidad",
     "terms": "Términos y condiciones",
-    "refunds": "Política de reembolso"
+    "refunds": "Política de reembolso",
+    "cookieSettings": "Configuración de cookies"
   },
   "home": {
     "hero": {
@@ -174,5 +175,12 @@
       "whenQ": "¿Cuándo podré pedirla?",
       "whenA": "Pronto. Escríbenos a {email} y te avisaremos en cuanto se pueda pedir."
     }
+  },
+  "consent": {
+    "title": "Cookies",
+    "text": "Nos gustaría usar cookies de Meta (Facebook) para medir nuestros anuncios y mostrarte anuncios relevantes. Solo se usan si aceptas. Puedes cambiar tu elección en cualquier momento en «Configuración de cookies», al final de la página.",
+    "accept": "Aceptar",
+    "reject": "Rechazar",
+    "learnMore": "Política de privacidad"
   }
 }

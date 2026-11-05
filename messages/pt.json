@@ -23,7 +23,8 @@
     "designedBy": "Design de",
     "privacy": "Política de Privacidade",
     "terms": "Termos e Condições",
-    "refunds": "Política de Reembolso"
+    "refunds": "Política de Reembolso",
+    "cookieSettings": "Definições de cookies"
   },
   "home": {
     "hero": {
@@ -778,5 +779,12 @@
     "emailUs": "Enviar e-mail",
     "open": "Abrir a ajuda",
     "close": "Fechar a ajuda"
+  },
+  "consent": {
+    "title": "Cookies",
+    "text": "Gostaríamos de usar cookies da Meta (Facebook) para medir os nossos anúncios e mostrar-lhe anúncios relevantes. Só são usados se aceitar. Pode mudar a sua escolha a qualquer momento em «Definições de cookies», no fundo da página.",
+    "accept": "Aceitar",
+    "reject": "Rejeitar",
+    "learnMore": "Política de Privacidade"
   }
 }

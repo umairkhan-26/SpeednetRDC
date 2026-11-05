@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { Clock, Database, Network, ShieldCheck, Signal, Smartphone, Undo2, Wifi } from "lucide-react";
@@ -8,6 +9,7 @@ import { useCheckoutStore } from "@/lib/store/checkout-store";
 import { LinkButton, Button } from "@/components/ui/Button";
 import { EsimSalesPausedNotice } from "@/components/checkout/EsimSalesPaused";
 import { useNames } from "@/i18n/use-names";
+import { trackMeta } from "@/lib/meta/pixel";
 
 export default function PlanDetailView({
   plan,
@@ -28,7 +30,14 @@ export default function PlanDetailView({
   const router = useRouter();
   const startCheckout = useCheckoutStore((s) => s.startCheckout);
 
+  const metaParams = { content_ids: [plan.id], content_name: plan.name, content_type: "product", value: plan.price, currency: "EUR" };
+
+  useEffect(() => {
+    trackMeta("ViewContent", { content_ids: [plan.id], content_name: plan.name, content_type: "product", value: plan.price, currency: "EUR" });
+  }, [plan.id, plan.name, plan.price]);
+
   function handleBuy() {
+    trackMeta("AddToCart", metaParams);
     startCheckout(plan);
     router.push("/checkout");
   }

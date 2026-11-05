@@ -22,7 +22,8 @@
     "designedBy": "Conçu par",
     "privacy": "Politique de confidentialité",
     "terms": "Conditions générales",
-    "refunds": "Politique de remboursement"
+    "refunds": "Politique de remboursement",
+    "cookieSettings": "Paramètres des cookies"
   },
   "home": {
     "hero": {
@@ -174,5 +175,12 @@
       "whenQ": "Quand pourrai-je la commander ?",
       "whenA": "Bientôt. Écrivez-nous à {email} et nous vous préviendrons dès qu'elle pourra être commandée."
     }
+  },
+  "consent": {
+    "title": "Cookies",
+    "text": "Nous aimerions utiliser des cookies de Meta (Facebook) pour mesurer nos publicités et vous en montrer de pertinentes. Ils ne sont utilisés que si vous acceptez. Vous pouvez changer d’avis à tout moment via « Paramètres des cookies » en bas de page.",
+    "accept": "Accepter",
+    "reject": "Refuser",
+    "learnMore": "Politique de confidentialité"
   }
 }

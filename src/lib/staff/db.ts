@@ -209,6 +209,21 @@ const SCHEMA_STATEMENTS = [
     error VARCHAR(512) NULL,
     error_at DATETIME NULL
   )`,
+  // Orders whose buyer accepted Meta cookies before checkout: the event_id
+  // shared by the browser and server Purchase events (so Meta counts the
+  // sale once), Meta's browser IDs and the browser's user agent, and when
+  // the server Purchase was sent. Orders without consent have no row. Never
+  // holds an IP address.
+  `CREATE TABLE IF NOT EXISTS meta_order_consent (
+    order_id INT PRIMARY KEY,
+    event_id VARCHAR(64) NOT NULL,
+    fbp VARCHAR(255) NULL,
+    fbc VARCHAR(255) NULL,
+    user_agent VARCHAR(512) NULL,
+    consented_at DATETIME NOT NULL,
+    capi_sent_at DATETIME NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+  )`,
   // Who did what in the admin panel: sign-ins, invites, deactivations,
   // email and password changes. No IP addresses.
   `CREATE TABLE IF NOT EXISTS admin_audit_log (

@@ -4,6 +4,9 @@ import Header from "./Header";
 import Footer from "./Footer";
 import ChatBubble from "./ChatBubble";
 import CursorTrail from "./CursorTrail";
+import CookieBanner from "@/components/consent/CookieBanner";
+import MetaPixel from "@/components/consent/MetaPixel";
+import { legalPagesLive } from "@/lib/legal";
 
 export default function SiteChrome({
   children,
@@ -19,6 +22,8 @@ export default function SiteChrome({
       <Footer locale={locale} />
       <ChatBubble />
       <CursorTrail />
+      <MetaPixel />
+      <CookieBanner privacyLink={legalPagesLive()} />
     </>
   );
 }

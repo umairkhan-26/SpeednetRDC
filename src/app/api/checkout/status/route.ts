@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getStripe } from "@/lib/checkout/stripe";
 import { getOrderByStripeCheckoutSessionId, markOrderPaid, recordBillingCountry } from "@/lib/checkout/orders-repository";
+import { getMetaConsent } from "@/lib/meta/consent-repository";
 
 export async function GET(request: Request) {
   const sessionId = new URL(request.url).searchParams.get("session_id");
@@ -33,6 +34,10 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Order not found" }, { status: 404 });
   }
 
+  // For the browser Purchase event, only when the buyer accepted Meta
+  // cookies; its event_id matches the server event so Meta counts it once.
+  const consent = order.status === "completed" ? await getMetaConsent(order.id).catch(() => null) : null;
+
   // The private order page (which shows the activation code) is the
   // customer's destination once paid; the checkout session id in the
   // success URL is itself an unguessable secret only the buyer has.
@@ -40,5 +45,6 @@ export async function GET(request: Request) {
     status: order.status,
     provisioningStatus: order.provisioningStatus,
     accessToken: order.status === "completed" ? order.accessToken : null,
+    metaPurchase: consent ? { eventId: consent.eventId, value: Number(order.amountEur), currency: "EUR", contentId: order.planId } : null,
   });
 }

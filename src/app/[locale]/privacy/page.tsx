@@ -56,10 +56,15 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
           performance of our contract and legitimate interests.
         </li>
       </UL>
-      <P>We do not sell your personal data, and we do not use it for advertising profiles.</P>
+      <P>
+        We do not sell your personal data. Only if you accept Meta cookies do we share limited information with Meta to measure and improve our
+        ads (see section 3).
+      </P>
 
       <H2>3. Cookies</H2>
-      <P>We only use cookies that are needed for the site to work:</P>
+      <P>
+        <strong>Cookies needed for the site to work</strong> (always on):
+      </P>
       <UL>
         <li>
           <strong>NEXT_LOCALE</strong> — remembers your chosen language.
@@ -68,8 +73,35 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
           <strong>customer_session</strong> — keeps you signed in to &ldquo;My eSIMs&rdquo; for up to 30 days after you use a sign-in link.
           Removed when you sign out.
         </li>
+        <li>
+          <strong>snrdc_consent</strong> — remembers whether you accepted or rejected Meta cookies, for 6 months.
+        </li>
       </UL>
-      <P>We don&apos;t use analytics, advertising or tracking cookies. Stripe sets its own cookies on its payment page to prevent fraud.</P>
+      <P>
+        <strong>Meta (Facebook) advertising cookies</strong> (only if you accept): when you first visit, we ask whether you accept them. Nothing
+        from Meta is loaded until you click &ldquo;Accept&rdquo;, and nothing is sent to Meta if you click &ldquo;Reject&rdquo;. If you accept,
+        the Meta Pixel sets the <strong>_fbp</strong> cookie (and <strong>_fbc</strong> if you arrived from a Meta ad), kept for up to 90 days,
+        and we tell Meta:
+      </P>
+      <UL>
+        <li>which pages you visit, which plan you look at, when you choose a plan and when you start checking out;</li>
+        <li>
+          when you buy: the order value, currency and plan, your email address and billing country in scrambled (hashed) form, Meta&apos;s
+          browser identifiers above, and your browser type. We send the purchase from our server (Meta&apos;s Conversions API) as well as from
+          your browser, with the same reference, so Meta counts it once. We never send your name, your IP address from our server, or your
+          payment details.
+        </li>
+      </UL>
+      <P>
+        We use this to measure whether our ads work and to show our ads to people likely to be interested. Legal basis: your consent. For
+        collecting this information and passing it to Meta, we and Meta Platforms Ireland Ltd are joint controllers; what Meta does with it
+        afterwards is covered by Meta&apos;s own privacy policy (facebook.com/privacy/policy).
+      </P>
+      <P>
+        You can change your choice at any time with &ldquo;Cookie settings&rdquo; at the bottom of every page. Choosing &ldquo;Reject&rdquo;
+        stops the Meta Pixel and removes its cookies from your browser; information already sent to Meta stays with Meta. Stripe sets its own
+        cookies on its payment page to prevent fraud.
+      </P>
 
       <H2>4. Who we share data with</H2>
       <P>Only with service providers who need it to run the service, under contracts that require them to protect it:</P>
@@ -78,6 +110,7 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
         <li>Transatel, our mobile network partner, which provides the eSIM and the connectivity;</li>
         <li>Resend (sending order and sign-in emails, from servers in the EU);</li>
         <li>Hostinger (website and database hosting);</li>
+        <li>Meta Platforms Ireland Ltd (advertising measurement), only if you accept Meta cookies;</li>
         <li>authorities, when the law requires it.</li>
       </UL>
       <P>
@@ -93,6 +126,11 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
         <li>SIM status information: for as long as we keep the order it belongs to.</li>
         <li>Sign-in links: deleted one day after they expire (they expire after 15 minutes).</li>
         <li>Hashed IP addresses used for security: 24 hours.</li>
+        <li>Your cookie choice: 6 months, then we ask again. Meta&apos;s cookies: up to 90 days, or until you reject them.</li>
+        <li>
+          If you accepted Meta cookies when you ordered: the reference and browser details used for the purchase event, for as long as we keep
+          the order.
+        </li>
         <li>Support messages: for as long as needed to handle your request, then for up to 2 years.</li>
       </UL>
 
