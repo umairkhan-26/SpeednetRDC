@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
+import { useTranslations } from "next-intl";
 import type { LoginActionState } from "@/lib/staff/actions";
 import { Button } from "@/components/ui/Button";
 
@@ -9,9 +10,10 @@ const initialState: LoginActionState = {};
 
 function SubmitButton() {
   const { pending } = useFormStatus();
+  const t = useTranslations("admin.auth");
   return (
     <Button type="submit" size="lg" className="w-full" disabled={pending}>
-      {pending ? "Signing in..." : "Sign in"}
+      {pending ? t("signingIn") : t("signIn")}
     </Button>
   );
 }
@@ -24,11 +26,12 @@ export default function LoginForm({
   emailPlaceholder?: string;
 }) {
   const [state, formAction] = useActionState(action, initialState);
+  const t = useTranslations("admin.auth");
 
   return (
     <form action={formAction} className="mt-6 space-y-4">
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-ink">Email</label>
+        <label className="mb-1.5 block text-sm font-medium text-ink">{t("email")}</label>
         <input
           type="email"
           name="email"
@@ -38,7 +41,7 @@ export default function LoginForm({
         />
       </div>
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-ink">Password</label>
+        <label className="mb-1.5 block text-sm font-medium text-ink">{t("password")}</label>
         <input
           type="password"
           name="password"

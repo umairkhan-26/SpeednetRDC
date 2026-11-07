@@ -5,37 +5,34 @@ import { DeliveryBadge, KindBadge, PaymentBadge } from "../Badges";
 import ResendEmailButton from "./ResendEmailButton";
 import FetchFeesButton from "./FetchFeesButton";
 import { orderProfit } from "@/lib/checkout/order-profit";
+import { getAdminT, type AdminTranslator } from "@/i18n/admin";
+import { adminDateLocale } from "@/i18n/admin-locale";
 
-const KIND_FILTERS: { value: OrderKind | "all"; label: string }[] = [
-  { value: "all", label: "All orders" },
-  { value: "live", label: "Live only" },
-  { value: "test", label: "Test only" },
-  { value: "demo", label: "Demo only" },
-];
+const KIND_FILTERS: (OrderKind | "all")[] = ["all", "live", "test", "demo"];
 
-function formatDateTime(iso: string): string {
-  return new Date(iso).toLocaleString("en-GB", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+function formatDateTime(iso: string, locale: string): string {
+  return new Date(iso).toLocaleString(adminDateLocale(locale), { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
 }
 
-function ProfitCell({ order }: { order: Parameters<typeof orderProfit>[0] }) {
+function ProfitCell({ order, t }: { order: Parameters<typeof orderProfit>[0]; t: AdminTranslator }) {
   const p = orderProfit(order);
   if (p.profit === null) return <span className="text-muted">—</span>;
   return (
     <div className="space-y-0.5">
       <p className="text-muted">
-        Cost:{" "}
+        {t("orders.cost")}{" "}
         {p.cost !== null ? (
           <span className="text-ink">{formatPrice(p.cost)}</span>
         ) : p.costUnknown ? (
-          <span className="text-red-700">unknown</span>
+          <span className="text-red-700">{t("orders.costUnknown")}</span>
         ) : (
-          "none yet (not delivered)"
+          t("orders.costNone")
         )}
       </p>
-      <p className="font-semibold text-ink">Profit: {formatPrice(p.profit)}</p>
+      <p className="font-semibold text-ink">{t("orders.profit", { amount: formatPrice(p.profit) })}</p>
       {p.profitAfterStripeFee !== null && (
         <p className="text-muted">
-          After Stripe fee ({formatPrice(order.stripeFeeEur ?? 0)}): {formatPrice(p.profitAfterStripeFee)}
+          {t("orders.afterFee", { fee: formatPrice(order.stripeFeeEur ?? 0), amount: formatPrice(p.profitAfterStripeFee) })}
         </p>
       )}
     </div>
@@ -50,21 +47,16 @@ export default async function AdminOrdersPage({
   const params = await searchParams;
   const q = typeof params.q === "string" ? params.q : "";
   const kindParam = typeof params.kind === "string" ? params.kind : "all";
-  const kind = KIND_FILTERS.some((f) => f.value === kindParam) ? (kindParam as OrderKind | "all") : "all";
+  const kind = KIND_FILTERS.includes(kindParam as OrderKind | "all") ? (kindParam as OrderKind | "all") : "all";
   const orders = await searchOrdersForAdmin(q, kind);
+  const t = await getAdminT();
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-ink">Orders</h1>
-        <p className="mt-1 text-sm text-muted">
-          Every order, newest first. A customer page link shows that customer&apos;s eSIM QR code — treat it like a password and
-          only send it to the customer.
-        </p>
-        <p className="mt-1 text-xs text-muted">
-          Cost is the Transatel wholesale price saved when the order was placed, counted once the eSIM is delivered. Profit is the amount
-          paid (incl. the 5% taxes &amp; fees line) minus that cost, before Stripe fees and VAT.
-        </p>
+        <h1 className="text-2xl font-bold text-ink">{t("orders.title")}</h1>
+        <p className="mt-1 text-sm text-muted">{t("orders.intro")}</p>
+        <p className="mt-1 text-xs text-muted">{t("orders.costIntro")}</p>
         <div className="mt-2">
           <FetchFeesButton />
         </div>
@@ -75,27 +67,27 @@ export default async function AdminOrdersPage({
           type="search"
           name="q"
           defaultValue={q}
-          placeholder="Order number, name, email, plan, ICCID or MSISDN"
+          placeholder={t("orders.searchPlaceholder")}
           className="w-full max-w-md rounded-lg border border-line bg-white px-3.5 py-2 text-sm outline-none focus:border-orange"
         />
         <select name="kind" defaultValue={kind} className="rounded-lg border border-line bg-white px-3 py-2 text-sm outline-none focus:border-orange">
           {KIND_FILTERS.map((f) => (
-            <option key={f.value} value={f.value}>
-              {f.label}
+            <option key={f} value={f}>
+              {t(`orders.filters.${f}`)}
             </option>
           ))}
         </select>
         <button type="submit" className="rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white hover:opacity-90">
-          Search
+          {t("orders.search")}
         </button>
       </form>
 
       <p className="text-xs text-muted">
         {orders.length === 0
-          ? "No orders match."
+          ? t("orders.noMatch")
           : orders.length === ADMIN_ORDER_SEARCH_LIMIT
-            ? `Showing the ${ADMIN_ORDER_SEARCH_LIMIT} newest matching orders — refine your search to see older ones.`
-            : `${orders.length} order${orders.length === 1 ? "" : "s"}.`}
+            ? t("orders.limit", { limit: ADMIN_ORDER_SEARCH_LIMIT })
+            : t("orders.count", { count: orders.length })}
       </p>
 
       {orders.length > 0 && (
@@ -103,15 +95,11 @@ export default async function AdminOrdersPage({
           <table className="w-full text-left text-sm">
             <thead className="border-b border-line text-xs uppercase tracking-wide text-muted">
               <tr>
-                <th className="px-4 py-3 font-semibold">Order</th>
-                <th className="px-4 py-3 font-semibold">Customer</th>
-                <th className="px-4 py-3 font-semibold">Plan</th>
-                <th className="px-4 py-3 font-semibold">Amount</th>
-                <th className="px-4 py-3 font-semibold">Cost / profit</th>
-                <th className="px-4 py-3 font-semibold">Payment</th>
-                <th className="px-4 py-3 font-semibold">Delivery</th>
-                <th className="px-4 py-3 font-semibold">SIM</th>
-                <th className="px-4 py-3 font-semibold">Customer page</th>
+                {(["order", "customer", "plan", "amount", "costProfit", "payment", "delivery", "sim", "customerPage"] as const).map((c) => (
+                  <th key={c} className="px-4 py-3 font-semibold">
+                    {t(`orders.columns.${c}`)}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
@@ -123,7 +111,7 @@ export default async function AdminOrdersPage({
                       <p className="flex items-center gap-1.5 font-medium text-ink">
                         ORD-{order.id} <KindBadge kind={orderKindValue} />
                       </p>
-                      <p className="text-xs text-muted">{formatDateTime(order.createdAt)}</p>
+                      <p className="text-xs text-muted">{formatDateTime(order.createdAt, t.locale)}</p>
                     </td>
                     <td className="px-4 py-3">
                       <p className="text-ink">{order.customerName}</p>
@@ -135,7 +123,7 @@ export default async function AdminOrdersPage({
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-ink">{formatPrice(order.amountEur)}</td>
                     <td className="px-4 py-3 text-xs whitespace-nowrap">
-                      <ProfitCell order={order} />
+                      <ProfitCell order={order} t={t} />
                     </td>
                     <td className="px-4 py-3">
                       <PaymentBadge status={order.status} />
@@ -151,12 +139,12 @@ export default async function AdminOrdersPage({
                       {order.accessToken && order.status === "completed" ? (
                         <div className="flex flex-col gap-1">
                           <a href={`/en/order/${order.accessToken}`} target="_blank" rel="noreferrer" className="text-xs font-semibold text-orange hover:underline">
-                            Open
+                            {t("orders.open")}
                           </a>
                           {order.provisioningStatus === "provisioned" && (
                             <>
                               <span className="text-xs text-muted">
-                                {order.confirmationEmailSentAt ? `Emailed ${formatDateTime(order.confirmationEmailSentAt)}` : "Not emailed"}
+                                {order.confirmationEmailSentAt ? t("orders.emailed", { date: formatDateTime(order.confirmationEmailSentAt, t.locale) }) : t("orders.notEmailed")}
                               </span>
                               <ResendEmailButton orderId={order.id} email={order.customerEmail} />
                             </>

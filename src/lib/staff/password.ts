@@ -33,10 +33,14 @@ export function verifyPasswordConstantTime(password: string, storedHash: string 
 export const MIN_PASSWORD_LENGTH = 12;
 const MAX_PASSWORD_LENGTH = 200;
 
-/** Returns an error message, or null if the new password is acceptable. */
-export function checkNewPassword(password: string, confirmation: string): string | null {
-  if (password.length < MIN_PASSWORD_LENGTH) return `Use at least ${MIN_PASSWORD_LENGTH} characters.`;
-  if (password.length > MAX_PASSWORD_LENGTH) return `Use at most ${MAX_PASSWORD_LENGTH} characters.`;
-  if (password !== confirmation) return "The two passwords don't match.";
+export type NewPasswordProblem = "tooShort" | "tooLong" | "mismatch";
+
+/** What's wrong with a new password (a key under admin.msg.password), or null if it's acceptable. */
+export function checkNewPassword(password: string, confirmation: string): NewPasswordProblem | null {
+  if (password.length < MIN_PASSWORD_LENGTH) return "tooShort";
+  if (password.length > MAX_PASSWORD_LENGTH) return "tooLong";
+  if (password !== confirmation) return "mismatch";
   return null;
 }
+
+export const PASSWORD_LIMITS = { min: MIN_PASSWORD_LENGTH, max: MAX_PASSWORD_LENGTH };

@@ -3,6 +3,7 @@
 import type { InputHTMLAttributes, ReactNode } from "react";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/Button";
 
 export interface AccountFormResult {
@@ -29,7 +30,7 @@ export default function AccountForm({
   action,
   children,
   submitLabel,
-  pendingLabel = "Saving…",
+  pendingLabel,
   hideOnSuccess = false,
   fullWidth = false,
 }: {
@@ -41,6 +42,7 @@ export default function AccountForm({
   fullWidth?: boolean;
 }) {
   const [state, formAction] = useActionState(action, {});
+  const t = useTranslations("admin");
 
   if (state.success && hideOnSuccess) {
     return (
@@ -48,7 +50,7 @@ export default function AccountForm({
         <p className="rounded-lg bg-green-50 px-4 py-3 text-sm text-green-800">{state.success}</p>
         {state.signInPath && (
           <a href={state.signInPath} className="block text-center text-sm font-semibold text-orange hover:underline">
-            Go to sign in
+            {t("auth.goToSignIn")}
           </a>
         )}
       </div>
@@ -60,7 +62,7 @@ export default function AccountForm({
       {children}
       {state.error && <p className="text-sm text-red-600">{state.error}</p>}
       {state.success && <p className="rounded-lg bg-green-50 px-4 py-3 text-sm text-green-800">{state.success}</p>}
-      <SubmitButton label={submitLabel} pendingLabel={pendingLabel} fullWidth={fullWidth} />
+      <SubmitButton label={submitLabel} pendingLabel={pendingLabel ?? t("common.saving")} fullWidth={fullWidth} />
     </form>
   );
 }

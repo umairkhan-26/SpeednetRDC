@@ -13,14 +13,17 @@ import EditNameButton from "../EditNameButton";
 import { AccountStatusBadge } from "../Badges";
 import MessageButton from "./MessageButton";
 import TeamBroadcastButton from "./TeamBroadcastButton";
+import { getAdminT } from "@/i18n/admin";
+import { adminDateLocale } from "@/i18n/admin-locale";
 
-function formatTime(iso: string): string {
-  return new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+function formatTime(iso: string, locale: string): string {
+  return new Date(iso).toLocaleTimeString(adminDateLocale(locale), { hour: "2-digit", minute: "2-digit" });
 }
 
 export default async function AdminStaffDirectoryPage() {
   const session = await getStaffSession();
   if (!session) return null;
+  const t = await getAdminT();
 
   const staff = await listStaff();
   const activeIds = await getActiveStaffIds();
@@ -40,10 +43,8 @@ export default async function AdminStaffDirectoryPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-ink">Staff Directory</h1>
-          <p className="mt-1 text-sm text-muted">
-            Every staff and admin account, with today&apos;s shift status. New people are invited by email and choose their own password.
-          </p>
+          <h1 className="text-2xl font-bold text-ink">{t("staff.title")}</h1>
+          <p className="mt-1 text-sm text-muted">{t("staff.intro")}</p>
         </div>
         <div className="flex items-center gap-3">
           <TeamBroadcastButton messages={teamBroadcasts} />
@@ -69,16 +70,16 @@ export default async function AdminStaffDirectoryPage() {
                 </div>
               </Link>
               <div className="flex items-center gap-6">
-                <span className="rounded-full bg-orange/10 px-3 py-1 text-xs font-semibold capitalize text-orange">
-                  {member.role}
+                <span className="rounded-full bg-orange/10 px-3 py-1 text-xs font-semibold text-orange">
+                  {t(`common.roles.${member.role}`)}
                 </span>
                 {member.status !== "active" && <AccountStatusBadge status={member.status} />}
                 <div className="flex items-center gap-2 text-sm">
                   <span className={`size-2 rounded-full ${isOnline ? "bg-green-500" : "bg-muted-light"}`} />
-                  <span className="font-medium text-ink">{isOnline ? "Online" : "Offline"}</span>
+                  <span className="font-medium text-ink">{isOnline ? t("staff.online") : t("staff.offline")}</span>
                 </div>
                 <p className="w-28 text-right text-sm text-muted">
-                  {openShift ? `Since ${formatTime(openShift.loginTime)}` : "Not clocked in"}
+                  {openShift ? t("staff.since", { time: formatTime(openShift.loginTime, t.locale) }) : t("staff.notClockedIn")}
                 </p>
                 <EditNameButton staffId={member.id} name={member.name} />
                 <AccountRowActions staffId={member.id} name={member.name} status={member.status} isSelf={member.id === session.staffId} />

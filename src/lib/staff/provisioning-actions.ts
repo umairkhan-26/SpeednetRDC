@@ -9,6 +9,14 @@ import { sendOrderReadyEmail } from "@/lib/email/order-emails";
 import { backfillStripeFees } from "@/lib/checkout/stripe-fees";
 import { provisionEsimOrder } from "@/lib/transatel/provisioning";
 import { requireAdminSession } from "./auth";
+import { getAdminT } from "@/i18n/admin";
+
+/** A message for the person using the panel, in their admin-panel language (keys under admin.msg). */
+async function msg(key: string, values?: Record<string, string | number>): Promise<string> {
+  const t = await getAdminT();
+  return t(`msg.${key}`, values);
+}
+
 
 export interface RetryProvisioningResult {
   ok: boolean;
@@ -27,26 +35,26 @@ export async function retryProvisioningAction(orderId: number): Promise<RetryPro
 
   const order = await getOrderById(orderId);
   if (!order || order.status !== "completed" || !order.planId) {
-    return { ok: false, message: "Not a paid checkout order." };
+    return { ok: false, message: await msg("provisioning.notPaidCheckout") };
   }
   // Retrying buys a real plan from Transatel: never for Stripe test-mode or
   // demo orders, whatever ESIM_PROVISION_TEST_ORDERS says.
   if (orderKind(order.stripeCheckoutSessionId) !== "live") {
-    return { ok: false, message: "Test-mode order — not retried (it would buy a real plan for a payment that never happened)." };
+    return { ok: false, message: await msg("provisioning.testOrder") };
   }
   if (order.provisioningStatus === "provisioned") {
-    return { ok: false, message: "Already provisioned." };
+    return { ok: false, message: await msg("provisioning.alreadyProvisioned") };
   }
   if (order.provisioningStatus !== "pending" && !(await resetProvisioningForRetry(orderId))) {
-    return { ok: false, message: "An attempt is still running — try again in a few minutes." };
+    return { ok: false, message: await msg("provisioning.stillRunning") };
   }
 
   await provisionEsimOrder(orderId);
   const after = await getOrderById(orderId);
   revalidatePath("/admin");
   return after?.provisioningStatus === "provisioned"
-    ? { ok: true, message: "Provisioned — the customer's order page now shows their QR code." }
-    : { ok: false, message: `Still ${after?.provisioningStatus ?? "unknown"} — check the server logs ([transatel] lines) for the reason.` };
+    ? { ok: true, message: await msg("provisioning.provisioned") }
+    : { ok: false, message: await msg("provisioning.stillStatus", { status: after?.provisioningStatus ?? "unknown" }) };
 }
 
 /** Admin-only: sends the "your eSIM is ready" email (with the private order link) again. */
@@ -54,7 +62,7 @@ export async function resendOrderEmailAction(orderId: number): Promise<RetryProv
   await requireAdminSession();
   const result = await sendOrderReadyEmail(orderId, { resend: true });
   revalidatePath("/admin/orders");
-  return result;
+  return { ok: result.ok, message: await msg(`orderEmail.${result.code}`, { email: result.email ?? "", error: result.error ?? "" }) };
 }
 
 /** Admin-only: reads Stripe's fee for paid live orders that don't have one yet (read-only Stripe calls). */
@@ -64,10 +72,10 @@ export async function fetchStripeFeesAction(): Promise<RetryProvisioningResult> 
     const { filled, missing } = await backfillStripeFees(50);
     revalidatePath("/admin");
     revalidatePath("/admin/orders");
-    if (filled === 0 && missing === 0) return { ok: true, message: "All paid orders already have their Stripe fee." };
-    return { ok: missing === 0, message: `Fetched ${filled} fee(s).${missing ? ` ${missing} not available from Stripe yet.` : ""}` };
+    if (filled === 0 && missing === 0) return { ok: true, message: await msg("fees.allHaveFee") };
+    return { ok: missing === 0, message: [await msg("fees.fetched", { count: filled }), missing ? await msg("fees.notAvailable", { count: missing }) : ""].join(" ").trim() };
   } catch (error) {
-    return { ok: false, message: `Couldn't read fees from Stripe: ${error instanceof Error ? error.message : String(error)}` };
+    return { ok: false, message: await msg("fees.error", { error: error instanceof Error ? error.message : String(error) }) };
   }
 }
 
@@ -80,30 +88,28 @@ export async function fetchStripeFeesAction(): Promise<RetryProvisioningResult> 
 export async function dismissOrderAttentionAction(orderId: number, reason: "refunded" | "resolved"): Promise<RetryProvisioningResult> {
   const session = await requireAdminSession();
   const order = await getOrderById(orderId);
-  if (!order || order.status !== "completed") return { ok: false, message: "Not a paid order." };
-  if (order.provisioningStatus === "provisioned") return { ok: false, message: "This order already has its eSIM." };
+  if (!order || order.status !== "completed") return { ok: false, message: await msg("dismiss.notPaid") };
+  if (order.provisioningStatus === "provisioned") return { ok: false, message: await msg("dismiss.hasEsim") };
 
   if (reason === "refunded") {
-    if (!order.stripePaymentIntentId) return { ok: false, message: "No Stripe payment found for this order — use \u201cResolved another way\u201d." };
+    if (!order.stripePaymentIntentId) return { ok: false, message: await msg("dismiss.noPayment") };
     try {
       const intent = await getStripe().paymentIntents.retrieve(order.stripePaymentIntentId, { expand: ["latest_charge"] });
       const charge = typeof intent.latest_charge === "object" ? intent.latest_charge : null;
       if (!charge?.refunded) {
         return {
           ok: false,
-          message: charge && charge.amount_refunded > 0
-            ? "Stripe shows only a partial refund. Refund the rest in Stripe, or use \u201cResolved another way\u201d."
-            : "Stripe doesn't show a refund for this payment yet. Refund it in Stripe first, then try again.",
+          message: await msg(charge && charge.amount_refunded > 0 ? "dismiss.partialRefund" : "dismiss.noRefund"),
         };
       }
     } catch (error) {
-      return { ok: false, message: `Couldn't check the refund with Stripe: ${error instanceof Error ? error.message : String(error)}` };
+      return { ok: false, message: await msg("dismiss.checkError", { error: error instanceof Error ? error.message : String(error) }) };
     }
   }
 
-  if (!(await dismissOrderAttention(orderId, reason === "refunded"))) return { ok: false, message: "Already removed from the list." };
+  if (!(await dismissOrderAttention(orderId, reason === "refunded"))) return { ok: false, message: await msg("dismiss.alreadyRemoved") };
   await logAudit(session.staffId, reason === "refunded" ? "order_marked_refunded" : "order_attention_dismissed", null, `ORD-${orderId}`);
   revalidatePath("/admin");
   revalidatePath("/admin/orders");
-  return { ok: true, message: reason === "refunded" ? "Marked refunded and removed from the list." : "Removed from the list." };
+  return { ok: true, message: await msg(reason === "refunded" ? "dismiss.markedRefunded" : "dismiss.removed") };
 }

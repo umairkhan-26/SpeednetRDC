@@ -2,25 +2,27 @@ import Link from "next/link";
 import { requireAdminSession } from "@/lib/staff/auth";
 import { orderKind } from "@/lib/checkout/order-kind";
 import { listSoldSims, SOLD_SIM_LIMIT, type SoldSim } from "@/lib/sims/repository";
-import { formatKb, USAGE_STATUS_LABELS, usageStatus, type UsageStatus } from "@/lib/sims/status";
+import { formatKb, USAGE_STATUSES, usageStatus } from "@/lib/sims/status";
+import { getAdminT } from "@/i18n/admin";
+import { adminDateLocale } from "@/i18n/admin-locale";
 import { DeliveryBadge, KindBadge, UsageBadge } from "../Badges";
 import RefreshButton from "./RefreshButton";
 
 type Params = Record<"q" | "status" | "type" | "country" | "from" | "to", string>;
 const PARAM_KEYS: (keyof Params)[] = ["q", "status", "type", "country", "from", "to"];
 
-function formatDate(iso: string | null): string {
+function formatDate(iso: string | null, locale: string): string {
   if (!iso) return "—";
   const date = new Date(iso);
-  return Number.isNaN(date.getTime()) ? iso : date.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+  return Number.isNaN(date.getTime()) ? iso : date.toLocaleDateString(adminDateLocale(locale), { day: "2-digit", month: "short", year: "numeric" });
 }
 
-function formatDateTime(iso: string | null): string {
+function formatDateTime(iso: string | null, locale: string): string {
   if (!iso) return "—";
   const date = new Date(iso);
   return Number.isNaN(date.getTime())
     ? iso
-    : date.toLocaleString("en-GB", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+    : date.toLocaleString(adminDateLocale(locale), { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
 }
 
 /** Search box: email, order number (ORD-12 or 12), ICCID or MSISDN (with or without +). */
@@ -57,6 +59,9 @@ const selectClass = "rounded-lg border border-line bg-white px-3 py-2 text-sm ou
 
 export default async function AdminSimsPage({ searchParams }: { searchParams: Promise<Partial<Record<keyof Params, string | string[]>>> }) {
   await requireAdminSession();
+  const t = await getAdminT();
+  const s = (key: string, values?: Record<string, string | number>) => t(`sims.${key}`, values);
+  const fmtDate = (iso: string | null) => formatDate(iso, t.locale);
   const raw = await searchParams;
   const params = Object.fromEntries(PARAM_KEYS.map((k) => [k, typeof raw[k] === "string" ? raw[k] : ""])) as Params;
 
@@ -73,13 +78,12 @@ export default async function AdminSimsPage({ searchParams }: { searchParams: Pr
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-ink">SIMs</h1>
+          <h1 className="text-2xl font-bold text-ink">{s("title")}</h1>
           <p className="mt-1 max-w-2xl text-sm text-muted">
-            Every SIM we&apos;ve sold, with its last known status from Transatel. Statuses are cached — use Refresh to re-read them (read-only
-            requests; nothing changes on Transatel&apos;s side). Last refreshed: {lastRefresh ? formatDateTime(lastRefresh) : "never"}.
+            {s("intro", { date: lastRefresh ? formatDateTime(lastRefresh, t.locale) : s("never") })}
           </p>
         </div>
-        <RefreshButton label="Refresh from Transatel" />
+        <RefreshButton label={s("refreshAll")} />
       </div>
 
       <form method="get" className="flex flex-wrap items-end gap-3">
@@ -87,24 +91,24 @@ export default async function AdminSimsPage({ searchParams }: { searchParams: Pr
           type="search"
           name="q"
           defaultValue={params.q}
-          placeholder="Email, order number, ICCID or MSISDN"
+          placeholder={s("searchPlaceholder")}
           className="w-full max-w-xs rounded-lg border border-line bg-white px-3.5 py-2 text-sm outline-none focus:border-orange"
         />
-        <select name="status" defaultValue={params.status} className={selectClass} aria-label="Status">
-          <option value="">Any status</option>
-          {(Object.keys(USAGE_STATUS_LABELS) as UsageStatus[]).map((s) => (
-            <option key={s} value={s}>
-              {USAGE_STATUS_LABELS[s]}
+        <select name="status" defaultValue={params.status} className={selectClass} aria-label={s("statusLabel")}>
+          <option value="">{s("anyStatus")}</option>
+          {USAGE_STATUSES.map((status) => (
+            <option key={status} value={status}>
+              {t(`badges.usage.${status}`)}
             </option>
           ))}
         </select>
-        <select name="type" defaultValue={params.type} className={selectClass} aria-label="SIM type">
-          <option value="">eSIM and physical</option>
-          <option value="esim">eSIM</option>
-          <option value="physical">Physical SIM</option>
+        <select name="type" defaultValue={params.type} className={selectClass} aria-label={s("typeLabel")}>
+          <option value="">{s("anyType")}</option>
+          <option value="esim">{s("esim")}</option>
+          <option value="physical">{s("physical")}</option>
         </select>
-        <select name="country" defaultValue={params.country} className={selectClass} aria-label="Destination">
-          <option value="">Any destination</option>
+        <select name="country" defaultValue={params.country} className={selectClass} aria-label={s("destinationLabel")}>
+          <option value="">{s("anyDestination")}</option>
           {countries.map((c) => (
             <option key={c} value={c}>
               {c}
@@ -112,29 +116,28 @@ export default async function AdminSimsPage({ searchParams }: { searchParams: Pr
           ))}
         </select>
         <label className="text-xs text-muted">
-          From
+          {s("from")}
           <input type="date" name="from" defaultValue={params.from} className={`${selectClass} ml-1.5`} />
         </label>
         <label className="text-xs text-muted">
-          To
+          {s("to")}
           <input type="date" name="to" defaultValue={params.to} className={`${selectClass} ml-1.5`} />
         </label>
         <button type="submit" className="rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white hover:opacity-90">
-          Filter
+          {s("filter")}
         </button>
         {filtersActive && (
           <Link href="/admin/sims" className="py-2 text-sm font-medium text-muted hover:text-orange">
-            Clear
+            {s("clear")}
           </Link>
         )}
       </form>
 
       <p className="text-xs text-muted">
         {filtered.length === 0
-          ? "No SIMs match."
-          : `${filtered.length} SIM${filtered.length === 1 ? "" : "s"}${filtersActive ? ` (of ${sims.length})` : ""}.`}
-        {sims.length === SOLD_SIM_LIMIT && ` Only the ${SOLD_SIM_LIMIT} most recent sales are loaded.`} &ldquo;Destination&rdquo; is the
-        country the plan was bought for; the billing country comes from Stripe and the last country from Transatel.
+          ? s("noMatch")
+          : `${s("count", { count: filtered.length })}${filtersActive ? ` ${s("ofTotal", { total: sims.length })}` : ""}.`}
+        {sims.length === SOLD_SIM_LIMIT && ` ${s("limited", { limit: SOLD_SIM_LIMIT })}`} {s("destinationNote")}
       </p>
 
       {filtered.length > 0 && (
@@ -142,12 +145,11 @@ export default async function AdminSimsPage({ searchParams }: { searchParams: Pr
           <table className="w-full text-left text-sm">
             <thead className="border-b border-line text-xs uppercase tracking-wide text-muted">
               <tr>
-                <th className="px-4 py-3 font-semibold">Order</th>
-                <th className="px-4 py-3 font-semibold">Plan</th>
-                <th className="px-4 py-3 font-semibold">Customer</th>
-                <th className="px-4 py-3 font-semibold">SIM</th>
-                <th className="px-4 py-3 font-semibold">Transatel</th>
-                <th className="px-4 py-3 font-semibold">Plan status</th>
+                {(["order", "plan", "customer", "sim", "transatel", "planStatus"] as const).map((c) => (
+                  <th key={c} className="px-4 py-3 font-semibold">
+                    {s(`columns.${c}`)}
+                  </th>
+                ))}
                 <th className="px-4 py-3 font-semibold" />
               </tr>
             </thead>
@@ -163,13 +165,13 @@ export default async function AdminSimsPage({ searchParams }: { searchParams: Pr
                       <p className="flex items-center gap-1.5 font-medium whitespace-nowrap text-ink">
                         ORD-{sim.orderId} <KindBadge kind={kind} />
                       </p>
-                      <p className="text-xs text-muted">{formatDate(sim.orderCreatedAt)}</p>
+                      <p className="text-xs text-muted">{fmtDate(sim.orderCreatedAt)}</p>
                       {sim.provisioningStatus !== "provisioned" && (
                         <div className="mt-1">
                           <DeliveryBadge kind={kind} paymentStatus={sim.paymentStatus} deliveryStatus={sim.provisioningStatus} />
                         </div>
                       )}
-                      {sim.paymentStatus === "refunded" && <p className="mt-1 text-xs text-orange">Refunded</p>}
+                      {sim.paymentStatus === "refunded" && <p className="mt-1 text-xs text-orange">{s("refunded")}</p>}
                     </td>
                     <td className="px-4 py-3">
                       <p className="text-ink">{sim.planName}</p>
@@ -178,47 +180,47 @@ export default async function AdminSimsPage({ searchParams }: { searchParams: Pr
                     <td className="px-4 py-3">
                       <p className="text-ink">{sim.customerName}</p>
                       <p className="text-xs text-muted">{sim.customerEmail}</p>
-                      <p className="text-xs text-muted">Billing: {sim.billingCountry ?? "—"}</p>
+                      <p className="text-xs text-muted">{s("billing", { country: sim.billingCountry ?? "—" })}</p>
                     </td>
                     <td className="px-4 py-3 font-mono text-xs text-ink">
                       <Link href={`/admin/sims/${sim.iccid}`} className="hover:text-orange hover:underline">
                         {sim.iccid}
                       </Link>
                       <p className="text-muted">{sim.msisdn ? `+${sim.msisdn}` : "—"}</p>
-                      <p className="font-sans text-muted">{sim.simType === "physical" ? "Physical SIM" : sim.simType === "esim" ? "eSIM" : "Type unknown"}</p>
+                      <p className="font-sans text-muted">{sim.simType === "physical" ? s("physical") : sim.simType === "esim" ? s("esim") : s("typeUnknown")}</p>
                     </td>
                     <td className="px-4 py-3 text-xs text-muted">
                       {snap?.fetchedAt ? (
                         <>
                           <p className="text-ink">{snap.simStatus ?? "—"}</p>
-                          {snap.esimProfileStatus && <p>Profile: {snap.esimProfileStatus}</p>}
-                          <p>Activated: {formatDate(snap.simActivationDate)}</p>
-                          <p>Last seen: {formatDate(snap.lastSeenDate)}</p>
-                          <p>Last country: {snap.lastOriginCountry ?? "—"}</p>
+                          {snap.esimProfileStatus && <p>{s("profile", { status: snap.esimProfileStatus })}</p>}
+                          <p>{s("activated", { date: fmtDate(snap.simActivationDate) })}</p>
+                          <p>{s("lastSeen", { date: fmtDate(snap.lastSeenDate) })}</p>
+                          <p>{s("lastCountry", { country: snap.lastOriginCountry ?? "—" })}</p>
                         </>
                       ) : (
-                        <p>Not checked yet</p>
+                        <p>{s("notChecked")}</p>
                       )}
-                      {snap?.error && <p className="mt-1 text-red-700">Last refresh failed</p>}
+                      {snap?.error && <p className="mt-1 text-red-700">{s("refreshFailed")}</p>}
                     </td>
                     <td className="px-4 py-3 text-xs text-muted">
                       <UsageBadge status={usage} />
                       {snap?.dataTotalKb != null && (
                         <p className="mt-1">
-                          {formatKb(used)} used of {formatKb(snap.dataTotalKb)}
+                          {s("usedOf", { used: formatKb(used), total: formatKb(snap.dataTotalKb) })}
                           <br />
-                          {formatKb(snap.dataRemainingKb)} left
+                          {s("left", { amount: formatKb(snap.dataRemainingKb) })}
                         </p>
                       )}
-                      {snap?.planExpiryDate && <p>Expires: {formatDate(snap.planExpiryDate)}</p>}
+                      {snap?.planExpiryDate && <p>{s("expires", { date: fmtDate(snap.planExpiryDate) })}</p>}
                     </td>
                     <td className="px-4 py-3 text-xs whitespace-nowrap">
                       <Link href={`/admin/sims/${sim.iccid}`} className="block font-semibold text-orange hover:underline">
-                        Details
+                        {s("details")}
                       </Link>
                       {sim.accessToken && sim.paymentStatus === "completed" && (
                         <a href={`/en/order/${sim.accessToken}`} target="_blank" rel="noreferrer" className="mt-1 block font-semibold text-orange hover:underline">
-                          Customer page
+                          {s("customerPage")}
                         </a>
                       )}
                     </td>

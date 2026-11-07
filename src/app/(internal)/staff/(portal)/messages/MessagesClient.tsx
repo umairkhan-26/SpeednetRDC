@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { adminDateLocale } from "@/i18n/admin-locale";
 import { postTeamReplyAction, sendStaffReplyAction } from "@/lib/staff/actions";
 import type { Message } from "@/lib/staff/types";
 import { Button } from "@/components/ui/Button";
 
-function formatTime(iso: string): string {
-  return new Date(iso).toLocaleString("en-GB", {
+function formatTime(iso: string, locale: string): string {
+  return new Date(iso).toLocaleString(adminDateLocale(locale), {
     day: "2-digit",
     month: "short",
     hour: "2-digit",
@@ -23,6 +25,8 @@ interface DirectThread {
 function DirectThreadPanel({ thread, currentStaffId }: { thread: DirectThread; currentStaffId: number }) {
   const [text, setText] = useState("");
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations("admin");
+  const locale = useLocale();
 
   function handleSend() {
     const trimmed = text.trim();
@@ -48,7 +52,7 @@ function DirectThreadPanel({ thread, currentStaffId }: { thread: DirectThread; c
               >
                 <p>{m.message}</p>
                 <p className={`mt-1 text-[11px] ${fromMe ? "text-white/70" : "text-muted"}`}>
-                  {formatTime(m.sentAt)}
+                  {formatTime(m.sentAt, locale)}
                 </p>
               </div>
             </div>
@@ -61,11 +65,11 @@ function DirectThreadPanel({ thread, currentStaffId }: { thread: DirectThread; c
             value={text}
             onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
-            placeholder="Reply..."
+            placeholder={t("portal.replyPlaceholder")}
             className="flex-1 rounded-lg border border-line px-3 py-2 text-sm outline-none focus:border-orange"
           />
           <Button size="sm" onClick={handleSend} disabled={isPending || !text.trim()}>
-            Send
+            {t("common.send")}
           </Button>
         </div>
       </div>
@@ -76,6 +80,8 @@ function DirectThreadPanel({ thread, currentStaffId }: { thread: DirectThread; c
 function TeamPanel({ messages, currentStaffId }: { messages: Message[]; currentStaffId: number }) {
   const [text, setText] = useState("");
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations("admin");
+  const locale = useLocale();
 
   function handleSend() {
     const trimmed = text.trim();
@@ -90,17 +96,17 @@ function TeamPanel({ messages, currentStaffId }: { messages: Message[]; currentS
     <div className="rounded-2xl border border-line bg-white">
       <div className="space-y-3 px-5 py-4">
         {messages.length === 0 ? (
-          <p className="text-sm text-muted">No announcements yet.</p>
+          <p className="text-sm text-muted">{t("portal.noAnnouncements")}</p>
         ) : (
           messages.map((m) => {
             const fromMe = m.senderId === currentStaffId;
             return (
               <div key={m.id} className="rounded-2xl bg-cream px-3.5 py-2 text-sm">
                 <p className="text-xs font-semibold text-orange">
-                  {fromMe ? "You" : m.senderName ?? "Unknown"}
+                  {fromMe ? t("portal.you") : (m.senderName ?? t("common.unknown"))}
                 </p>
                 <p className="mt-0.5 text-ink">{m.message}</p>
-                <p className="mt-1 text-[11px] text-muted">{formatTime(m.sentAt)}</p>
+                <p className="mt-1 text-[11px] text-muted">{formatTime(m.sentAt, locale)}</p>
               </div>
             );
           })
@@ -112,11 +118,11 @@ function TeamPanel({ messages, currentStaffId }: { messages: Message[]; currentS
             value={text}
             onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
-            placeholder="Post to the team..."
+            placeholder={t("portal.postPlaceholder")}
             className="flex-1 rounded-lg border border-line px-3 py-2 text-sm outline-none focus:border-orange"
           />
           <Button size="sm" onClick={handleSend} disabled={isPending || !text.trim()}>
-            Post
+            {t("portal.post")}
           </Button>
         </div>
       </div>
@@ -134,6 +140,7 @@ export default function MessagesClient({
   teamBroadcasts: Message[];
 }) {
   const [tab, setTab] = useState<"direct" | "team">("direct");
+  const t = useTranslations("admin.portal");
 
   return (
     <div className="space-y-4">
@@ -145,7 +152,7 @@ export default function MessagesClient({
             tab === "direct" ? "border-b-2 border-orange text-orange" : "text-muted"
           }`}
         >
-          Direct Messages
+          {t("direct")}
         </button>
         <button
           type="button"
@@ -154,13 +161,13 @@ export default function MessagesClient({
             tab === "team" ? "border-b-2 border-orange text-orange" : "text-muted"
           }`}
         >
-          Team
+          {t("team")}
         </button>
       </div>
 
       {tab === "direct" ? (
         directThreads.length === 0 ? (
-          <p className="text-sm text-muted">No direct messages yet.</p>
+          <p className="text-sm text-muted">{t("noDirect")}</p>
         ) : (
           <div className="space-y-4">
             {directThreads.map((thread) => (

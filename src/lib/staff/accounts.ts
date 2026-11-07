@@ -111,7 +111,9 @@ export async function changeStaffEmail(staffId: number, newEmail: string): Promi
 
 // --- Deactivation ---------------------------------------------------------
 
-export type DeactivationResult = { ok: true } | { ok: false; error: string };
+/** error is a key under admin.msg.accounts. */
+export type AccountErrorCode = "selfDeactivate" | "notFound" | "alreadyDeactivated" | "lastAdmin" | "selfDelete" | "deleteNotDeactivated" | "notDeactivated";
+export type DeactivationResult = { ok: true } | { ok: false; error: AccountErrorCode };
 
 async function inTransaction<T>(fn: (conn: PoolConnection) => Promise<T>): Promise<T> {
   const pool = await getPool();
@@ -137,17 +139,17 @@ async function inTransaction<T>(fn: (conn: PoolConnection) => Promise<T>): Promi
  * same moment can't leave nobody in charge.
  */
 export async function deactivateStaff(actorId: number, targetId: number): Promise<DeactivationResult> {
-  if (actorId === targetId) return { ok: false, error: "You can't deactivate your own account." };
+  if (actorId === targetId) return { ok: false, error: "selfDeactivate" };
   return inTransaction(async (conn) => {
     const [admins] = await conn.query<StaffRow[]>(
       "SELECT * FROM staff_members WHERE role = 'admin' AND deactivated_at IS NULL AND password_hash IS NOT NULL FOR UPDATE"
     );
     const [targets] = await conn.query<StaffRow[]>("SELECT * FROM staff_members WHERE id = ? FOR UPDATE", [targetId]);
     const target = targets[0];
-    if (!target) return { ok: false, error: "Account not found." };
-    if (target.deactivated_at) return { ok: false, error: "That account is already deactivated." };
+    if (!target) return { ok: false, error: "notFound" };
+    if (target.deactivated_at) return { ok: false, error: "alreadyDeactivated" };
     if (target.role === "admin" && !admins.some((a) => a.id !== targetId)) {
-      return { ok: false, error: "This is the last active admin account, so it can't be deactivated." };
+      return { ok: false, error: "lastAdmin" };
     }
     const now = toMySQLDateTime(new Date());
     await conn.query("UPDATE staff_members SET deactivated_at = ?, session_version = session_version + 1 WHERE id = ?", [now, targetId]);
@@ -163,7 +165,7 @@ export async function deactivateStaff(actorId: number, targetId: number): Promis
  * replaced so the same person can be invited again later.
  */
 export async function removeStaff(actorId: number, targetId: number): Promise<DeactivationResult> {
-  if (actorId === targetId) return { ok: false, error: "You can't delete your own account." };
+  if (actorId === targetId) return { ok: false, error: "selfDelete" };
   const pool = await getPool();
   const now = toMySQLDateTime(new Date());
   const [result] = await pool.query<ResultSetHeader>(
@@ -172,7 +174,7 @@ export async function removeStaff(actorId: number, targetId: number): Promise<De
      WHERE id = ? AND deactivated_at IS NOT NULL AND removed_at IS NULL`,
     [now, targetId]
   );
-  if (result.affectedRows !== 1) return { ok: false, error: "Only a deactivated account can be deleted. Deactivate it first." };
+  if (result.affectedRows !== 1) return { ok: false, error: "deleteNotDeactivated" };
   await pool.query("UPDATE staff_tokens SET used_at = ? WHERE staff_id = ? AND used_at IS NULL", [now, targetId]);
   return { ok: true };
 }
@@ -183,7 +185,7 @@ export async function reactivateStaff(targetId: number): Promise<DeactivationRes
     "UPDATE staff_members SET deactivated_at = NULL WHERE id = ? AND deactivated_at IS NOT NULL AND removed_at IS NULL",
     [targetId]
   );
-  return result.affectedRows === 1 ? { ok: true } : { ok: false, error: "That account isn't deactivated." };
+  return result.affectedRows === 1 ? { ok: true } : { ok: false, error: "notDeactivated" };
 }
 
 // --- One-time links ---------------------------------------------------------

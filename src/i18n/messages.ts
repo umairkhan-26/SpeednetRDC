@@ -5,9 +5,9 @@ import en from "../../messages/en.json";
 // have (yet) shows in English instead of breaking the page. French and
 // Spanish rely on this for the pages that are still English-only there.
 
-type Messages = { [key: string]: string | Messages | unknown[] };
+export type Messages = { [key: string]: string | Messages | unknown[] };
 
-function mergeOver(base: Messages, overlay: Messages): Messages {
+export function mergeOver(base: Messages, overlay: Messages): Messages {
   const out: Messages = { ...base };
   for (const [key, value] of Object.entries(overlay)) {
     const baseValue = base[key];

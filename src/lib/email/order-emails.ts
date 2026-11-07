@@ -12,19 +12,29 @@ export function orderPageUrl(order: Pick<CheckoutOrder, "accessToken" | "locale"
   return `${getAppUrl()}/${locale}/order/${order.accessToken}`;
 }
 
+export interface OrderEmailResult {
+  ok: boolean;
+  /** For the admin panel's translated message: a key under admin.msg.orderEmail. */
+  code: "notFound" | "notProvisioned" | "alreadySent" | "noLink" | "notSent" | "sent" | "unexpected";
+  /** English, for logs. */
+  message: string;
+  email?: string;
+  error?: string;
+}
+
 /**
  * Emails the customer the link to their private order page once their
  * eSIM is provisioned — never the activation code itself. Sent once per
  * order unless `resend` is set (admin "Resend email"). Never throws.
  */
-export async function sendOrderReadyEmail(orderId: number, opts: { resend?: boolean } = {}): Promise<{ ok: boolean; message: string }> {
+export async function sendOrderReadyEmail(orderId: number, opts: { resend?: boolean } = {}): Promise<OrderEmailResult> {
   try {
     const order = await getOrderById(orderId);
-    if (!order) return { ok: false, message: "Order not found." };
-    if (order.provisioningStatus !== "provisioned") return { ok: false, message: "The eSIM isn't provisioned yet." };
-    if (order.confirmationEmailSentAt && !opts.resend) return { ok: true, message: "Already sent." };
+    if (!order) return { ok: false, code: "notFound", message: "Order not found." };
+    if (order.provisioningStatus !== "provisioned") return { ok: false, code: "notProvisioned", message: "The eSIM isn't provisioned yet." };
+    if (order.confirmationEmailSentAt && !opts.resend) return { ok: true, code: "alreadySent", message: "Already sent." };
     const url = orderPageUrl(order);
-    if (!url) return { ok: false, message: "Order has no private link." };
+    if (!url) return { ok: false, code: "noLink", message: "Order has no private link." };
 
     const email = orderReadyEmail({ customerName: order.customerName, planName: order.planName, orderNumber: order.id, orderUrl: url, withdrawalConsentAt: order.withdrawalConsentAt });
     const result = await sendEmail({
@@ -32,11 +42,11 @@ export async function sendOrderReadyEmail(orderId: number, opts: { resend?: bool
       ...email,
       idempotencyKey: opts.resend ? `order-ready-${order.id}-${Date.now()}` : `order-ready-${order.id}`,
     });
-    if (!result.ok) return { ok: false, message: `Email not sent: ${result.error}` };
+    if (!result.ok) return { ok: false, code: "notSent", error: result.error, message: `Email not sent: ${result.error}` };
     await markConfirmationEmailSent(order.id);
-    return { ok: true, message: `Email sent to ${order.customerEmail}.` };
+    return { ok: true, code: "sent", email: order.customerEmail, message: `Email sent to ${order.customerEmail}.` };
   } catch (error) {
     console.error(`[email] Order ${orderId} ready email failed:`, error);
-    return { ok: false, message: "Email not sent (unexpected error — see server logs)." };
+    return { ok: false, code: "unexpected", message: "Email not sent (unexpected error — see server logs)." };
   }
 }

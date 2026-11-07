@@ -6,10 +6,12 @@ import {
   getTeamBroadcasts,
 } from "@/lib/staff/repository";
 import MessagesClient from "./MessagesClient";
+import { getAdminT } from "@/i18n/admin";
 
 export default async function StaffMessagesPage() {
   const session = await getStaffSession();
   if (!session) return null;
+  const t = await getAdminT();
 
   const partnerIds = await getDirectMessagePartnerIds(session.staffId);
   const threadsWithNulls = await Promise.all(
@@ -30,8 +32,8 @@ export default async function StaffMessagesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-ink">Messages</h1>
-        <p className="mt-1 text-sm text-muted">Direct messages from admin, and team-wide announcements.</p>
+        <h1 className="text-2xl font-bold text-ink">{t("portal.messages")}</h1>
+        <p className="mt-1 text-sm text-muted">{t("portal.messagesIntro")}</p>
       </div>
 
       <MessagesClient

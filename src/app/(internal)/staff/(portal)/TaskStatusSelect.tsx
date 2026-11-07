@@ -1,14 +1,11 @@
 "use client";
 
 import { useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { updateTaskStatusAction } from "@/lib/staff/actions";
 import type { TaskStatus } from "@/lib/staff/types";
 
-const STATUS_LABELS: Record<TaskStatus, string> = {
-  pending: "Pending",
-  in_progress: "In progress",
-  done: "Done",
-};
+const STATUSES: TaskStatus[] = ["pending", "in_progress", "done"];
 
 export default function TaskStatusSelect({
   taskId,
@@ -18,6 +15,7 @@ export default function TaskStatusSelect({
   status: TaskStatus;
 }) {
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations("admin.taskStatus");
 
   return (
     <select
@@ -31,9 +29,9 @@ export default function TaskStatusSelect({
       }}
       className="rounded-lg border border-line px-3 py-1.5 text-sm font-medium text-ink outline-none focus:border-orange disabled:opacity-50"
     >
-      {Object.entries(STATUS_LABELS).map(([value, label]) => (
+      {STATUSES.map((value) => (
         <option key={value} value={value}>
-          {label}
+          {t(value)}
         </option>
       ))}
     </select>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import {
   deactivateStaffAction,
   deleteStaffAction,
@@ -24,6 +25,7 @@ export default function AccountRowActions({
 }) {
   const [isPending, startTransition] = useTransition();
   const [result, setResult] = useState<AccountActionResult | null>(null);
+  const t = useTranslations("admin");
 
   function run(confirmText: string, action: (id: number) => Promise<AccountActionResult>) {
     if (!window.confirm(confirmText)) return;
@@ -37,8 +39,8 @@ export default function AccountRowActions({
     <div className="flex flex-col items-start gap-1">
       <div className="flex flex-wrap gap-3">
         {status === "invited" && (
-          <button type="button" disabled={isPending} className={buttonClass} onClick={() => run(`Send ${name} a new invite link? Earlier links stop working.`, resendInviteAction)}>
-            Resend invite
+          <button type="button" disabled={isPending} className={buttonClass} onClick={() => run(t("rowActions.resendConfirm", { name }), resendInviteAction)}>
+            {t("rowActions.resendInvite")}
           </button>
         )}
         {status !== "deactivated" && !isSelf && (
@@ -46,14 +48,14 @@ export default function AccountRowActions({
             type="button"
             disabled={isPending}
             className="text-xs font-semibold text-red-700 hover:underline disabled:opacity-50"
-            onClick={() => run(`Deactivate ${name}? They'll be signed out and won't be able to sign in. Their history is kept, and you can reactivate them later.`, deactivateStaffAction)}
+            onClick={() => run(t("rowActions.deactivateConfirm", { name }), deactivateStaffAction)}
           >
-            Deactivate
+            {t("rowActions.deactivate")}
           </button>
         )}
         {status === "deactivated" && (
-          <button type="button" disabled={isPending} className={buttonClass} onClick={() => run(`Reactivate ${name}? They'll be able to sign in again.`, reactivateStaffAction)}>
-            Reactivate
+          <button type="button" disabled={isPending} className={buttonClass} onClick={() => run(t("rowActions.reactivateConfirm", { name }), reactivateStaffAction)}>
+            {t("rowActions.reactivate")}
           </button>
         )}
         {status === "deactivated" && !isSelf && (
@@ -62,17 +64,14 @@ export default function AccountRowActions({
             disabled={isPending}
             className="text-xs font-semibold text-red-700 hover:underline disabled:opacity-50"
             onClick={() =>
-              run(
-                `Delete ${name} permanently? They'll disappear from the staff lists and can't be reactivated. Their past shifts, tasks and messages are kept, and their email address can be invited again.`,
-                deleteStaffAction
-              )
+              run(t("rowActions.deleteConfirm", { name }), deleteStaffAction)
             }
           >
-            Delete
+            {t("rowActions.delete")}
           </button>
         )}
       </div>
-      {isPending && <span className="text-xs text-muted">Working…</span>}
+      {isPending && <span className="text-xs text-muted">{t("common.working")}</span>}
       {result && <span className={`text-xs ${result.ok ? "text-green-700" : "text-red-700"}`}>{result.message}</span>}
     </div>
   );

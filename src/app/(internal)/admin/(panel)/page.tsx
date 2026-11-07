@@ -17,15 +17,13 @@ import RetryProvisioningButton from "./RetryProvisioningButton";
 import DismissOrderButton from "./DismissOrderButton";
 import { DeliveryBadge, KindBadge, PaymentBadge } from "./Badges";
 import Link from "next/link";
+import { getAdminT } from "@/i18n/admin";
+import { adminDateLocale } from "@/i18n/admin-locale";
 
-const PROVISIONING_LABELS: Record<string, string> = {
-  failed: "Failed",
-  pending: "Never started",
-  activating: "Stuck",
-};
+const PROVISIONING_STATUSES = new Set(["failed", "pending", "activating"]);
 
-function formatDateTime(iso: string): string {
-  return new Date(iso).toLocaleString("en-GB", {
+function formatDateTime(iso: string, locale: string): string {
+  return new Date(iso).toLocaleString(adminDateLocale(locale), {
     day: "2-digit",
     month: "short",
     hour: "2-digit",
@@ -39,6 +37,8 @@ const COMPLAINT_STATUS_STYLES: Record<string, string> = {
 };
 
 export default async function AdminDashboardPage() {
+  const t = await getAdminT();
+  const d = (key: string, values?: Record<string, string | number>) => t(`dashboard.${key}`, values);
   const [orderStats, activeStaff, openComplaints, revenueByDay, ordersByDay, topCountries, recentOrders, recentComplaints, needsProvisioning] =
     await Promise.all([
       getOrderStats(),
@@ -55,22 +55,16 @@ export default async function AdminDashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-ink">Dashboard</h1>
-        <p className="mt-1 text-sm text-muted">Business overview across staff, orders, and support.</p>
-        <p className="mt-1 text-xs text-muted">
-          Revenue, orders, charts, top countries and conversion count live (real-payment) orders only — Stripe test-mode and demo
-          orders are excluded.
-        </p>
+        <h1 className="text-2xl font-bold text-ink">{d("title")}</h1>
+        <p className="mt-1 text-sm text-muted">{d("intro")}</p>
+        <p className="mt-1 text-xs text-muted">{d("liveOnly")}</p>
       </div>
 
       {needsProvisioning.length > 0 && (
         <div className="rounded-2xl border border-red-200 bg-white">
           <div className="border-b border-line px-5 py-4">
-            <p className="text-sm font-semibold text-ink">Paid eSIM orders needing attention ({needsProvisioning.length})</p>
-            <p className="mt-0.5 text-xs text-muted">
-              The customer paid but doesn&apos;t have a working eSIM yet. Retry resumes provisioning where it stopped. If you refunded
-              the customer or solved it another way, Remove takes it off this list (the order itself is kept).
-            </p>
+            <p className="text-sm font-semibold text-ink">{d("attentionTitle", { count: needsProvisioning.length })}</p>
+            <p className="mt-0.5 text-xs text-muted">{d("attentionIntro")}</p>
           </div>
           <div className="divide-y divide-line">
             {needsProvisioning.map((order) => (
@@ -81,13 +75,13 @@ export default async function AdminDashboardPage() {
                     <span className="font-normal text-muted">({order.customerEmail})</span>
                   </p>
                   <p className="text-xs text-muted">
-                    {order.planName} &middot; {formatDateTime(order.createdAt)}
-                    {order.iccid ? ` · SIM ${order.iccid}` : ""}
+                    {order.planName} &middot; {formatDateTime(order.createdAt, t.locale)}
+                    {order.iccid ? ` · ${d("sim", { iccid: order.iccid })}` : ""}
                     {order.accessToken && (
                       <>
                         {" · "}
                         <a href={`/en/order/${order.accessToken}`} target="_blank" rel="noreferrer" className="text-orange hover:underline">
-                          customer page
+                          {d("customerPage")}
                         </a>
                       </>
                     )}
@@ -95,7 +89,7 @@ export default async function AdminDashboardPage() {
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
-                    {PROVISIONING_LABELS[order.provisioningStatus] ?? order.provisioningStatus}
+                    {PROVISIONING_STATUSES.has(order.provisioningStatus) ? d(`provisioning.${order.provisioningStatus}`) : order.provisioningStatus}
                   </span>
                   <RetryProvisioningButton orderId={order.id} />
                   <DismissOrderButton orderId={order.id} />
@@ -107,55 +101,51 @@ export default async function AdminDashboardPage() {
       )}
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard label="Total Revenue" value={formatPrice(orderStats.totalRevenue)} note="What customers paid, incl. the 5% taxes & fees line" />
+        <StatCard label={d("totalRevenue")} value={formatPrice(orderStats.totalRevenue)} note={d("revenueNote")} />
         <StatCard
-          label="Total Cost"
+          label={d("totalCost")}
           value={formatPrice(orderStats.totalCost)}
-          note={
-            orderStats.ordersWithoutCost > 0
-              ? `Transatel wholesale, delivered eSIMs only. ${orderStats.ordersWithoutCost} delivered order(s) have no known cost.`
-              : "Transatel wholesale, delivered eSIMs only"
-          }
+          note={orderStats.ordersWithoutCost > 0 ? d("costNoteMissing", { count: orderStats.ordersWithoutCost }) : d("costNote")}
         />
         <StatCard
-          label="Total Profit"
+          label={d("totalProfit")}
           value={formatPrice(orderStats.totalProfit)}
           note={
             <>
-              Before Stripe fees and VAT
+              {d("profitNote")}
               <br />
-              After Stripe fees: <span className="font-semibold text-ink">{formatPrice(orderStats.totalProfit - orderStats.stripeFees)}</span>
-              {orderStats.ordersWithoutStripeFee > 0 && <> ({orderStats.ordersWithoutStripeFee} fee(s) not fetched yet)</>}
+              {d("afterStripeFees")} <span className="font-semibold text-ink">{formatPrice(orderStats.totalProfit - orderStats.stripeFees)}</span>
+              {orderStats.ordersWithoutStripeFee > 0 && <> {d("feesNotFetched", { count: orderStats.ordersWithoutStripeFee })}</>}
             </>
           }
         />
         <StatCard
-          label="Profit Margin"
+          label={d("profitMargin")}
           value={orderStats.profitMargin === null ? "—" : `${orderStats.profitMargin.toFixed(1)}%`}
-          note="Profit ÷ revenue, before Stripe fees and VAT"
+          note={d("marginNote")}
         />
       </div>
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard label="Total Orders" value={String(orderStats.totalOrders)} />
-        <StatCard label="Active Staff Right Now" value={String(activeStaff)} />
-        <StatCard label="Total Complaints" value={String(openComplaints)} />
-        <StatCard label="Conversion Rate" value={`${orderStats.conversionRate.toFixed(1)}%`} />
+        <StatCard label={d("totalOrders")} value={String(orderStats.totalOrders)} />
+        <StatCard label={d("activeStaff")} value={String(activeStaff)} />
+        <StatCard label={d("totalComplaints")} value={String(openComplaints)} />
+        <StatCard label={d("conversionRate")} value={`${orderStats.conversionRate.toFixed(1)}%`} />
       </div>
 
       <div className="grid gap-5 lg:grid-cols-2">
         <div className="rounded-2xl border border-line bg-white p-5">
-          <p className="text-sm font-semibold text-ink">Revenue and profit (last 14 days)</p>
+          <p className="text-sm font-semibold text-ink">{d("revenueChart")}</p>
           <RevenueChart data={revenueByDay} />
         </div>
         <div className="rounded-2xl border border-line bg-white p-5">
-          <p className="text-sm font-semibold text-ink">Orders (last 14 days)</p>
+          <p className="text-sm font-semibold text-ink">{d("ordersChart")}</p>
           <OrdersChart data={ordersByDay} />
         </div>
       </div>
 
       <div className="rounded-2xl border border-line bg-white p-5">
-        <p className="text-sm font-semibold text-ink">Top countries</p>
+        <p className="text-sm font-semibold text-ink">{d("topCountries")}</p>
         <div className="mt-2">
           <TopCountriesDonut data={topCountries} />
         </div>
@@ -164,9 +154,9 @@ export default async function AdminDashboardPage() {
       <div className="grid gap-5 lg:grid-cols-2">
         <div className="rounded-2xl border border-line bg-white">
           <div className="flex items-center justify-between border-b border-line px-5 py-4">
-            <p className="text-sm font-semibold text-ink">Recent orders</p>
+            <p className="text-sm font-semibold text-ink">{d("recentOrders")}</p>
             <Link href="/admin/orders" className="text-xs font-semibold text-orange hover:underline">
-              All orders
+              {d("allOrders")}
             </Link>
           </div>
           <div className="divide-y divide-line">
@@ -179,7 +169,7 @@ export default async function AdminDashboardPage() {
                       {order.customerName} <KindBadge kind={order.kind} />
                     </p>
                     <p className="text-xs text-muted">
-                      ORD-{order.id} &middot; {order.planName} &middot; {formatDateTime(order.createdAt)}
+                      ORD-{order.id} &middot; {order.planName} &middot; {formatDateTime(order.createdAt, t.locale)}
                     </p>
                   </div>
                 </div>
@@ -196,10 +186,10 @@ export default async function AdminDashboardPage() {
         </div>
 
         <div className="rounded-2xl border border-line bg-white">
-          <p className="border-b border-line px-5 py-4 text-sm font-semibold text-ink">Recent complaints</p>
+          <p className="border-b border-line px-5 py-4 text-sm font-semibold text-ink">{d("recentComplaints")}</p>
           <div className="divide-y divide-line">
             {recentComplaints.length === 0 ? (
-              <p className="px-5 py-4 text-sm text-muted">No complaints logged.</p>
+              <p className="px-5 py-4 text-sm text-muted">{d("noComplaints")}</p>
             ) : (
               recentComplaints.map((complaint) => (
                 <div key={complaint.id} className="flex items-center justify-between gap-3 px-5 py-3 text-sm">
@@ -208,7 +198,7 @@ export default async function AdminDashboardPage() {
                     <p className="text-xs text-muted">{complaint.subject}</p>
                   </div>
                   <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${COMPLAINT_STATUS_STYLES[complaint.status]}`}>
-                    {complaint.status}
+                    {complaint.status in COMPLAINT_STATUS_STYLES ? d(`complaintStatus.${complaint.status}`) : complaint.status}
                   </span>
                 </div>
               ))

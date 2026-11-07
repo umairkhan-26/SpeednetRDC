@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { adminDateLocale } from "@/i18n/admin-locale";
 import { MessageCircle, X } from "lucide-react";
 import { sendAdminDirectMessageAction } from "@/lib/staff/actions";
 import type { Message } from "@/lib/staff/types";
 import { Button } from "@/components/ui/Button";
 
-function formatTime(iso: string): string {
-  return new Date(iso).toLocaleString("en-GB", {
+function formatTime(iso: string, locale: string): string {
+  return new Date(iso).toLocaleString(adminDateLocale(locale), {
     day: "2-digit",
     month: "short",
     hour: "2-digit",
@@ -30,6 +32,8 @@ export default function MessageButton({
   const [text, setText] = useState("");
   const [attachAsTask, setAttachAsTask] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations("admin");
+  const locale = useLocale();
 
   function handleSend() {
     const trimmed = text.trim();
@@ -51,7 +55,7 @@ export default function MessageButton({
           setOpen(true);
         }}
         className="flex size-8 items-center justify-center rounded-full text-muted hover:bg-orange/10 hover:text-orange"
-        aria-label={`Message ${recipientName}`}
+        aria-label={t("staff.messageAria", { name: recipientName })}
       >
         <MessageCircle className="size-4" />
       </button>
@@ -61,14 +65,14 @@ export default function MessageButton({
           <div className="flex h-[520px] w-full max-w-md flex-col rounded-2xl bg-white shadow-xl">
             <div className="flex items-center justify-between border-b border-line px-5 py-4">
               <p className="font-semibold text-ink">{recipientName}</p>
-              <button type="button" onClick={() => setOpen(false)} className="text-muted hover:text-ink">
+              <button type="button" onClick={() => setOpen(false)} className="text-muted hover:text-ink" aria-label={t("common.close")}>
                 <X className="size-4" />
               </button>
             </div>
 
             <div className="flex-1 space-y-3 overflow-y-auto px-5 py-4">
               {messages.length === 0 ? (
-                <p className="text-sm text-muted">No messages yet. Say hello.</p>
+                <p className="text-sm text-muted">{t("staff.noMessages")}</p>
               ) : (
                 messages.map((m) => {
                   const fromMe = m.senderId === currentAdminId;
@@ -81,7 +85,7 @@ export default function MessageButton({
                       >
                         <p>{m.message}</p>
                         <p className={`mt-1 text-[11px] ${fromMe ? "text-white/70" : "text-muted"}`}>
-                          {formatTime(m.sentAt)}
+                          {formatTime(m.sentAt, locale)}
                         </p>
                       </div>
                     </div>
@@ -94,7 +98,7 @@ export default function MessageButton({
               <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                placeholder="Write a message..."
+                placeholder={t("staff.messagePlaceholder")}
                 rows={2}
                 className="w-full resize-none rounded-lg border border-line px-3 py-2 text-sm outline-none focus:border-orange"
               />
@@ -106,10 +110,10 @@ export default function MessageButton({
                     onChange={(e) => setAttachAsTask(e.target.checked)}
                     className="accent-orange"
                   />
-                  Attach as task
+                  {t("staff.attachAsTask")}
                 </label>
                 <Button size="sm" onClick={handleSend} disabled={isPending || !text.trim()}>
-                  {isPending ? "Sending..." : "Send"}
+                  {isPending ? t("common.sending") : t("common.send")}
                 </Button>
               </div>
             </div>

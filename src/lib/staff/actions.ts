@@ -20,6 +20,14 @@ import {
 } from "./repository";
 import { getStaffSession, requireAdminSession, requireStaffSession } from "./auth";
 import type { TaskStatus } from "./types";
+import { getAdminT } from "@/i18n/admin";
+
+/** A message for the person using the panel, in their admin-panel language (keys under admin.msg). */
+async function msg(key: string, values?: Record<string, string | number>): Promise<string> {
+  const t = await getAdminT();
+  return t(`msg.${key}`, values);
+}
+
 
 function taskTitleFromMessage(message: string): string {
   return message.length > 80 ? `${message.slice(0, 77)}...` : message;
@@ -43,7 +51,7 @@ async function signIn(formData: FormData, adminOnly: boolean): Promise<LoginActi
   const password = String(formData.get("password") ?? "");
 
   if (!email || !password) {
-    return { error: "Enter your email and password." };
+    return { error: await msg("login.missing") };
   }
 
   const emailBucket = rateLimitBucket("staff-login-email", email);
@@ -52,21 +60,21 @@ async function signIn(formData: FormData, adminOnly: boolean): Promise<LoginActi
     (await isRateLimited(emailBucket, MAX_FAILURES_PER_EMAIL, LOGIN_WINDOW_SECONDS)) ||
     (await isRateLimited(ipBucket, MAX_FAILURES_PER_IP, LOGIN_WINDOW_SECONDS))
   ) {
-    return { error: "Too many failed attempts. Wait 15 minutes and try again, or reset your password." };
+    return { error: await msg("login.tooManyFailed") };
   }
 
   const staff = await getStaffAccountByEmail(email);
   if (!staff || !verifyPasswordConstantTime(password, staff.passwordHash)) {
     await recordAttempt(emailBucket, ipBucket);
     if (staff) await logAudit(null, "login_failed", staff.id, "wrong password");
-    return { error: "Incorrect email or password." };
+    return { error: await msg("login.incorrect") };
   }
   if (staff.status === "deactivated") {
     await logAudit(null, "login_failed", staff.id, "account deactivated");
-    return { error: "This account has been deactivated. Ask an admin if you need access again." };
+    return { error: await msg("login.deactivated") };
   }
   if (adminOnly && staff.role !== "admin") {
-    return { error: "This sign-in is for admin accounts only." };
+    return { error: await msg("login.adminOnly") };
   }
 
   await clearAttempts(emailBucket);

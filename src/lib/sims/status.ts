@@ -3,12 +3,8 @@ import type { SimSnapshot } from "./repository";
 /** The admin SIMs page's "status" filter, from the plan's Transatel status. */
 export type UsageStatus = "active" | "not_used" | "expired" | "unknown";
 
-export const USAGE_STATUS_LABELS: Record<UsageStatus, string> = {
-  active: "Active",
-  not_used: "Not yet used",
-  expired: "Expired",
-  unknown: "Not checked yet",
-};
+/** In filter order; labels are in the admin messages (admin.badges.usage). */
+export const USAGE_STATUSES: UsageStatus[] = ["active", "not_used", "expired", "unknown"];
 
 const NOT_STARTED = new Set(["pending", "pendingForFirstUse", "readyForUse", "scheduled"]);
 

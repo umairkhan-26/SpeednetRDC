@@ -15,15 +15,19 @@ import {
   Legend,
   CartesianGrid,
 } from "recharts";
+import { useLocale, useTranslations } from "next-intl";
+import { adminDateLocale } from "@/i18n/admin-locale";
 
 const PIE_COLORS = ["#F06104", "#F48406", "#0A0A0A", "#6B6560", "#9C948D", "#E7DCCF"];
 
-function formatShortDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
+function formatShortDate(iso: string, locale: string): string {
+  return new Date(iso).toLocaleDateString(adminDateLocale(locale), { day: "2-digit", month: "short" });
 }
 
 export function RevenueChart({ data }: { data: { date: string; revenue: number; profit: number }[] }) {
-  const chartData = data.map((d) => ({ ...d, label: formatShortDate(d.date) }));
+  const locale = useLocale();
+  const t = useTranslations("admin.dashboard");
+  const chartData = data.map((d) => ({ ...d, label: formatShortDate(d.date, locale) }));
 
   return (
     <ResponsiveContainer width="100%" height={260}>
@@ -32,10 +36,10 @@ export function RevenueChart({ data }: { data: { date: string; revenue: number; 
         <XAxis dataKey="label" tick={{ fontSize: 12, fill: "#6B6560" }} axisLine={false} tickLine={false} />
         <YAxis tick={{ fontSize: 12, fill: "#6B6560" }} axisLine={false} tickLine={false} width={40} />
         <Tooltip
-          formatter={(value, name) => [`€${Number(value).toFixed(2)}`, name === "profit" ? "Profit" : "Revenue"]}
+          formatter={(value, name) => [`€${Number(value).toFixed(2)}`, name === "profit" ? t("profit") : t("revenue")]}
           contentStyle={{ borderRadius: 12, borderColor: "#E7DCCF" }}
         />
-        <Legend formatter={(name) => (name === "profit" ? "Profit" : "Revenue")} wrapperStyle={{ fontSize: 12 }} />
+        <Legend formatter={(name) => (name === "profit" ? t("profit") : t("revenue"))} wrapperStyle={{ fontSize: 12 }} />
         <Line type="monotone" dataKey="revenue" stroke="#F06104" strokeWidth={2.5} dot={false} />
         <Line type="monotone" dataKey="profit" stroke="#0A0A0A" strokeWidth={2} strokeDasharray="5 4" dot={false} />
       </LineChart>
@@ -44,7 +48,9 @@ export function RevenueChart({ data }: { data: { date: string; revenue: number; 
 }
 
 export function OrdersChart({ data }: { data: { date: string; orders: number }[] }) {
-  const chartData = data.map((d) => ({ ...d, label: formatShortDate(d.date) }));
+  const locale = useLocale();
+  const t = useTranslations("admin.dashboard");
+  const chartData = data.map((d) => ({ ...d, label: formatShortDate(d.date, locale) }));
 
   return (
     <ResponsiveContainer width="100%" height={260}>
@@ -53,7 +59,7 @@ export function OrdersChart({ data }: { data: { date: string; orders: number }[]
         <XAxis dataKey="label" tick={{ fontSize: 12, fill: "#6B6560" }} axisLine={false} tickLine={false} />
         <YAxis tick={{ fontSize: 12, fill: "#6B6560" }} axisLine={false} tickLine={false} width={30} allowDecimals={false} />
         <Tooltip contentStyle={{ borderRadius: 12, borderColor: "#E7DCCF" }} />
-        <Bar dataKey="orders" fill="#F48406" radius={[6, 6, 0, 0]} />
+        <Bar dataKey="orders" name={t("orders")} fill="#F48406" radius={[6, 6, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   );
@@ -64,8 +70,9 @@ export function TopCountriesDonut({
 }: {
   data: { countryName: string; countryCode: string; orders: number }[];
 }) {
+  const t = useTranslations("admin.dashboard");
   if (data.length === 0) {
-    return <p className="flex h-[260px] items-center justify-center text-sm text-muted">No orders yet.</p>;
+    return <p className="flex h-[260px] items-center justify-center text-sm text-muted">{t("noOrders")}</p>;
   }
 
   return (

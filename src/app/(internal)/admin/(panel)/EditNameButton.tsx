@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { renameStaffAction } from "@/lib/staff/account-actions";
 
 /** Inline "Edit name" for one admin or staff account (logged in the account activity). */
@@ -9,6 +10,7 @@ export default function EditNameButton({ staffId, name }: { staffId: number; nam
   const [value, setValue] = useState(name);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const t = useTranslations("admin");
 
   if (!editing) {
     return (
@@ -21,7 +23,7 @@ export default function EditNameButton({ staffId, name }: { staffId: number; nam
         }}
         className="text-xs font-semibold text-orange hover:underline"
       >
-        Edit name
+        {t("staff.editName")}
       </button>
     );
   }
@@ -45,14 +47,14 @@ export default function EditNameButton({ staffId, name }: { staffId: number; nam
         maxLength={100}
         required
         autoFocus
-        aria-label="Display name"
+        aria-label={t("staff.displayName")}
         className="w-44 rounded-lg border border-line px-2.5 py-1.5 text-sm outline-none focus:border-orange"
       />
       <button type="submit" disabled={isPending} className="text-xs font-semibold text-orange hover:underline disabled:opacity-50">
-        {isPending ? "Saving…" : "Save"}
+        {isPending ? t("common.saving") : t("common.save")}
       </button>
       <button type="button" onClick={() => setEditing(false)} className="text-xs font-medium text-muted hover:text-ink">
-        Cancel
+        {t("common.cancel")}
       </button>
       {error && <span className="w-full text-xs text-red-700">{error}</span>}
     </form>
