@@ -129,7 +129,7 @@
     "contactSupport": "Contactar con soporte"
   },
   "homePhysicalSim": {
-    "eyebrow": "Tarjeta SIM física · Próximamente",
+    "eyebrow": "Tarjeta SIM física · Ya disponible",
     "title": "¿Tu móvil no tiene eSIM? Consigue una tarjeta SIM",
     "text": "Una tarjeta SIM de SpeedNetRDC para cualquier móvil libre, enviada desde Bélgica a toda Europa en 3–5 días laborables.",
     "price": "{sim} € la SIM + {shipping} € de envío, impuestos no incluidos",
@@ -151,7 +151,7 @@
       "unlocked": "Funciona en cualquier móvil libre",
       "data": "Habrá planes de datos para la SIM en nuestra web"
     },
-    "howTitle": "Cómo funcionará",
+    "howTitle": "Cómo funciona",
     "steps": {
       "shipTitle": "La enviamos",
       "shipText": "Enviamos tu tarjeta SIM desde Bélgica; llega en 3–5 días laborables a cualquier punto de Europa.",
@@ -160,10 +160,10 @@
       "dataTitle": "Añade datos",
       "dataText": "Habrá planes de datos para la SIM en nuestra web."
     },
-    "comingSoonTitle": "Próximamente",
-    "comingSoonText": "La tarjeta SIM aún no se puede pedir. ¿Te interesa? Escríbenos y te avisaremos en cuanto esté disponible.",
-    "contactButton": "Contactar",
-    "contactSubject": "Tarjeta SIM física",
+    "orderTitle": "Ya disponible",
+    "orderText": "Pide tu tarjeta SIM por correo: envíanos tu nombre y tu dirección de entrega, y te responderemos con los siguientes pasos.",
+    "contactButton": "Pedir por correo",
+    "contactSubject": "Pedido de tarjeta SIM física",
     "faqTitle": "Preguntas",
     "faq": {
       "whatQ": "¿Qué es la tarjeta SIM de SpeedNetRDC?",
@@ -174,8 +174,8 @@
       "priceA": "{sim} € la tarjeta SIM y {shipping} € de envío, impuestos no incluidos.",
       "shippingQ": "¿A dónde enviáis y cuánto tarda?",
       "shippingA": "Enviamos desde Bélgica a toda Europa. La entrega tarda 3–5 días laborables.",
-      "whenQ": "¿Cuándo podré pedirla?",
-      "whenA": "Pronto. Escríbenos a {email} y te avisaremos en cuanto se pueda pedir."
+      "whenQ": "¿Puedo pedirla ya?",
+      "whenA": "Sí. Escríbenos a {email} con tu nombre y tu dirección de entrega, y te responderemos con los siguientes pasos."
     }
   },
   "consent": {

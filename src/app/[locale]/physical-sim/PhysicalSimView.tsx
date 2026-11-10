@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Clock, CreditCard, Mail, MapPin, Package, Smartphone, Truck } from "lucide-react";
+import { CheckCircle2, CreditCard, Mail, MapPin, Package, Smartphone, Truck } from "lucide-react";
 import { useNames } from "@/i18n/use-names";
 import { CONTACT_EMAIL, SHIPPING_PRICE_EUR, SIM_CARD_PRICE_EUR } from "@/components/physical-sim/facts";
 
@@ -100,10 +100,10 @@ export default function PhysicalSimView() {
 
           <div className="mt-6 rounded-xl bg-orange/5 p-4">
             <p className="flex items-center gap-2 font-semibold text-ink">
-              <Clock className="size-4 text-orange" />
-              {t("comingSoonTitle")}
+              <CheckCircle2 className="size-4 text-orange" />
+              {t("orderTitle")}
             </p>
-            <p className="mt-1.5 text-sm text-muted">{t("comingSoonText")}</p>
+            <p className="mt-1.5 text-sm text-muted">{t("orderText")}</p>
           </div>
           <a
             href={mailto}

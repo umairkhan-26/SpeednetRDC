@@ -157,7 +157,7 @@
     "contactSupport": "Contact support"
   },
   "homePhysicalSim": {
-    "eyebrow": "Physical SIM card · Coming soon",
+    "eyebrow": "Physical SIM card · Available now",
     "title": "No eSIM on your phone? Get a physical SIM",
     "text": "A SpeedNetRDC SIM card for any unlocked phone, shipped from Belgium across Europe in 3–5 working days.",
     "price": "€{sim} for the SIM + €{shipping} shipping, excluding tax",
@@ -179,7 +179,7 @@
       "unlocked": "Works in any unlocked phone",
       "data": "Data plans for the SIM will be available from our site"
     },
-    "howTitle": "How it will work",
+    "howTitle": "How it works",
     "steps": {
       "shipTitle": "We ship it",
       "shipText": "We post your SIM card from Belgium; it arrives in 3–5 working days anywhere in Europe.",
@@ -188,10 +188,10 @@
       "dataTitle": "Add data",
       "dataText": "Data plans for the SIM will be available from our site."
     },
-    "comingSoonTitle": "Coming soon",
-    "comingSoonText": "The SIM card isn't available to order yet. Interested? Write to us and we'll let you know as soon as it is.",
-    "contactButton": "Contact us",
-    "contactSubject": "Physical SIM card",
+    "orderTitle": "Available now",
+    "orderText": "Order your SIM card by email: send us your name and delivery address, and we’ll reply with the next steps.",
+    "contactButton": "Order by email",
+    "contactSubject": "Physical SIM card order",
     "faqTitle": "Questions",
     "faq": {
       "whatQ": "What is the SpeedNetRDC SIM card?",
@@ -202,8 +202,8 @@
       "priceA": "€{sim} for the SIM card and €{shipping} for shipping, excluding tax.",
       "shippingQ": "Where do you ship, and how long does it take?",
       "shippingA": "We ship from Belgium across Europe. Delivery takes 3–5 working days.",
-      "whenQ": "When can I order it?",
-      "whenA": "Soon. Email us at {email} and we'll tell you as soon as you can order."
+      "whenQ": "Can I order it now?",
+      "whenA": "Yes. Email us at {email} with your name and delivery address, and we’ll reply with the next steps."
     }
   },
   "meta": {
