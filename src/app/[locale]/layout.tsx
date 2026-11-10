@@ -6,6 +6,7 @@ import "../globals.css";
 import SiteChrome from "@/components/layout/SiteChrome";
 import Providers from "../providers";
 import { SITE_URL } from "@/lib/site";
+import { SOCIAL_LINKS, SUPPORT_EMAIL } from "@/lib/contact";
 import { languageTag, routing } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import { loadMessages } from "@/i18n/messages";
@@ -84,9 +85,20 @@ export default async function LocaleRootLayout({
   // reliable via the <html lang> attribute.
   const messages = await loadMessages(locale);
 
+  // Tells search engines which social accounts are ours.
+  const organization = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "SpeedNetRDC",
+    url: SITE_URL,
+    email: SUPPORT_EMAIL,
+    sameAs: SOCIAL_LINKS.map((s) => s.href),
+  };
+
   return (
     <html lang={languageTag(locale)} className={`${manrope.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-cream text-ink">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }} />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
             <SiteChrome locale={locale}>{children}</SiteChrome>

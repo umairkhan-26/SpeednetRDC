@@ -23,7 +23,9 @@
     "privacy": "Politique de confidentialité",
     "terms": "Conditions générales",
     "refunds": "Politique de remboursement",
-    "cookieSettings": "Paramètres des cookies"
+    "cookieSettings": "Paramètres des cookies",
+    "followUs": "Suivez-nous",
+    "followOn": "SpeedNetRDC sur {network}"
   },
   "home": {
     "hero": {

@@ -10,3 +10,12 @@ export function whatsappUrl(message: string): string | null {
   if (digits.length < 8) return null;
   return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
 }
+
+/** Our official social accounts (footer icons and the Organization structured data). */
+export const SOCIAL_LINKS = [
+  { network: "Instagram", href: "https://www.instagram.com/speednetrdc" },
+  { network: "Facebook", href: "https://www.facebook.com/share/1FZdeUcVCz/" },
+  { network: "TikTok", href: "https://www.tiktok.com/@speednetrdc" },
+] as const;
+
+export type SocialNetwork = (typeof SOCIAL_LINKS)[number]["network"];

@@ -5,6 +5,8 @@ import { legalPagesLive } from "@/lib/legal";
 import CookieSettingsButton from "@/components/consent/CookieSettingsButton";
 import Logo from "./Logo";
 import LanguageSwitcher from "./LanguageSwitcher";
+import SocialIcon from "./SocialIcon";
+import { SOCIAL_LINKS } from "@/lib/contact";
 
 export default async function Footer({ locale }: { locale: AppLocale }) {
   const t = await getTranslations({ locale, namespace: "footer" });
@@ -30,6 +32,22 @@ export default async function Footer({ locale }: { locale: AppLocale }) {
         <div className="lg:col-span-2">
           <Logo theme="dark" href={`/${locale}`} />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/60">{t("tagline")}</p>
+          <ul className="mt-6 flex items-center gap-3" aria-label={t("followUs")}>
+            {SOCIAL_LINKS.map(({ network, href }) => (
+              <li key={network}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={t("followOn", { network })}
+                  title={t("followOn", { network })}
+                  className="flex size-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-orange hover:text-orange"
+                >
+                  <SocialIcon network={network} className="size-5" />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div>
