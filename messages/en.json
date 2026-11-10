@@ -684,7 +684,8 @@
       "step1": "Insert the SIM in any unlocked phone.",
       "step2": "Buy a data plan for it: pick a plan on our site and choose “Add to my SIM”.",
       "step3": "Turn on data roaming for this SIM. Your plan starts the first time you connect in a country it covers.",
-      "keep": "Yours to keep: add more data whenever you travel. A SIM left unused for {period} is deactivated."
+      "keep": "Yours to keep: add more data whenever you travel. A SIM left unused for {period} is deactivated.",
+      "productName": "SpeedNetRDC SIM card"
     },
     "topup": {
       "readyTitle": "Your plan is on your SIM",
@@ -918,11 +919,12 @@
     "check": "Check SIM",
     "checking": "Checking…",
     "hint": "Printed on your SIM card. For an eSIM bought here, sign in with your order email and pick it from your SIMs.",
-    "willAdd": "This plan will be added to your {sim}.",
     "errors": {
       "unavailable": "Adding data to an existing SIM isn’t available yet.",
       "tooMany": "Too many attempts. Please try again later.",
       "notFound": "We couldn’t find that SIM. Check the number printed on your SIM card."
-    }
+    },
+    "willAddCard": "This plan will be added to your SIM card ending {last4}.",
+    "willAddEsim": "This plan will be added to your eSIM ending {last4}."
   }
 }

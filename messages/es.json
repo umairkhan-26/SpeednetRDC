@@ -306,7 +306,8 @@
       "step1": "Inserta la SIM en cualquier teléfono libre.",
       "step2": "Cómprale un plan de datos: elige un plan en nuestra web y selecciona «Añadir a mi SIM».",
       "step3": "Activa la itinerancia de datos para esta SIM. Tu plan empieza la primera vez que te conectes en un país incluido.",
-      "keep": "Es tuya: añade más datos cada vez que viajes. Una SIM sin usar durante {period} se desactiva."
+      "keep": "Es tuya: añade más datos cada vez que viajes. Una SIM sin usar durante {period} se desactiva.",
+      "productName": "Tarjeta SIM SpeedNetRDC"
     },
     "topup": {
       "readyTitle": "Tu plan ya está en tu SIM",
@@ -326,11 +327,12 @@
     "check": "Comprobar SIM",
     "checking": "Comprobando…",
     "hint": "Viene impreso en tu tarjeta SIM. Para una eSIM comprada aquí, inicia sesión con el correo de tu pedido y elígela entre tus SIM.",
-    "willAdd": "Este plan se añadirá a tu {sim}.",
     "errors": {
       "unavailable": "Aún no se pueden añadir datos a una SIM existente.",
       "tooMany": "Demasiados intentos. Inténtalo más tarde.",
       "notFound": "No hemos encontrado esa SIM. Comprueba el número impreso en tu tarjeta SIM."
-    }
+    },
+    "willAddCard": "Este plan se añadirá a tu tarjeta SIM terminada en {last4}.",
+    "willAddEsim": "Este plan se añadirá a tu eSIM terminada en {last4}."
   }
 }

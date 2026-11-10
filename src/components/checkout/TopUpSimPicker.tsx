@@ -17,11 +17,14 @@ export default function TopUpSimPicker() {
   const [mySims, setMySims] = useState<{ iccid: string; simType: "esim" | "physical" }[] | null>(null);
   const [typed, setTyped] = useState(suggestedIccid ?? "");
   const [error, setError] = useState<string | null>(null);
-  const [checkedLabel, setCheckedLabel] = useState<string | null>(null);
+  const [checkedSim, setCheckedSim] = useState<{ iccid: string; simType: "esim" | "physical" } | null>(null);
   const [isPending, startTransition] = useTransition();
   const t = useTranslations("topUpPicker");
   const simLabel = (sim: { iccid: string; simType: "esim" | "physical" }) =>
     t(sim.simType === "physical" ? "simCard" : "esim", { last4: sim.iccid.slice(-4) });
+  // Its own sentence per SIM type, so the name isn't capitalised mid-sentence.
+  const willAdd = (sim: { iccid: string; simType: "esim" | "physical" }) =>
+    t(sim.simType === "physical" ? "willAddCard" : "willAddEsim", { last4: sim.iccid.slice(-4) });
 
   useEffect(() => {
     let cancelled = false;
@@ -40,13 +43,13 @@ export default function TopUpSimPicker() {
 
   function check() {
     setError(null);
-    setCheckedLabel(null);
+    setCheckedSim(null);
     setTopUpIccid(null);
     startTransition(async () => {
       const result = await checkTopUpSimAction(typed);
       if (result.ok) {
         setTopUpIccid(result.iccid);
-        setCheckedLabel(simLabel(result));
+        setCheckedSim(result);
       } else {
         setError(t(`errors.${result.error}`));
       }
@@ -70,7 +73,7 @@ export default function TopUpSimPicker() {
                 checked={topUpIccid === sim.iccid}
                 onChange={() => {
                   setError(null);
-                  setCheckedLabel(null);
+                  setCheckedSim(null);
                   setTopUpIccid(sim.iccid);
                 }}
                 className="accent-orange"
@@ -110,9 +113,9 @@ export default function TopUpSimPicker() {
       </div>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
-      {(checkedLabel || pickedOwn) && topUpIccid && (
+      {(checkedSim || pickedOwn) && topUpIccid && (
         <p className="flex items-center gap-2 text-sm text-emerald-700">
-          <CheckCircle2 className="size-4" /> {t("willAdd", { sim: checkedLabel ?? simLabel(pickedOwn!) })}
+          <CheckCircle2 className="size-4" /> {willAdd(checkedSim ?? pickedOwn!)}
         </p>
       )}
     </div>

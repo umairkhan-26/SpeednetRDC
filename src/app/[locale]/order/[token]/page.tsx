@@ -38,7 +38,7 @@ export default async function PrivateOrderPage({ params }: { params: Promise<{ t
   return (
     <div className="container-page max-w-3xl py-12">
       <p className="text-sm text-muted">
-        {t("orderNumber", { id: order.id })} &middot; {order.planName}
+        {t("orderNumber", { id: order.id })} &middot; {order.productType === "physical_sim" ? t("sim.productName") : order.planName}
       </p>
       {order.productType === "physical_sim" ? (
         <SimCardOrder order={order} locale={locale} t={t} />

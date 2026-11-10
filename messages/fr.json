@@ -306,7 +306,8 @@
       "step1": "Insérez la SIM dans n’importe quel téléphone désimlocké.",
       "step2": "Achetez-lui un forfait de données : choisissez un forfait sur notre site, puis « Ajouter à ma SIM ».",
       "step3": "Activez l’itinérance des données pour cette SIM. Votre forfait démarre la première fois que vous vous connectez dans un pays couvert.",
-      "keep": "Elle est à vous : ajoutez des données à chaque voyage. Une SIM inutilisée pendant {period} est désactivée."
+      "keep": "Elle est à vous : ajoutez des données à chaque voyage. Une SIM inutilisée pendant {period} est désactivée.",
+      "productName": "Carte SIM SpeedNetRDC"
     },
     "topup": {
       "readyTitle": "Votre forfait est sur votre SIM",
@@ -326,11 +327,12 @@
     "check": "Vérifier la SIM",
     "checking": "Vérification…",
     "hint": "Imprimé sur votre carte SIM. Pour une eSIM achetée ici, connectez-vous avec l’e-mail de votre commande et choisissez-la parmi vos SIM.",
-    "willAdd": "Ce forfait sera ajouté à votre {sim}.",
     "errors": {
       "unavailable": "L’ajout de données à une SIM existante n’est pas encore disponible.",
       "tooMany": "Trop de tentatives. Réessayez plus tard.",
       "notFound": "Nous n’avons pas trouvé cette SIM. Vérifiez le numéro imprimé sur votre carte SIM."
-    }
+    },
+    "willAddCard": "Ce forfait sera ajouté à votre carte SIM se terminant par {last4}.",
+    "willAddEsim": "Ce forfait sera ajouté à votre eSIM se terminant par {last4}."
   }
 }

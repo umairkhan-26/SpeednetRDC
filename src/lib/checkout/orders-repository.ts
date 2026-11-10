@@ -611,7 +611,7 @@ export async function shipPhysicalOrder(orderId: number, iccid: string, tracking
     await conn.beginTransaction();
     const fail = async (error: "notPaidSim" | "alreadyShipped" | "notInStock" | "isEsim" | "notAvailable", simStatus?: string): Promise<ShipResult> => {
       await conn.rollback();
-      return { ok: false, error };
+      return { ok: false, error, ...(simStatus ? { simStatus } : {}) };
     };
     const [orders] = await conn.query<OrderRow[]>("SELECT * FROM orders WHERE id = ? FOR UPDATE", [orderId]);
     const order = orders[0];

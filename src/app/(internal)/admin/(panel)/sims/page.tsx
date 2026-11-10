@@ -5,7 +5,7 @@ import { listSoldSims, SOLD_SIM_LIMIT, type SoldSim } from "@/lib/sims/repositor
 import { formatKb, USAGE_STATUSES, usageStatus } from "@/lib/sims/status";
 import { getAdminT } from "@/i18n/admin";
 import { adminDateLocale } from "@/i18n/admin-locale";
-import { DeliveryBadge, KindBadge, UsageBadge } from "../Badges";
+import { KindBadge, OrderDeliveryBadge, UsageBadge } from "../Badges";
 import RefreshButton from "./RefreshButton";
 
 type Params = Record<"q" | "status" | "type" | "country" | "from" | "to", string>;
@@ -166,9 +166,9 @@ export default async function AdminSimsPage({ searchParams }: { searchParams: Pr
                         ORD-{sim.orderId} <KindBadge kind={kind} />
                       </p>
                       <p className="text-xs text-muted">{fmtDate(sim.orderCreatedAt)}</p>
-                      {sim.provisioningStatus !== "provisioned" && (
+                      {(sim.productType === "physical_sim" || sim.provisioningStatus !== "provisioned") && (
                         <div className="mt-1">
-                          <DeliveryBadge kind={kind} paymentStatus={sim.paymentStatus} deliveryStatus={sim.provisioningStatus} />
+                          <OrderDeliveryBadge kind={kind} productType={sim.productType} paymentStatus={sim.paymentStatus} deliveryStatus={sim.provisioningStatus} shippingStatus={sim.shippingStatus} />
                         </div>
                       )}
                       {sim.paymentStatus === "refunded" && <p className="mt-1 text-xs text-orange">{s("refunded")}</p>}

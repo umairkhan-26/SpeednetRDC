@@ -684,7 +684,8 @@
       "step1": "Insira o SIM em qualquer telemóvel desbloqueado.",
       "step2": "Compre-lhe um tarifário de dados: escolha um tarifário no nosso site e selecione «Adicionar ao meu SIM».",
       "step3": "Ative o roaming de dados para este SIM. O tarifário começa na primeira vez que se ligar num país abrangido.",
-      "keep": "Fica consigo: adicione mais dados sempre que viajar. Um SIM sem utilização durante {period} é desativado."
+      "keep": "Fica consigo: adicione mais dados sempre que viajar. Um SIM sem utilização durante {period} é desativado.",
+      "productName": "Cartão SIM SpeedNetRDC"
     },
     "topup": {
       "readyTitle": "O seu tarifário já está no seu SIM",
@@ -918,11 +919,12 @@
     "check": "Verificar SIM",
     "checking": "A verificar…",
     "hint": "Está impresso no seu cartão SIM. Para um eSIM comprado aqui, inicie sessão com o e-mail da encomenda e escolha-o nos seus SIM.",
-    "willAdd": "Este tarifário será adicionado ao seu {sim}.",
     "errors": {
       "unavailable": "Ainda não é possível adicionar dados a um SIM existente.",
       "tooMany": "Demasiadas tentativas. Tente novamente mais tarde.",
       "notFound": "Não encontrámos esse SIM. Verifique o número impresso no seu cartão SIM."
-    }
+    },
+    "willAddCard": "Este tarifário será adicionado ao seu cartão SIM terminado em {last4}.",
+    "willAddEsim": "Este tarifário será adicionado ao seu eSIM terminado em {last4}."
   }
 }

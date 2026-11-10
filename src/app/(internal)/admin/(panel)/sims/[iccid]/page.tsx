@@ -6,7 +6,7 @@ import { requireAdminSession } from "@/lib/staff/auth";
 import { orderKind } from "@/lib/checkout/order-kind";
 import { getSoldSimsByIccid } from "@/lib/sims/repository";
 import { formatKb, usageStatus } from "@/lib/sims/status";
-import { DeliveryBadge, KindBadge, PaymentBadge, UsageBadge } from "../../Badges";
+import { KindBadge, OrderDeliveryBadge, PaymentBadge, UsageBadge } from "../../Badges";
 import RefreshButton from "../RefreshButton";
 import { getAdminT } from "@/i18n/admin";
 import { adminDateLocale } from "@/i18n/admin-locale";
@@ -92,7 +92,7 @@ export default async function AdminSimDetailPage({ params }: { params: Promise<{
             <PaymentBadge status={sim.paymentStatus} />
           </Row>
           <Row label={d("rows.delivery")}>
-            <DeliveryBadge kind={kind} paymentStatus={sim.paymentStatus} deliveryStatus={sim.provisioningStatus} />
+            <OrderDeliveryBadge kind={kind} productType={sim.productType} paymentStatus={sim.paymentStatus} deliveryStatus={sim.provisioningStatus} shippingStatus={sim.shippingStatus} />
           </Row>
           <Row label={d("rows.customerPage")}>
             {sim.accessToken && sim.paymentStatus === "completed" ? (
