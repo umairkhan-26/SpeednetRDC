@@ -170,7 +170,7 @@
     "viewOrder": "Ver encomenda"
   },
   "homePhysicalSim": {
-    "eyebrow": "Cartão SIM físico · Brevemente",
+    "eyebrow": "Cartão SIM físico · Já disponível",
     "title": "O seu telemóvel não tem eSIM? Use um cartão SIM",
     "text": "Um cartão SIM SpeedNetRDC para qualquer telemóvel desbloqueado, enviado da Bélgica para toda a Europa em 3 a 5 dias úteis.",
     "price": "{sim} € pelo cartão SIM + {shipping} € de envio, sem IVA",
@@ -192,7 +192,7 @@
       "unlocked": "Funciona em qualquer telemóvel desbloqueado",
       "data": "Os planos de dados para o cartão vão estar disponíveis no nosso site"
     },
-    "howTitle": "Como vai funcionar",
+    "howTitle": "Como funciona",
     "steps": {
       "shipTitle": "Nós enviamos",
       "shipText": "Enviamos o seu cartão SIM da Bélgica; chega em 3 a 5 dias úteis a qualquer ponto da Europa.",
@@ -201,10 +201,10 @@
       "dataTitle": "Adicione dados",
       "dataText": "Os planos de dados para o cartão vão estar disponíveis no nosso site."
     },
-    "comingSoonTitle": "Brevemente",
-    "comingSoonText": "Ainda não é possível encomendar o cartão SIM. Tem interesse? Escreva-nos e avisamos assim que estiver disponível.",
-    "contactButton": "Contacte-nos",
-    "contactSubject": "Cartão SIM físico",
+    "orderTitle": "Já disponível",
+    "orderText": "Encomende o seu cartão SIM por e-mail: envie-nos o seu nome e a morada de entrega, e respondemos com os próximos passos.",
+    "contactButton": "Encomendar por e-mail",
+    "contactSubject": "Encomenda de cartão SIM físico",
     "faqTitle": "Perguntas",
     "faq": {
       "whatQ": "O que é o cartão SIM SpeedNetRDC?",
@@ -215,8 +215,8 @@
       "priceA": "{sim} € pelo cartão SIM e {shipping} € pelo envio, sem IVA.",
       "shippingQ": "Para onde enviam e quanto tempo demora?",
       "shippingA": "Enviamos da Bélgica para toda a Europa. A entrega demora 3 a 5 dias úteis.",
-      "whenQ": "Quando posso encomendar?",
-      "whenA": "Em breve. Envie-nos um e-mail para {email} e avisamos assim que for possível encomendar."
+      "whenQ": "Já posso encomendar?",
+      "whenA": "Sim. Envie-nos um e-mail para {email} com o seu nome e a morada de entrega, e respondemos com os próximos passos."
     }
   },
   "physicalSimShop": {

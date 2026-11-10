@@ -142,7 +142,7 @@
     "viewOrder": "Voir la commande"
   },
   "homePhysicalSim": {
-    "eyebrow": "Carte SIM physique · Bientôt disponible",
+    "eyebrow": "Carte SIM physique · Disponible",
     "title": "Pas d'eSIM sur votre téléphone ? Prenez une carte SIM",
     "text": "Une carte SIM SpeedNetRDC pour tout téléphone débloqué, expédiée depuis la Belgique partout en Europe en 3 à 5 jours ouvrés.",
     "price": "{sim} € la SIM + {shipping} € de livraison, hors taxes",
@@ -164,7 +164,7 @@
       "unlocked": "Fonctionne dans tout téléphone débloqué",
       "data": "Des forfaits data pour la SIM seront disponibles sur notre site"
     },
-    "howTitle": "Comment ça fonctionnera",
+    "howTitle": "Comment ça marche",
     "steps": {
       "shipTitle": "Nous l'expédions",
       "shipText": "Nous postons votre carte SIM depuis la Belgique ; elle arrive en 3 à 5 jours ouvrés partout en Europe.",
@@ -173,10 +173,10 @@
       "dataTitle": "Ajoutez des données",
       "dataText": "Des forfaits data pour la SIM seront disponibles sur notre site."
     },
-    "comingSoonTitle": "Bientôt disponible",
-    "comingSoonText": "La carte SIM ne peut pas encore être commandée. Intéressé ? Écrivez-nous et nous vous préviendrons dès qu'elle sera disponible.",
-    "contactButton": "Nous contacter",
-    "contactSubject": "Carte SIM physique",
+    "orderTitle": "Disponible dès maintenant",
+    "orderText": "Commandez votre carte SIM par e-mail : envoyez-nous votre nom et votre adresse de livraison, et nous vous répondrons avec la marche à suivre.",
+    "contactButton": "Commander par e-mail",
+    "contactSubject": "Commande de carte SIM physique",
     "faqTitle": "Questions",
     "faq": {
       "whatQ": "Qu'est-ce que la carte SIM SpeedNetRDC ?",
@@ -187,8 +187,8 @@
       "priceA": "{sim} € pour la carte SIM et {shipping} € de livraison, hors taxes.",
       "shippingQ": "Où livrez-vous et en combien de temps ?",
       "shippingA": "Nous expédions depuis la Belgique partout en Europe. La livraison prend 3 à 5 jours ouvrés.",
-      "whenQ": "Quand pourrai-je la commander ?",
-      "whenA": "Bientôt. Écrivez-nous à {email} et nous vous préviendrons dès qu'elle pourra être commandée."
+      "whenQ": "Puis-je la commander dès maintenant ?",
+      "whenA": "Oui. Écrivez-nous à {email} en indiquant votre nom et votre adresse de livraison, et nous vous répondrons avec la marche à suivre."
     }
   },
   "physicalSimShop": {
