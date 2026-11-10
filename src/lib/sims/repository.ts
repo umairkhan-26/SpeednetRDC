@@ -42,6 +42,7 @@ export interface SoldSim {
   billingCountry: string | null;
   accessToken: string | null;
   transatelSubscriptionId: string | null;
+  productType: "esim" | "physical_sim" | "topup";
   iccid: string;
   msisdn: string | null;
   simType: "esim" | "physical" | null;
@@ -63,6 +64,7 @@ interface SoldSimRow extends RowDataPacket {
   billing_country: string | null;
   access_token: string | null;
   transatel_order_id: string | null;
+  product_type: "esim" | "physical_sim" | "topup" | null;
   iccid: string;
   order_msisdn: string | null;
   sim_type: "esim" | "physical" | null;
@@ -89,7 +91,7 @@ const SOLD_SIM_SELECT = `
   SELECT o.id AS order_id, o.created_at AS order_created_at, o.stripe_checkout_session_id,
          o.status AS payment_status, o.provisioning_status, o.plan_id, o.plan_name, o.country_name,
          o.country_code, o.customer_name, o.customer_email, o.billing_country, o.access_token,
-         o.transatel_order_id, o.iccid, o.msisdn AS order_msisdn,
+         o.transatel_order_id, o.product_type, o.iccid, o.msisdn AS order_msisdn,
          si.sim_type,
          s.iccid AS snap_iccid, s.msisdn AS snap_msisdn, s.sim_status, s.esim_profile_status, s.esim_profile_date,
          s.sim_activation_date, s.last_seen_date, s.last_origin_country, s.plan_status, s.plan_activation_date,
@@ -127,6 +129,7 @@ function toSoldSim(row: SoldSimRow): SoldSim {
     billingCountry: row.billing_country,
     accessToken: row.access_token,
     transatelSubscriptionId: row.transatel_order_id,
+    productType: row.product_type ?? "esim",
     iccid: row.iccid,
     msisdn: row.order_msisdn ?? row.snap_msisdn,
     simType: row.sim_type,
@@ -156,9 +159,10 @@ function toSoldSim(row: SoldSimRow): SoldSim {
 /** Every sold SIM, newest order first (capped; filtering happens on the page). */
 export const SOLD_SIM_LIMIT = 5000;
 
+/** One row per SIM: the order it was sold with. Top-ups add plans to a SIM, they don't sell one. */
 export async function listSoldSims(): Promise<SoldSim[]> {
   const pool = await getPool();
-  const [rows] = await pool.query<SoldSimRow[]>(`${SOLD_SIM_SELECT} ORDER BY o.id DESC LIMIT ${SOLD_SIM_LIMIT}`);
+  const [rows] = await pool.query<SoldSimRow[]>(`${SOLD_SIM_SELECT} AND o.product_type <> 'topup' ORDER BY o.id DESC LIMIT ${SOLD_SIM_LIMIT}`);
   return rows.map(toSoldSim);
 }
 

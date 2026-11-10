@@ -15,7 +15,7 @@ import StatCard from "./StatCard";
 import { OrdersChart, RevenueChart, TopCountriesDonut } from "./DashboardCharts";
 import RetryProvisioningButton from "./RetryProvisioningButton";
 import DismissOrderButton from "./DismissOrderButton";
-import { DeliveryBadge, KindBadge, PaymentBadge } from "./Badges";
+import { KindBadge, OrderDeliveryBadge, PaymentBadge } from "./Badges";
 import Link from "next/link";
 import { getAdminT } from "@/i18n/admin";
 import { adminDateLocale } from "@/i18n/admin-locale";
@@ -101,7 +101,11 @@ export default async function AdminDashboardPage() {
       )}
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard label={d("totalRevenue")} value={formatPrice(orderStats.totalRevenue)} note={d("revenueNote")} />
+        <StatCard
+          label={d("totalRevenue")}
+          value={formatPrice(orderStats.totalRevenue)}
+          note={orderStats.simCardRevenue > 0 ? d("revenueNoteSim", { amount: formatPrice(orderStats.simCardRevenue) }) : d("revenueNote")}
+        />
         <StatCard
           label={d("totalCost")}
           value={formatPrice(orderStats.totalCost)}
@@ -177,7 +181,13 @@ export default async function AdminDashboardPage() {
                   <p className="font-semibold text-ink">{formatPrice(order.amountEur)}</p>
                   <div className="flex gap-1">
                     <PaymentBadge status={order.status} />
-                    <DeliveryBadge kind={order.kind} paymentStatus={order.status} deliveryStatus={order.deliveryStatus} />
+                    <OrderDeliveryBadge
+                      kind={order.kind}
+                      productType={order.productType}
+                      paymentStatus={order.status}
+                      deliveryStatus={order.deliveryStatus}
+                      shippingStatus={order.shippingStatus}
+                    />
                   </div>
                 </div>
               </div>

@@ -24,7 +24,8 @@
     "admins": "Administradores",
     "account": "Cuenta",
     "staffView": "Vista de empleado",
-    "logOut": "Cerrar sesión"
+    "logOut": "Cerrar sesión",
+    "shipping": "Envíos"
   },
   "clock": {
     "clockedInSince": "En turno desde las {time}",
@@ -86,15 +87,15 @@
     "confirmResolved": "¿Quitar ORD-{id} de esta lista? Úsalo si se ha ayudado al cliente de otra forma. El pedido sigue en Pedidos como pedido pagado.",
     "totalRevenue": "Ingresos totales",
     "revenueNote": "Lo que pagaron los clientes, incluida la línea de impuestos y comisiones del 5 %",
-    "totalCost": "Coste total",
+    "totalCost": "Coste total (planes de datos)",
     "costNote": "Precio mayorista de Transatel, solo eSIM entregadas",
     "costNoteMissing": "Precio mayorista de Transatel, solo eSIM entregadas. {count, plural, one {# pedido entregado no tiene} other {# pedidos entregados no tienen}} coste conocido.",
-    "totalProfit": "Beneficio total",
-    "profitNote": "Antes de comisiones de Stripe e IVA",
+    "totalProfit": "Beneficio (planes de datos)",
+    "profitNote": "Solo planes de datos, antes de comisiones de Stripe e IVA",
     "afterStripeFees": "Tras comisiones de Stripe:",
     "feesNotFetched": "({count, plural, one {# comisión pendiente de obtener} other {# comisiones pendientes de obtener}})",
-    "profitMargin": "Margen de beneficio",
-    "marginNote": "Beneficio ÷ ingresos, antes de comisiones de Stripe e IVA",
+    "profitMargin": "Margen de beneficio (planes de datos)",
+    "marginNote": "Beneficio ÷ ingresos de planes de datos, antes de comisiones de Stripe e IVA",
     "totalOrders": "Pedidos totales",
     "activeStaff": "Empleados en turno ahora",
     "totalComplaints": "Reclamaciones",
@@ -113,7 +114,8 @@
     "complaintStatus": {
       "open": "Abierta",
       "resolved": "Resuelta"
-    }
+    },
+    "revenueNoteSim": "Lo que pagaron los clientes, incluida la línea de impuestos y comisiones del 5 %. Incluye {amount} de ventas de tarjetas SIM."
   },
   "badges": {
     "payment": {
@@ -141,6 +143,11 @@
       "not_used": "Sin usar",
       "expired": "Caducado",
       "unknown": "Sin comprobar"
+    },
+    "shipping": {
+      "awaiting": "Pendiente de envío",
+      "shipped": "Enviada",
+      "delivered": "Entregada"
     }
   },
   "orders": {
@@ -180,7 +187,10 @@
     "emailed": "Enviado por correo el {date}",
     "notEmailed": "Sin enviar por correo",
     "resend": "Reenviar correo",
-    "resendConfirm": "¿Volver a enviar el enlace privado del pedido ORD-{id} a {email}?"
+    "resendConfirm": "¿Volver a enviar el enlace privado del pedido ORD-{id} a {email}?",
+    "simSale": "Venta de tarjeta SIM: no cuenta en el beneficio",
+    "shipsTo": "Se envía a: {country}",
+    "addedToSim": "{country} · añadido a la SIM …{last4}"
   },
   "sims": {
     "title": "SIM",
@@ -263,7 +273,8 @@
       "dataUsed": "Datos usados",
       "dataLeft": "Datos restantes",
       "started": "Inicio",
-      "expires": "Caducidad"
+      "expires": "Caducidad",
+      "dataAddedLater": "Datos añadidos después"
     },
     "openQr": "Abrir (muestra el código QR: compártelo solo con el cliente)",
     "usedOf": "{used} de {total}",
@@ -365,7 +376,9 @@
       "deleted": "eliminó una cuenta",
       "name_changed": "cambió un nombre",
       "order_marked_refunded": "marcó un pedido como reembolsado",
-      "order_attention_dismissed": "quitó un pedido de la lista de atención"
+      "order_attention_dismissed": "quitó un pedido de la lista de atención",
+      "sim_shipped": "envió una tarjeta SIM",
+      "sim_delivered": "marcó una tarjeta SIM como entregada"
     }
   },
   "account": {
@@ -414,7 +427,8 @@
     "you": "Tú",
     "replyPlaceholder": "Responder…",
     "postPlaceholder": "Escribe al equipo…",
-    "post": "Publicar"
+    "post": "Publicar",
+    "shipping": "Envíos"
   },
   "msg": {
     "emailNotSetUp": "El envío de correos aún no está configurado en este servidor (RESEND_API_KEY / EMAIL_FROM), así que no se puede enviar este enlace.",
@@ -507,7 +521,9 @@
       "noLink": "El pedido no tiene enlace privado.",
       "notSent": "Correo no enviado: {error}",
       "sent": "Correo enviado a {email}.",
-      "unexpected": "Correo no enviado (error inesperado: revisa los registros del servidor)."
+      "unexpected": "Correo no enviado (error inesperado: revisa los registros del servidor).",
+      "simCardOrder": "Los pedidos de tarjeta SIM reciben correos de envío en su lugar.",
+      "topupNotReady": "El plan aún no está en la SIM."
     },
     "simRefresh": {
       "running": "Ya hay una actualización en curso: espera un momento.",
@@ -517,6 +533,52 @@
       "billing": "{count, plural, one {# país de facturación completado} other {# países de facturación completados}} desde Stripe",
       "error": "Falló la actualización: {error}",
       "refreshedOne": "Actualizada desde Transatel."
+    },
+    "shipping": {
+      "enterIccid": "Introduce el ICCID impreso en la tarjeta (18 a 22 dígitos).",
+      "shipped": "Marcado como enviado con la SIM {iccid}.",
+      "emailSent": "Correo de envío enviado al cliente.",
+      "emailNotSent": "No se pudo enviar el correo de envío: avisa tú al cliente.",
+      "onlyShipped": "Solo los pedidos enviados se pueden marcar como entregados.",
+      "markedDelivered": "Marcado como entregado.",
+      "notPaidSim": "No es un pedido de tarjeta SIM pagado.",
+      "alreadyShipped": "Este pedido ya se ha enviado.",
+      "notInStock": "Ese ICCID no está en nuestro stock de SIM. Comprueba el número impreso en la tarjeta.",
+      "isEsim": "Ese ICCID es de una eSIM, no de una tarjeta física.",
+      "notAvailable": "Esa tarjeta no está disponible (estado: {status})."
     }
+  },
+  "shipping": {
+    "title": "Pedidos de tarjetas SIM",
+    "intro": "Pedidos de tarjetas SIM pagados para enviar desde Bélgica. Para enviar uno, escanea o escribe el ICCID impreso en la tarjeta que envías (debe ser una SIM física disponible en stock) y añade el número de seguimiento si lo hay: la tarjeta se asigna al cliente, que recibe un correo de «enviado».",
+    "salesOff": "La venta de tarjetas SIM está desactivada (PHYSICAL_SIM_ENABLED), así que no llegan pedidos nuevos.",
+    "filters": {
+      "awaiting": "Pendientes de envío",
+      "shipped": "Enviados",
+      "delivered": "Entregados",
+      "all": "Todos"
+    },
+    "none": "No hay pedidos aquí.",
+    "columns": {
+      "order": "Pedido",
+      "customer": "Cliente",
+      "shipTo": "Enviar a",
+      "status": "Estado",
+      "action": "Acción"
+    },
+    "paid": "Pagado el {date}",
+    "refunded": "Reembolsado: no enviar",
+    "noAddress": "Stripe no ha enviado dirección: contacta con el cliente",
+    "customs": "Fuera de la UE: declaración de aduana",
+    "posted": "Enviado el {date}",
+    "tracking": "Seguimiento: {number}",
+    "delivered": "Entregado el {date}",
+    "iccidPlaceholder": "Escanea o escribe el ICCID de la tarjeta",
+    "iccidAria": "ICCID de la tarjeta SIM para ORD-{id}",
+    "trackingPlaceholder": "Número de seguimiento (opcional)",
+    "trackingAria": "Número de seguimiento para ORD-{id}",
+    "markShipped": "Marcar como enviado y avisar al cliente",
+    "markDelivered": "Marcar como entregado",
+    "confirmDelivered": "¿Marcar ORD-{id} como entregado?"
   }
 }

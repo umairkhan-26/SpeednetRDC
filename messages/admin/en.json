@@ -24,7 +24,8 @@
     "admins": "Admins",
     "account": "Account",
     "staffView": "Staff view",
-    "logOut": "Log out"
+    "logOut": "Log out",
+    "shipping": "Shipping"
   },
   "clock": {
     "clockedInSince": "Clocked in since {time}",
@@ -86,15 +87,15 @@
     "confirmResolved": "Remove ORD-{id} from this list? Use this if the customer was helped another way. The order stays in Orders as a paid order.",
     "totalRevenue": "Total Revenue",
     "revenueNote": "What customers paid, incl. the 5% taxes & fees line",
-    "totalCost": "Total Cost",
+    "totalCost": "Total Cost (data plans)",
     "costNote": "Transatel wholesale, delivered eSIMs only",
     "costNoteMissing": "Transatel wholesale, delivered eSIMs only. {count, plural, one {# delivered order has} other {# delivered orders have}} no known cost.",
-    "totalProfit": "Total Profit",
-    "profitNote": "Before Stripe fees and VAT",
+    "totalProfit": "Profit (data plans)",
+    "profitNote": "Data plans only, before Stripe fees and VAT",
     "afterStripeFees": "After Stripe fees:",
     "feesNotFetched": "({count, plural, one {# fee} other {# fees}} not fetched yet)",
-    "profitMargin": "Profit Margin",
-    "marginNote": "Profit ÷ revenue, before Stripe fees and VAT",
+    "profitMargin": "Profit Margin (data plans)",
+    "marginNote": "Profit ÷ data-plan revenue, before Stripe fees and VAT",
     "totalOrders": "Total Orders",
     "activeStaff": "Active Staff Right Now",
     "totalComplaints": "Total Complaints",
@@ -113,7 +114,8 @@
     "complaintStatus": {
       "open": "Open",
       "resolved": "Resolved"
-    }
+    },
+    "revenueNoteSim": "What customers paid, incl. the 5% taxes & fees line. Includes {amount} from SIM card sales."
   },
   "badges": {
     "payment": {
@@ -141,6 +143,11 @@
       "not_used": "Not yet used",
       "expired": "Expired",
       "unknown": "Not checked yet"
+    },
+    "shipping": {
+      "awaiting": "Awaiting shipment",
+      "shipped": "Shipped",
+      "delivered": "Delivered"
     }
   },
   "orders": {
@@ -180,7 +187,10 @@
     "emailed": "Emailed {date}",
     "notEmailed": "Not emailed",
     "resend": "Resend email",
-    "resendConfirm": "Email the private order link for ORD-{id} to {email} again?"
+    "resendConfirm": "Email the private order link for ORD-{id} to {email} again?",
+    "simSale": "SIM card sale — not in profit",
+    "shipsTo": "Ships to {country}",
+    "addedToSim": "{country} · added to SIM …{last4}"
   },
   "sims": {
     "title": "SIMs",
@@ -263,7 +273,8 @@
       "dataUsed": "Data used",
       "dataLeft": "Data left",
       "started": "Started",
-      "expires": "Expires"
+      "expires": "Expires",
+      "dataAddedLater": "Data added later"
     },
     "openQr": "Open (shows the QR code — only share with the customer)",
     "usedOf": "{used} of {total}",
@@ -365,7 +376,9 @@
       "deleted": "deleted an account",
       "name_changed": "changed a name",
       "order_marked_refunded": "marked an order refunded",
-      "order_attention_dismissed": "removed an order from the attention list"
+      "order_attention_dismissed": "removed an order from the attention list",
+      "sim_shipped": "shipped a SIM card",
+      "sim_delivered": "marked a SIM card delivered"
     }
   },
   "account": {
@@ -414,7 +427,8 @@
     "you": "You",
     "replyPlaceholder": "Reply…",
     "postPlaceholder": "Post to the team…",
-    "post": "Post"
+    "post": "Post",
+    "shipping": "Shipping"
   },
   "msg": {
     "emailNotSetUp": "Email isn’t set up on this server yet (RESEND_API_KEY / EMAIL_FROM), so this link can’t be sent.",
@@ -507,7 +521,9 @@
       "noLink": "Order has no private link.",
       "notSent": "Email not sent: {error}",
       "sent": "Email sent to {email}.",
-      "unexpected": "Email not sent (unexpected error — see server logs)."
+      "unexpected": "Email not sent (unexpected error — see server logs).",
+      "simCardOrder": "SIM card orders get shipping emails instead.",
+      "topupNotReady": "The plan isn’t on the SIM yet."
     },
     "simRefresh": {
       "running": "A refresh is already running — give it a moment.",
@@ -517,6 +533,52 @@
       "billing": "{count, plural, one {# billing country} other {# billing countries}} filled in from Stripe",
       "error": "Refresh failed: {error}",
       "refreshedOne": "Refreshed from Transatel."
+    },
+    "shipping": {
+      "enterIccid": "Enter the ICCID printed on the card (18–22 digits).",
+      "shipped": "Marked shipped with SIM {iccid}.",
+      "emailSent": "Shipping email sent to the customer.",
+      "emailNotSent": "The shipping email couldn’t be sent; let the customer know yourself.",
+      "onlyShipped": "Only shipped orders can be marked delivered.",
+      "markedDelivered": "Marked delivered.",
+      "notPaidSim": "Not a paid SIM card order.",
+      "alreadyShipped": "This order has already been shipped.",
+      "notInStock": "That ICCID isn’t in our SIM stock. Check the number printed on the card.",
+      "isEsim": "That ICCID belongs to an eSIM, not a physical card.",
+      "notAvailable": "That card isn’t available (it’s {status})."
     }
+  },
+  "shipping": {
+    "title": "Physical SIM orders",
+    "intro": "Paid SIM card orders to post from Belgium. To ship one, scan or type the ICCID printed on the card you’re sending (it must be an available physical SIM in stock) and add the tracking number if there is one: the card is then assigned to the customer and they get a “shipped” email.",
+    "salesOff": "SIM card sales are switched off (PHYSICAL_SIM_ENABLED), so no new orders arrive.",
+    "filters": {
+      "awaiting": "Awaiting shipment",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "all": "All"
+    },
+    "none": "No orders here.",
+    "columns": {
+      "order": "Order",
+      "customer": "Customer",
+      "shipTo": "Ship to",
+      "status": "Status",
+      "action": "Action"
+    },
+    "paid": "Paid {date}",
+    "refunded": "Refunded — don’t ship",
+    "noAddress": "No address from Stripe — contact the customer",
+    "customs": "Outside the EU — customs declaration",
+    "posted": "Posted {date}",
+    "tracking": "Tracking: {number}",
+    "delivered": "Delivered {date}",
+    "iccidPlaceholder": "Scan or type the card’s ICCID",
+    "iccidAria": "ICCID of the SIM card for ORD-{id}",
+    "trackingPlaceholder": "Tracking number (optional)",
+    "trackingAria": "Tracking number for ORD-{id}",
+    "markShipped": "Mark shipped & email customer",
+    "markDelivered": "Mark delivered",
+    "confirmDelivered": "Mark ORD-{id} as delivered?"
   }
 }

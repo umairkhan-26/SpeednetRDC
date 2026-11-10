@@ -44,8 +44,9 @@ export default async function AdminSimDetailPage({ params }: { params: Promise<{
   const { iccid } = await params;
   if (!/^\d{10,25}$/.test(iccid)) notFound();
   const sales = await getSoldSimsByIccid(iccid);
-  const sim = sales[0];
+  const sim = sales.find((s) => s.productType !== "topup") ?? sales[0];
   if (!sim) notFound();
+  const topUps = sales.filter((s) => s.productType === "topup");
 
   const t = await getAdminT();
   const d = (key: string, values?: Record<string, string | number>) => t(`simDetail.${key}`, values);
@@ -101,6 +102,7 @@ export default async function AdminSimDetailPage({ params }: { params: Promise<{
             ) : null}
           </Row>
           {sales.length > 1 && <Row label={d("rows.earlierOrders")}>{sales.slice(1).map((s) => `ORD-${s.orderId}`).join(", ")}</Row>}
+          {topUps.length > 0 && <Row label={d("rows.dataAddedLater")}>{topUps.map((s) => `ORD-${s.orderId} (${s.planName})`).join(", ")}</Row>}
         </Section>
 
         <Section title={d("sections.customer")}>

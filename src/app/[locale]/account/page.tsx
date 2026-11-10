@@ -4,6 +4,8 @@ import { pageMetadata } from "@/i18n/metadata";
 import { getCustomerEmail } from "@/lib/customer/session";
 import { listOrdersForCustomer } from "@/lib/checkout/orders-repository";
 import AccountView, { type CustomerOrderSummary } from "./AccountView";
+import { isPhysicalSimEnabled } from "@/lib/physical-sim";
+import { getCustomerSimStatuses } from "@/lib/sims/customer-sims";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -22,9 +24,22 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
     planName: order.planName,
     countryName: order.countryName,
     createdAt: order.createdAt,
-    state: order.status === "refunded" ? "refunded" : order.provisioningStatus === "provisioned" ? "ready" : "preparing",
+    state:
+      order.status === "refunded"
+        ? "refunded"
+        : order.productType === "physical_sim"
+          ? order.shippingStatus === "awaiting" || !order.shippingStatus
+            ? "preparing"
+            : "ready"
+          : order.provisioningStatus === "provisioned"
+            ? "ready"
+            : "preparing",
     orderPath: order.status === "completed" && order.accessToken ? `/order/${order.accessToken}` : null,
+    productType: order.productType,
   }));
 
-  return <AccountView email={email} orders={orders} />;
+  // "My SIMs" (plans, data left, Buy more data) comes with the physical SIM / top-up feature.
+  const sims = isPhysicalSimEnabled() ? await getCustomerSimStatuses(email) : [];
+
+  return <AccountView email={email} orders={orders} sims={sims} />;
 }

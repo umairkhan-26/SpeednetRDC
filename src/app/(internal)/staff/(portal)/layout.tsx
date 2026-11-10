@@ -5,6 +5,7 @@ import { getStaffSession } from "@/lib/staff/auth";
 import { logoutAction } from "@/lib/staff/actions";
 import { getAdminT } from "@/i18n/admin";
 import AdminLanguageSwitcher from "@/components/staff/AdminLanguageSwitcher";
+import { isPhysicalSimEnabled } from "@/lib/physical-sim";
 
 export default async function StaffPortalLayout({ children }: { children: ReactNode }) {
   const session = await getStaffSession();
@@ -33,6 +34,11 @@ export default async function StaffPortalLayout({ children }: { children: ReactN
             <Link href="/staff/messages" className="hover:text-orange">
               {t("portal.messages")}
             </Link>
+            {isPhysicalSimEnabled() && (
+              <Link href="/staff/shipping" className="hover:text-orange">
+                {t("portal.shipping")}
+              </Link>
+            )}
             {session.role === "admin" && (
               <Link href="/admin" className="hover:text-orange">
                 {t("portal.adminPanel")}

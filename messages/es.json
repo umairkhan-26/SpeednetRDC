@@ -126,7 +126,20 @@
     "viewEsim": "Ver eSIM y código QR",
     "preparingNote": "Te enviaremos un correo en cuanto esté lista.",
     "help": "¿Falta un pedido? Aparece con el correo usado al pagar. ¿Necesitas ayuda?",
-    "contactSupport": "Contactar con soporte"
+    "contactSupport": "Contactar con soporte",
+    "mySimsTitle": "Mis SIM",
+    "mySimsSubtitle": "Tus SIM y los planes de datos que tienen.",
+    "simCard": "Tarjeta SIM",
+    "esim": "eSIM",
+    "ending": "terminada en {digits}",
+    "noPlan": "Esta SIM no tiene ningún plan de datos ahora mismo.",
+    "planActive": "Activo",
+    "planWaiting": "Empieza cuando te conectes por primera vez en un país cubierto",
+    "dataLeft": "Quedan {left} de {total}",
+    "expires": "Caduca el {date}",
+    "buyMore": "Comprar más datos",
+    "checkedAt": "Comprobado {time}",
+    "viewOrder": "Ver pedido"
   },
   "homePhysicalSim": {
     "eyebrow": "Tarjeta SIM física · Próximamente",
@@ -178,11 +191,146 @@
       "whenA": "Pronto. Escríbenos a {email} y te avisaremos en cuanto se pueda pedir."
     }
   },
+  "physicalSimShop": {
+    "metaTitle": "Tarjeta SIM física — SpeedNetRDC",
+    "eyebrow": "Tarjeta SIM física",
+    "title": "¿Tu móvil no tiene eSIM? Consigue una tarjeta SIM de SpeedNetRDC",
+    "subtitle": "Una tarjeta SIM de verdad para cualquier móvil libre. Quédatela y añade un plan de datos en nuestra web cada vez que viajes.",
+    "priceTitle": "Precio",
+    "simLine": "Tarjeta SIM",
+    "shippingLine": "Envío (Europa)",
+    "feesLine": "Impuestos y tasas",
+    "total": "Total",
+    "taxFinal": "Precios finales.",
+    "taxSurcharge": "Incluye un 5 % de impuestos y tasas.",
+    "taxVat": "Incluye {vat} de IVA (21 %).",
+    "features": {
+      "shipsFrom": "Enviada desde Bélgica",
+      "delivery": "Entrega en 3–5 días laborables en toda Europa",
+      "unlocked": "Funciona en cualquier móvil libre",
+      "keep": "Tuya para siempre: añade datos cada vez que viajes"
+    },
+    "howTitle": "Cómo funciona",
+    "steps": {
+      "orderTitle": "Pide",
+      "orderText": "Pide tu tarjeta SIM aquí y paga de forma segura.",
+      "shipTitle": "La enviamos",
+      "shipText": "La enviamos desde Bélgica; llega en 3–5 días laborables.",
+      "insertTitle": "Insértala",
+      "insertText": "Pon la SIM en cualquier móvil libre.",
+      "buyTitle": "Compra un plan",
+      "buyText": "Elige un plan para tu destino y selecciona «Añadir a mi SIM».",
+      "connectTitle": "Conéctate",
+      "connectText": "Tu plan empieza la primera vez que te conectas en un país cubierto."
+    },
+    "orderTitle": "Pide tu tarjeta SIM",
+    "nameLabel": "Nombre completo",
+    "emailLabel": "Correo electrónico",
+    "emailHint": "Te enviaremos aquí el seguimiento. Inicia sesión con este correo para ver tu SIM en Mis SIM.",
+    "addressNote": "Introducirás la dirección de envío en la página de pago segura. Enviamos a la UE, Reino Unido, Suiza, Noruega e Islandia.",
+    "oneSim": "Una tarjeta SIM por pedido.",
+    "submit": "Continuar al pago · {total}",
+    "submitting": "Abriendo el pago seguro…",
+    "invalid": "Introduce tu nombre completo y un correo válido.",
+    "error": "Algo ha fallado. Inténtalo de nuevo.",
+    "faqTitle": "Preguntas",
+    "faq": {
+      "whatQ": "¿Qué es la tarjeta SIM de SpeedNetRDC?",
+      "whatA": "Una tarjeta SIM física para móviles sin eSIM. Llega sin plan: añades un plan de datos para los países que visites, cuando lo necesites.",
+      "phonesQ": "¿En qué móviles funciona?",
+      "phonesA": "En cualquier móvil que no esté bloqueado por un operador y admita una tarjeta SIM estándar.",
+      "shippingQ": "¿A dónde enviáis y cuánto tarda?",
+      "shippingA": "Enviamos desde Bélgica a estos países: {countries}. La entrega tarda 3–5 días laborables desde el envío.",
+      "customsQ": "¿Hay aranceles fuera de la UE?",
+      "customsA": "Los paquetes al Reino Unido, Suiza, Noruega e Islandia pasan por aduana. Los posibles cargos de importación de esos países se pagan a la entrega.",
+      "keepQ": "¿Cuánto tiempo puedo conservar la SIM?",
+      "keepA": "Es tuya: no tiene fecha de fin fija. Una SIM sin usar durante {period} se desactiva.",
+      "dataQ": "¿Cómo añado datos?",
+      "dataA": "Elige cualquier plan en nuestra web y selecciona «Añadir a mi SIM»; después introduce el número impreso en tu tarjeta SIM, o elígela en Mis SIM con la sesión iniciada.",
+      "startQ": "¿Cuándo empieza un plan?",
+      "startA": "La primera vez que tu móvil se conecta en un país que cubre el plan {window}.",
+      "twoQ": "¿Y si tengo dos planes para el mismo país?",
+      "twoA": "Los planes se acumulan: cada uno conserva sus datos y su caducidad. {priority}",
+      "returnsQ": "¿Puedo devolver la tarjeta SIM?",
+      "returnsA": "{returns}"
+    }
+  },
   "consent": {
     "title": "Cookies",
     "text": "Nos gustaría usar cookies de Meta (Facebook) para medir nuestros anuncios y mostrarte anuncios relevantes. Solo se usan si aceptas. Puedes cambiar tu elección en cualquier momento en «Configuración de cookies», al final de la página.",
     "accept": "Aceptar",
     "reject": "Rechazar",
     "learnMore": "Política de privacidad"
+  },
+  "checkout": {
+    "summary": {
+      "addedTo": "Se añade a",
+      "simEnding": "SIM terminada en {last4}",
+      "chooseSim": "Tu SIM (elígela)",
+      "footerTopUp": "Pago cifrado · Se añade a tu SIM en minutos · Solicitudes de reembolso: contact@speednetrdc.com"
+    },
+    "planStep": {
+      "subtitleTopUp": "Este plan se añadirá a una SIM que ya tienes: no hay que instalar ninguna eSIM nueva."
+    },
+    "paymentStep": {
+      "consentTopUp": "Quiero que mi plan de datos se entregue inmediatamente después del pago y entiendo que pierdo mi derecho de desistimiento de 14 días una vez entregado.",
+      "errorTopUpUnavailable": "Aún no se puede añadir un plan a una SIM existente.",
+      "errorTooMany": "Demasiados intentos. Inténtalo más tarde.",
+      "errorSimNotFound": "No hemos encontrado esa SIM. Comprueba el número impreso en tu tarjeta SIM."
+    }
+  },
+  "planDetail": {
+    "whereTitle": "¿Dónde quieres este plan?",
+    "newEsim": "eSIM nueva",
+    "newEsimHint": "Recibe una eSIM nueva con este plan",
+    "addToSim": "Añadir a mi SIM",
+    "addToSimHint": "Ponlo en una SIM que ya tienes",
+    "buyTopUp": "Añadir este plan a mi SIM"
+  },
+  "orderPage": {
+    "sim": {
+      "awaitingTitle": "Tu SIM está en camino",
+      "shippedTitle": "Tu SIM ya está en el correo",
+      "deliveredTitle": "Tu SIM ha sido entregada",
+      "awaitingText": "Estamos preparando tu tarjeta SIM. Sale desde Bélgica y suele llegar entre 3 y 5 días hábiles después del envío. Te escribiremos cuando la enviemos.",
+      "shippedText": "Tu tarjeta SIM ya se ha enviado y suele llegar en 3 a 5 días hábiles.",
+      "deliveredText": "Tu tarjeta SIM ha llegado. Insértala y añádele un plan de datos.",
+      "shippingTo": "Envío a",
+      "status": "Estado",
+      "paid": "Pagado · {date}",
+      "posted": "Enviado · {date}",
+      "tracking": "Número de seguimiento:",
+      "delivered": "Entregado · {date}",
+      "iccid": "Número de SIM (ICCID):",
+      "whenArrives": "Cuando llegue",
+      "step1": "Inserta la SIM en cualquier teléfono libre.",
+      "step2": "Cómprale un plan de datos: elige un plan en nuestra web y selecciona «Añadir a mi SIM».",
+      "step3": "Activa la itinerancia de datos para esta SIM. Tu plan empieza la primera vez que te conectes en un país incluido.",
+      "keep": "Es tuya: añade más datos cada vez que viajes. Una SIM sin usar durante {period} se desactiva."
+    },
+    "topup": {
+      "readyTitle": "Tu plan ya está en tu SIM",
+      "readyText": "{plan} se ha añadido a tu SIM terminada en {ending}. No hay nada que instalar: el plan empieza la primera vez que tu teléfono se conecte en un país incluido {window}. Asegúrate de tener activada la itinerancia de datos para esta SIM.",
+      "failedTitle": "Tu plan necesita un poco más de tiempo",
+      "addingTitle": "Añadiendo tu plan a la SIM terminada en {ending}",
+      "failedText": "Tu pago se ha realizado, pero hubo un problema al añadir el plan automáticamente. Nuestro equipo ya está avisado: lo terminará y te contactará en {email} si hace falta.",
+      "addingText": "Tu pago se ha realizado. Suele tardar menos de un minuto: actualiza esta página en un momento."
+    }
+  },
+  "topUpPicker": {
+    "title": "¿A qué SIM añadimos este plan?",
+    "simCard": "Tarjeta SIM terminada en {last4}",
+    "esim": "eSIM terminada en {last4}",
+    "orAnother": "O introduce abajo el número de otra SIM.",
+    "iccidLabel": "Número de SIM (ICCID)",
+    "check": "Comprobar SIM",
+    "checking": "Comprobando…",
+    "hint": "Viene impreso en tu tarjeta SIM. Para una eSIM comprada aquí, inicia sesión con el correo de tu pedido y elígela entre tus SIM.",
+    "willAdd": "Este plan se añadirá a tu {sim}.",
+    "errors": {
+      "unavailable": "Aún no se pueden añadir datos a una SIM existente.",
+      "tooMany": "Demasiados intentos. Inténtalo más tarde.",
+      "notFound": "No hemos encontrado esa SIM. Comprueba el número impreso en tu tarjeta SIM."
+    }
   }
 }

@@ -9,6 +9,19 @@ const newAccessToken = () => randomBytes(24).toString("base64url");
 
 export type PaymentStatus = "pending" | "completed" | "refunded" | "failed";
 export type ProvisioningStatus = "pending" | "activating" | "provisioned" | "failed";
+/** esim: a new eSIM · physical_sim: a SIM card shipped by post · topup: a plan for a SIM the customer already has. */
+export type ProductType = "esim" | "physical_sim" | "topup";
+export type ShippingStatus = "awaiting" | "shipped" | "delivered";
+
+export interface ShippingAddress {
+  name: string | null;
+  line1: string | null;
+  line2: string | null;
+  postalCode: string | null;
+  city: string | null;
+  state: string | null;
+  country: string | null;
+}
 
 export interface CheckoutOrder {
   id: number;
@@ -38,6 +51,14 @@ export interface CheckoutOrder {
   planCostEur: number | null;
   /** Stripe's fee for the payment, once fetched. */
   stripeFeeEur: number | null;
+  productType: ProductType;
+  shippingAddress: ShippingAddress | null;
+  shippingCountry: string | null;
+  shippingEur: number | null;
+  shippingStatus: ShippingStatus | null;
+  shippedAt: string | null;
+  deliveredAt: string | null;
+  trackingNumber: string | null;
   createdAt: string;
 }
 
@@ -67,7 +88,24 @@ interface OrderRow extends RowDataPacket {
   withdrawal_consent_at?: string | null;
   plan_cost_eur?: string | null;
   stripe_fee_eur?: string | null;
+  product_type?: ProductType;
+  shipping_address?: string | null;
+  shipping_country?: string | null;
+  shipping_eur?: string | null;
+  shipping_status?: ShippingStatus | null;
+  shipped_at?: string | null;
+  delivered_at?: string | null;
+  tracking_number?: string | null;
   created_at: string;
+}
+
+function parseAddress(json: string | null | undefined): ShippingAddress | null {
+  if (!json) return null;
+  try {
+    return JSON.parse(json) as ShippingAddress;
+  } catch {
+    return null;
+  }
 }
 
 function toCheckoutOrder(row: OrderRow): CheckoutOrder {
@@ -97,6 +135,14 @@ function toCheckoutOrder(row: OrderRow): CheckoutOrder {
     withdrawalConsentAt: fromMySQLDateTime(row.withdrawal_consent_at ?? null),
     planCostEur: row.plan_cost_eur == null ? null : Number(row.plan_cost_eur),
     stripeFeeEur: row.stripe_fee_eur == null ? null : Number(row.stripe_fee_eur),
+    productType: row.product_type ?? "esim",
+    shippingAddress: parseAddress(row.shipping_address),
+    shippingCountry: row.shipping_country ?? null,
+    shippingEur: row.shipping_eur == null ? null : Number(row.shipping_eur),
+    shippingStatus: row.shipping_status ?? null,
+    shippedAt: fromMySQLDateTime(row.shipped_at ?? null),
+    deliveredAt: fromMySQLDateTime(row.delivered_at ?? null),
+    trackingNumber: row.tracking_number ?? null,
     createdAt: fromMySQLDateTime(row.created_at),
   };
 }
@@ -110,27 +156,40 @@ export async function createPendingOrder(input: {
   customerEmail: string;
   amountEur: number;
   locale: string;
+  /** For a top-up: the ICCID of the customer's existing SIM (already verified). */
+  topUpIccid?: string;
 }): Promise<CheckoutOrder> {
   const pool = await getPool();
   const now = new Date();
   const accessToken = newAccessToken();
-  const [result] = await pool.query<ResultSetHeader>(
-    `INSERT INTO orders
-      (plan_id, plan_name, country_name, country_code, customer_name, customer_email, amount_eur, status, access_token, locale, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?)`,
-    [
-      input.planId,
-      input.planName,
-      input.countryName,
-      input.countryCode,
-      input.customerName,
-      input.customerEmail,
-      input.amountEur,
-      accessToken,
-      input.locale,
-      toMySQLDateTime(now),
-    ]
-  );
+  const values = [
+    input.planId,
+    input.planName,
+    input.countryName,
+    input.countryCode,
+    input.customerName,
+    input.customerEmail,
+    input.amountEur,
+    accessToken,
+    input.locale,
+    toMySQLDateTime(now),
+  ];
+  // A top-up is created with its target SIM in a single INSERT, so it can
+  // never exist, even for a moment, as a plain eSIM order (which would get a
+  // new eSIM reserved). The eSIM INSERT itself is unchanged.
+  const [result] = input.topUpIccid
+    ? await pool.query<ResultSetHeader>(
+        `INSERT INTO orders
+          (plan_id, plan_name, country_name, country_code, customer_name, customer_email, amount_eur, status, access_token, locale, created_at, product_type, iccid)
+         VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?, 'topup', ?)`,
+        [...values, input.topUpIccid]
+      )
+    : await pool.query<ResultSetHeader>(
+        `INSERT INTO orders
+          (plan_id, plan_name, country_name, country_code, customer_name, customer_email, amount_eur, status, access_token, locale, created_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?)`,
+        values
+      );
   const planCostEur = getPlanCostEur(input.planId);
   await recordPlanCost(result.insertId, planCostEur);
   return {
@@ -145,7 +204,7 @@ export async function createPendingOrder(input: {
     status: "pending",
     stripeCheckoutSessionId: null,
     stripePaymentIntentId: null,
-    iccid: null,
+    iccid: input.topUpIccid ?? null,
     lpaActivationCode: null,
     msisdn: null,
     provisioningStatus: "pending",
@@ -159,6 +218,14 @@ export async function createPendingOrder(input: {
     withdrawalConsentAt: null,
     planCostEur,
     stripeFeeEur: null,
+    productType: input.topUpIccid ? "topup" : "esim",
+    shippingAddress: null,
+    shippingCountry: null,
+    shippingEur: null,
+    shippingStatus: null,
+    shippedAt: null,
+    deliveredAt: null,
+    trackingNumber: null,
     createdAt: now.toISOString(),
   };
 }
@@ -481,4 +548,156 @@ export async function completeProvisioning(
 export async function markProvisioningFailed(orderId: number): Promise<void> {
   const pool = await getPool();
   await pool.query("UPDATE orders SET provisioning_status = 'failed' WHERE id = ?", [orderId]);
+}
+
+// --- Physical SIM cards ------------------------------------------------------
+
+/** A SIM card order, before payment. The address comes from Stripe Checkout once paid. */
+export async function createPhysicalSimOrder(input: {
+  customerName: string;
+  customerEmail: string;
+  amountEur: number;
+  shippingEur: number;
+  locale: string;
+}): Promise<CheckoutOrder> {
+  const pool = await getPool();
+  const [result] = await pool.query<ResultSetHeader>(
+    `INSERT INTO orders
+      (plan_id, plan_name, country_name, country_code, customer_name, customer_email, amount_eur, status, access_token, locale, created_at, product_type, shipping_eur)
+     VALUES (NULL, 'Physical SIM card', 'Europe', 'EU', ?, ?, ?, 'pending', ?, ?, ?, 'physical_sim', ?)`,
+    [input.customerName, input.customerEmail, input.amountEur, newAccessToken(), input.locale, toMySQLDateTime(new Date()), input.shippingEur]
+  );
+  const order = await getOrderById(result.insertId);
+  if (!order) throw new Error("Physical SIM order not found after insert");
+  return order;
+}
+
+/** Saves the address Stripe collected and queues the card for shipping. Idempotent (webhook redeliveries). */
+export async function recordShippingDetails(orderId: number, address: ShippingAddress): Promise<void> {
+  const pool = await getPool();
+  await pool.query(
+    `UPDATE orders SET shipping_address = ?, shipping_country = ?, shipping_status = 'awaiting'
+     WHERE id = ? AND product_type = 'physical_sim' AND shipping_status IS NULL`,
+    [JSON.stringify(address), address.country, orderId]
+  );
+}
+
+/** Paid SIM card orders for the shipping list, waiting ones first. */
+export async function listPhysicalSimOrders(status: ShippingStatus | "all"): Promise<CheckoutOrder[]> {
+  const pool = await getPool();
+  const [rows] = await pool.query<OrderRow[]>(
+    `SELECT * FROM orders
+     WHERE product_type = 'physical_sim' AND status IN ('completed', 'refunded') AND shipping_status IS NOT NULL
+       ${status === "all" ? "" : "AND shipping_status = ?"}
+     ORDER BY FIELD(shipping_status, 'awaiting', 'shipped', 'delivered'), id ASC
+     LIMIT 500`,
+    status === "all" ? [] : [status]
+  );
+  return rows.map(toCheckoutOrder);
+}
+
+/** error is a key under admin.msg.shipping ("notAvailable" also has the SIM status). */
+export type ShipResult = { ok: true; msisdn: string | null } | { ok: false; error: "notPaidSim" | "alreadyShipped" | "notInStock" | "isEsim" | "notAvailable"; simStatus?: string };
+
+/**
+ * Records which card was posted: the ICCID must be an available physical SIM
+ * in stock. In one transaction the SIM is assigned to the order and the
+ * order marked shipped, so a card can never go to two customers.
+ */
+export async function shipPhysicalOrder(orderId: number, iccid: string, trackingNumber: string | null, staffId: number): Promise<ShipResult> {
+  const pool = await getPool();
+  const conn = await pool.getConnection();
+  try {
+    await conn.beginTransaction();
+    const fail = async (error: "notPaidSim" | "alreadyShipped" | "notInStock" | "isEsim" | "notAvailable", simStatus?: string): Promise<ShipResult> => {
+      await conn.rollback();
+      return { ok: false, error };
+    };
+    const [orders] = await conn.query<OrderRow[]>("SELECT * FROM orders WHERE id = ? FOR UPDATE", [orderId]);
+    const order = orders[0];
+    if (!order || order.product_type !== "physical_sim" || order.status !== "completed") return fail("notPaidSim");
+    if (order.shipping_status !== "awaiting") return fail("alreadyShipped");
+    const [sims] = await conn.query<(RowDataPacket & { sim_type: string; status: string; msisdn: string | null })[]>(
+      "SELECT sim_type, status, msisdn FROM sim_inventory WHERE iccid = ? FOR UPDATE",
+      [iccid]
+    );
+    const sim = sims[0];
+    if (!sim) return fail("notInStock");
+    if (sim.sim_type !== "physical") return fail("isEsim");
+    if (sim.status !== "available") return fail("notAvailable", sim.status);
+    const now = toMySQLDateTime(new Date());
+    await conn.query("UPDATE sim_inventory SET status = 'assigned', assigned_order_id = ? WHERE iccid = ? AND status = 'available'", [orderId, iccid]);
+    await conn.query(
+      `UPDATE orders SET iccid = ?, msisdn = ?, shipping_status = 'shipped', shipped_at = ?, tracking_number = ?, shipped_by = ?
+       WHERE id = ?`,
+      [iccid, sim.msisdn, now, trackingNumber, staffId, orderId]
+    );
+    await conn.commit();
+    return { ok: true, msisdn: sim.msisdn };
+  } catch (error) {
+    await conn.rollback();
+    throw error;
+  } finally {
+    conn.release();
+  }
+}
+
+export async function markPhysicalOrderDelivered(orderId: number): Promise<boolean> {
+  const pool = await getPool();
+  const [result] = await pool.query<ResultSetHeader>(
+    "UPDATE orders SET shipping_status = 'delivered', delivered_at = ? WHERE id = ? AND product_type = 'physical_sim' AND shipping_status = 'shipped'",
+    [toMySQLDateTime(new Date()), orderId]
+  );
+  return result.affectedRows === 1;
+}
+
+// --- Top-ups ------------------------------------------------------------------
+
+/** A top-up is done once its plan is on the SIM; there's no activation code to store. */
+export async function completeTopUp(orderId: number, msisdn: string): Promise<void> {
+  const pool = await getPool();
+  await pool.query("UPDATE orders SET msisdn = ?, provisioning_status = 'provisioned', provisioned_at = ? WHERE id = ? AND product_type = 'topup'", [
+    msisdn,
+    toMySQLDateTime(new Date()),
+    orderId,
+  ]);
+}
+
+/** Of these Transatel subscription ids, the ones already recorded on an order other than this one. */
+export async function listSubscriptionIdsClaimedByOtherOrders(subscriptionIds: string[], orderId: number): Promise<Set<string>> {
+  if (subscriptionIds.length === 0) return new Set();
+  const pool = await getPool();
+  const [rows] = await pool.query<(RowDataPacket & { transatel_order_id: string })[]>(
+    "SELECT transatel_order_id FROM orders WHERE transatel_order_id IN (?) AND id <> ?",
+    [subscriptionIds, orderId]
+  );
+  return new Set(rows.map((r) => r.transatel_order_id));
+}
+
+export interface CustomerSim {
+  iccid: string;
+  simType: "esim" | "physical";
+  /** The order the SIM came with (the eSIM order, or the card's order). */
+  orderId: number;
+  orderAccessToken: string | null;
+}
+
+/**
+ * The SIMs a customer owns, by checkout email: delivered eSIMs and SIM
+ * cards that have been shipped. Top-up orders add plans, not SIMs.
+ */
+export async function listCustomerSims(email: string): Promise<CustomerSim[]> {
+  const pool = await getPool();
+  const [rows] = await pool.query<(RowDataPacket & { id: number; iccid: string; product_type: ProductType; access_token: string | null })[]>(
+    `SELECT id, iccid, product_type, access_token FROM orders
+     WHERE ${CUSTOMER_ORDERS_SQL} AND status = 'completed' AND iccid IS NOT NULL
+       AND ((product_type = 'esim' AND provisioning_status = 'provisioned')
+         OR (product_type = 'physical_sim' AND shipping_status IN ('shipped', 'delivered')))
+     ORDER BY id DESC`,
+    [email.trim().toLowerCase()]
+  );
+  const seen = new Set<string>();
+  return rows
+    .filter((r) => !seen.has(r.iccid) && seen.add(r.iccid))
+    .map((r) => ({ iccid: r.iccid, simType: r.product_type === "physical_sim" ? "physical" : "esim", orderId: r.id, orderAccessToken: r.access_token }));
 }

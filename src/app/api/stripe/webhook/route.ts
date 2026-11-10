@@ -5,6 +5,7 @@ import { markOrderFailed, markOrderPaid, recordBillingCountry } from "@/lib/chec
 import { provisionEsimOrder } from "@/lib/transatel/provisioning";
 import { recordStripeFeeForOrder } from "@/lib/checkout/stripe-fees";
 import { sendMetaPurchase } from "@/lib/meta/capi";
+import { fulfilPaidPhysicalSim } from "@/lib/checkout/physical-fulfilment";
 
 function orderIdFromMetadata(metadata: Stripe.Metadata | null | undefined): number | null {
   const raw = metadata?.order_id;
@@ -39,6 +40,9 @@ export async function POST(request: Request) {
           typeof session.payment_intent === "string" ? session.payment_intent : (session.payment_intent?.id ?? null);
         await markOrderPaid(orderId, paymentIntentId);
         await recordBillingCountry(orderId, session.customer_details?.address?.country);
+        // SIM card orders: save the shipping address, email "on its way".
+        // No-op for eSIM and top-up orders (provisioned just below).
+        await fulfilPaidPhysicalSim(orderId, session);
         // Meta Conversions API Purchase, only if the buyer accepted Meta
         // cookies. It runs after Stripe has its response, never throws, and
         // doesn't depend on provisioning succeeding.

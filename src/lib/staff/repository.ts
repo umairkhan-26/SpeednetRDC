@@ -3,8 +3,10 @@ import { fromMySQLDateTime, getPool, toMySQLDateTime } from "./db";
 import { LIVE_ORDER_SQL, orderKind } from "@/lib/checkout/order-kind";
 import { ensurePlanCostsBackfilled } from "@/lib/checkout/orders-repository";
 
-/** A paid order whose eSIM was delivered: the only kind that has a cost. */
+/** A paid order whose plan was delivered: the only kind that has a cost. */
 const DELIVERED_SQL = "status = 'completed' AND provisioning_status = 'provisioned'";
+/** Data plans (new eSIMs and top-ups) — SIM card sales are left out of cost and profit for now. */
+const DATA_PLAN_SQL = "product_type <> 'physical_sim'";
 import type {
   Complaint,
   ComplaintStatus,
@@ -269,6 +271,8 @@ interface OrderRow extends RowDataPacket {
   status: OrderStatus;
   provisioning_status: DeliveryStatus;
   stripe_checkout_session_id: string | null;
+  product_type?: StoreOrder["productType"];
+  shipping_status?: StoreOrder["shippingStatus"];
   created_at: string;
 }
 
@@ -284,6 +288,8 @@ function toOrder(row: OrderRow): StoreOrder {
     status: row.status,
     deliveryStatus: row.provisioning_status,
     kind: orderKind(row.stripe_checkout_session_id),
+    productType: row.product_type ?? "esim",
+    shippingStatus: row.shipping_status ?? null,
     createdAt: fromMySQLDateTime(row.created_at),
   };
 }
@@ -321,6 +327,10 @@ export async function getOrderStats(): Promise<{
   stripeFees: number;
   /** Paid orders whose Stripe fee hasn't been fetched yet. */
   ordersWithoutStripeFee: number;
+  /** Revenue from data plans only — the basis of cost, profit and margin. */
+  dataPlanRevenue: number;
+  /** Revenue from SIM card sales (card + shipping); counted in totalRevenue, not in profit. */
+  simCardRevenue: number;
 }> {
   await ensurePlanCostsBackfilled();
   const pool = await getPool();
@@ -333,21 +343,24 @@ export async function getOrderStats(): Promise<{
       cost_unknown: string | number | null;
       fees: string | null;
       fees_missing: string | number | null;
+      plan_revenue: string | null;
     })[]
   >(
     `SELECT COUNT(*) AS total,
             SUM(status = 'completed') AS completed,
             SUM(CASE WHEN status = 'completed' THEN amount_eur ELSE 0 END) AS revenue,
+            SUM(CASE WHEN status = 'completed' AND ${DATA_PLAN_SQL} THEN amount_eur ELSE 0 END) AS plan_revenue,
             SUM(CASE WHEN ${DELIVERED_SQL} THEN COALESCE(plan_cost_eur, 0) ELSE 0 END) AS cost,
             SUM(CASE WHEN ${DELIVERED_SQL} AND plan_cost_eur IS NULL THEN 1 ELSE 0 END) AS cost_unknown,
-            SUM(CASE WHEN status = 'completed' THEN COALESCE(stripe_fee_eur, 0) ELSE 0 END) AS fees,
-            SUM(CASE WHEN status = 'completed' AND stripe_fee_eur IS NULL THEN 1 ELSE 0 END) AS fees_missing
+            SUM(CASE WHEN status = 'completed' AND ${DATA_PLAN_SQL} THEN COALESCE(stripe_fee_eur, 0) ELSE 0 END) AS fees,
+            SUM(CASE WHEN status = 'completed' AND ${DATA_PLAN_SQL} AND stripe_fee_eur IS NULL THEN 1 ELSE 0 END) AS fees_missing
      FROM orders WHERE ${LIVE_ORDER_SQL}`
   );
   const r = rows[0];
   const revenue = Number(r.revenue ?? 0);
+  const planRevenue = Number(r.plan_revenue ?? 0);
   const cost = Number(r.cost ?? 0);
-  const profit = Math.round((revenue - cost) * 100) / 100;
+  const profit = Math.round((planRevenue - cost) * 100) / 100;
   const completed = Number(r.completed ?? 0);
   return {
     totalRevenue: revenue,
@@ -355,10 +368,12 @@ export async function getOrderStats(): Promise<{
     conversionRate: r.total > 0 ? (completed / r.total) * 100 : 0,
     totalCost: cost,
     totalProfit: profit,
-    profitMargin: revenue > 0 ? (profit / revenue) * 100 : null,
+    profitMargin: planRevenue > 0 ? (profit / planRevenue) * 100 : null,
     ordersWithoutCost: Number(r.cost_unknown ?? 0),
     stripeFees: Number(r.fees ?? 0),
     ordersWithoutStripeFee: Number(r.fees_missing ?? 0),
+    dataPlanRevenue: planRevenue,
+    simCardRevenue: Math.round((revenue - planRevenue) * 100) / 100,
   };
 }
 
@@ -366,8 +381,9 @@ export async function getOrderStats(): Promise<{
 export async function getRevenueByDay(days = 14): Promise<{ date: string; revenue: number; profit: number }[]> {
   await ensurePlanCostsBackfilled();
   const pool = await getPool();
-  const [rows] = await pool.query<(RowDataPacket & { date: string; revenue: string | null; cost: string | null })[]>(
+  const [rows] = await pool.query<(RowDataPacket & { date: string; revenue: string | null; plan_revenue: string | null; cost: string | null })[]>(
     `SELECT DATE(created_at) AS date, SUM(amount_eur) AS revenue,
+            SUM(CASE WHEN ${DATA_PLAN_SQL} THEN amount_eur ELSE 0 END) AS plan_revenue,
             SUM(CASE WHEN provisioning_status = 'provisioned' THEN COALESCE(plan_cost_eur, 0) ELSE 0 END) AS cost
      FROM orders
      WHERE status = 'completed' AND ${LIVE_ORDER_SQL} AND created_at >= DATE_SUB(NOW(), INTERVAL ? DAY)
@@ -377,7 +393,7 @@ export async function getRevenueByDay(days = 14): Promise<{ date: string; revenu
   );
   return rows.map((r) => {
     const revenue = r.revenue ? Number(r.revenue) : 0;
-    return { date: r.date, revenue, profit: Math.round((revenue - Number(r.cost ?? 0)) * 100) / 100 };
+    return { date: r.date, revenue, profit: Math.round((Number(r.plan_revenue ?? 0) - Number(r.cost ?? 0)) * 100) / 100 };
   });
 }
 
@@ -403,7 +419,7 @@ export async function getTopCountries(
   >(
     `SELECT country_name AS countryName, country_code AS countryCode, COUNT(*) AS orders
      FROM orders
-     WHERE status = 'completed' AND ${LIVE_ORDER_SQL}
+     WHERE status = 'completed' AND ${LIVE_ORDER_SQL} AND ${DATA_PLAN_SQL}
      GROUP BY country_code, country_name
      ORDER BY orders DESC
      LIMIT ?`,

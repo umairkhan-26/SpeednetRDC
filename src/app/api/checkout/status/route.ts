@@ -44,6 +44,7 @@ export async function GET(request: Request) {
   return NextResponse.json({
     status: order.status,
     provisioningStatus: order.provisioningStatus,
+    productType: order.productType,
     accessToken: order.status === "completed" ? order.accessToken : null,
     metaPurchase: consent ? { eventId: consent.eventId, value: Number(order.amountEur), currency: "EUR", contentId: order.planId } : null,
   });

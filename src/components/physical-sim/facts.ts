@@ -1,5 +1,4 @@
-// Confirmed facts for the information-only Physical SIM page and homepage
-// section (no ordering yet — that lives on the physical-sim branch).
-export const SIM_CARD_PRICE_EUR = 5;
-export const SHIPPING_PRICE_EUR = 5;
+// Facts shared by the Physical SIM info page and the homepage section.
+// Prices live in src/lib/physical-sim.ts (also used by the card checkout).
+export { SHIPPING_PRICE_EUR, SIM_CARD_PRICE_EUR } from "@/lib/physical-sim";
 export const CONTACT_EMAIL = "contact@speednetrdc.com";

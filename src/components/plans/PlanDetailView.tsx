@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { Clock, Database, Network, ShieldCheck, Signal, Smartphone, Undo2, Wifi } from "lucide-react";
@@ -17,18 +17,24 @@ export default function PlanDetailView({
   subtitle,
   iconSlot,
   salesPaused,
+  topUpEnabled = false,
 }: {
   plan: Plan;
   title: string;
   subtitle: string;
   iconSlot: React.ReactNode;
   salesPaused: boolean;
+  /** Offer "Add to my SIM" (physical SIM / top-up feature switched on). */
+  topUpEnabled?: boolean;
 }) {
   const t = useTranslations("planDetail");
   const tCoverage = useTranslations("coverage");
   const names = useNames();
   const router = useRouter();
   const startCheckout = useCheckoutStore((s) => s.startCheckout);
+  const suggestedIccid = useCheckoutStore((s) => s.suggestedIccid);
+  const [choice, setChoice] = useState<"new" | "topup">(topUpEnabled && suggestedIccid ? "topup" : "new");
+  const mode = topUpEnabled ? choice : "new";
 
   const metaParams = { content_ids: [plan.id], content_name: plan.name, content_type: "product", value: plan.price, currency: "EUR" };
 
@@ -38,7 +44,7 @@ export default function PlanDetailView({
 
   function handleBuy() {
     trackMeta("AddToCart", metaParams);
-    startCheckout(plan);
+    startCheckout(plan, mode);
     router.push("/checkout");
   }
 
@@ -83,9 +89,33 @@ export default function PlanDetailView({
           {salesPaused ? (
             <EsimSalesPausedNotice />
           ) : (
-            <Button onClick={handleBuy} className="mt-6 w-full" size="lg">
-              {t("buy")}
-            </Button>
+            <>
+              {topUpEnabled && (
+                <div className="mt-5 grid grid-cols-2 gap-2 text-sm" role="radiogroup" aria-label={t("whereTitle")}>
+                  {(
+                    [
+                      ["new", t("newEsim"), t("newEsimHint")],
+                      ["topup", t("addToSim"), t("addToSimHint")],
+                    ] as const
+                  ).map(([value, label, hint]) => (
+                    <button
+                      key={value}
+                      type="button"
+                      role="radio"
+                      aria-checked={choice === value}
+                      onClick={() => setChoice(value)}
+                      className={`rounded-xl border p-3 text-left ${choice === value ? "border-orange bg-orange/5" : "border-line hover:border-ink/30"}`}
+                    >
+                      <span className="block font-semibold text-ink">{label}</span>
+                      <span className="block text-xs text-muted">{hint}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+              <Button onClick={handleBuy} className="mt-6 w-full" size="lg">
+                {mode === "topup" ? t("buyTopUp") : t("buy")}
+              </Button>
+            </>
           )}
           <LinkButton href="/device-compatibility" variant="outline" size="lg" className="mt-3 w-full">
             {t("checkDevice")}

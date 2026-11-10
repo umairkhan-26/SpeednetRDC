@@ -154,7 +154,20 @@
     "viewEsim": "Ver eSIM e QR code",
     "preparingNote": "Enviamos-lhe um e-mail assim que estiver pronto.",
     "help": "Falta alguma encomenda? Aparece associada ao e-mail usado na compra. Precisa de ajuda?",
-    "contactSupport": "Contactar o apoio"
+    "contactSupport": "Contactar o apoio",
+    "mySimsTitle": "Os meus SIM",
+    "mySimsSubtitle": "Os seus SIM e os tarifários de dados que têm.",
+    "simCard": "Cartão SIM",
+    "esim": "eSIM",
+    "ending": "terminado em {digits}",
+    "noPlan": "Este SIM não tem nenhum tarifário de dados neste momento.",
+    "planActive": "Ativo",
+    "planWaiting": "Começa na primeira vez que se ligar num país abrangido",
+    "dataLeft": "Restam {left} de {total}",
+    "expires": "Expira a {date}",
+    "buyMore": "Comprar mais dados",
+    "checkedAt": "Verificado às {time}",
+    "viewOrder": "Ver encomenda"
   },
   "homePhysicalSim": {
     "eyebrow": "Cartão SIM físico · Brevemente",
@@ -204,6 +217,70 @@
       "shippingA": "Enviamos da Bélgica para toda a Europa. A entrega demora 3 a 5 dias úteis.",
       "whenQ": "Quando posso encomendar?",
       "whenA": "Em breve. Envie-nos um e-mail para {email} e avisamos assim que for possível encomendar."
+    }
+  },
+  "physicalSimShop": {
+    "metaTitle": "Cartão SIM físico — SpeedNetRDC",
+    "eyebrow": "Cartão SIM físico",
+    "title": "O seu telemóvel não tem eSIM? Peça um cartão SIM SpeedNetRDC",
+    "subtitle": "Um cartão SIM a sério para qualquer telemóvel desbloqueado. Fica consigo, e pode adicionar um tarifário de dados no nosso site sempre que viajar.",
+    "priceTitle": "Preço",
+    "simLine": "Cartão SIM",
+    "shippingLine": "Envio (Europa)",
+    "feesLine": "Impostos e taxas",
+    "total": "Total",
+    "taxFinal": "Os preços são finais.",
+    "taxSurcharge": "Inclui 5% de impostos e taxas.",
+    "taxVat": "Inclui {vat} de IVA (21%).",
+    "features": {
+      "shipsFrom": "Enviado da Bélgica",
+      "delivery": "Entregue em 3 a 5 dias úteis em toda a Europa",
+      "unlocked": "Funciona em qualquer telemóvel desbloqueado",
+      "keep": "Fica consigo: adicione dados sempre que viajar"
+    },
+    "howTitle": "Como funciona",
+    "steps": {
+      "orderTitle": "Encomende",
+      "orderText": "Encomende aqui o seu cartão SIM e pague em segurança.",
+      "shipTitle": "Nós enviamos",
+      "shipText": "Enviamo-lo da Bélgica; chega em 3 a 5 dias úteis.",
+      "insertTitle": "Insira",
+      "insertText": "Coloque o SIM em qualquer telemóvel desbloqueado.",
+      "buyTitle": "Compre um tarifário de dados",
+      "buyText": "Escolha um tarifário para o seu destino e selecione «Adicionar ao meu SIM».",
+      "connectTitle": "Ligue-se",
+      "connectText": "O tarifário começa na primeira vez que se ligar num país abrangido."
+    },
+    "orderTitle": "Encomende o seu cartão SIM",
+    "nameLabel": "Nome completo",
+    "emailLabel": "Endereço de e-mail",
+    "emailHint": "Enviamos para aqui as novidades da encomenda. Mais tarde, inicie sessão com este e-mail para ver o seu SIM em Os meus SIM.",
+    "addressNote": "A morada de envio é introduzida na página de pagamento seguro. Enviamos para a UE, o Reino Unido, a Suíça, a Noruega e a Islândia.",
+    "oneSim": "Um cartão SIM por encomenda.",
+    "submit": "Continuar para o pagamento · {total}",
+    "submitting": "A abrir o pagamento seguro…",
+    "invalid": "Introduza o seu nome completo e um e-mail válido.",
+    "error": "Algo correu mal. Tente novamente.",
+    "faqTitle": "Perguntas",
+    "faq": {
+      "whatQ": "O que é o cartão SIM SpeedNetRDC?",
+      "whatA": "Um cartão SIM físico para telemóveis sem eSIM. Vem sem tarifário: adiciona um tarifário de dados para os países que visitar, sempre que precisar.",
+      "phonesQ": "Em que telemóveis funciona?",
+      "phonesA": "Em qualquer telemóvel que não esteja bloqueado a um operador e que aceite um cartão SIM normal.",
+      "shippingQ": "Para onde enviam e quanto tempo demora?",
+      "shippingA": "Enviamos da Bélgica para estes países: {countries}. A entrega demora 3 a 5 dias úteis depois do envio.",
+      "customsQ": "Há taxas alfandegárias fora da UE?",
+      "customsA": "As encomendas para o Reino Unido, a Suíça, a Noruega e a Islândia passam pela alfândega. Eventuais encargos de importação definidos por esses países são pagos na entrega.",
+      "keepQ": "Durante quanto tempo posso ficar com o SIM?",
+      "keepA": "Fica consigo: não há data de fim. Um SIM sem utilização durante {period} é desativado.",
+      "dataQ": "Como adiciono dados?",
+      "dataA": "Escolha qualquer tarifário no nosso site e selecione «Adicionar ao meu SIM». Depois introduza o número impresso no seu cartão SIM, ou escolha-o em Os meus SIM com a sessão iniciada.",
+      "startQ": "Quando começa um tarifário?",
+      "startA": "Na primeira vez que o seu telemóvel se ligar num país abrangido pelo tarifário {window}.",
+      "twoQ": "E se tiver dois tarifários para o mesmo país?",
+      "twoA": "Os tarifários acumulam-se: cada um mantém os seus dados e a sua validade. {priority}",
+      "returnsQ": "Posso devolver o cartão SIM?",
+      "returnsA": "{returns}"
     }
   },
   "meta": {
@@ -460,7 +537,13 @@
     "totalPrice": "Preço total",
     "buy": "Comprar este eSIM",
     "checkDevice": "Verificar compatibilidade",
-    "instantSecure": "Entrega imediata · Pagamento seguro"
+    "instantSecure": "Entrega imediata · Pagamento seguro",
+    "whereTitle": "Onde quer este tarifário?",
+    "newEsim": "Novo eSIM",
+    "newEsimHint": "Receba um novo eSIM com este tarifário",
+    "addToSim": "Adicionar ao meu SIM",
+    "addToSimHint": "Coloque-o num SIM que já tem",
+    "buyTopUp": "Adicionar este tarifário ao meu SIM"
   },
   "salesPaused": {
     "title": "As encomendas de eSIM estão temporariamente indisponíveis",
@@ -487,7 +570,8 @@
       "title": "Confirme o seu plano",
       "subtitle": "Verifique os detalhes antes de continuar.",
       "changePlan": "Não é o plano certo? Mudar de plano",
-      "continue": "Continuar"
+      "continue": "Continuar",
+      "subtitleTopUp": "Este tarifário será adicionado a um SIM que já tem: não precisa de instalar um novo eSIM."
     },
     "accountStep": {
       "title": "Os seus dados",
@@ -513,7 +597,11 @@
       "errorDetails": "Introduza um nome e um endereço de e-mail válidos.",
       "errorPlan": "Este plano já não está disponível. Escolha outro plano.",
       "errorConsent": "Assinale a caixa para confirmar a entrega imediata do seu eSIM.",
-      "errorGeneric": "Não foi possível iniciar o pagamento. Tente novamente."
+      "errorGeneric": "Não foi possível iniciar o pagamento. Tente novamente.",
+      "consentTopUp": "Quero que o meu tarifário de dados seja entregue imediatamente após o pagamento e compreendo que perco o meu direito de livre resolução de 14 dias depois de ser entregue.",
+      "errorTopUpUnavailable": "Ainda não é possível adicionar um tarifário a um SIM existente.",
+      "errorTooMany": "Demasiadas tentativas. Tente novamente mais tarde.",
+      "errorSimNotFound": "Não encontrámos esse SIM. Verifique o número impresso no seu cartão SIM."
     },
     "summary": {
       "title": "Resumo da encomenda",
@@ -524,7 +612,11 @@
       "price": "Preço",
       "taxes": "Impostos e taxas",
       "total": "Total",
-      "footer": "Pagamento encriptado · Entrega imediata · Pedidos de reembolso: contact@speednetrdc.com"
+      "footer": "Pagamento encriptado · Entrega imediata · Pedidos de reembolso: contact@speednetrdc.com",
+      "addedTo": "Adicionado a",
+      "simEnding": "SIM terminado em {last4}",
+      "chooseSim": "O seu SIM (escolha-o)",
+      "footerTopUp": "Pagamento encriptado · Adicionado ao seu SIM em minutos · Pedidos de reembolso: contact@speednetrdc.com"
     },
     "cancelled": {
       "title": "Compra cancelada",
@@ -573,7 +665,35 @@
     "qrWillAppear": "O seu QR code vai aparecer aqui quando estiver pronto, por isso guarde esta página nos favoritos.",
     "yourEmail": "o seu e-mail",
     "questions": "Tem dúvidas?",
-    "getHelp": "Obter ajuda"
+    "getHelp": "Obter ajuda",
+    "sim": {
+      "awaitingTitle": "O seu SIM está a caminho",
+      "shippedTitle": "O seu SIM já foi enviado",
+      "deliveredTitle": "O seu SIM foi entregue",
+      "awaitingText": "Estamos a preparar o seu cartão SIM. É enviado da Bélgica e costuma chegar 3 a 5 dias úteis depois do envio. Avisamos por e-mail quando for enviado.",
+      "shippedText": "O seu cartão SIM já foi enviado e costuma chegar em 3 a 5 dias úteis.",
+      "deliveredText": "O seu cartão SIM chegou. Insira-o e adicione-lhe um tarifário de dados.",
+      "shippingTo": "Envio para",
+      "status": "Estado",
+      "paid": "Paga · {date}",
+      "posted": "Enviado · {date}",
+      "tracking": "Número de seguimento:",
+      "delivered": "Entregue · {date}",
+      "iccid": "Número do SIM (ICCID):",
+      "whenArrives": "Quando chegar",
+      "step1": "Insira o SIM em qualquer telemóvel desbloqueado.",
+      "step2": "Compre-lhe um tarifário de dados: escolha um tarifário no nosso site e selecione «Adicionar ao meu SIM».",
+      "step3": "Ative o roaming de dados para este SIM. O tarifário começa na primeira vez que se ligar num país abrangido.",
+      "keep": "Fica consigo: adicione mais dados sempre que viajar. Um SIM sem utilização durante {period} é desativado."
+    },
+    "topup": {
+      "readyTitle": "O seu tarifário já está no seu SIM",
+      "readyText": "{plan} foi adicionado ao seu SIM terminado em {ending}. Não há nada para instalar: o tarifário começa na primeira vez que o seu telemóvel se ligar num país abrangido {window}. Confirme que o roaming de dados está ativo para este SIM.",
+      "failedTitle": "O seu tarifário precisa de mais algum tempo",
+      "addingTitle": "A adicionar o tarifário ao SIM terminado em {ending}",
+      "failedText": "O seu pagamento foi efetuado, mas houve um problema ao adicionar o tarifário automaticamente. A nossa equipa já foi avisada: vai concluí-lo e contactá-lo em {email} se for preciso.",
+      "addingText": "O seu pagamento foi efetuado. Normalmente demora menos de um minuto: atualize esta página daqui a pouco."
+    }
   },
   "help": {
     "title": "Como podemos ajudar?",
@@ -788,5 +908,21 @@
     "accept": "Aceitar",
     "reject": "Rejeitar",
     "learnMore": "Política de Privacidade"
+  },
+  "topUpPicker": {
+    "title": "A que SIM devemos adicionar este tarifário?",
+    "simCard": "Cartão SIM terminado em {last4}",
+    "esim": "eSIM terminado em {last4}",
+    "orAnother": "Ou introduza abaixo o número de outro SIM.",
+    "iccidLabel": "Número do SIM (ICCID)",
+    "check": "Verificar SIM",
+    "checking": "A verificar…",
+    "hint": "Está impresso no seu cartão SIM. Para um eSIM comprado aqui, inicie sessão com o e-mail da encomenda e escolha-o nos seus SIM.",
+    "willAdd": "Este tarifário será adicionado ao seu {sim}.",
+    "errors": {
+      "unavailable": "Ainda não é possível adicionar dados a um SIM existente.",
+      "tooMany": "Demasiadas tentativas. Tente novamente mais tarde.",
+      "notFound": "Não encontrámos esse SIM. Verifique o número impresso no seu cartão SIM."
+    }
   }
 }

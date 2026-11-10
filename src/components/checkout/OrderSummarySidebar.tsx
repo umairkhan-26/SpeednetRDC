@@ -6,6 +6,7 @@ import type { Plan } from "@/lib/types";
 import { useNames } from "@/i18n/use-names";
 import { calculateOrderTotals } from "@/lib/pricing";
 import { getCountryBySlug } from "@/data/countries";
+import { useCheckoutStore } from "@/lib/store/checkout-store";
 
 export default function OrderSummarySidebar({ plan }: { plan: Plan }) {
   const t = useTranslations("checkout.summary");
@@ -13,6 +14,7 @@ export default function OrderSummarySidebar({ plan }: { plan: Plan }) {
   const country = plan.countrySlug ? getCountryBySlug(plan.countrySlug) : undefined;
   const destination = country ? names.country(country) : names.planArea(plan);
   const totals = calculateOrderTotals(plan.price);
+  const { mode, topUpIccid } = useCheckoutStore();
 
   return (
     <aside className="h-max rounded-2xl border border-line bg-white p-6 lg:sticky lg:top-24">
@@ -23,6 +25,7 @@ export default function OrderSummarySidebar({ plan }: { plan: Plan }) {
         <Row label={t("plan")} value={names.planName(plan)} />
         <Row label={t("validity")} value={names.validity(plan.validityDays)} />
         <Row label={t("data")} value={names.data(plan.dataAmountGb)} />
+        {mode === "topup" && <Row label={t("addedTo")} value={topUpIccid ? t("simEnding", { last4: topUpIccid.slice(-4) }) : t("chooseSim")} />}
       </dl>
 
       <div className="mt-4 space-y-2 border-t border-line pt-4 text-sm">
@@ -37,7 +40,7 @@ export default function OrderSummarySidebar({ plan }: { plan: Plan }) {
 
       <p className="mt-4 flex items-start gap-1.5 text-xs text-muted">
         <ShieldCheck className="mt-0.5 size-3.5 shrink-0 text-emerald-600" />
-        {t("footer")}
+        {mode === "topup" ? t("footerTopUp") : t("footer")}
       </p>
     </aside>
   );

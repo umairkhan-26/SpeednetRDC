@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { CheckCircle2, Clock, ShieldAlert } from "lucide-react";
+import { CheckCircle2, Clock, Package, ShieldAlert, Truck } from "lucide-react";
+import { languageTag } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
-import { getOrderByAccessToken, type CheckoutOrder } from "@/lib/checkout/orders-repository";
+import { getOrderByAccessToken, type CheckoutOrder, type ShippingAddress } from "@/lib/checkout/orders-repository";
+import { pendingAnswer } from "@/lib/physical-sim";
 import { generateQrDataUrl } from "@/lib/qr";
 
 // The URL token is the only thing protecting the activation code shown
@@ -38,7 +40,11 @@ export default async function PrivateOrderPage({ params }: { params: Promise<{ t
       <p className="text-sm text-muted">
         {t("orderNumber", { id: order.id })} &middot; {order.planName}
       </p>
-      {order.provisioningStatus === "provisioned" && order.lpaActivationCode ? (
+      {order.productType === "physical_sim" ? (
+        <SimCardOrder order={order} locale={locale} t={t} />
+      ) : order.productType === "topup" ? (
+        <TopUpOrder order={order} locale={locale} t={t} />
+      ) : order.provisioningStatus === "provisioned" && order.lpaActivationCode ? (
         <ReadyToInstall activationCode={order.lpaActivationCode} t={t} />
       ) : (
         <NotReadyYet order={order} t={t} />
@@ -118,6 +124,97 @@ function NotReadyYet({ order, t }: { order: CheckoutOrder; t: T }) {
       <HelpLine t={t} />
     </>
   );
+}
+
+function SimCardOrder({ order, locale, t }: { order: CheckoutOrder; locale: string; t: T }) {
+  const status = order.shippingStatus ?? "awaiting";
+  const date = (iso: string) => new Date(iso).toLocaleDateString(languageTag(locale), { day: "numeric", month: "long", year: "numeric" });
+  return (
+    <>
+      <h1 className="mt-2 flex items-center gap-2 text-2xl font-bold text-ink sm:text-3xl">
+        {status === "awaiting" ? <Package className="size-7 text-orange" /> : <Truck className="size-7 text-emerald-600" />}
+        {t(status === "delivered" ? "sim.deliveredTitle" : status === "shipped" ? "sim.shippedTitle" : "sim.awaitingTitle")}
+      </h1>
+      <p className="mt-3 max-w-xl text-muted">
+        {t(status === "delivered" ? "sim.deliveredText" : status === "shipped" ? "sim.shippedText" : "sim.awaitingText")}
+      </p>
+
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        {order.shippingAddress && (
+          <div className="rounded-2xl border border-line bg-white p-5 text-sm">
+            <p className="font-semibold text-ink">{t("sim.shippingTo")}</p>
+            <p className="mt-2 whitespace-pre-line text-muted">{formatAddress(order.shippingAddress)}</p>
+          </div>
+        )}
+        <div className="rounded-2xl border border-line bg-white p-5 text-sm">
+          <p className="font-semibold text-ink">{t("sim.status")}</p>
+          <ul className="mt-2 space-y-1 text-muted">
+            <li>{t("sim.paid", { date: date(order.createdAt) })}</li>
+            {order.shippedAt && <li>{t("sim.posted", { date: date(order.shippedAt) })}</li>}
+            {order.trackingNumber && (
+              <li>
+                {t("sim.tracking")} <span className="font-mono text-ink">{order.trackingNumber}</span>
+              </li>
+            )}
+            {order.deliveredAt && <li>{t("sim.delivered", { date: date(order.deliveredAt) })}</li>}
+            {order.iccid && (
+              <li>
+                {t("sim.iccid")} <span className="font-mono text-ink">{order.iccid}</span>
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
+
+      <div className="mt-6 rounded-2xl border border-line bg-white p-5 text-sm">
+        <p className="font-semibold text-ink">{t("sim.whenArrives")}</p>
+        <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-muted">
+          <li>{t("sim.step1")}</li>
+          <li>{t("sim.step2")}</li>
+          <li>{t("sim.step3")}</li>
+        </ol>
+        <p className="mt-3 text-muted">{t("sim.keep", { period: pendingAnswer("inactivityPeriod", locale) })}</p>
+      </div>
+
+      <p className="mt-6 text-sm text-muted">{pendingAnswer("returns", locale)}</p>
+      <HelpLine t={t} />
+    </>
+  );
+}
+
+function TopUpOrder({ order, locale, t }: { order: CheckoutOrder; locale: string; t: T }) {
+  const ending = order.iccid?.slice(-4) ?? "????";
+  if (order.provisioningStatus === "provisioned") {
+    return (
+      <>
+        <h1 className="mt-2 flex items-center gap-2 text-2xl font-bold text-ink sm:text-3xl">
+          <CheckCircle2 className="size-7 text-emerald-600" />
+          {t("topup.readyTitle")}
+        </h1>
+        <p className="mt-3 max-w-xl text-muted">
+          {t("topup.readyText", { plan: order.planName, ending, window: pendingAnswer("startWindow", locale) })}
+        </p>
+        <HelpLine t={t} />
+      </>
+    );
+  }
+  const failed = order.provisioningStatus === "failed";
+  return (
+    <>
+      <h1 className="mt-2 flex items-center gap-2 text-2xl font-bold text-ink sm:text-3xl">
+        <Clock className="size-7 text-orange" />
+        {failed ? t("topup.failedTitle") : t("topup.addingTitle", { ending })}
+      </h1>
+      <p className="mt-3 max-w-xl text-muted">
+        {failed ? t("topup.failedText", { email: maskEmail(order.customerEmail, t("yourEmail")) }) : t("topup.addingText")}
+      </p>
+      <HelpLine t={t} />
+    </>
+  );
+}
+
+function formatAddress(a: ShippingAddress): string {
+  return [a.name, a.line1, a.line2, [a.postalCode, a.city].filter(Boolean).join(" "), a.state, a.country].filter(Boolean).join("\n");
 }
 
 function HelpLine({ t }: { t: T }) {

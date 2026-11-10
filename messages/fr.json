@@ -126,7 +126,20 @@
     "viewEsim": "Voir l'eSIM et le QR code",
     "preparingNote": "Nous vous enverrons un e-mail dès qu'elle sera prête.",
     "help": "Une commande manque ? Elle figure sous l'e-mail utilisé lors du paiement. Besoin d'aide ?",
-    "contactSupport": "Contacter le support"
+    "contactSupport": "Contacter le support",
+    "mySimsTitle": "Mes SIM",
+    "mySimsSubtitle": "Vos SIM et les forfaits data qui y sont associés.",
+    "simCard": "Carte SIM",
+    "esim": "eSIM",
+    "ending": "se terminant par {digits}",
+    "noPlan": "Aucun forfait data sur cette SIM pour le moment.",
+    "planActive": "Actif",
+    "planWaiting": "Démarre à votre première connexion dans un pays couvert",
+    "dataLeft": "{left} restants sur {total}",
+    "expires": "Expire le {date}",
+    "buyMore": "Acheter plus de données",
+    "checkedAt": "Vérifié {time}",
+    "viewOrder": "Voir la commande"
   },
   "homePhysicalSim": {
     "eyebrow": "Carte SIM physique · Bientôt disponible",
@@ -178,11 +191,146 @@
       "whenA": "Bientôt. Écrivez-nous à {email} et nous vous préviendrons dès qu'elle pourra être commandée."
     }
   },
+  "physicalSimShop": {
+    "metaTitle": "Carte SIM physique — SpeedNetRDC",
+    "eyebrow": "Carte SIM physique",
+    "title": "Pas d'eSIM sur votre téléphone ? Prenez une carte SIM SpeedNetRDC",
+    "subtitle": "Une vraie carte SIM pour tout téléphone débloqué. Gardez-la et ajoutez un forfait data sur notre site à chaque voyage.",
+    "priceTitle": "Prix",
+    "simLine": "Carte SIM",
+    "shippingLine": "Livraison (Europe)",
+    "feesLine": "Taxes et frais",
+    "total": "Total",
+    "taxFinal": "Prix définitifs.",
+    "taxSurcharge": "Comprend 5 % de taxes et frais.",
+    "taxVat": "Dont {vat} de TVA (21 %).",
+    "features": {
+      "shipsFrom": "Expédiée depuis la Belgique",
+      "delivery": "Livrée en 3 à 5 jours ouvrés partout en Europe",
+      "unlocked": "Fonctionne dans tout téléphone débloqué",
+      "keep": "À vous pour toujours — ajoutez des données à chaque voyage"
+    },
+    "howTitle": "Comment ça marche",
+    "steps": {
+      "orderTitle": "Commandez",
+      "orderText": "Commandez votre carte SIM ici et payez en toute sécurité.",
+      "shipTitle": "Nous expédions",
+      "shipText": "Nous la postons depuis la Belgique ; elle arrive en 3 à 5 jours ouvrés.",
+      "insertTitle": "Insérez",
+      "insertText": "Placez la SIM dans un téléphone débloqué.",
+      "buyTitle": "Achetez un forfait",
+      "buyText": "Choisissez un forfait pour votre destination puis « Ajouter à ma SIM ».",
+      "connectTitle": "Connectez-vous",
+      "connectText": "Votre forfait démarre à la première connexion dans un pays couvert."
+    },
+    "orderTitle": "Commander votre carte SIM",
+    "nameLabel": "Nom complet",
+    "emailLabel": "Adresse e-mail",
+    "emailHint": "Nous vous enverrons le suivi ici. Connectez-vous ensuite avec cet e-mail pour voir votre SIM dans Mes SIM.",
+    "addressNote": "Vous saisirez l'adresse de livraison sur la page de paiement sécurisée. Nous livrons dans l'UE, au Royaume-Uni, en Suisse, en Norvège et en Islande.",
+    "oneSim": "Une carte SIM par commande.",
+    "submit": "Passer au paiement · {total}",
+    "submitting": "Ouverture du paiement sécurisé…",
+    "invalid": "Saisissez votre nom complet et une adresse e-mail valide.",
+    "error": "Une erreur s'est produite. Veuillez réessayer.",
+    "faqTitle": "Questions",
+    "faq": {
+      "whatQ": "Qu'est-ce que la carte SIM SpeedNetRDC ?",
+      "whatA": "Une carte SIM physique pour les téléphones sans eSIM. Elle est livrée sans forfait : vous ajoutez un forfait data pour les pays visités, quand vous en avez besoin.",
+      "phonesQ": "Avec quels téléphones fonctionne-t-elle ?",
+      "phonesA": "Tout téléphone non verrouillé par un opérateur et acceptant une carte SIM standard.",
+      "shippingQ": "Où livrez-vous et en combien de temps ?",
+      "shippingA": "Nous expédions depuis la Belgique vers ces pays : {countries}. La livraison prend 3 à 5 jours ouvrés après l'envoi.",
+      "customsQ": "Y a-t-il des frais de douane hors UE ?",
+      "customsA": "Les colis vers le Royaume-Uni, la Suisse, la Norvège et l'Islande passent la douane. Les éventuels frais d'importation de ces pays sont payés à la livraison.",
+      "keepQ": "Combien de temps puis-je garder la SIM ?",
+      "keepA": "Elle est à vous : pas de date de fin fixe. Une SIM inutilisée pendant {period} est désactivée.",
+      "dataQ": "Comment ajouter des données ?",
+      "dataA": "Choisissez un forfait sur notre site puis « Ajouter à ma SIM », et saisissez le numéro imprimé sur votre carte SIM — ou choisissez-la dans Mes SIM une fois connecté.",
+      "startQ": "Quand un forfait démarre-t-il ?",
+      "startA": "À la première connexion de votre téléphone dans un pays couvert par le forfait {window}.",
+      "twoQ": "Et si j'ai deux forfaits pour le même pays ?",
+      "twoA": "Les forfaits se cumulent : chacun garde ses données et sa date d'expiration. {priority}",
+      "returnsQ": "Puis-je retourner la carte SIM ?",
+      "returnsA": "{returns}"
+    }
+  },
   "consent": {
     "title": "Cookies",
     "text": "Nous aimerions utiliser des cookies de Meta (Facebook) pour mesurer nos publicités et vous en montrer de pertinentes. Ils ne sont utilisés que si vous acceptez. Vous pouvez changer d’avis à tout moment via « Paramètres des cookies » en bas de page.",
     "accept": "Accepter",
     "reject": "Refuser",
     "learnMore": "Politique de confidentialité"
+  },
+  "checkout": {
+    "summary": {
+      "addedTo": "Ajouté à",
+      "simEnding": "SIM se terminant par {last4}",
+      "chooseSim": "Votre SIM (à choisir)",
+      "footerTopUp": "Paiement chiffré · Ajouté à votre SIM en quelques minutes · Demandes de remboursement : contact@speednetrdc.com"
+    },
+    "planStep": {
+      "subtitleTopUp": "Ce forfait sera ajouté à une SIM que vous avez déjà : aucune nouvelle eSIM à installer."
+    },
+    "paymentStep": {
+      "consentTopUp": "Je souhaite que mon forfait de données soit livré immédiatement après le paiement, et je comprends que je perds mon droit de rétractation de 14 jours une fois qu’il a été livré.",
+      "errorTopUpUnavailable": "L’ajout d’un forfait à une SIM existante n’est pas encore disponible.",
+      "errorTooMany": "Trop de tentatives. Réessayez plus tard.",
+      "errorSimNotFound": "Nous n’avons pas trouvé cette SIM. Vérifiez le numéro imprimé sur votre carte SIM."
+    }
+  },
+  "planDetail": {
+    "whereTitle": "Où mettre ce forfait ?",
+    "newEsim": "Nouvelle eSIM",
+    "newEsimHint": "Recevoir une nouvelle eSIM avec ce forfait",
+    "addToSim": "Ajouter à ma SIM",
+    "addToSimHint": "Le mettre sur une SIM que vous avez déjà",
+    "buyTopUp": "Ajouter ce forfait à ma SIM"
+  },
+  "orderPage": {
+    "sim": {
+      "awaitingTitle": "Votre SIM est en route",
+      "shippedTitle": "Votre SIM a été postée",
+      "deliveredTitle": "Votre SIM a été livrée",
+      "awaitingText": "Nous préparons votre carte SIM. Elle part de Belgique et arrive généralement 3 à 5 jours ouvrés après l’envoi. Nous vous écrirons dès qu’elle sera postée.",
+      "shippedText": "Votre carte SIM a été postée et arrive généralement sous 3 à 5 jours ouvrés.",
+      "deliveredText": "Votre carte SIM est arrivée. Insérez-la, puis ajoutez-lui un forfait de données.",
+      "shippingTo": "Livraison à",
+      "status": "Suivi",
+      "paid": "Payée · {date}",
+      "posted": "Postée · {date}",
+      "tracking": "Numéro de suivi :",
+      "delivered": "Livrée · {date}",
+      "iccid": "Numéro de SIM (ICCID) :",
+      "whenArrives": "À la réception",
+      "step1": "Insérez la SIM dans n’importe quel téléphone désimlocké.",
+      "step2": "Achetez-lui un forfait de données : choisissez un forfait sur notre site, puis « Ajouter à ma SIM ».",
+      "step3": "Activez l’itinérance des données pour cette SIM. Votre forfait démarre la première fois que vous vous connectez dans un pays couvert.",
+      "keep": "Elle est à vous : ajoutez des données à chaque voyage. Une SIM inutilisée pendant {period} est désactivée."
+    },
+    "topup": {
+      "readyTitle": "Votre forfait est sur votre SIM",
+      "readyText": "{plan} a été ajouté à votre SIM se terminant par {ending}. Rien à installer : le forfait démarre la première fois que votre téléphone se connecte dans un pays couvert {window}. Vérifiez que l’itinérance des données est activée pour cette SIM.",
+      "failedTitle": "Votre forfait a besoin d’un peu plus de temps",
+      "addingTitle": "Ajout de votre forfait à la SIM se terminant par {ending}",
+      "failedText": "Votre paiement est passé, mais l’ajout automatique du forfait a rencontré un problème. Notre équipe a été prévenue : elle va le terminer et vous contactera à {email} si nécessaire.",
+      "addingText": "Votre paiement est passé. Cela prend généralement moins d’une minute : actualisez cette page dans un instant."
+    }
+  },
+  "topUpPicker": {
+    "title": "Sur quelle SIM ajouter ce forfait ?",
+    "simCard": "Carte SIM se terminant par {last4}",
+    "esim": "eSIM se terminant par {last4}",
+    "orAnother": "Ou saisissez le numéro d’une autre SIM ci-dessous.",
+    "iccidLabel": "Numéro de SIM (ICCID)",
+    "check": "Vérifier la SIM",
+    "checking": "Vérification…",
+    "hint": "Imprimé sur votre carte SIM. Pour une eSIM achetée ici, connectez-vous avec l’e-mail de votre commande et choisissez-la parmi vos SIM.",
+    "willAdd": "Ce forfait sera ajouté à votre {sim}.",
+    "errors": {
+      "unavailable": "L’ajout de données à une SIM existante n’est pas encore disponible.",
+      "tooMany": "Trop de tentatives. Réessayez plus tard.",
+      "notFound": "Nous n’avons pas trouvé cette SIM. Vérifiez le numéro imprimé sur votre carte SIM."
+    }
   }
 }

@@ -317,6 +317,21 @@ const ORDERS_NEW_COLUMNS: NewColumn[] = [
   // attention" list (refunded, or resolved some other way). The order and
   // its payment record are kept; only the dashboard alert goes away.
   { name: "attention_dismissed_at", ddl: "DATETIME NULL" },
+  // What the order sells: 'esim' (a new eSIM, every order before physical
+  // SIMs existed), 'physical_sim' (a SIM card shipped by post — never goes
+  // through eSIM provisioning) or 'topup' (a data plan added to a SIM the
+  // customer already has; its ICCID is in orders.iccid from the start).
+  { name: "product_type", ddl: "VARCHAR(16) NOT NULL DEFAULT 'esim'" },
+  // Physical SIM shipping: address as JSON from Stripe Checkout, its country
+  // on its own for filtering, and the parcel's progress.
+  { name: "shipping_address", ddl: "TEXT NULL" },
+  { name: "shipping_country", ddl: "CHAR(2) NULL" },
+  { name: "shipping_eur", ddl: "DECIMAL(10,2) NULL" },
+  { name: "shipping_status", ddl: "VARCHAR(16) NULL" },
+  { name: "shipped_at", ddl: "DATETIME NULL" },
+  { name: "delivered_at", ddl: "DATETIME NULL" },
+  { name: "tracking_number", ddl: "VARCHAR(100) NULL" },
+  { name: "shipped_by", ddl: "INT NULL" },
 ];
 
 // A connection-level failure (database down, wrong credentials) is not a

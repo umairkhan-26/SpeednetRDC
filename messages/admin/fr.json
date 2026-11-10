@@ -24,7 +24,8 @@
     "admins": "Administrateurs",
     "account": "Compte",
     "staffView": "Vue employé",
-    "logOut": "Se déconnecter"
+    "logOut": "Se déconnecter",
+    "shipping": "Expéditions"
   },
   "clock": {
     "clockedInSince": "En service depuis {time}",
@@ -86,15 +87,15 @@
     "confirmResolved": "Retirer ORD-{id} de cette liste ? À utiliser si le client a été aidé d’une autre façon. La commande reste dans Commandes comme commande payée.",
     "totalRevenue": "Chiffre d’affaires total",
     "revenueNote": "Ce que les clients ont payé, y compris la ligne taxes et frais de 5 %",
-    "totalCost": "Coût total",
+    "totalCost": "Coût total (forfaits de données)",
     "costNote": "Prix de gros Transatel, eSIM livrées uniquement",
     "costNoteMissing": "Prix de gros Transatel, eSIM livrées uniquement. {count, plural, one {# commande livrée n’a} other {# commandes livrées n’ont}} pas de coût connu.",
-    "totalProfit": "Bénéfice total",
-    "profitNote": "Avant frais Stripe et TVA",
+    "totalProfit": "Bénéfice (forfaits de données)",
+    "profitNote": "Forfaits de données uniquement, avant frais Stripe et TVA",
     "afterStripeFees": "Après frais Stripe :",
     "feesNotFetched": "({count, plural, one {# frais pas encore récupéré} other {# frais pas encore récupérés}})",
-    "profitMargin": "Marge bénéficiaire",
-    "marginNote": "Bénéfice ÷ chiffre d’affaires, avant frais Stripe et TVA",
+    "profitMargin": "Marge bénéficiaire (forfaits de données)",
+    "marginNote": "Bénéfice ÷ chiffre d’affaires des forfaits, avant frais Stripe et TVA",
     "totalOrders": "Commandes au total",
     "activeStaff": "Employés en service",
     "totalComplaints": "Réclamations",
@@ -113,7 +114,8 @@
     "complaintStatus": {
       "open": "Ouverte",
       "resolved": "Résolue"
-    }
+    },
+    "revenueNoteSim": "Ce que les clients ont payé, y compris la ligne taxes et frais de 5 %. Dont {amount} de ventes de cartes SIM."
   },
   "badges": {
     "payment": {
@@ -141,6 +143,11 @@
       "not_used": "Pas encore utilisé",
       "expired": "Expiré",
       "unknown": "Pas encore vérifié"
+    },
+    "shipping": {
+      "awaiting": "En attente d’expédition",
+      "shipped": "Expédiée",
+      "delivered": "Livrée"
     }
   },
   "orders": {
@@ -180,7 +187,10 @@
     "emailed": "Envoyé par e-mail le {date}",
     "notEmailed": "Pas envoyé par e-mail",
     "resend": "Renvoyer l’e-mail",
-    "resendConfirm": "Renvoyer le lien privé de la commande ORD-{id} à {email} ?"
+    "resendConfirm": "Renvoyer le lien privé de la commande ORD-{id} à {email} ?",
+    "simSale": "Vente de carte SIM : hors bénéfice",
+    "shipsTo": "Expédiée vers : {country}",
+    "addedToSim": "{country} · ajouté à la SIM …{last4}"
   },
   "sims": {
     "title": "SIM",
@@ -263,7 +273,8 @@
       "dataUsed": "Données utilisées",
       "dataLeft": "Données restantes",
       "started": "Début",
-      "expires": "Expiration"
+      "expires": "Expiration",
+      "dataAddedLater": "Données ajoutées ensuite"
     },
     "openQr": "Ouvrir (affiche le QR code : à ne partager qu’avec le client)",
     "usedOf": "{used} sur {total}",
@@ -365,7 +376,9 @@
       "deleted": "a supprimé un compte",
       "name_changed": "a modifié un nom",
       "order_marked_refunded": "a marqué une commande comme remboursée",
-      "order_attention_dismissed": "a retiré une commande de la liste à traiter"
+      "order_attention_dismissed": "a retiré une commande de la liste à traiter",
+      "sim_shipped": "a expédié une carte SIM",
+      "sim_delivered": "a marqué une carte SIM comme livrée"
     }
   },
   "account": {
@@ -414,7 +427,8 @@
     "you": "Vous",
     "replyPlaceholder": "Répondre…",
     "postPlaceholder": "Écrire à l’équipe…",
-    "post": "Publier"
+    "post": "Publier",
+    "shipping": "Expéditions"
   },
   "msg": {
     "emailNotSetUp": "L’envoi d’e-mails n’est pas encore configuré sur ce serveur (RESEND_API_KEY / EMAIL_FROM) : ce lien ne peut donc pas être envoyé.",
@@ -507,7 +521,9 @@
       "noLink": "La commande n’a pas de lien privé.",
       "notSent": "E-mail non envoyé : {error}",
       "sent": "E-mail envoyé à {email}.",
-      "unexpected": "E-mail non envoyé (erreur inattendue : voir les journaux du serveur)."
+      "unexpected": "E-mail non envoyé (erreur inattendue : voir les journaux du serveur).",
+      "simCardOrder": "Les commandes de carte SIM reçoivent plutôt des e-mails d’expédition.",
+      "topupNotReady": "Le forfait n’est pas encore sur la SIM."
     },
     "simRefresh": {
       "running": "Une actualisation est déjà en cours : patientez un instant.",
@@ -517,6 +533,52 @@
       "billing": "{count, plural, one {# pays de facturation complété} other {# pays de facturation complétés}} depuis Stripe",
       "error": "Échec de l’actualisation : {error}",
       "refreshedOne": "Actualisée depuis Transatel."
+    },
+    "shipping": {
+      "enterIccid": "Saisissez l’ICCID imprimé sur la carte (18 à 22 chiffres).",
+      "shipped": "Marquée expédiée avec la SIM {iccid}.",
+      "emailSent": "E-mail d’expédition envoyé au client.",
+      "emailNotSent": "L’e-mail d’expédition n’a pas pu partir : prévenez le client vous-même.",
+      "onlyShipped": "Seules les commandes expédiées peuvent être marquées livrées.",
+      "markedDelivered": "Marquée livrée.",
+      "notPaidSim": "Ce n’est pas une commande de carte SIM payée.",
+      "alreadyShipped": "Cette commande a déjà été expédiée.",
+      "notInStock": "Cet ICCID n’est pas dans notre stock de SIM. Vérifiez le numéro imprimé sur la carte.",
+      "isEsim": "Cet ICCID correspond à une eSIM, pas à une carte physique.",
+      "notAvailable": "Cette carte n’est pas disponible (statut : {status})."
     }
+  },
+  "shipping": {
+    "title": "Commandes de cartes SIM",
+    "intro": "Commandes de cartes SIM payées à expédier depuis la Belgique. Pour en expédier une, scannez ou saisissez l’ICCID imprimé sur la carte que vous envoyez (ce doit être une SIM physique disponible en stock) et ajoutez le numéro de suivi s’il y en a un : la carte est alors attribuée au client, qui reçoit un e-mail « expédiée ».",
+    "salesOff": "Les ventes de cartes SIM sont désactivées (PHYSICAL_SIM_ENABLED) : aucune nouvelle commande n’arrive.",
+    "filters": {
+      "awaiting": "En attente d’expédition",
+      "shipped": "Expédiées",
+      "delivered": "Livrées",
+      "all": "Toutes"
+    },
+    "none": "Aucune commande ici.",
+    "columns": {
+      "order": "Commande",
+      "customer": "Client",
+      "shipTo": "Adresse de livraison",
+      "status": "Statut",
+      "action": "Action"
+    },
+    "paid": "Payée le {date}",
+    "refunded": "Remboursée : ne pas expédier",
+    "noAddress": "Pas d’adresse transmise par Stripe : contactez le client",
+    "customs": "Hors UE : déclaration en douane",
+    "posted": "Postée le {date}",
+    "tracking": "Suivi : {number}",
+    "delivered": "Livrée le {date}",
+    "iccidPlaceholder": "Scannez ou saisissez l’ICCID de la carte",
+    "iccidAria": "ICCID de la carte SIM pour ORD-{id}",
+    "trackingPlaceholder": "Numéro de suivi (facultatif)",
+    "trackingAria": "Numéro de suivi pour ORD-{id}",
+    "markShipped": "Marquer expédiée et prévenir le client",
+    "markDelivered": "Marquer livrée",
+    "confirmDelivered": "Marquer ORD-{id} comme livrée ?"
   }
 }

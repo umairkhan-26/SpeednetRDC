@@ -9,6 +9,8 @@ export interface CheckoutPayload {
   withdrawalConsent?: boolean;
   /** Set only when the visitor accepted Meta cookies. */
   meta?: { consent: true; fbp?: string; fbc?: string };
+  /** "Add to my SIM": the ICCID of the customer's SIM (already checked). */
+  topUpIccid?: string | null;
 }
 
 export interface CheckoutSession {
@@ -26,6 +28,8 @@ export interface OrderStatusResult {
   accessToken: string | null;
   /** Present only when the buyer accepted Meta cookies; event_id shared with the server event. */
   metaPurchase: { eventId: string; value: number; currency: string; contentId: string | null } | null;
+  /** esim | physical_sim | topup (older servers don't send it: treat as esim). */
+  productType?: "esim" | "physical_sim" | "topup";
 }
 
 // Starts a real Stripe Checkout Session server-side (src/app/api/checkout/route.ts
@@ -43,6 +47,7 @@ export async function submitOrder(payload: CheckoutPayload): Promise<CheckoutSes
       locale: payload.locale,
       withdrawalConsent: payload.withdrawalConsent === true,
       ...(payload.meta ? { meta: payload.meta } : {}),
+      ...(payload.topUpIccid ? { topUpIccid: payload.topUpIccid } : {}),
     }),
   });
 

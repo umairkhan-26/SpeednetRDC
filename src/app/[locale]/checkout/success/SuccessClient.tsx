@@ -64,6 +64,11 @@ export default function SuccessClient() {
         if (result.status === "failed") return setState({ kind: "paymentFailed" });
         if (result.status === "completed") {
           trackPurchaseOnce(result.metaPurchase);
+          // A SIM card is posted, not provisioned: its order page shows the shipping status.
+          if (result.productType === "physical_sim" && result.accessToken) {
+            router.replace(`/order/${result.accessToken}`);
+            return;
+          }
           if (result.provisioningStatus === "provisioned" && result.accessToken) {
             router.replace(`/order/${result.accessToken}`);
             return;

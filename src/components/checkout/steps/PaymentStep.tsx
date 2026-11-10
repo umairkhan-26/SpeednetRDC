@@ -19,11 +19,15 @@ const API_ERRORS: Record<string, string> = {
   "Enter a valid name and email address": "errorDetails",
   "Unknown plan": "errorPlan",
   "Please tick the box to confirm immediate delivery of your eSIM.": "errorConsent",
+  "Adding a plan to an existing SIM isn't available yet.": "errorTopUpUnavailable",
+  "Too many attempts. Please try again later.": "errorTooMany",
+  "We couldn't find that SIM. Check the number printed on your SIM card.": "errorSimNotFound",
 };
 
 function translateCheckoutError(message: string, t: (key: string) => string): string {
   return t(API_ERRORS[message] ?? "errorGeneric");
 }
+import { useCheckoutStore } from "@/lib/store/checkout-store";
 
 export default function PaymentStep({
   plan,
@@ -47,6 +51,8 @@ export default function PaymentStep({
   // pages are published (src/lib/legal.ts); the API then requires the box.
   const showLegal = legalPagesLive();
   const [withdrawalConsent, setWithdrawalConsent] = useState(false);
+  const { mode, topUpIccid } = useCheckoutStore();
+  const isTopUp = mode === "topup";
 
   async function handlePay() {
     setError(null);
@@ -54,7 +60,7 @@ export default function PaymentStep({
     try {
       trackMeta("InitiateCheckout", { content_ids: [plan.id], content_type: "product", num_items: 1, value: total, currency: "EUR" });
       const meta = readConsent() === "granted" ? { consent: true as const, ...readMetaBrowserIds() } : undefined;
-      const session = await submitOrder({ plan, fullName, email, locale, withdrawalConsent, meta });
+      const session = await submitOrder({ plan, fullName, email, locale, withdrawalConsent, meta, topUpIccid: isTopUp ? topUpIccid : null });
       window.location.href = session.url;
     } catch (err) {
       setSubmitting(false);
@@ -83,7 +89,7 @@ export default function PaymentStep({
               onChange={(e) => setWithdrawalConsent(e.target.checked)}
               className="mt-0.5 size-4 shrink-0 accent-orange"
             />
-            <span>{t("consent")}</span>
+            <span>{isTopUp ? t("consentTopUp") : t("consent")}</span>
           </label>
           <p className="text-xs text-muted">
             {t.rich("legal", {
