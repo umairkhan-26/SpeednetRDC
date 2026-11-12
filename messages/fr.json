@@ -302,6 +302,8 @@
     "fairUseValue": "Limite d’usage raisonnable de {gb} Go"
   },
   "orderPage": {
+    "installOnPhone": "Installer sur cet iPhone",
+    "installOnPhoneHint": "Un seul geste ouvre l’installation de l’eSIM sur cet iPhone (iOS 17.4 ou plus récent). Vous l’installez sur un autre téléphone ? Scannez le code QR ci-dessous avec celui-ci.",
     "sim": {
       "awaitingTitle": "Votre SIM est en route",
       "shippedTitle": "Votre SIM a été postée",

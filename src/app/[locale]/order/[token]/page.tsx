@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { CheckCircle2, Clock, Package, ShieldAlert, Truck } from "lucide-react";
+import { CheckCircle2, Clock, Package, ShieldAlert, Smartphone, Truck } from "lucide-react";
 import { languageTag } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import { getOrderByAccessToken, type CheckoutOrder, type ShippingAddress } from "@/lib/checkout/orders-repository";
 import { pendingAnswer } from "@/lib/physical-sim";
+import { appleOneTapInstallUrl, supportsAppleOneTapInstall } from "@/lib/esim-install";
 import { generateQrDataUrl } from "@/lib/qr";
 
 // The URL token is the only thing protecting the activation code shown
@@ -57,6 +59,7 @@ async function ReadyToInstall({ activationCode, t }: { activationCode: string; t
   const qr = await generateQrDataUrl(activationCode);
   // LPA:1$<SM-DP+ address>$<matching ID>
   const [, smdpAddress = "", matchingId = ""] = activationCode.replace(/^LPA:/, "").split("$");
+  const oneTap = supportsAppleOneTapInstall((await headers()).get("user-agent"));
 
   return (
     <>
@@ -65,6 +68,20 @@ async function ReadyToInstall({ activationCode, t }: { activationCode: string; t
         {t("readyTitle")}
       </h1>
       <p className="mt-2 text-muted">{t("readyText")}</p>
+
+      {oneTap && (
+        <div className="mt-6 rounded-2xl border border-line bg-white p-5">
+          <a
+            href={appleOneTapInstallUrl(activationCode)}
+            rel="noreferrer"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-orange px-5 py-3.5 text-base font-semibold text-white hover:bg-orange/90"
+          >
+            <Smartphone className="size-5" />
+            {t("installOnPhone")}
+          </a>
+          <p className="mt-3 text-sm text-muted">{t("installOnPhoneHint")}</p>
+        </div>
+      )}
 
       <div className="mt-8 grid gap-6 sm:grid-cols-[auto_1fr]">
         <div className="mx-auto rounded-2xl border border-line bg-white p-4">

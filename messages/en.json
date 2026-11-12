@@ -667,6 +667,8 @@
     "orderNumber": "Order ORD-{id}",
     "readyTitle": "Your eSIM is ready to install",
     "readyText": "Your plan starts the first time your phone connects to a network in a country it covers, not before.",
+    "installOnPhone": "Install on this iPhone",
+    "installOnPhoneHint": "One tap opens the eSIM setup on this iPhone (iOS 17.4 or later). Installing on another phone? Scan the QR code below with it.",
     "qrAlt": "eSIM installation QR code",
     "scanTitle": "Scan this QR code with the phone you're installing the eSIM on",
     "iphoneSteps": "Settings › Mobile/Cellular › Add eSIM › Use QR code",
