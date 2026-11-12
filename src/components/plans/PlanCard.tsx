@@ -2,22 +2,11 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { CalendarDays, Database, Globe, SignalHigh, Zap } from "lucide-react";
+import { CalendarDays, Database, Globe, MapPin } from "lucide-react";
+import Flag from "@/components/ui/Flag";
 import type { Plan } from "@/lib/types";
 import { getCountryBySlug } from "@/data/countries";
 import { useNames } from "@/i18n/use-names";
-
-const regionCodes: Record<string, string> = {
-  africa: "AF",
-  americas: "AM",
-  asia: "AS",
-  caribbean: "CB",
-  europe: "EU",
-  "latin-america": "LA",
-  "middle-east": "ME",
-  oceania: "OC",
-  "north-america": "NA",
-};
 
 function planHref(plan: Plan) {
   if (plan.scope === "country") return `/destinations/${plan.countrySlug}/plans/${plan.id}`;
@@ -30,7 +19,8 @@ export default function PlanCard({ plan }: { plan: Plan }) {
   const names = useNames();
   const country = plan.countrySlug ? getCountryBySlug(plan.countrySlug) : undefined;
   const label = names.planArea(plan);
-  const code = country?.iso ?? (plan.regionSlug ? regionCodes[plan.regionSlug] : undefined);
+  const iso = plan.scope === "country" && !plan.zone ? country?.iso : undefined;
+  const countryCount = plan.countriesIncluded?.length ?? 0;
 
   return (
     <Link
@@ -52,10 +42,8 @@ export default function PlanCard({ plan }: { plan: Plan }) {
 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          {code ? (
-            <span className="flex size-8 items-center justify-center rounded-md bg-cream text-[11px] font-bold text-ink">
-              {code}
-            </span>
+          {iso ? (
+            <Flag iso={iso} className="h-6 w-8 shrink-0" />
           ) : (
             <span className="flex size-8 items-center justify-center rounded-md bg-sky-100 text-sky-600">
               <Globe className="size-4" />
@@ -63,16 +51,14 @@ export default function PlanCard({ plan }: { plan: Plan }) {
           )}
           <div>
             <p className="text-sm font-semibold text-ink">{label}</p>
-            <p className="flex items-center gap-1 text-[11px] text-muted">
-              <SignalHigh className="size-3" />
-              {plan.network}
-            </p>
+            {countryCount > 1 && (
+              <p className="flex items-center gap-1 text-[11px] text-muted">
+                <MapPin className="size-3" />
+                {t("countries", { count: countryCount })}
+              </p>
+            )}
           </div>
         </div>
-        <span className="inline-flex items-center gap-1 rounded-full bg-amber-400 px-2 py-1 text-[10px] font-bold text-ink">
-          <Zap className="size-2.5 fill-current" />
-          {plan.speed}
-        </span>
       </div>
 
       <div className="grid grid-cols-2 gap-2">
@@ -81,6 +67,7 @@ export default function PlanCard({ plan }: { plan: Plan }) {
             <Database className="size-3" /> {t("data")}
           </p>
           <p className="text-sm font-bold text-ink">{names.data(plan.dataAmountGb)}</p>
+          {plan.fairUseGb && <p className="text-[10px] text-muted">{t("fairUse", { gb: plan.fairUseGb })}</p>}
         </div>
         <div className="rounded-lg bg-cream p-2.5">
           <p className="flex items-center gap-1 text-[10px] text-muted">

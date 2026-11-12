@@ -71,7 +71,7 @@
       "seeAllRegions": "Ver todas las regiones",
       "global": "Global",
       "countriesCount": "{count}+ países",
-      "countriesCountPlain": "{count} países",
+      "countriesCountPlain": "Hasta {count} países",
       "fromPrice": "desde {price}"
     }
   },
@@ -109,7 +109,17 @@
     "caribbean": "Caribe",
     "europe": "Europa",
     "middle-east": "Oriente Medio",
-    "global": "Global"
+    "global": "Global",
+    "africa-plus": "África Plus",
+    "asia-plus": "Asia Plus",
+    "malaysia-singapore": "Malasia y Singapur",
+    "caribbean-plus": "Caribe Plus",
+    "europe-plus": "Europa Plus",
+    "europe-maghreb": "Europa, Marruecos y Túnez",
+    "scandinavia-baltics": "Escandinavia y países bálticos",
+    "middle-east-plus": "Oriente Medio Plus",
+    "australia-new-zealand": "Australia y Nueva Zelanda",
+    "isle-of-man-channel-islands": "Isla de Man e Islas del Canal"
   },
   "account": {
     "title": "Mis eSIM",
@@ -287,7 +297,9 @@
     "newEsimHint": "Recibe una eSIM nueva con este plan",
     "addToSim": "Añadir a mi SIM",
     "addToSimHint": "Ponlo en una SIM que ya tienes",
-    "buyTopUp": "Añadir este plan a mi SIM"
+    "buyTopUp": "Añadir este plan a mi SIM",
+    "fairUse": "Uso razonable",
+    "fairUseValue": "Límite de uso razonable de {gb} GB"
   },
   "orderPage": {
     "sim": {
@@ -336,5 +348,20 @@
     },
     "willAddCard": "Este plan se añadirá a tu tarjeta SIM terminada en {last4}.",
     "willAddEsim": "Este plan se añadirá a tu eSIM terminada en {last4}."
+  },
+  "planCard": {
+    "countries": "{count, plural, one {# país} other {# países}}",
+    "fairUse": "Uso razonable: {gb} GB"
+  },
+  "destination": {
+    "alsoEyebrow": "Más opciones",
+    "alsoTitle": "Planes regionales y globales que también cubren: {country}",
+    "alsoText": "Estos planes cubren varios países, incluido este. Cada plan indica los países que cubre."
+  },
+  "regionalPlans": {
+    "countries": "{count, plural, one {# país} other {Hasta # países}}"
+  },
+  "regionPage": {
+    "subtitle": "Planes que cubren hasta {count} países en {region}, sin cambiar de SIM en cada frontera. Cada plan indica exactamente qué países cubre."
   }
 }

@@ -12,7 +12,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 30.99
+    "fromPrice": 19.99
   },
   {
     "slug": "albania",
@@ -72,7 +72,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 30.99
+    "fromPrice": 19.99
   },
   {
     "slug": "argentina",
@@ -102,7 +102,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 12.99
+    "fromPrice": 11.99
   },
   {
     "slug": "aruba",
@@ -117,7 +117,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 8.99
+    "fromPrice": 7.99
   },
   {
     "slug": "australia",
@@ -147,7 +147,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "azerbaijan",
@@ -177,7 +177,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 8.99
+    "fromPrice": 7.99
   },
   {
     "slug": "bahrain",
@@ -192,7 +192,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "bangladesh",
@@ -252,7 +252,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 26.99
+    "fromPrice": 17.99
   },
   {
     "slug": "benin",
@@ -267,7 +267,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 17.99
+    "fromPrice": 13.99
   },
   {
     "slug": "bhutan",
@@ -282,7 +282,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 93.99
+    "fromPrice": 53.99
   },
   {
     "slug": "bolivia",
@@ -357,7 +357,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 10.99
+    "fromPrice": 9.99
   },
   {
     "slug": "bulgaria",
@@ -372,7 +372,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 5.99
+    "fromPrice": 4.99
   },
   {
     "slug": "burkina-faso",
@@ -387,7 +387,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 31.99
+    "fromPrice": 20.99
   },
   {
     "slug": "burundi",
@@ -402,7 +402,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 22.99
+    "fromPrice": 17.99
   },
   {
     "slug": "cabo-verde",
@@ -417,7 +417,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 31.99
+    "fromPrice": 20.99
   },
   {
     "slug": "cambodia",
@@ -447,7 +447,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 12.99
+    "fromPrice": 11.99
   },
   {
     "slug": "canada",
@@ -522,7 +522,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "comores",
@@ -552,7 +552,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 27.99
+    "fromPrice": 17.99
   },
   {
     "slug": "congo-democratic-republic",
@@ -567,7 +567,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 81.99
+    "fromPrice": 46.99
   },
   {
     "slug": "costa-rica",
@@ -582,7 +582,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 4.99
+    "fromPrice": 3.99
   },
   {
     "slug": "croatia",
@@ -612,7 +612,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 8.99
+    "fromPrice": 7.99
   },
   {
     "slug": "cyprus",
@@ -672,7 +672,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 23.99
+    "fromPrice": 18.99
   },
   {
     "slug": "dominican-republic",
@@ -762,7 +762,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 37.99
+    "fromPrice": 24.99
   },
   {
     "slug": "ethiopia",
@@ -777,7 +777,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 23.99
+    "fromPrice": 18.99
   },
   {
     "slug": "faroe-islands",
@@ -807,7 +807,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 22.99
+    "fromPrice": 17.99
   },
   {
     "slug": "finland",
@@ -822,7 +822,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "france",
@@ -852,7 +852,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 9.99
+    "fromPrice": 8.99
   },
   {
     "slug": "french-polynesia",
@@ -867,7 +867,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 9.99
+    "fromPrice": 8.99
   },
   {
     "slug": "gabon",
@@ -882,7 +882,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 15.99
+    "fromPrice": 12.99
   },
   {
     "slug": "gambia",
@@ -927,7 +927,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 7.99
+    "fromPrice": 6.99
   },
   {
     "slug": "ghana",
@@ -987,7 +987,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 12.99
+    "fromPrice": 11.99
   },
   {
     "slug": "guadeloupe",
@@ -1017,7 +1017,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 10.99
+    "fromPrice": 9.99
   },
   {
     "slug": "guatemala",
@@ -1047,7 +1047,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 9.99
+    "fromPrice": 8.99
   },
   {
     "slug": "guinea-bissau",
@@ -1077,7 +1077,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 15.99
+    "fromPrice": 11.99
   },
   {
     "slug": "honduras",
@@ -1092,7 +1092,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "hong-kong",
@@ -1122,7 +1122,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "iceland",
@@ -1167,7 +1167,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 4.99
+    "fromPrice": 3.99
   },
   {
     "slug": "iraq",
@@ -1182,7 +1182,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 13.99
+    "fromPrice": 10.99
   },
   {
     "slug": "ireland",
@@ -1212,7 +1212,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "italy",
@@ -1227,7 +1227,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 5.99
+    "fromPrice": 4.99
   },
   {
     "slug": "ivory-coast",
@@ -1242,7 +1242,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 15.99
+    "fromPrice": 11.99
   },
   {
     "slug": "japan",
@@ -1272,7 +1272,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 10.99
+    "fromPrice": 9.99
   },
   {
     "slug": "kazakhstan",
@@ -1287,7 +1287,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 8.99
+    "fromPrice": 7.99
   },
   {
     "slug": "kenya",
@@ -1302,7 +1302,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 9.99
+    "fromPrice": 8.99
   },
   {
     "slug": "kosovo",
@@ -1317,7 +1317,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 14.99
+    "fromPrice": 10.99
   },
   {
     "slug": "kuwait",
@@ -1362,7 +1362,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 11.99
+    "fromPrice": 10.99
   },
   {
     "slug": "lithuania",
@@ -1437,7 +1437,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "malawi",
@@ -1452,7 +1452,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 16.99
+    "fromPrice": 12.99
   },
   {
     "slug": "malaysia",
@@ -1512,7 +1512,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 5.99
+    "fromPrice": 4.99
   },
   {
     "slug": "mauritania",
@@ -1527,7 +1527,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 15.99
+    "fromPrice": 11.99
   },
   {
     "slug": "mauritius",
@@ -1602,7 +1602,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 20.99
+    "fromPrice": 15.99
   },
   {
     "slug": "montenegro",
@@ -1632,7 +1632,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "mozambique",
@@ -1647,22 +1647,22 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 31.99
+    "fromPrice": 20.99
   },
   {
-    "slug": "nambia",
-    "name": "Nambia",
+    "slug": "namibia",
+    "name": "Namibia",
     "region": "africa",
     "iso": "NA",
     "heroImage": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Christ_Church_in_Windhoek%2C_Namibia.jpg/960px-Christ_Church_in_Windhoek%2C_Namibia.jpg",
-    "tagline": "Instant eSIM data for Nambia.",
+    "tagline": "Instant eSIM data for Namibia.",
     "speed": "4G/5G",
     "networks": [
       "SpeedNetRDC"
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 93.99
+    "fromPrice": 53.99
   },
   {
     "slug": "nauro",
@@ -1692,7 +1692,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 31.99
+    "fromPrice": 20.99
   },
   {
     "slug": "netherlands",
@@ -1707,7 +1707,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "new-caledonia",
@@ -1722,7 +1722,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 17.99
+    "fromPrice": 13.99
   },
   {
     "slug": "new-zealand",
@@ -1752,7 +1752,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "nigeria",
@@ -1767,7 +1767,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 17.99
+    "fromPrice": 13.99
   },
   {
     "slug": "norway",
@@ -1782,7 +1782,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "oman",
@@ -1827,7 +1827,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 13.99
+    "fromPrice": 9.99
   },
   {
     "slug": "panama",
@@ -1842,7 +1842,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 5.99
+    "fromPrice": 4.99
   },
   {
     "slug": "paraguay",
@@ -1902,7 +1902,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "portugal",
@@ -1917,7 +1917,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "qatar",
@@ -1932,7 +1932,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 8.99
+    "fromPrice": 7.99
   },
   {
     "slug": "reunion",
@@ -1992,7 +1992,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 15.99
+    "fromPrice": 11.99
   },
   {
     "slug": "saint-barthelemy",
@@ -2007,7 +2007,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 10.99
+    "fromPrice": 9.99
   },
   {
     "slug": "saint-martin-french-part",
@@ -2037,7 +2037,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 14.99
+    "fromPrice": 10.99
   },
   {
     "slug": "saudi-arabia",
@@ -2097,7 +2097,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 8.99
+    "fromPrice": 7.99
   },
   {
     "slug": "sierra-leone",
@@ -2112,7 +2112,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 8.99
+    "fromPrice": 7.99
   },
   {
     "slug": "singapore",
@@ -2247,7 +2247,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 24.99
+    "fromPrice": 18.99
   },
   {
     "slug": "suriname",
@@ -2262,7 +2262,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 8.99
+    "fromPrice": 7.99
   },
   {
     "slug": "sweden",
@@ -2292,7 +2292,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "taiwan",
@@ -2367,7 +2367,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 42.99
+    "fromPrice": 27.99
   },
   {
     "slug": "tonga",
@@ -2382,7 +2382,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 63.99
+    "fromPrice": 36.99
   },
   {
     "slug": "trinidad-and-tobago",
@@ -2397,7 +2397,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 8.99
+    "fromPrice": 7.99
   },
   {
     "slug": "tunisia",
@@ -2457,7 +2457,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 10.99
+    "fromPrice": 9.99
   },
   {
     "slug": "uae",
@@ -2517,7 +2517,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 5.99
+    "fromPrice": 4.99
   },
   {
     "slug": "uzbekistan",
@@ -2532,7 +2532,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 4.99
+    "fromPrice": 3.99
   },
   {
     "slug": "vanuatu",
@@ -2547,7 +2547,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 22.99
+    "fromPrice": 17.99
   },
   {
     "slug": "venezuela",
@@ -2592,6 +2592,6 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   }
 ]

@@ -13,7 +13,12 @@ const nextConfig = {
     // does not reliably intercept the literal "/" path in this Next version
     // (verified: every other path reaches it, "/" does not). This routing-layer
     // redirect is independent of the layout/middleware tree entirely.
-    return [{ source: "/", destination: "/en", permanent: false }];
+    return [
+      { source: "/", destination: "/en", permanent: false },
+      // Transatel's catalogue spelled Namibia "Nambia"; keep the old address working.
+      { source: "/:locale/destinations/nambia", destination: "/:locale/destinations/namibia", permanent: true },
+      { source: "/:locale/destinations/nambia/:path*", destination: "/:locale/destinations/namibia/:path*", permanent: true },
+    ];
   },
 };
 

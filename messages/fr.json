@@ -71,7 +71,7 @@
       "seeAllRegions": "Voir toutes les régions",
       "global": "Mondial",
       "countriesCount": "{count}+ pays",
-      "countriesCountPlain": "{count} pays",
+      "countriesCountPlain": "Jusqu’à {count} pays",
       "fromPrice": "à partir de {price}"
     }
   },
@@ -109,7 +109,17 @@
     "caribbean": "Caraïbes",
     "europe": "Europe",
     "middle-east": "Moyen-Orient",
-    "global": "Mondial"
+    "global": "Mondial",
+    "africa-plus": "Afrique Plus",
+    "asia-plus": "Asie Plus",
+    "malaysia-singapore": "Malaisie et Singapour",
+    "caribbean-plus": "Caraïbes Plus",
+    "europe-plus": "Europe Plus",
+    "europe-maghreb": "Europe, Maroc et Tunisie",
+    "scandinavia-baltics": "Scandinavie et pays baltes",
+    "middle-east-plus": "Moyen-Orient Plus",
+    "australia-new-zealand": "Australie et Nouvelle-Zélande",
+    "isle-of-man-channel-islands": "Île de Man et îles Anglo-Normandes"
   },
   "account": {
     "title": "Mes eSIM",
@@ -287,7 +297,9 @@
     "newEsimHint": "Recevoir une nouvelle eSIM avec ce forfait",
     "addToSim": "Ajouter à ma SIM",
     "addToSimHint": "Le mettre sur une SIM que vous avez déjà",
-    "buyTopUp": "Ajouter ce forfait à ma SIM"
+    "buyTopUp": "Ajouter ce forfait à ma SIM",
+    "fairUse": "Usage raisonnable",
+    "fairUseValue": "Limite d’usage raisonnable de {gb} Go"
   },
   "orderPage": {
     "sim": {
@@ -336,5 +348,20 @@
     },
     "willAddCard": "Ce forfait sera ajouté à votre carte SIM se terminant par {last4}.",
     "willAddEsim": "Ce forfait sera ajouté à votre eSIM se terminant par {last4}."
+  },
+  "planCard": {
+    "countries": "{count, plural, one {# pays} other {# pays}}",
+    "fairUse": "Usage raisonnable : {gb} Go"
+  },
+  "destination": {
+    "alsoEyebrow": "Autres options",
+    "alsoTitle": "Forfaits régionaux et mondiaux qui couvrent aussi : {country}",
+    "alsoText": "Ces forfaits couvrent plusieurs pays, dont celui-ci. Chaque forfait indique les pays couverts."
+  },
+  "regionalPlans": {
+    "countries": "{count, plural, one {# pays} other {Jusqu’à # pays}}"
+  },
+  "regionPage": {
+    "subtitle": "Des forfaits couvrant jusqu’à {count} pays en {region}, sans changer de SIM à chaque frontière. Chaque forfait indique précisément les pays couverts."
   }
 }

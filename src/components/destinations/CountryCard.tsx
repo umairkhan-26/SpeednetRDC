@@ -14,7 +14,6 @@ export default function CountryCard({ country }: { country: Country }) {
       name={names.country(country)}
       subtitle={names.region(country.region)}
       fromPrice={country.fromPrice}
-      speed={country.speed}
     />
   );
 }

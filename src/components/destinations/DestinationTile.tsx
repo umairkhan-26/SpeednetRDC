@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { Globe, Zap } from "lucide-react";
+import { Globe } from "lucide-react";
 import { useNames } from "@/i18n/use-names";
 
 export default function DestinationTile({
@@ -14,7 +14,6 @@ export default function DestinationTile({
   name,
   subtitle,
   fromPrice,
-  speed = "5G",
   size = "md",
 }: {
   href: string;
@@ -24,7 +23,6 @@ export default function DestinationTile({
   name: string;
   subtitle: string;
   fromPrice: number;
-  speed?: string;
   size?: "sm" | "md";
 }) {
   const t = useTranslations("destinationTile");
@@ -48,10 +46,6 @@ export default function DestinationTile({
 
         <span className="absolute left-2.5 top-2.5 flex size-7 items-center justify-center rounded-md bg-white/95 text-[11px] font-bold text-ink shadow">
           {isGlobal ? <Globe className="size-4 text-sky-600" /> : code}
-        </span>
-        <span className="absolute right-2.5 top-2.5 inline-flex items-center gap-1 rounded-full bg-amber-400 px-2 py-1 text-[10px] font-bold text-ink shadow">
-          <Zap className="size-2.5 fill-current" />
-          {speed}
         </span>
 
         <div className="absolute inset-x-0 bottom-0 p-3">

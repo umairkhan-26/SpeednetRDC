@@ -71,7 +71,7 @@ export default function PlanDetailView({
             <InfoTile icon={Database} label={t("dataAllowance")} value={names.data(plan.dataAmountGb)} />
             <InfoTile icon={Signal} label={t("validity")} value={names.validity(plan.validityDays)} />
             <InfoTile icon={Network} label={t("network")} value={plan.network} />
-            <InfoTile icon={Wifi} label={t("speed")} value={plan.speed} />
+            {plan.fairUseGb && <InfoTile icon={Database} label={t("fairUse")} value={t("fairUseValue", { gb: plan.fairUseGb })} />}
           </div>
 
           <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">

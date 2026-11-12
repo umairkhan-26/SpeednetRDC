@@ -13,6 +13,9 @@ const newPhotos = JSON.parse(fs.readFileSync(new URL("./country-photos.json", im
 const CURATED = JSON.parse(fs.readFileSync(new URL("./curated-countries.json", import.meta.url)));
 const curatedByCode = new Map(CURATED.map((c) => [c.iso3, c]));
 
+// Transatel spells some countries differently from everyone else.
+const COUNTRY_NAME_FIXES = { Nambia: "Namibia" };
+
 function slugify(name) {
   return name
     .toLowerCase()
@@ -31,15 +34,16 @@ const slugByCode = new Map();
 for (const m of matchData.matched) {
   const curated = curatedByCode.get(m.code);
   const iso2 = ALPHA3_TO_ALPHA2[m.code];
-  const slug = curated ? curated.slug : slugify(m.zoneName);
+  const zoneName = COUNTRY_NAME_FIXES[m.zoneName] ?? m.zoneName;
+  const slug = curated ? curated.slug : slugify(zoneName);
   slugByCode.set(m.code, slug);
   countries.push({
     slug,
-    name: curated ? curated.name : m.zoneName,
+    name: curated ? curated.name : zoneName,
     region: classification[m.code],
     iso: iso2,
     heroImage: curated ? curated.heroImage : newPhotos[m.code],
-    tagline: curated ? curated.tagline : `Instant eSIM data for ${curated ? curated.name : m.zoneName}.`,
+    tagline: curated ? curated.tagline : `Instant eSIM data for ${curated ? curated.name : zoneName}.`,
     speed: curated ? curated.speed : "4G/5G",
     networks: ["SpeedNetRDC"],
     networkCount: 1,
@@ -95,6 +99,66 @@ const REGION_DISPLAY_NAME = {
   americas: "The Americas",
   global: "Global",
 };
+
+/**
+ * Each Transatel area is its own product: the "Best" areas and the named
+ * sub-areas cover fewer countries than their region. Every plan lists the
+ * countries of ITS area (from zones.json) and gets its own name, so two
+ * different plans never look the same. Smaller/cheaper area = the region's
+ * name; the bigger one = "Plus" (like Global / Global Plus). `zone` is the
+ * key for translated names (messages: regions.<zone>).
+ */
+const AREA_ZONE = {
+  AFRICA: { zone: "africa-plus", name: "Africa Plus", zoneKey: "AFRICA" },
+  "BEST AFRICA": { zone: "africa", name: "Africa", zoneKey: "BEST AFRICA" },
+  ASIA: { zone: "asia-plus", name: "Asia Plus", zoneKey: "ASIA" },
+  "BEST ASIA": { zone: "asia", name: "Asia", zoneKey: "BEST ASIA" },
+  "MALAYSIA + SINGAPORE": { zone: "malaysia-singapore", name: "Malaysia & Singapore", countries: ["Malaysia", "Singapore"] },
+  CARIBBEAN: { zone: "caribbean-plus", name: "Caribbean Plus", zoneKey: "CARIBBEAN" },
+  "BEST CARIBBEAN": { zone: "caribbean", name: "Caribbean", zoneKey: "BEST CARIBBEAN" },
+  EUROPE: { zone: "europe", name: "Europe", zoneKey: "EU28PLUS (EUROPE)" },
+  "EUROPE EXTENDED": { zone: "europe-plus", name: "Europe Plus", zoneKey: "EU EXTENDED" },
+  MEDITERRANEAN: { zone: "europe-maghreb", name: "Europe, Morocco & Tunisia", zoneKey: "MEDITERRANEAN" },
+  "SCANDINAVIA & BALTIC": { zone: "scandinavia-baltics", name: "Scandinavia & Baltics", zoneKey: "SCANDINAVIA  & BALTIC" },
+  "BEST LATAM": { zone: "latin-america", name: "Latin America", zoneKey: "BEST LATAM" },
+  "MIDDLE EAST": { zone: "middle-east-plus", name: "Middle East Plus", zoneKey: "MIDDLE EAST" },
+  "BEST MIDDLE EAST": { zone: "middle-east", name: "Middle East", zoneKey: "BEST MIDDLE EAST" },
+  OCEANIA: { zone: "oceania", name: "Oceania", zoneKey: "OCEANIA" },
+  "AUSTRALIA+NZL": { zone: "australia-new-zealand", name: "Australia & New Zealand", zoneKey: "ANZ" },
+  "NORTH AMERICA": { zone: "north-america", name: "North America", zoneKey: "NORTH AMERICA" },
+  AMERICAS: { zone: "americas", name: "The Americas", zoneKey: "AMERICA" },
+};
+
+function areaCountries(info) {
+  return info.countries ?? zones[info.zoneKey].map((c) => c.name);
+}
+
+// --- Pricing ------------------------------------------------------------------
+// Price = Transatel wholesale × a margin that shrinks as plans get more
+// expensive, never less than €2.50 above cost; the checkout then adds its 5%
+// "taxes & fees" line, so the target is divided by 1.05. Prices end in .99.
+// (Price audit, 2026-11-12, option B. Option A = cap at Transatel's
+// recommended consumer price: see PRICING_RULE below.)
+const PRICING_RULE = "tiered"; // "tiered" (option B) | "transatel-cap" (option A) | "legacy" (the old ×2.5 prices)
+const CHECKOUT_FEE = 1.05;
+const end99 = (x) => Math.max(0.99, Math.ceil(x) - 0.01);
+function priceFor(p) {
+  const w = p.wholesale_price_excl_vat_eur;
+  if (PRICING_RULE === "legacy" || typeof w !== "number") return p.recommended_retail_price_eur;
+  if (PRICING_RULE === "transatel-cap") {
+    const cap = p.retail_price_incl_vat_eur / CHECKOUT_FEE;
+    return cap >= w * 1.15 ? Math.min(p.recommended_retail_price_eur, end99(cap)) : p.recommended_retail_price_eur;
+  }
+  const margin = w <= 5 ? 2.5 : w <= 10 ? 2.0 : w <= 20 ? 1.7 : 1.5;
+  // The rule fixes overpricing; it never raises a plan above its old price.
+  return Math.min(p.recommended_retail_price_eur, end99(Math.max(w * margin, w + 2.5) / CHECKOUT_FEE));
+}
+
+// "Unlimited" plans all have a fair-use limit, in the reference: …_FUP20 = 20 GB.
+function fairUseGb(p) {
+  const m = /_FUP(\d+)/.exec(p.technical_reference);
+  return p.unlimited_data && m ? Number(m[1]) : undefined;
+}
 
 // UK also carries the Channel-Islands-only plans (no clean home elsewhere).
 const FOLD_INTO_COUNTRY = {
@@ -165,7 +229,8 @@ for (const p of plans) {
     id: p.technical_reference,
     dataAmountGb: p.unlimited_data ? "unlimited" : resolvedGb,
     validityDays,
-    price: p.recommended_retail_price_eur,
+    price: priceFor(p),
+    ...(fairUseGb(p) ? { fairUseGb: fairUseGb(p) } : {}),
     network: "SpeedNetRDC",
     speed: "4G/5G",
     hotspot: true,
@@ -188,13 +253,16 @@ for (const p of plans) {
 
   const regionSlug = REGION_AREA_MAP[p.area];
   if (regionSlug) {
-    const zoneKey = REGION_ZONE_SOURCE[regionSlug];
+    const area = AREA_ZONE[p.area];
+    if (!area) throw new Error(`No zone mapping for regional area ${p.area}`);
     outPlans.push({
       ...base,
       scope: "regional",
       regionSlug,
-      name: `${REGION_DISPLAY_NAME[regionSlug]} ${dataLabel(resolvedGb, p.unlimited_data)} / ${validityDays} Days`,
-      countriesIncluded: zones[zoneKey].map((c) => c.name),
+      zone: area.zone,
+      zoneName: area.name,
+      name: `${area.name} ${dataLabel(resolvedGb, p.unlimited_data)} / ${validityDays} Days`,
+      countriesIncluded: areaCountries(area),
     });
     continue;
   }
@@ -210,6 +278,18 @@ for (const p of plans) {
   }
   const slug = slugByCode.get(match.code);
   const countryName = countries.find((c) => c.slug === slug).name;
+  if (p.area === "ILE OF MAN + CHANNEL ISLANDS") {
+    outPlans.push({
+      ...base,
+      scope: "country",
+      countrySlug: slug,
+      zone: "isle-of-man-channel-islands",
+      zoneName: "Isle of Man & Channel Islands",
+      name: `Isle of Man & Channel Islands ${dataLabel(resolvedGb, p.unlimited_data)} / ${validityDays} Days`,
+      countriesIncluded: ["Isle of Man", "Jersey", "Guernsey"],
+    });
+    continue;
+  }
   outPlans.push({
     ...base,
     scope: "country",
@@ -219,11 +299,35 @@ for (const p of plans) {
   });
 }
 
+// Hide plans another plan of the same product beats on every point (at least
+// as much data — counting an unlimited plan's fair-use limit — at least as
+// many days, for no more money): nobody should buy them.
+const productKey = (p) =>
+  p.scope === "country" ? `c:${p.countrySlug}:${p.zone ?? ""}` : p.scope === "regional" ? `r:${p.zone}` : `g:${p.globalTier}`;
+const effectiveGb = (p) => (p.dataAmountGb === "unlimited" ? p.fairUseGb ?? Infinity : p.dataAmountGb);
+const hiddenDominated = [];
+for (let i = outPlans.length - 1; i >= 0; i--) {
+  const a = outPlans[i];
+  const beatenBy = outPlans.find(
+    (b) =>
+      b !== a &&
+      productKey(b) === productKey(a) &&
+      effectiveGb(b) >= effectiveGb(a) &&
+      b.validityDays >= a.validityDays &&
+      b.price <= a.price &&
+      (effectiveGb(b) > effectiveGb(a) || b.validityDays > a.validityDays || b.price < a.price),
+  );
+  if (beatenBy) {
+    hiddenDominated.push(`${a.name} (€${a.price}) — beaten by ${beatenBy.name} (€${beatenBy.price})`);
+    outPlans.splice(i, 1);
+  }
+}
+
 // Compute best-value ribbon per natural group (country / region / global tier).
 const groups = new Map();
 for (const p of outPlans) {
   const key =
-    p.scope === "country" ? `c:${p.countrySlug}` : p.scope === "regional" ? `r:${p.regionSlug}` : `g:${p.globalTier}`;
+    p.scope === "country" ? `c:${p.countrySlug}:${p.zone ?? ""}` : p.scope === "regional" ? `r:${p.zone}` : `g:${p.globalTier}`;
   if (!groups.has(key)) groups.set(key, []);
   groups.get(key).push(p);
 }
@@ -259,6 +363,7 @@ console.log("Countries:", countries.length);
 console.log("Countries with no plans (fromPrice null):", countries.filter((c) => c.fromPrice === null).length);
 console.log("Regions:", outRegions.length, outRegions.map((r) => `${r.slug}(${r.countryCount})`).join(", "));
 console.log("Plans written:", outPlans.length);
+console.log("Plans hidden (beaten on every point by a plan of the same product):", hiddenDominated.length, hiddenDominated);
 console.log("Plans excluded (recurring bundle):", excludedRecurring.length);
 console.log("Plans skipped (null price):", skippedNullPrice.length, skippedNullPrice);
 console.log("Plans skipped (not in Transatel's live catalog):", skippedNotInCatalog.length, skippedNotInCatalog);

@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { Radio, ShieldCheck, Signal, Wifi } from "lucide-react";
+import { Radio, ShieldCheck, Signal } from "lucide-react";
 import { getCountryBySlug, countries } from "@/data/countries";
-import { getPlansForCountry } from "@/data/plans";
+import { getMultiCountryPlansCovering, getPlansForCountry } from "@/data/plans";
 import PlanCard from "@/components/plans/PlanCard";
 import InstallSteps from "@/components/destinations/InstallSteps";
 import Accordion from "@/components/ui/Accordion";
@@ -47,6 +47,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ sl
       : tTaglines("default", { country: countryName });
 
   const plans = getPlansForCountry(country.slug);
+  const otherPlans = getMultiCountryPlansCovering(country.name);
 
   return (
     <div>
@@ -74,9 +75,6 @@ export default async function DestinationPage({ params }: { params: Promise<{ sl
             <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium text-white/85">
               <Signal className="size-3.5" /> {t("networks", { count: country.networkCount })}
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-400 px-4 py-1.5 text-xs font-bold text-ink">
-              <Wifi className="size-3.5" /> {country.speed}
-            </span>
           </div>
         </div>
       </section>
@@ -88,6 +86,17 @@ export default async function DestinationPage({ params }: { params: Promise<{ sl
             <PlanCard key={plan.id} plan={plan} />
           ))}
         </div>
+        {otherPlans.length > 0 && (
+          <div className="mt-14">
+            <SectionHeading eyebrow={t("alsoEyebrow")} title={t("alsoTitle", { country: countryName })} align="center" />
+            <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-muted">{t("alsoText")}</p>
+            <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {otherPlans.map((plan) => (
+                <PlanCard key={plan.id} plan={plan} />
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       <section className="bg-white py-16">
@@ -108,12 +117,6 @@ export default async function DestinationPage({ params }: { params: Promise<{ sl
                     <li key={n}>&bull; {n}</li>
                   ))}
                 </ul>
-              </div>
-              <div className="flex items-center justify-between rounded-2xl border border-line bg-cream p-5">
-                <p className="text-sm font-semibold text-ink">{tCoverage("speed")}</p>
-                <span className="inline-flex items-center gap-1 rounded-full bg-amber-400 px-3 py-1 text-xs font-bold text-ink">
-                  <Wifi className="size-3.5" /> {country.speed}
-                </span>
               </div>
             </div>
           </div>

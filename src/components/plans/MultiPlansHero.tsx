@@ -13,7 +13,6 @@ export default function MultiPlansHero({
   plans,
   countriesIncluded,
   networks,
-  speed = "4G/5G",
 }: {
   eyebrow: string;
   title: React.ReactNode;
@@ -22,7 +21,6 @@ export default function MultiPlansHero({
   plans: Plan[];
   countriesIncluded: string[];
   networks: string[];
-  speed?: string;
 }) {
   const t = useTranslations("coverage");
   const statIcons = [Globe2, SignalHigh, Wifi, CalendarDays];
@@ -78,12 +76,6 @@ export default function MultiPlansHero({
                     <li key={n}>&bull; {n}</li>
                   ))}
                 </ul>
-              </div>
-              <div className="flex items-center justify-between rounded-2xl border border-line bg-cream p-5">
-                <p className="text-sm font-semibold text-ink">{t("speed")}</p>
-                <span className="inline-flex items-center gap-1 rounded-full bg-amber-400 px-3 py-1 text-xs font-bold text-ink">
-                  <Wifi className="size-3.5" /> {speed}
-                </span>
               </div>
             </div>
           </div>

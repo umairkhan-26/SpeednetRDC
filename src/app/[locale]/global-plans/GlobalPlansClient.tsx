@@ -48,7 +48,6 @@ export default function GlobalPlansClient() {
         stats={[
           { label: t("statCountries"), value: `${countriesIncluded.length}+` },
           { label: t("statNetwork"), value: "SpeedNetRDC" },
-          { label: t("statSpeed"), value: "4G/5G" },
           { label: t("statPlans"), value: `${plans.length}` },
         ]}
         plans={plans}

@@ -33,7 +33,9 @@ export default async function RegionPlansPage({ params }: { params: Promise<{ re
   const names = await getNames(locale);
   const regionName = names.region(region.slug, region.name);
   const plans = getPlansForRegion(slug as RegionSlug);
-  const countriesIncluded = plans[0]?.countriesIncluded ?? [];
+  // Plans of a region cover different sets of countries (each card shows its
+  // own); the coverage section lists every country at least one of them covers.
+  const countriesIncluded = [...new Set(plans.flatMap((p) => p.countriesIncluded ?? []))].sort();
 
   return (
     <MultiPlansHero
@@ -47,7 +49,6 @@ export default async function RegionPlansPage({ params }: { params: Promise<{ re
       stats={[
         { label: t("statCountries"), value: `${region.countryCount}` },
         { label: t("statNetwork"), value: "SpeedNetRDC" },
-        { label: t("statSpeed"), value: "4G/5G" },
         { label: t("statValidity"), value: t("validityRange") },
       ]}
       plans={plans}

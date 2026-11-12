@@ -59,6 +59,15 @@ export interface Plan {
   badge?: "price-drop" | "new";
   globalTier?: "budget" | "premium";
   countriesIncluded?: string[];
+  /**
+   * Transatel sells several products per region ("Best Africa", "Malaysia +
+   * Singapore"…): the product's key (messages: regions.<zone>) and English
+   * name. Absent for global plans and ordinary country plans.
+   */
+  zone?: string;
+  zoneName?: string;
+  /** "Unlimited" plans' fair-use limit in GB (from Transatel's reference). */
+  fairUseGb?: number;
 }
 
 export interface FaqItem {

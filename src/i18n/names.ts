@@ -64,11 +64,12 @@ export function createNames(locale: string, tFormat: Translate, tRegions: Transl
 
   /** "Albania", "Europe", "Global Plus"… */
   const planArea = (plan: Plan): string => {
-    if (plan.scope === "country" && plan.countrySlug) {
+    if (plan.scope === "country" && plan.countrySlug && !plan.zone) {
       const c = getCountryBySlug(plan.countrySlug);
       if (c) return country(c);
     }
     if (plan.scope === "global") return plan.globalTier === "premium" ? tFormat("globalPlus") : tFormat("global");
+    if (plan.zone) return localized ? tRegions(plan.zone) : (plan.zoneName ?? plan.name);
     if (plan.regionSlug) return region(plan.regionSlug);
     return plan.name;
   };

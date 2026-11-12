@@ -96,7 +96,7 @@
       "seeAllRegions": "See all regions",
       "global": "Global",
       "countriesCount": "{count}+ countries",
-      "countriesCountPlain": "{count} countries",
+      "countriesCountPlain": "Up to {count} countries",
       "fromPrice": "from {price}"
     }
   },
@@ -137,7 +137,17 @@
     "global": "Global",
     "latin-america": "Latin America",
     "oceania": "Oceania",
-    "north-america": "North America"
+    "north-america": "North America",
+    "africa-plus": "Africa Plus",
+    "asia-plus": "Asia Plus",
+    "malaysia-singapore": "Malaysia & Singapore",
+    "caribbean-plus": "Caribbean Plus",
+    "europe-plus": "Europe Plus",
+    "europe-maghreb": "Europe, Morocco & Tunisia",
+    "scandinavia-baltics": "Scandinavia & Baltics",
+    "middle-east-plus": "Middle East Plus",
+    "australia-new-zealand": "Australia & New Zealand",
+    "isle-of-man-channel-islands": "Isle of Man & Channel Islands"
   },
   "account": {
     "title": "My eSIMs",
@@ -320,7 +330,9 @@
     "data": "Data",
     "validity": "Validity",
     "from": "From",
-    "viewPlan": "View Plan"
+    "viewPlan": "View Plan",
+    "countries": "{count, plural, one {# country} other {# countries}}",
+    "fairUse": "Fair use: {gb} GB"
   },
   "store": {
     "title": "Plans for “{destination}”",
@@ -385,7 +397,10 @@
     "deviceEyebrow": "Device check",
     "deviceTitle": "Is your phone compatible?",
     "needDifferent": "Need a different country?",
-    "browseAll": "Browse all destinations"
+    "browseAll": "Browse all destinations",
+    "alsoEyebrow": "More options",
+    "alsoTitle": "Regional and global plans that also cover {country}",
+    "alsoText": "These plans cover several countries, including this one. Each plan lists the countries it covers."
   },
   "coverage": {
     "eyebrow": "Coverage",
@@ -487,14 +502,14 @@
   "regionalPlans": {
     "title": "One eSIM for your whole trip",
     "subtitle": "Crossing multiple borders in a region? One plan covers every country in it.",
-    "countries": "{count, plural, one {# country} other {# countries}}",
+    "countries": "{count, plural, one {# country} other {Up to # countries}}",
     "from": "from {price}"
   },
   "regionPage": {
     "eyebrow": "{region} eSIM",
     "titleStart": "One eSIM.",
     "titleEnd": "All of {region}.",
-    "subtitle": "A single plan that works across {count} countries in {region} — no swapping SIMs between borders.",
+    "subtitle": "Plans covering up to {count} countries in {region}, with no SIM swapping between borders. Each plan lists exactly which countries it covers.",
     "statCountries": "Countries covered",
     "statNetwork": "Network",
     "statSpeed": "Speed",
@@ -545,7 +560,9 @@
     "newEsimHint": "Get a new eSIM with this plan",
     "addToSim": "Add to my SIM",
     "addToSimHint": "Put it on a SIM you already have",
-    "buyTopUp": "Add This Plan to My SIM"
+    "buyTopUp": "Add This Plan to My SIM",
+    "fairUse": "Fair use",
+    "fairUseValue": "{gb} GB fair-use limit"
   },
   "salesPaused": {
     "title": "eSIM orders are temporarily unavailable",

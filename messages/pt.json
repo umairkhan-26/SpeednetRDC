@@ -96,7 +96,7 @@
       "seeAllRegions": "Ver todas as regiões",
       "global": "Global",
       "countriesCount": "Mais de {count} países",
-      "countriesCountPlain": "{count} países",
+      "countriesCountPlain": "Até {count} países",
       "fromPrice": "desde {price}"
     }
   },
@@ -137,7 +137,17 @@
     "global": "Global",
     "latin-america": "América Latina",
     "oceania": "Oceânia",
-    "north-america": "América do Norte"
+    "north-america": "América do Norte",
+    "africa-plus": "África Plus",
+    "asia-plus": "Ásia Plus",
+    "malaysia-singapore": "Malásia e Singapura",
+    "caribbean-plus": "Caraíbas Plus",
+    "europe-plus": "Europa Plus",
+    "europe-maghreb": "Europa, Marrocos e Tunísia",
+    "scandinavia-baltics": "Escandinávia e países bálticos",
+    "middle-east-plus": "Médio Oriente Plus",
+    "australia-new-zealand": "Austrália e Nova Zelândia",
+    "isle-of-man-channel-islands": "Ilha de Man e Ilhas do Canal"
   },
   "account": {
     "title": "Os meus eSIM",
@@ -320,7 +330,9 @@
     "data": "Dados",
     "validity": "Validade",
     "from": "Desde",
-    "viewPlan": "Ver plano"
+    "viewPlan": "Ver plano",
+    "countries": "{count, plural, one {# país} other {# países}}",
+    "fairUse": "Utilização razoável: {gb} GB"
   },
   "store": {
     "title": "Planos para «{destination}»",
@@ -385,7 +397,10 @@
     "deviceEyebrow": "Verificar o telemóvel",
     "deviceTitle": "O seu telemóvel é compatível?",
     "needDifferent": "Precisa de outro país?",
-    "browseAll": "Ver todos os destinos"
+    "browseAll": "Ver todos os destinos",
+    "alsoEyebrow": "Mais opções",
+    "alsoTitle": "Tarifários regionais e globais que também abrangem: {country}",
+    "alsoText": "Estes tarifários abrangem vários países, incluindo este. Cada tarifário indica os países que abrange."
   },
   "coverage": {
     "eyebrow": "Cobertura",
@@ -487,14 +502,14 @@
   "regionalPlans": {
     "title": "Um só eSIM para toda a viagem",
     "subtitle": "Vai atravessar várias fronteiras na mesma região? Um único plano cobre todos os países.",
-    "countries": "{count, plural, one {# país} other {# países}}",
+    "countries": "{count, plural, one {# país} other {Até # países}}",
     "from": "desde {price}"
   },
   "regionPage": {
     "eyebrow": "eSIM {region}",
     "titleStart": "Um só eSIM.",
     "titleEnd": "Toda a região.",
-    "subtitle": "Um único plano que funciona em {count} países desta região — sem trocar de SIM a cada fronteira.",
+    "subtitle": "Tarifários que abrangem até {count} países desta região, sem trocar de SIM a cada fronteira. Cada tarifário indica exatamente os países que abrange.",
     "statCountries": "Países cobertos",
     "statNetwork": "Rede",
     "statSpeed": "Velocidade",
@@ -545,7 +560,9 @@
     "newEsimHint": "Receba um novo eSIM com este tarifário",
     "addToSim": "Adicionar ao meu SIM",
     "addToSimHint": "Coloque-o num SIM que já tem",
-    "buyTopUp": "Adicionar este tarifário ao meu SIM"
+    "buyTopUp": "Adicionar este tarifário ao meu SIM",
+    "fairUse": "Utilização razoável",
+    "fairUseValue": "Limite de utilização razoável de {gb} GB"
   },
   "salesPaused": {
     "title": "As encomendas de eSIM estão temporariamente indisponíveis",
