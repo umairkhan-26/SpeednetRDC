@@ -454,6 +454,8 @@ export async function listOrdersNeedingProvisioning(): Promise<CheckoutOrder[]> 
     `SELECT * FROM orders
      WHERE status = 'completed' AND plan_id IS NOT NULL AND ${LIVE_ORDER_SQL}
        AND attention_dismissed_at IS NULL
+       -- a SIM card's included plan is only added once the card is shipped
+       AND NOT (product_type = 'physical_sim' AND (shipping_status IS NULL OR shipping_status = 'awaiting'))
        AND (
          provisioning_status = 'failed'
          OR (provisioning_status = 'pending' AND created_at < UTC_TIMESTAMP() - INTERVAL 5 MINUTE)
@@ -559,13 +561,15 @@ export async function createPhysicalSimOrder(input: {
   amountEur: number;
   shippingEur: number;
   locale: string;
+  /** The data plan that comes with the card, added to it when it's shipped. */
+  includedPlanId: string;
 }): Promise<CheckoutOrder> {
   const pool = await getPool();
   const [result] = await pool.query<ResultSetHeader>(
     `INSERT INTO orders
       (plan_id, plan_name, country_name, country_code, customer_name, customer_email, amount_eur, status, access_token, locale, created_at, product_type, shipping_eur)
-     VALUES (NULL, 'Physical SIM card', 'Europe', 'EU', ?, ?, ?, 'pending', ?, ?, ?, 'physical_sim', ?)`,
-    [input.customerName, input.customerEmail, input.amountEur, newAccessToken(), input.locale, toMySQLDateTime(new Date()), input.shippingEur]
+     VALUES (?, 'Physical SIM card', 'Worldwide', 'WW', ?, ?, ?, 'pending', ?, ?, ?, 'physical_sim', ?)`,
+    [input.includedPlanId, input.customerName, input.customerEmail, input.amountEur, newAccessToken(), input.locale, toMySQLDateTime(new Date()), input.shippingEur]
   );
   const order = await getOrderById(result.insertId);
   if (!order) throw new Error("Physical SIM order not found after insert");
@@ -656,7 +660,7 @@ export async function markPhysicalOrderDelivered(orderId: number): Promise<boole
 /** A top-up is done once its plan is on the SIM; there's no activation code to store. */
 export async function completeTopUp(orderId: number, msisdn: string): Promise<void> {
   const pool = await getPool();
-  await pool.query("UPDATE orders SET msisdn = ?, provisioning_status = 'provisioned', provisioned_at = ? WHERE id = ? AND product_type = 'topup'", [
+  await pool.query("UPDATE orders SET msisdn = ?, provisioning_status = 'provisioned', provisioned_at = ? WHERE id = ? AND product_type IN ('topup', 'physical_sim')", [
     msisdn,
     toMySQLDateTime(new Date()),
     orderId,

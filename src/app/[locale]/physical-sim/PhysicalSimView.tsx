@@ -13,15 +13,21 @@ const STEPS = [
 
 const FAQ = ["what", "phones", "price", "shipping", "when"] as const;
 
-export default function PhysicalSimView() {
+export default function PhysicalSimView({
+  included,
+  vatEur,
+}: {
+  included: { gb: string; days: number; countries: number };
+  vatEur: number;
+}) {
   const t = useTranslations("physicalSim");
   const names = useNames();
-  const prices = { sim: SIM_CARD_PRICE_EUR, shipping: SHIPPING_PRICE_EUR };
+  const facts = { ...included, total: names.price(SIM_CARD_PRICE_EUR + SHIPPING_PRICE_EUR) };
   const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t("contactSubject"))}`;
   const faqValues: Record<(typeof FAQ)[number], Record<string, string | number>> = {
-    what: {},
+    what: facts,
     phones: {},
-    price: prices,
+    price: facts,
     shipping: {},
     when: { email: CONTACT_EMAIL },
   };
@@ -32,7 +38,7 @@ export default function PhysicalSimView() {
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-orange">{t("eyebrow")}</p>
           <h1 className="mt-2 text-3xl font-bold text-ink sm:text-4xl">{t("title")}</h1>
-          <p className="mt-3 max-w-2xl text-muted">{t("subtitle")}</p>
+          <p className="mt-3 max-w-2xl text-muted">{t("subtitle", included)}</p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {(
@@ -45,7 +51,7 @@ export default function PhysicalSimView() {
             ).map(([Icon, key]) => (
               <div key={key} className="flex items-start gap-3 rounded-2xl border border-line bg-white p-4">
                 <Icon className="mt-0.5 size-5 shrink-0 text-orange" />
-                <p className="text-sm font-semibold text-ink">{t(`features.${key}`)}</p>
+                <p className="text-sm font-semibold text-ink">{t(`features.${key}`, included)}</p>
               </div>
             ))}
           </div>
@@ -84,7 +90,7 @@ export default function PhysicalSimView() {
           <p className="text-xs font-semibold uppercase tracking-wide text-muted">{t("priceTitle")}</p>
           <dl className="mt-3 space-y-2 text-sm">
             <div className="flex items-center justify-between">
-              <dt className="text-muted">{t("simLine")}</dt>
+              <dt className="text-muted">{t("simLine", included)}</dt>
               <dd className="font-medium text-ink">{names.price(SIM_CARD_PRICE_EUR)}</dd>
             </div>
             <div className="flex items-center justify-between">
@@ -96,7 +102,7 @@ export default function PhysicalSimView() {
             <span className="font-semibold text-ink">{t("total")}</span>
             <span className="text-2xl font-bold text-orange">{names.price(SIM_CARD_PRICE_EUR + SHIPPING_PRICE_EUR)}</span>
           </div>
-          <p className="mt-1 text-xs text-muted">{t("taxNote")}</p>
+          <p className="mt-1 text-xs text-muted">{t("taxNote", { vat: names.price(vatEur) })}</p>
 
           <div className="mt-6 rounded-xl bg-orange/5 p-4">
             <p className="flex items-center gap-2 font-semibold text-ink">

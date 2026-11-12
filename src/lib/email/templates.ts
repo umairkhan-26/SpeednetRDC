@@ -134,7 +134,7 @@ export function simOnItsWayEmail(opts: {
 }): EmailContent {
   const intro = `Hi ${opts.customerName}, thanks for your order ORD-${opts.orderNumber}. Your SpeedNetRDC SIM card is being prepared and ships from ${opts.shipsFrom}.`;
   const when = `It usually arrives within ${opts.deliveryEstimate} of posting. We'll email you again when it's on its way.`;
-  const next = "When it arrives: insert it in any unlocked phone, then buy a data plan for it on our site with “Add to my SIM”.";
+  const next = "It comes with 1 GB of international data. When it arrives: insert it in any unlocked phone and turn on data roaming. Need more data later? Buy a plan on our site and choose “Add to my SIM”.";
   return {
     subject: `Your SIM is on its way — order ORD-${opts.orderNumber}`,
     html: layout({ heading: "Your SIM is on its way", paragraphs: [intro, when, next], button: { label: "View my order", url: opts.orderUrl }, footnote: opts.returnsText }),
@@ -151,7 +151,7 @@ export function simShippedEmail(opts: {
 }): EmailContent {
   const intro = `Hi ${opts.customerName}, your SIM card (order ORD-${opts.orderNumber}) has been posted. It should arrive within ${opts.deliveryEstimate}.`;
   const tracking = opts.trackingNumber ? `Tracking number: ${opts.trackingNumber}` : undefined;
-  const next = "Once it arrives, insert it and add a data plan from our site. Your SIM is listed under My SIMs when you sign in with this email address.";
+  const next = "Your 1 GB of international data is already on the card: once it arrives, insert it and turn on data roaming. Your SIM is listed under My SIMs when you sign in with this email address.";
   return {
     subject: `Your SIM has shipped — order ORD-${opts.orderNumber}`,
     html: layout({ heading: "Your SIM has shipped", paragraphs: tracking ? [intro, tracking, next] : [intro, next], button: { label: "View my order", url: opts.orderUrl } }),

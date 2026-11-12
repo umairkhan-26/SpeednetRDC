@@ -5,8 +5,8 @@ import { CreditCard, Truck } from "lucide-react";
 import { LinkButton } from "@/components/ui/Button";
 import { SHIPPING_PRICE_EUR, SIM_CARD_PRICE_EUR } from "@/components/physical-sim/facts";
 
-/** Homepage pointer to the (coming soon) SIM card for phones without eSIM. */
-export default function PhysicalSimPromo() {
+/** Homepage pointer to the SIM card for phones without eSIM. */
+export default function PhysicalSimPromo({ gb }: { gb: string }) {
   const t = useTranslations("homePhysicalSim");
   return (
     <section className="container-page py-12">
@@ -21,7 +21,7 @@ export default function PhysicalSimPromo() {
             <p className="mt-2 max-w-xl text-sm text-white/70">{t("text")}</p>
             <p className="mt-3 flex items-center gap-2 text-sm font-semibold text-white">
               <Truck className="size-4 text-orange" />
-              {t("price", { sim: SIM_CARD_PRICE_EUR, shipping: SHIPPING_PRICE_EUR })}
+              {t("price", { total: SIM_CARD_PRICE_EUR + SHIPPING_PRICE_EUR, gb })}
             </p>
           </div>
         </div>

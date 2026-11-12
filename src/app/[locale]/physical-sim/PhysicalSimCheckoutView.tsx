@@ -23,16 +23,16 @@ const STEPS = [
   { icon: Plane, key: "connect" },
 ] as const;
 
-const FAQ = ["what", "phones", "shipping", "customs", "keep", "data", "start", "two", "returns"] as const;
+const FAQ = ["what", "included", "phones", "shipping", "customs", "keep", "data", "start", "two", "returns"] as const;
 
 /** The SIM card shop: shown instead of PhysicalSimView once PHYSICAL_SIM_ENABLED is on. */
 export default function PhysicalSimCheckoutView({
   pricing,
-  shippingCountries,
+  included,
   pending,
 }: {
   pricing: PhysicalSimPricing;
-  shippingCountries: string[];
+  included: { gb: string; days: number; countries: number };
   pending: Pending;
 }) {
   const t = useTranslations("physicalSimShop");
@@ -43,21 +43,14 @@ export default function PhysicalSimCheckoutView({
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
-  const countryNames = (() => {
-    try {
-      const names = new Intl.DisplayNames([locale], { type: "region" });
-      return shippingCountries
-        .map((c) => names.of(c) ?? c)
-        .sort((a, b) => a.localeCompare(b, locale))
-        .join(", ");
-    } catch {
-      return shippingCountries.join(", ");
-    }
-  })();
-
-  const lineLabel = (key: string) => (key === "sim" ? t("simLine") : key === "shipping" ? t("shippingLine") : t("feesLine"));
+  const lineLabel = (key: string) => (key === "sim" ? t("simLine", included) : key === "shipping" ? t("shippingLine") : t("feesLine"));
   const taxNote =
-    pricing.mode === "vat" ? t("taxVat", { vat: names.price(pricing.vatEur) }) : pricing.mode === "surcharge" ? t("taxSurcharge") : t("taxFinal");
+    pricing.mode === "vat"
+      ? t("taxVat", { vat: names.price(pricing.vatEur) })
+      : pricing.mode === "surcharge"
+        ? t("taxSurcharge")
+        : t("taxFinal", { vat: names.price(pricing.vatEur) });
+  const facts = { ...included, total: names.price(pricing.totalEur) };
 
   async function order(e: React.FormEvent) {
     e.preventDefault();
@@ -82,10 +75,11 @@ export default function PhysicalSimCheckoutView({
     }
   }
 
-  const faqValues: Record<(typeof FAQ)[number], Record<string, string>> = {
-    what: {},
+  const faqValues: Record<(typeof FAQ)[number], Record<string, string | number>> = {
+    what: facts,
+    included: facts,
     phones: {},
-    shipping: { countries: countryNames },
+    shipping: {},
     customs: {},
     keep: { period: pending.inactivityPeriod },
     data: {},

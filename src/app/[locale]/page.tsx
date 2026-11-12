@@ -4,6 +4,7 @@ import RegionalStrip from "@/components/home/RegionalStrip";
 import StepsSection from "@/components/home/StepsSection";
 import ValueProps from "@/components/home/ValueProps";
 import PhysicalSimPromo from "@/components/home/PhysicalSimPromo";
+import { includedPlanFacts } from "@/lib/physical-sim";
 
 export default function HomePage() {
   return (
@@ -12,7 +13,7 @@ export default function HomePage() {
       <PopularDestinations />
       <RegionalStrip />
       <StepsSection />
-      <PhysicalSimPromo />
+      <PhysicalSimPromo gb={includedPlanFacts().gb} />
       <ValueProps />
     </>
   );

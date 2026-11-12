@@ -5,7 +5,7 @@ import { routing } from "@/i18n/routing";
 import { isValidEmail, isValidFullName } from "@/lib/validation";
 import { getAppUrl, getStripe } from "@/lib/checkout/stripe";
 import { attachStripeCheckoutSession, createPhysicalSimOrder } from "@/lib/checkout/orders-repository";
-import { getPhysicalSimTaxMode, isPhysicalSimEnabled, physicalSimPricing, SHIPPING_COUNTRIES } from "@/lib/physical-sim";
+import { getIncludedPlan, getPhysicalSimTaxMode, includedPlanFacts, isPhysicalSimEnabled, physicalSimPricing, SHIPPING_COUNTRIES } from "@/lib/physical-sim";
 
 /**
  * Starts checkout for one SpeedNetRDC SIM card: the card and shipping as two
@@ -37,6 +37,7 @@ export async function POST(request: Request) {
     amountEur: pricing.totalEur,
     shippingEur: pricing.shippingEur,
     locale: resolvedLocale,
+    includedPlanId: getIncludedPlan().id,
   });
 
   const appUrl = getAppUrl();
@@ -48,8 +49,8 @@ export async function POST(request: Request) {
         currency: "eur",
         unit_amount: Math.round(line.amountEur * 100),
         product_data: {
-          name: line.key === "sim" ? "SpeedNetRDC SIM card" : line.key === "shipping" ? "Shipping (Europe, 3–5 working days)" : "Taxes & fees",
-          ...(line.key === "sim" ? { description: "Physical SIM card — yours to keep. Add data plans anytime on speednetrdc.com." } : {}),
+          name: line.key === "sim" ? "SpeedNetRDC SIM card" : line.key === "shipping" ? "Worldwide shipping (3–5 working days)" : "Taxes & fees",
+          ...(line.key === "sim" ? { description: `Physical SIM card with ${includedPlanFacts().gb} of international data included (valid ${includedPlanFacts().days} days) — yours to keep.` } : {}),
         },
       },
       quantity: 1,

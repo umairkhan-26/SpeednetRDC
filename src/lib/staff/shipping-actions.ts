@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { markPhysicalOrderDelivered, shipPhysicalOrder } from "@/lib/checkout/orders-repository";
 import { sendSimShippedEmail } from "@/lib/email/order-emails";
 import { normalizeIccid } from "@/lib/sims/eligibility";
+import { provisionEsimOrder } from "@/lib/transatel/provisioning";
 import { logAudit } from "./accounts";
 import { requireStaffSession } from "./auth";
 import { getAdminT } from "@/i18n/admin";
@@ -40,6 +41,9 @@ export async function shipPhysicalOrderAction(orderId: number, rawIccid: string,
   const result = await shipPhysicalOrder(orderId, iccid, tracking, session.staffId);
   if (!result.ok) return { ok: false, message: await msg(`shipping.${result.error}`, { status: result.simStatus ?? "" }) };
   await logAudit(session.staffId, "sim_shipped", null, `ORD-${orderId}: SIM ${iccid}${tracking ? `, tracking ${tracking}` : ""}`);
+  // Puts the included data plan on the card (live orders only; never throws:
+  // a failure lands in the dashboard's "needing attention" list with Retry).
+  await provisionEsimOrder(orderId);
   const email = await sendSimShippedEmail(orderId);
   revalidateShipping();
   const emailNote = email.ok ? await msg("shipping.emailSent") : await msg("shipping.emailNotSent");

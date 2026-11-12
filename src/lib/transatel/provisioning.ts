@@ -70,16 +70,22 @@ export async function provisionEsimOrder(orderId: number): Promise<void> {
   // testing (ESIM_PROVISION_TEST_ORDERS=true).
   const candidate = await getOrderById(orderId);
   if (!candidate) return;
-  // A SIM card is posted, never provisioned: no eSIM reservation, no
-  // activation code. A top-up adds a plan to the customer's own SIM.
-  if (candidate.productType === "physical_sim") return;
+  // A SIM card is posted, never given an eSIM. Once it's shipped (its ICCID
+  // assigned), its included data plan goes on it the way a top-up does, so
+  // it works on arrival. A top-up adds a plan to the customer's own SIM.
+  if (
+    candidate.productType === "physical_sim" &&
+    (!candidate.planId || !candidate.iccid || (candidate.shippingStatus !== "shipped" && candidate.shippingStatus !== "delivered"))
+  ) {
+    return;
+  }
   const kind = orderKind(candidate.stripeCheckoutSessionId);
   if (kind !== "live" && process.env.ESIM_PROVISION_TEST_ORDERS !== "true") {
     console.warn(`[transatel] Order ${orderId} is a ${kind} order — not provisioning a real eSIM (ESIM_PROVISION_TEST_ORDERS is not "true")`);
     return;
   }
 
-  if (candidate.productType === "topup") return provisionTopUp(orderId);
+  if (candidate.productType === "topup" || candidate.productType === "physical_sim") return provisionTopUp(orderId);
 
   if (!(await claimProvisioning(orderId))) return;
   await ensureAccessToken(orderId);
@@ -228,7 +234,8 @@ async function provisionTopUp(orderId: number): Promise<void> {
     }
 
     await completeTopUp(orderId, msisdn);
-    await sendTopUpReadyEmail(orderId);
+    // A card's included plan is announced in its "shipped" email instead.
+    if (order.productType === "topup") await sendTopUpReadyEmail(orderId);
   } catch (error) {
     if (error instanceof TransatelApiError) {
       console.error(`[transatel] Top-up order ${orderId} failed (${error.status}):`, error.body);
