@@ -107,7 +107,7 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
       <P>Only with service providers who need it to run the service, under contracts that require them to protect it:</P>
       <UL>
         <li>Stripe (payment processing and fraud prevention);</li>
-        <li>Transatel, our mobile network partner, which provides the eSIM and the connectivity;</li>
+        <li>our mobile network partner, which provides the eSIM and the connectivity;</li>
         <li>Resend (sending order and sign-in emails, from servers in the EU);</li>
         <li>Hostinger (website and database hosting);</li>
         <li>Meta Platforms Ireland Ltd (advertising measurement), only if you accept Meta cookies;</li>
