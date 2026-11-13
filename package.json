@@ -11,6 +11,7 @@
     "admin:recovery-link": "node scripts/admin-recovery-link.mjs",
     "seed:sims": "node --env-file=.env.local scripts/seed-sim-inventory.mjs",
     "transatel:check": "node --env-file=.env.local scripts/transatel-check.mjs",
+    "catalog:guard": "node --env-file=.env.local scripts/catalog-guard.mjs",
     "esims:import-sql": "node --env-file=.env.local scripts/import-esims.mjs"
   },
   "dependencies": {

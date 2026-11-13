@@ -191,28 +191,13 @@ function bestValueFlags(group) {
   if (best) best.plan.bestValue = true;
 }
 
-// In Transatel's price grid but missing from our account's live OCS catalog
-// (found with `npm run transatel:check`, 2026-10-03), so an order for them
-// would fail with PRODUCT_NOT_FOUND after the customer has paid. Never sold
-// until Transatel adds them; re-run the check after each new grid.
-const NOT_IN_TRANSATEL_CATALOG = new Set([
-  "WW_901O_STACK_ONEOFF_CAMBO_UNLIMITED_7D_FUP20",
-  "WW_901O_STACK_ONEOFF_CONGO_3GB_15D",
-  "WW_901O_STACK_ONEOFF_JPN_1GB_3D",
-  // Found missing by `npm run transatel:check` on 2026-11-13:
-  "WW_901O_STACK_ONEOFF_CHILE_UNLIMITED_30D_FUP15",
-  "WW_901O_STACK_ONEOFF_COSTARICA_1GB_7D",
-  "WW_901O_STACK_ONEOFF_COSTARICA_3GB_15D",
-  "WW_901O_STACK_ONEOFF_FRANCE_UNLIMITED_1D_FUP7",
-  "WW_901O_STACK_ONEOFF_GROENLAND_10GB_30D",
-  "WW_901O_STACK_ONEOFF_GROENLAND_1GB_7D",
-  "WW_901O_STACK_ONEOFF_GROENLAND_3GB_15D",
-  "WW_901O_STACK_ONEOFF_INDIA_25GB_30D",
-  "WW_901O_STACK_ONEOFF_JPN_1GB_30D",
-  "WW_901O_STACK_ONEOFF_JPN_3GB_15D",
-  "WW_901O_STACK_ONEOFF_PHILIPPINES_1GB_7D",
-  "WW_901O_STACK_ONEOFF_USA_500MB_1D",
-]);
+// In Transatel's price grid but missing from (or not sellable in) our
+// account's live OCS catalogue, so an order would fail with PRODUCT_NOT_FOUND
+// after the customer has paid. Never sold. The list lives in
+// scripts/not-in-catalog.json and is kept current by `npm run catalog:guard`.
+const NOT_IN_TRANSATEL_CATALOG = new Set(
+  JSON.parse(fs.readFileSync(new URL("./not-in-catalog.json", import.meta.url))).ids,
+);
 
 const skippedNullPrice = [];
 const skippedNotInCatalog = [];
