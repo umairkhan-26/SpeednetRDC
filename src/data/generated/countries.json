@@ -582,7 +582,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 3.99
+    "fromPrice": 14.99
   },
   {
     "slug": "croatia",
@@ -987,7 +987,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 11.99
+    "fromPrice": 39.99
   },
   {
     "slug": "guadeloupe",
@@ -1257,7 +1257,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 3.99
+    "fromPrice": 8.99
   },
   {
     "slug": "jordan",
@@ -1887,7 +1887,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 3.99
+    "fromPrice": 6.99
   },
   {
     "slug": "poland",
@@ -2502,7 +2502,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 2.99
+    "fromPrice": 3.99
   },
   {
     "slug": "uruguay",

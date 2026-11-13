@@ -6258,22 +6258,6 @@
     ]
   },
   {
-    "id": "WW_901O_STACK_ONEOFF_CHILE_UNLIMITED_30D_FUP15",
-    "dataAmountGb": "unlimited",
-    "validityDays": 30,
-    "price": 31.99,
-    "fairUseGb": 15,
-    "network": "SpeedNetRDC",
-    "speed": "4G/5G",
-    "hotspot": true,
-    "scope": "country",
-    "countrySlug": "chile",
-    "name": "Chile Unlimited / 30 Days",
-    "countriesIncluded": [
-      "Chile"
-    ]
-  },
-  {
     "id": "WW_901O_STACK_ONEOFF_CHILE_UNLIMITED_30D_FUP60",
     "dataAmountGb": "unlimited",
     "validityDays": 30,
@@ -6741,21 +6725,6 @@
     ]
   },
   {
-    "id": "WW_901O_STACK_ONEOFF_COSTARICA_1GB_7D",
-    "dataAmountGb": 1,
-    "validityDays": 7,
-    "price": 3.99,
-    "network": "SpeedNetRDC",
-    "speed": "4G/5G",
-    "hotspot": true,
-    "scope": "country",
-    "countrySlug": "costa-rica",
-    "name": "Costa Rica 1GB / 7 Days",
-    "countriesIncluded": [
-      "Costa Rica"
-    ]
-  },
-  {
     "id": "WW_901O_STACK_ONEOFF_COSTA-RICA_25GB_30D",
     "dataAmountGb": 25,
     "validityDays": 30,
@@ -6770,21 +6739,6 @@
       "Costa Rica"
     ],
     "bestValue": true
-  },
-  {
-    "id": "WW_901O_STACK_ONEOFF_COSTARICA_3GB_15D",
-    "dataAmountGb": 3,
-    "validityDays": 15,
-    "price": 7.99,
-    "network": "SpeedNetRDC",
-    "speed": "4G/5G",
-    "hotspot": true,
-    "scope": "country",
-    "countrySlug": "costa-rica",
-    "name": "Costa Rica 3GB / 15 Days",
-    "countriesIncluded": [
-      "Costa Rica"
-    ]
   },
   {
     "id": "WW_901O_STACK_ONEOFF_COSTA-RICA_UNLIMITED_30D_FUP60",
@@ -9171,22 +9125,6 @@
     ]
   },
   {
-    "id": "WW_901O_STACK_ONEOFF_FRANCE_UNLIMITED_1D_FUP7",
-    "dataAmountGb": "unlimited",
-    "validityDays": 1,
-    "price": 5.99,
-    "fairUseGb": 7,
-    "network": "SpeedNetRDC",
-    "speed": "4G/5G",
-    "hotspot": true,
-    "scope": "country",
-    "countrySlug": "france",
-    "name": "France Unlimited / 1 Days",
-    "countriesIncluded": [
-      "France"
-    ]
-  },
-  {
     "id": "WW_901O_STACK_ONEOFF_FRGUIANA_3GB_15D",
     "dataAmountGb": 3,
     "validityDays": 15,
@@ -9718,51 +9656,6 @@
       "Greenland"
     ],
     "bestValue": true
-  },
-  {
-    "id": "WW_901O_STACK_ONEOFF_GROENLAND_10GB_30D",
-    "dataAmountGb": 10,
-    "validityDays": 30,
-    "price": 46.99,
-    "network": "SpeedNetRDC",
-    "speed": "4G/5G",
-    "hotspot": true,
-    "scope": "country",
-    "countrySlug": "greenland",
-    "name": "Greenland 10GB / 30 Days",
-    "countriesIncluded": [
-      "Greenland"
-    ]
-  },
-  {
-    "id": "WW_901O_STACK_ONEOFF_GROENLAND_1GB_7D",
-    "dataAmountGb": 1,
-    "validityDays": 7,
-    "price": 11.99,
-    "network": "SpeedNetRDC",
-    "speed": "4G/5G",
-    "hotspot": true,
-    "scope": "country",
-    "countrySlug": "greenland",
-    "name": "Greenland 1GB / 7 Days",
-    "countriesIncluded": [
-      "Greenland"
-    ]
-  },
-  {
-    "id": "WW_901O_STACK_ONEOFF_GROENLAND_3GB_15D",
-    "dataAmountGb": 3,
-    "validityDays": 15,
-    "price": 19.99,
-    "network": "SpeedNetRDC",
-    "speed": "4G/5G",
-    "hotspot": true,
-    "scope": "country",
-    "countrySlug": "greenland",
-    "name": "Greenland 3GB / 15 Days",
-    "countriesIncluded": [
-      "Greenland"
-    ]
   },
   {
     "id": "WW_901O_STACK_ONEOFF_GTM_10GB_30D",
@@ -10588,17 +10481,17 @@
     ]
   },
   {
-    "id": "WW_901O_STACK_ONEOFF_INDIA_25GB_30D",
-    "dataAmountGb": 25,
-    "validityDays": 30,
-    "price": 16.99,
+    "id": "WW_901O_STACK_ONEOFF_IND_UNLIMITED_7D_FUP25",
+    "dataAmountGb": "unlimited",
+    "validityDays": 7,
+    "price": 17.99,
+    "fairUseGb": 25,
     "network": "SpeedNetRDC",
     "speed": "4G/5G",
     "hotspot": true,
-    "badge": "price-drop",
     "scope": "country",
     "countrySlug": "india",
-    "name": "India 25GB / 30 Days",
+    "name": "India Unlimited / 7 Days",
     "countriesIncluded": [
       "India"
     ]
@@ -11268,21 +11161,6 @@
     ]
   },
   {
-    "id": "WW_901O_STACK_ONEOFF_JPN_1GB_30D",
-    "dataAmountGb": 1,
-    "validityDays": 30,
-    "price": 3.99,
-    "network": "SpeedNetRDC",
-    "speed": "4G/5G",
-    "hotspot": true,
-    "scope": "country",
-    "countrySlug": "japan",
-    "name": "Japan 1GB / 30 Days",
-    "countriesIncluded": [
-      "Japan"
-    ]
-  },
-  {
     "id": "WW_901O_STACK_ONEOFF_JPN_25GB_30D",
     "dataAmountGb": 25,
     "validityDays": 30,
@@ -11293,21 +11171,6 @@
     "scope": "country",
     "countrySlug": "japan",
     "name": "Japan 25GB / 30 Days",
-    "countriesIncluded": [
-      "Japan"
-    ]
-  },
-  {
-    "id": "WW_901O_STACK_ONEOFF_JPN_3GB_15D",
-    "dataAmountGb": 3,
-    "validityDays": 15,
-    "price": 6.99,
-    "network": "SpeedNetRDC",
-    "speed": "4G/5G",
-    "hotspot": true,
-    "scope": "country",
-    "countrySlug": "japan",
-    "name": "Japan 3GB / 15 Days",
     "countriesIncluded": [
       "Japan"
     ]
@@ -14824,21 +14687,6 @@
     ]
   },
   {
-    "id": "WW_901O_STACK_ONEOFF_PHILIPPINES_1GB_7D",
-    "dataAmountGb": 1,
-    "validityDays": 7,
-    "price": 3.99,
-    "network": "SpeedNetRDC",
-    "speed": "4G/5G",
-    "hotspot": true,
-    "scope": "country",
-    "countrySlug": "philippines",
-    "name": "Philippines 1GB / 7 Days",
-    "countriesIncluded": [
-      "Philippines"
-    ]
-  },
-  {
     "id": "WW_901O_STACK_ONEOFF_PHILIPPINES_25GB_30D",
     "dataAmountGb": 25,
     "validityDays": 30,
@@ -18042,21 +17890,6 @@
     "scope": "country",
     "countrySlug": "united-states",
     "name": "United States 3GB / 15 Days",
-    "countriesIncluded": [
-      "United States"
-    ]
-  },
-  {
-    "id": "WW_901O_STACK_ONEOFF_USA_500MB_1D",
-    "dataAmountGb": 0.5,
-    "validityDays": 1,
-    "price": 2.99,
-    "network": "SpeedNetRDC",
-    "speed": "4G/5G",
-    "hotspot": true,
-    "scope": "country",
-    "countrySlug": "united-states",
-    "name": "United States 500MB / 1 Days",
     "countriesIncluded": [
       "United States"
     ]
