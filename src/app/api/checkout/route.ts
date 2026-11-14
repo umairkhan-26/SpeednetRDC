@@ -10,7 +10,7 @@ import { attachStripeCheckoutSession, createPendingOrder, recordWithdrawalConsen
 import { legalPagesLive } from "@/lib/legal";
 import { ESIM_CHECKOUT_PAUSED_ERROR, isEsimCheckoutEnabled } from "@/lib/checkout/availability";
 import { recordMetaConsent } from "@/lib/meta/consent-repository";
-import { isPhysicalSimEnabled } from "@/lib/physical-sim";
+import { isTopUpEnabled } from "@/lib/topup";
 import { findTopUpTarget } from "@/lib/sims/eligibility";
 import { getClientIp, isRateLimited, rateLimitBucket, recordAttempt } from "@/lib/auth/rate-limit";
 
@@ -69,7 +69,7 @@ export async function POST(request: Request) {
   // rate-limited so the endpoint can't be used to probe ICCIDs.
   let topUpIccid: string | undefined;
   if (body.topUpIccid !== undefined && body.topUpIccid !== null && body.topUpIccid !== "") {
-    if (!isPhysicalSimEnabled()) {
+    if (!isTopUpEnabled()) {
       return NextResponse.json({ error: "Adding a plan to an existing SIM isn't available yet." }, { status: 400 });
     }
     const ipBucket = rateLimitBucket("topup-iccid-ip", await getClientIp());

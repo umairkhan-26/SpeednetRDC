@@ -9,6 +9,7 @@ import { getOrderByAccessToken, type CheckoutOrder, type ShippingAddress } from 
 import { pendingAnswer } from "@/lib/physical-sim";
 import { appleOneTapInstallUrl, supportsAppleOneTapInstall } from "@/lib/esim-install";
 import { generateQrDataUrl } from "@/lib/qr";
+import { isTopUpEnabled } from "@/lib/topup";
 
 // The URL token is the only thing protecting the activation code shown
 // here: keep the page out of search engines, and never send it as a
@@ -47,7 +48,7 @@ export default async function PrivateOrderPage({ params }: { params: Promise<{ t
       ) : order.productType === "topup" ? (
         <TopUpOrder order={order} locale={locale} t={t} />
       ) : order.provisioningStatus === "provisioned" && order.lpaActivationCode ? (
-        <ReadyToInstall activationCode={order.lpaActivationCode} t={t} />
+        <ReadyToInstall activationCode={order.lpaActivationCode} t={t} locale={locale} />
       ) : (
         <NotReadyYet order={order} t={t} />
       )}
@@ -55,7 +56,7 @@ export default async function PrivateOrderPage({ params }: { params: Promise<{ t
   );
 }
 
-async function ReadyToInstall({ activationCode, t }: { activationCode: string; t: T }) {
+async function ReadyToInstall({ activationCode, t, locale }: { activationCode: string; t: T; locale: string }) {
   const qr = await generateQrDataUrl(activationCode);
   // LPA:1$<SM-DP+ address>$<matching ID>
   const [, smdpAddress = "", matchingId = ""] = activationCode.replace(/^LPA:/, "").split("$");
@@ -121,8 +122,28 @@ async function ReadyToInstall({ activationCode, t }: { activationCode: string; t
         <ShieldAlert className="mt-0.5 size-4 shrink-0 text-orange" />
         {t("keepPrivate")}
       </p>
+      {isTopUpEnabled() && <HowToRecharge locale={locale} />}
       <HelpLine t={t} />
     </>
+  );
+}
+
+/** "How to recharge": only while the recharge switch (TOPUP_ENABLED) is on. */
+async function HowToRecharge({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: "recharge.how" });
+  return (
+    <div className="mt-6 rounded-2xl border border-line bg-white p-5 text-sm">
+      <p className="font-semibold text-ink">{t("title")}</p>
+      <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-muted">
+        <li>{t("step1")}</li>
+        <li>{t("step2")}</li>
+        <li>{t("step3")}</li>
+      </ol>
+      <p className="mt-3 text-muted">{t("note")}</p>
+      <Link href="/login" className="mt-3 inline-block font-semibold text-orange hover:underline">
+        {t("signIn")} →
+      </Link>
+    </div>
   );
 }
 

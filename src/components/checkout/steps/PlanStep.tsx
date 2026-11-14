@@ -9,12 +9,13 @@ import { Button } from "@/components/ui/Button";
 import { Globe } from "lucide-react";
 import { useCheckoutStore } from "@/lib/store/checkout-store";
 import TopUpSimPicker from "../TopUpSimPicker";
+import TopUpCoverageNotice from "../TopUpCoverageNotice";
 
 export default function PlanStep({ plan, onContinue }: { plan: Plan; onContinue: () => void }) {
   const t = useTranslations("checkout.planStep");
   const names = useNames();
   const country = plan.countrySlug ? getCountryBySlug(plan.countrySlug) : undefined;
-  const { mode, topUpIccid } = useCheckoutStore();
+  const { mode, topUpIccid, topUpCountrySlug } = useCheckoutStore();
   const isTopUp = mode === "topup";
 
   return (
@@ -44,6 +45,7 @@ export default function PlanStep({ plan, onContinue }: { plan: Plan; onContinue:
       </div>
 
       {isTopUp && <TopUpSimPicker />}
+      {isTopUp && <TopUpCoverageNotice plan={plan} simCountrySlug={topUpCountrySlug} />}
 
       <Link href="/esim-store" className="inline-block text-sm font-semibold text-orange hover:underline">
         {t("changePlan")}

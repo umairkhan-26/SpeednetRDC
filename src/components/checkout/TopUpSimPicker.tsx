@@ -14,7 +14,7 @@ import { useCheckoutStore } from "@/lib/store/checkout-store";
  */
 export default function TopUpSimPicker() {
   const { topUpIccid, suggestedIccid, setTopUpIccid } = useCheckoutStore();
-  const [mySims, setMySims] = useState<{ iccid: string; simType: "esim" | "physical" }[] | null>(null);
+  const [mySims, setMySims] = useState<{ iccid: string; simType: "esim" | "physical"; homeCountrySlug: string | null }[] | null>(null);
   const [typed, setTyped] = useState(suggestedIccid ?? "");
   const [error, setError] = useState<string | null>(null);
   const [checkedSim, setCheckedSim] = useState<{ iccid: string; simType: "esim" | "physical" } | null>(null);
@@ -33,7 +33,7 @@ export default function TopUpSimPicker() {
         if (cancelled) return;
         setMySims(sims);
         const suggested = suggestedIccid ? sims.find((s) => s.iccid === suggestedIccid) : undefined;
-        if (suggested) setTopUpIccid(suggested.iccid);
+        if (suggested) setTopUpIccid(suggested.iccid, suggested.homeCountrySlug);
       })
       .catch(() => !cancelled && setMySims([]));
     return () => {
@@ -74,7 +74,7 @@ export default function TopUpSimPicker() {
                 onChange={() => {
                   setError(null);
                   setCheckedSim(null);
-                  setTopUpIccid(sim.iccid);
+                  setTopUpIccid(sim.iccid, sim.homeCountrySlug);
                 }}
                 className="accent-orange"
               />

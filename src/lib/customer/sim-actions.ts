@@ -2,7 +2,8 @@
 
 import { getClientIp, isRateLimited, rateLimitBucket, recordAttempt } from "@/lib/auth/rate-limit";
 import { listCustomerSims } from "@/lib/checkout/orders-repository";
-import { isPhysicalSimEnabled } from "@/lib/physical-sim";
+import { getPlanById } from "@/data/plans";
+import { isTopUpEnabled, simHomeCountrySlug } from "@/lib/topup";
 import { findTopUpTarget } from "@/lib/sims/eligibility";
 import { getCustomerEmail } from "./session";
 
@@ -15,7 +16,7 @@ export type TopUpSimCheck = { ok: true; iccid: string; simType: "esim" | "physic
  * rate-limited per (hashed) IP so ICCIDs can't be probed.
  */
 export async function checkTopUpSimAction(rawIccid: string): Promise<TopUpSimCheck> {
-  if (!isPhysicalSimEnabled()) return { ok: false, error: "unavailable" };
+  if (!isTopUpEnabled()) return { ok: false, error: "unavailable" };
   const bucket = rateLimitBucket("topup-iccid-ip", await getClientIp());
   if (await isRateLimited(bucket, 20, 60 * 60)) return { ok: false, error: "tooMany" };
   const target = await findTopUpTarget(String(rawIccid ?? ""));
@@ -27,9 +28,9 @@ export async function checkTopUpSimAction(rawIccid: string): Promise<TopUpSimChe
 }
 
 /** The signed-in customer's own SIMs, to pick one for "Add to my SIM". Empty when not signed in. */
-export async function listMySimsAction(): Promise<{ iccid: string; simType: "esim" | "physical" }[]> {
-  if (!isPhysicalSimEnabled()) return [];
+export async function listMySimsAction(): Promise<{ iccid: string; simType: "esim" | "physical"; homeCountrySlug: string | null }[]> {
+  if (!isTopUpEnabled()) return [];
   const email = await getCustomerEmail();
   if (!email) return [];
-  return (await listCustomerSims(email)).map((s) => ({ iccid: s.iccid, simType: s.simType }));
+  return (await listCustomerSims(email)).map((s) => ({ iccid: s.iccid, simType: s.simType, homeCountrySlug: simHomeCountrySlug(s.planId, getPlanById) }));
 }

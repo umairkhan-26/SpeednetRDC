@@ -4,7 +4,7 @@ import { pageMetadata } from "@/i18n/metadata";
 import { getCustomerEmail } from "@/lib/customer/session";
 import { listOrdersForCustomer } from "@/lib/checkout/orders-repository";
 import AccountView, { type CustomerOrderSummary } from "./AccountView";
-import { isPhysicalSimEnabled } from "@/lib/physical-sim";
+import { isTopUpEnabled } from "@/lib/topup";
 import { getCustomerSimStatuses } from "@/lib/sims/customer-sims";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -39,7 +39,7 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
   }));
 
   // "My SIMs" (plans, data left, Buy more data) comes with the physical SIM / top-up feature.
-  const sims = isPhysicalSimEnabled() ? await getCustomerSimStatuses(email) : [];
+  const sims = isTopUpEnabled() ? await getCustomerSimStatuses(email) : [];
 
   return <AccountView email={email} orders={orders} sims={sims} />;
 }

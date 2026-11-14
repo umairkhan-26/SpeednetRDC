@@ -149,7 +149,8 @@
     "expires": "Caduca el {date}",
     "buyMore": "Comprar más datos",
     "checkedAt": "Comprobado {time}",
-    "viewOrder": "Ver pedido"
+    "viewOrder": "Ver pedido",
+    "recharge": "Recargar"
   },
   "homePhysicalSim": {
     "eyebrow": "Tarjeta SIM física · Ya disponible",
@@ -365,5 +366,53 @@
   },
   "regionPage": {
     "subtitle": "Planes que cubren hasta {count} países en {region}, sin cambiar de SIM en cada frontera. Cada plan indica exactamente qué países cubre."
+  },
+  "recharge": {
+    "coverage": {
+      "generic": "Antes de pagar: un plan solo funciona en los países que cubre. Comprueba que cubre el país donde usas esta SIM.",
+      "warning": "Atención: este plan no parece cubrir {country}, el país para el que se compró esta SIM. Si estás allí, elige un plan que lo cubra; de lo contrario los datos no funcionarán."
+    },
+    "how": {
+      "title": "Cómo recargar tu eSIM",
+      "step1": "Inicia sesión con el correo que usaste en este pedido y abre Mis SIM.",
+      "step2": "Pulsa «Recargar» junto a tu eSIM y elige un plan que cubra el país donde estás.",
+      "step3": "Paga: los datos nuevos se añaden a la misma eSIM.",
+      "note": "También puedes elegir «Añadir a mi SIM» en la página de cualquier plan.",
+      "signIn": "Inicia sesión para recargar"
+    }
+  },
+  "faq": {
+    "help": [
+      {
+        "id": "delivery",
+        "question": "¿Cuánto tarda en llegar la eSIM?",
+        "answer": "Al instante. Tu código QR y los datos de activación están en tu cuenta y en tu correo en cuanto se completa el pago."
+      },
+      {
+        "id": "compatible",
+        "question": "¿Qué pasa si mi teléfono no es compatible con eSIM?",
+        "answer": "Comprueba tu teléfono en nuestra página de compatibilidad antes de comprar. Un plan eSIM solo funciona en un teléfono compatible con eSIM."
+      },
+      {
+        "id": "recharge",
+        "question": "¿Cómo recargo mi eSIM?",
+        "answer": "Inicia sesión con el correo que usaste al pagar, abre Mis SIM, pulsa «Recargar» junto a tu eSIM y elige un plan que cubra el país donde estás. También puedes elegir «Añadir a mi SIM» en la página de cualquier plan. Los datos nuevos se añaden a la misma eSIM."
+      },
+      {
+        "id": "refund",
+        "question": "¿Puedo obtener un reembolso?",
+        "answer": "Para solicitar un reembolso, escríbenos a contact@speednetrdc.com."
+      },
+      {
+        "id": "payment",
+        "question": "¿Qué métodos de pago aceptan?",
+        "answer": "Tarjetas de débito y crédito en el pago seguro de Stripe. Apple Pay y Google Pay se ofrecen en los dispositivos compatibles."
+      },
+      {
+        "id": "contact",
+        "question": "¿Cómo hablo con una persona?",
+        "answer": "Escríbenos a contact@speednetrdc.com; solemos responder en un día laborable. Para respuestas rápidas a las preguntas frecuentes, pulsa el botón de chat de la esquina inferior derecha."
+      }
+    ]
   }
 }

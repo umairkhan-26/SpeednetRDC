@@ -1,4 +1,5 @@
 import { getPlanById } from "@/data/plans";
+import { simHomeCountrySlug } from "@/lib/topup";
 import { listCustomerSims } from "@/lib/checkout/orders-repository";
 import { getSoldSimsByIccid } from "./repository";
 import { refreshSimStatus } from "./refresh";
@@ -24,6 +25,8 @@ export interface CustomerSimStatus {
   iccid: string;
   simType: "esim" | "physical";
   orderAccessToken: string | null;
+  /** Country page slug the SIM was bought for (country plans only), to send "Recharge" to the right plans. */
+  homeCountrySlug: string | null;
   plans: CustomerSimPlan[];
   checkedAt: string | null;
 }
@@ -52,7 +55,7 @@ export async function getCustomerSimStatuses(email: string): Promise<CustomerSim
           dataTotalKb: p.dataTotalKb,
           expiresAt: p.status === "active" ? p.expirationDate : null,
         }));
-      return { iccid: sim.iccid, simType: sim.simType, orderAccessToken: sim.orderAccessToken, plans, checkedAt: sale?.snapshot?.fetchedAt ?? null };
+      return { iccid: sim.iccid, simType: sim.simType, orderAccessToken: sim.orderAccessToken, homeCountrySlug: simHomeCountrySlug(sim.planId, getPlanById), plans, checkedAt: sale?.snapshot?.fetchedAt ?? null };
     })
   );
 }

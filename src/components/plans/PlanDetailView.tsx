@@ -8,6 +8,7 @@ import type { Plan } from "@/lib/types";
 import { useCheckoutStore } from "@/lib/store/checkout-store";
 import { LinkButton, Button } from "@/components/ui/Button";
 import { EsimSalesPausedNotice } from "@/components/checkout/EsimSalesPaused";
+import TopUpCoverageNotice from "@/components/checkout/TopUpCoverageNotice";
 import { useNames } from "@/i18n/use-names";
 import { trackMeta } from "@/lib/meta/pixel";
 
@@ -33,6 +34,7 @@ export default function PlanDetailView({
   const router = useRouter();
   const startCheckout = useCheckoutStore((s) => s.startCheckout);
   const suggestedIccid = useCheckoutStore((s) => s.suggestedIccid);
+  const suggestedCountrySlug = useCheckoutStore((s) => s.suggestedCountrySlug);
   const [choice, setChoice] = useState<"new" | "topup">(topUpEnabled && suggestedIccid ? "topup" : "new");
   const mode = topUpEnabled ? choice : "new";
 
@@ -112,6 +114,7 @@ export default function PlanDetailView({
                   ))}
                 </div>
               )}
+              {mode === "topup" && <TopUpCoverageNotice plan={plan} simCountrySlug={suggestedCountrySlug} />}
               <Button onClick={handleBuy} className="mt-6 w-full" size="lg">
                 {mode === "topup" ? t("buyTopUp") : t("buy")}
               </Button>

@@ -46,12 +46,12 @@ export default function MySims({ sims }: { sims: CustomerSimStatus[] }) {
               <button
                 type="button"
                 onClick={() => {
-                  suggestTopUp(sim.iccid);
-                  router.push("/esim-store");
+                  suggestTopUp(sim.iccid, sim.homeCountrySlug);
+                  router.push(sim.homeCountrySlug ? `/destinations/${sim.homeCountrySlug}` : "/esim-store");
                 }}
                 className="rounded-full bg-orange px-4 py-2 text-sm font-semibold text-white hover:bg-orange-soft"
               >
-                {t("buyMore")}
+                {t(sim.simType === "esim" ? "recharge" : "buyMore")}
               </button>
             </div>
 

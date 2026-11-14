@@ -177,7 +177,8 @@
     "expires": "Expira a {date}",
     "buyMore": "Comprar mais dados",
     "checkedAt": "Verificado às {time}",
-    "viewOrder": "Ver encomenda"
+    "viewOrder": "Ver encomenda",
+    "recharge": "Recarregar"
   },
   "homePhysicalSim": {
     "eyebrow": "Cartão SIM físico · Já disponível",
@@ -491,6 +492,11 @@
         "id": "payment",
         "question": "Que métodos de pagamento aceitam?",
         "answer": "Cartões de débito e de crédito, na página de pagamento segura da Stripe. O Apple Pay e o Google Pay estão disponíveis nos aparelhos compatíveis."
+      },
+      {
+        "id": "recharge",
+        "question": "Como recarrego o meu eSIM?",
+        "answer": "Inicie sessão com o e-mail usado no pagamento, abra Os meus SIM, prima «Recarregar» junto ao seu eSIM e escolha um plano que cubra o país onde está. Também pode escolher «Adicionar ao meu SIM» na página de qualquer plano. Os novos dados são adicionados ao mesmo eSIM."
       },
       {
         "id": "contact",
@@ -947,5 +953,19 @@
     },
     "willAddCard": "Este tarifário será adicionado ao seu cartão SIM terminado em {last4}.",
     "willAddEsim": "Este tarifário será adicionado ao seu eSIM terminado em {last4}."
+  },
+  "recharge": {
+    "coverage": {
+      "generic": "Antes de pagar: um plano só funciona nos países que cobre. Confirme que cobre o país onde está a usar este SIM.",
+      "warning": "Atenção: este plano não parece cobrir {country}, o país para o qual este SIM foi comprado. Se estiver lá, escolha um plano que o cubra; caso contrário os dados não funcionarão."
+    },
+    "how": {
+      "title": "Como recarregar o seu eSIM",
+      "step1": "Inicie sessão com o e-mail usado nesta encomenda e abra Os meus SIM.",
+      "step2": "Prima «Recarregar» junto ao seu eSIM e escolha um plano que cubra o país onde está.",
+      "step3": "Pague: os novos dados são adicionados ao mesmo eSIM.",
+      "note": "Também pode escolher «Adicionar ao meu SIM» na página de qualquer plano.",
+      "signIn": "Inicie sessão para recarregar"
+    }
   }
 }

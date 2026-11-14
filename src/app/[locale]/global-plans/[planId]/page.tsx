@@ -7,7 +7,7 @@ import { getNames } from "@/i18n/get-names";
 import { pageMetadata } from "@/i18n/metadata";
 import PlanDetailView from "@/components/plans/PlanDetailView";
 import { isEsimCheckoutEnabled } from "@/lib/checkout/availability";
-import { isPhysicalSimEnabled } from "@/lib/physical-sim";
+import { isTopUpEnabled } from "@/lib/topup";
 
 export async function generateMetadata({
   params,
@@ -36,7 +36,7 @@ export default async function GlobalPlanDetailPage({
     <PlanDetailView
       plan={plan}
       salesPaused={!isEsimCheckoutEnabled()}
-      topUpEnabled={isPhysicalSimEnabled()}
+      topUpEnabled={isTopUpEnabled()}
       title={t("title", { area: names.planArea(plan) })}
       subtitle={`${names.data(plan.dataAmountGb)} · ${names.validity(plan.validityDays)}`}
       iconSlot={

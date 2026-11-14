@@ -177,7 +177,8 @@
     "expires": "Expires {date}",
     "buyMore": "Buy more data",
     "checkedAt": "Checked {time}",
-    "viewOrder": "View order"
+    "viewOrder": "View order",
+    "recharge": "Recharge"
   },
   "homePhysicalSim": {
     "eyebrow": "Physical SIM card · Available now",
@@ -491,6 +492,11 @@
         "id": "payment",
         "question": "Which payment methods do you accept?",
         "answer": "Debit and credit cards on Stripe’s secure checkout. Apple Pay and Google Pay are offered on devices that support them."
+      },
+      {
+        "id": "recharge",
+        "question": "How do I recharge my eSIM?",
+        "answer": "Sign in with the email you used at checkout, open My SIMs, press “Recharge” next to your eSIM and choose a plan that covers the country you are in. You can also choose “Add to my SIM” on any plan page. The new data is added to the same eSIM."
       },
       {
         "id": "contact",
@@ -947,5 +953,19 @@
     },
     "willAddCard": "This plan will be added to your SIM card ending {last4}.",
     "willAddEsim": "This plan will be added to your eSIM ending {last4}."
+  },
+  "recharge": {
+    "coverage": {
+      "generic": "Before you pay: a plan only works in the countries it covers. Make sure it covers the country where you are using this SIM.",
+      "warning": "Warning: this plan does not seem to cover {country}, the country this SIM was bought for. If you are in {country}, choose a plan that covers it, otherwise the data will not work there."
+    },
+    "how": {
+      "title": "How to recharge your eSIM",
+      "step1": "Sign in with the email you used for this order and open My SIMs.",
+      "step2": "Press “Recharge” next to your eSIM and choose a plan that covers the country you are in.",
+      "step3": "Pay: the new data is added to the same eSIM.",
+      "note": "You can also choose “Add to my SIM” on any plan page.",
+      "signIn": "Sign in to recharge"
+    }
   }
 }

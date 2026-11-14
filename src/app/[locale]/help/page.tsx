@@ -7,6 +7,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import type { FaqItem } from "@/lib/types";
 import { pageMetadata } from "@/i18n/metadata";
 import { SUPPORT_EMAIL, whatsappUrl } from "@/lib/contact";
+import { isTopUpEnabled } from "@/lib/topup";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -84,7 +85,7 @@ export default async function HelpPage({ params }: { params: Promise<{ locale: s
       <div id="faq" className="mx-auto mt-16 max-w-3xl scroll-mt-24">
         <SectionHeading eyebrow={tFaq("eyebrow")} title={tFaq("title")} />
         <div className="mt-6">
-          <Accordion items={tFaq.raw("help") as FaqItem[]} />
+          <Accordion items={(tFaq.raw("help") as FaqItem[]).filter((item) => isTopUpEnabled() || item.id !== "recharge")} />
         </div>
       </div>
     </div>

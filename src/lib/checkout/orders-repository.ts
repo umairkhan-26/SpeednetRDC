@@ -684,6 +684,8 @@ export interface CustomerSim {
   /** The order the SIM came with (the eSIM order, or the card's order). */
   orderId: number;
   orderAccessToken: string | null;
+  /** The plan the SIM was first bought with (tells us the country it was bought for). */
+  planId: string | null;
 }
 
 /**
@@ -692,8 +694,8 @@ export interface CustomerSim {
  */
 export async function listCustomerSims(email: string): Promise<CustomerSim[]> {
   const pool = await getPool();
-  const [rows] = await pool.query<(RowDataPacket & { id: number; iccid: string; product_type: ProductType; access_token: string | null })[]>(
-    `SELECT id, iccid, product_type, access_token FROM orders
+  const [rows] = await pool.query<(RowDataPacket & { id: number; iccid: string; product_type: ProductType; access_token: string | null; plan_id: string | null })[]>(
+    `SELECT id, iccid, product_type, access_token, plan_id FROM orders
      WHERE ${CUSTOMER_ORDERS_SQL} AND status = 'completed' AND iccid IS NOT NULL
        AND ((product_type = 'esim' AND provisioning_status = 'provisioned')
          OR (product_type = 'physical_sim' AND shipping_status IN ('shipped', 'delivered')))
@@ -703,5 +705,5 @@ export async function listCustomerSims(email: string): Promise<CustomerSim[]> {
   const seen = new Set<string>();
   return rows
     .filter((r) => !seen.has(r.iccid) && seen.add(r.iccid))
-    .map((r) => ({ iccid: r.iccid, simType: r.product_type === "physical_sim" ? "physical" : "esim", orderId: r.id, orderAccessToken: r.access_token }));
+    .map((r) => ({ iccid: r.iccid, simType: r.product_type === "physical_sim" ? "physical" : "esim", orderId: r.id, orderAccessToken: r.access_token, planId: r.plan_id }));
 }

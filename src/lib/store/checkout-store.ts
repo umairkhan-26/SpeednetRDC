@@ -18,11 +18,14 @@ interface CheckoutState {
   topUpIccid: string | null;
   /** From "Buy more data" on My SIMs: preselects "Add to my SIM" with this SIM. */
   suggestedIccid: string | null;
+  /** Country page slug the suggested / chosen SIM was bought for, when known (for the coverage warning). */
+  suggestedCountrySlug: string | null;
+  topUpCountrySlug: string | null;
   startCheckout: (plan: Plan, mode?: CheckoutMode) => void;
   setStep: (step: CheckoutStep) => void;
   setAccountDetails: (fullName: string, email: string) => void;
-  setTopUpIccid: (iccid: string | null) => void;
-  suggestTopUp: (iccid: string) => void;
+  setTopUpIccid: (iccid: string | null, countrySlug?: string | null) => void;
+  suggestTopUp: (iccid: string, countrySlug?: string | null) => void;
   reset: () => void;
 }
 
@@ -34,10 +37,12 @@ export const useCheckoutStore = create<CheckoutState>()((set) => ({
   mode: "new",
   topUpIccid: null,
   suggestedIccid: null,
-  startCheckout: (plan, mode = "new") => set({ plan, step: "plan", mode, topUpIccid: null }),
+  suggestedCountrySlug: null,
+  topUpCountrySlug: null,
+  startCheckout: (plan, mode = "new") => set({ plan, step: "plan", mode, topUpIccid: null, topUpCountrySlug: null }),
   setStep: (step) => set({ step }),
   setAccountDetails: (fullName, email) => set({ fullName, email }),
-  setTopUpIccid: (iccid) => set({ topUpIccid: iccid }),
-  suggestTopUp: (iccid) => set({ suggestedIccid: iccid, mode: "topup" }),
-  reset: () => set({ plan: null, step: "plan", fullName: "", email: "", mode: "new", topUpIccid: null, suggestedIccid: null }),
+  setTopUpIccid: (iccid, countrySlug = null) => set({ topUpIccid: iccid, topUpCountrySlug: iccid ? countrySlug : null }),
+  suggestTopUp: (iccid, countrySlug = null) => set({ suggestedIccid: iccid, suggestedCountrySlug: countrySlug, mode: "topup" }),
+  reset: () => set({ plan: null, step: "plan", fullName: "", email: "", mode: "new", topUpIccid: null, suggestedIccid: null, suggestedCountrySlug: null, topUpCountrySlug: null }),
 }));
