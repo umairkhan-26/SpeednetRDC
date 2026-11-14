@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { Clock, Database, Network, ShieldCheck, Signal, Smartphone, Undo2, Wifi } from "lucide-react";
 import type { Plan } from "@/lib/types";
 import { useCheckoutStore } from "@/lib/store/checkout-store";
@@ -61,6 +61,15 @@ export default function PlanDetailView({
               <p className="text-sm text-muted">{subtitle}</p>
             </div>
           </div>
+
+          {plan.scope === "country" && !plan.zone && (
+            <p className="mt-6 rounded-xl bg-orange/5 px-4 py-3 text-sm text-ink">
+              {t("multiCountryNote")}{" "}
+              <Link href="/regional-plans" className="font-semibold text-orange underline">{t("multiCountryRegional")}</Link>
+              {" · "}
+              <Link href="/global-plans" className="font-semibold text-orange underline">{t("multiCountryGlobal")}</Link>
+            </p>
+          )}
 
           {plan.countriesIncluded && plan.countriesIncluded.length > 1 && (
             <div className="mt-8 rounded-2xl border border-line bg-cream p-5">

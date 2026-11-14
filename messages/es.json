@@ -119,7 +119,8 @@
     "scandinavia-baltics": "Escandinavia y países bálticos",
     "middle-east-plus": "Oriente Medio Plus",
     "australia-new-zealand": "Australia y Nueva Zelanda",
-    "isle-of-man-channel-islands": "Isla de Man e Islas del Canal"
+    "isle-of-man-channel-islands": "Isla de Man e Islas del Canal",
+    "french-caribbean": "Caribe francés y Guayana Francesa"
   },
   "account": {
     "title": "Mis eSIM",
@@ -300,7 +301,10 @@
     "addToSimHint": "Ponlo en una SIM que ya tienes",
     "buyTopUp": "Añadir este plan a mi SIM",
     "fairUse": "Uso razonable",
-    "fairUseValue": "Límite de uso razonable de {gb} GB"
+    "fairUseValue": "Límite de uso razonable de {gb} GB",
+    "multiCountryNote": "Este plan solo funciona en un país. ¿Visitas más de uno? Elige mejor un plan regional o global.",
+    "multiCountryRegional": "Planes regionales",
+    "multiCountryGlobal": "Planes globales"
   },
   "orderPage": {
     "installOnPhone": "Instalar en este iPhone",
@@ -333,7 +337,14 @@
       "addingTitle": "Añadiendo tu plan a la SIM terminada en {ending}",
       "failedText": "Tu pago se ha realizado, pero hubo un problema al añadir el plan automáticamente. Nuestro equipo ya está avisado: lo terminará y te contactará en {email} si hace falta.",
       "addingText": "Tu pago se ha realizado. Suele tardar menos de un minuto: actualiza esta página en un momento."
-    }
+    },
+    "coverageTitle": "Dónde funciona este plan",
+    "coverageText": "Tus datos solo funcionan en estos países. Fuera de ellos no tendrás internet, aunque tu teléfono muestre cobertura.",
+    "noInternetTitle": "¿Sin internet?",
+    "noInternet1": "Activa la línea eSIM: Ajustes → Datos móviles (Celular) → selecciona esta eSIM.",
+    "noInternet2": "Elige esta eSIM para los datos móviles y activa el roaming de datos en esa línea.",
+    "noInternet3": "Comprueba que estás en uno de los países de la lista anterior.",
+    "noInternet4": "Reinicia el teléfono y espera un minuto. Si sigue sin funcionar, contáctanos con tu número de pedido."
   },
   "topUpPicker": {
     "title": "¿A qué SIM añadimos este plan?",

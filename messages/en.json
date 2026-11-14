@@ -147,7 +147,8 @@
     "scandinavia-baltics": "Scandinavia & Baltics",
     "middle-east-plus": "Middle East Plus",
     "australia-new-zealand": "Australia & New Zealand",
-    "isle-of-man-channel-islands": "Isle of Man & Channel Islands"
+    "isle-of-man-channel-islands": "Isle of Man & Channel Islands",
+    "french-caribbean": "French Caribbean & Guiana"
   },
   "account": {
     "title": "My eSIMs",
@@ -568,7 +569,10 @@
     "addToSimHint": "Put it on a SIM you already have",
     "buyTopUp": "Add This Plan to My SIM",
     "fairUse": "Fair use",
-    "fairUseValue": "{gb} GB fair-use limit"
+    "fairUseValue": "{gb} GB fair-use limit",
+    "multiCountryNote": "This plan only works in one country. Visiting more than one? Choose a regional or global plan instead.",
+    "multiCountryRegional": "Regional plans",
+    "multiCountryGlobal": "Global plans"
   },
   "salesPaused": {
     "title": "eSIM orders are temporarily unavailable",
@@ -721,7 +725,14 @@
       "addingTitle": "Adding your plan to SIM ending {ending}",
       "failedText": "Your payment went through, but we hit a snag adding the plan automatically. It’s been flagged for our team, who will finish it and contact you at {email} if needed.",
       "addingText": "Your payment went through. This usually takes less than a minute — refresh this page shortly."
-    }
+    },
+    "coverageTitle": "Where this plan works",
+    "coverageText": "Your data only works in these countries. Outside them you will have no internet, even if your phone shows a signal.",
+    "noInternetTitle": "No internet?",
+    "noInternet1": "Turn the eSIM line on: Settings → Mobile data (Cellular) → select this eSIM.",
+    "noInternet2": "Choose this eSIM for mobile data and turn on Data roaming for that line.",
+    "noInternet3": "Check that you are in one of the countries listed above.",
+    "noInternet4": "Restart your phone and wait a minute. If it still doesn’t work, contact us with your order number."
   },
   "help": {
     "title": "How can we help?",

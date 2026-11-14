@@ -119,7 +119,8 @@
     "scandinavia-baltics": "Scandinavie et pays baltes",
     "middle-east-plus": "Moyen-Orient Plus",
     "australia-new-zealand": "Australie et Nouvelle-Zélande",
-    "isle-of-man-channel-islands": "Île de Man et îles Anglo-Normandes"
+    "isle-of-man-channel-islands": "Île de Man et îles Anglo-Normandes",
+    "french-caribbean": "Caraïbes françaises et Guyane"
   },
   "account": {
     "title": "Mes eSIM",
@@ -300,7 +301,10 @@
     "addToSimHint": "Le mettre sur une SIM que vous avez déjà",
     "buyTopUp": "Ajouter ce forfait à ma SIM",
     "fairUse": "Usage raisonnable",
-    "fairUseValue": "Limite d’usage raisonnable de {gb} Go"
+    "fairUseValue": "Limite d’usage raisonnable de {gb} Go",
+    "multiCountryNote": "Ce forfait ne fonctionne que dans un seul pays. Vous visitez plusieurs pays ? Choisissez plutôt un forfait régional ou mondial.",
+    "multiCountryRegional": "Forfaits régionaux",
+    "multiCountryGlobal": "Forfaits mondiaux"
   },
   "orderPage": {
     "installOnPhone": "Installer sur cet iPhone",
@@ -333,7 +337,14 @@
       "addingTitle": "Ajout de votre forfait à la SIM se terminant par {ending}",
       "failedText": "Votre paiement est passé, mais l’ajout automatique du forfait a rencontré un problème. Notre équipe a été prévenue : elle va le terminer et vous contactera à {email} si nécessaire.",
       "addingText": "Votre paiement est passé. Cela prend généralement moins d’une minute : actualisez cette page dans un instant."
-    }
+    },
+    "coverageTitle": "Où ce forfait fonctionne",
+    "coverageText": "Vos données ne fonctionnent que dans ces pays. En dehors, vous n’aurez pas d’internet, même si votre téléphone affiche du réseau.",
+    "noInternetTitle": "Pas d’internet ?",
+    "noInternet1": "Activez la ligne eSIM : Réglages → Données mobiles (Cellulaire) → sélectionnez cette eSIM.",
+    "noInternet2": "Choisissez cette eSIM pour les données mobiles et activez l’itinérance des données pour cette ligne.",
+    "noInternet3": "Vérifiez que vous êtes dans l’un des pays listés ci-dessus.",
+    "noInternet4": "Redémarrez votre téléphone et attendez une minute. Si cela ne fonctionne toujours pas, contactez-nous avec votre numéro de commande."
   },
   "topUpPicker": {
     "title": "Sur quelle SIM ajouter ce forfait ?",

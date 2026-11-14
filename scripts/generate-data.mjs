@@ -115,7 +115,7 @@ const AREA_ZONE = {
   "BEST ASIA": { zone: "asia", name: "Asia", zoneKey: "BEST ASIA" },
   "MALAYSIA + SINGAPORE": { zone: "malaysia-singapore", name: "Malaysia & Singapore", countries: ["Malaysia", "Singapore"] },
   CARIBBEAN: { zone: "caribbean-plus", name: "Caribbean Plus", zoneKey: "CARIBBEAN" },
-  "BEST CARIBBEAN": { zone: "caribbean", name: "Caribbean", zoneKey: "BEST CARIBBEAN" },
+  "BEST CARIBBEAN": { zone: "french-caribbean", name: "French Caribbean & Guiana", zoneKey: "BEST CARIBBEAN" },
   EUROPE: { zone: "europe", name: "Europe", zoneKey: "EU28PLUS (EUROPE)" },
   "EUROPE EXTENDED": { zone: "europe-plus", name: "Europe Plus", zoneKey: "EU EXTENDED" },
   MEDITERRANEAN: { zone: "europe-maghreb", name: "Europe, Morocco & Tunisia", zoneKey: "MEDITERRANEAN" },

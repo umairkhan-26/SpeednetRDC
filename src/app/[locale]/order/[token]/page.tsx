@@ -10,6 +10,7 @@ import { pendingAnswer } from "@/lib/physical-sim";
 import { appleOneTapInstallUrl, supportsAppleOneTapInstall } from "@/lib/esim-install";
 import { generateQrDataUrl } from "@/lib/qr";
 import { isTopUpEnabled } from "@/lib/topup";
+import { getPlanById } from "@/data/plans";
 
 // The URL token is the only thing protecting the activation code shown
 // here: keep the page out of search engines, and never send it as a
@@ -48,7 +49,7 @@ export default async function PrivateOrderPage({ params }: { params: Promise<{ t
       ) : order.productType === "topup" ? (
         <TopUpOrder order={order} locale={locale} t={t} />
       ) : order.provisioningStatus === "provisioned" && order.lpaActivationCode ? (
-        <ReadyToInstall activationCode={order.lpaActivationCode} t={t} locale={locale} />
+        <ReadyToInstall activationCode={order.lpaActivationCode} planId={order.planId} t={t} locale={locale} />
       ) : (
         <NotReadyYet order={order} t={t} />
       )}
@@ -56,7 +57,8 @@ export default async function PrivateOrderPage({ params }: { params: Promise<{ t
   );
 }
 
-async function ReadyToInstall({ activationCode, t, locale }: { activationCode: string; t: T; locale: string }) {
+async function ReadyToInstall({ activationCode, planId, t, locale }: { activationCode: string; planId: string | null; t: T; locale: string }) {
+  const covered = planId ? getPlanById(planId)?.countriesIncluded ?? [] : [];
   const qr = await generateQrDataUrl(activationCode);
   // LPA:1$<SM-DP+ address>$<matching ID>
   const [, smdpAddress = "", matchingId = ""] = activationCode.replace(/^LPA:/, "").split("$");
@@ -122,6 +124,22 @@ async function ReadyToInstall({ activationCode, t, locale }: { activationCode: s
         <ShieldAlert className="mt-0.5 size-4 shrink-0 text-orange" />
         {t("keepPrivate")}
       </p>
+      {covered.length > 0 && (
+        <div className="mt-6 rounded-2xl border border-line bg-white p-5 text-sm">
+          <p className="font-semibold text-ink">{t("coverageTitle")}</p>
+          <p className="mt-1 text-muted">{t("coverageText")}</p>
+          <p className="mt-3 leading-relaxed text-ink">{covered.join(", ")}</p>
+        </div>
+      )}
+      <div className="mt-6 rounded-2xl border border-line bg-white p-5 text-sm">
+        <p className="font-semibold text-ink">{t("noInternetTitle")}</p>
+        <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-muted">
+          <li>{t("noInternet1")}</li>
+          <li>{t("noInternet2")}</li>
+          <li>{t("noInternet3")}</li>
+          <li>{t("noInternet4")}</li>
+        </ol>
+      </div>
       {isTopUpEnabled() && <HowToRecharge locale={locale} />}
       <HelpLine t={t} />
     </>
