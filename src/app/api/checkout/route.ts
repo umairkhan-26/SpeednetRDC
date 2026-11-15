@@ -9,6 +9,7 @@ import { getAppUrl, getStripe } from "@/lib/checkout/stripe";
 import { attachStripeCheckoutSession, createPendingOrder, recordWithdrawalConsent } from "@/lib/checkout/orders-repository";
 import { legalPagesLive } from "@/lib/legal";
 import { ESIM_CHECKOUT_PAUSED_ERROR, isEsimCheckoutEnabled } from "@/lib/checkout/availability";
+import { countAvailableEsims } from "@/lib/transatel/inventory";
 import { recordMetaConsent } from "@/lib/meta/consent-repository";
 import { isTopUpEnabled } from "@/lib/topup";
 import { findTopUpTarget } from "@/lib/sims/eligibility";
@@ -82,6 +83,20 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "We couldn't find that SIM. Check the number printed on your SIM card." }, { status: 400 });
     }
     topUpIccid = target.iccid;
+  }
+
+  // A new eSIM needs one from stock: never take a payment we cannot deliver.
+  // Only with live Stripe keys (local and test setups have no stock), and a
+  // failed stock lookup never blocks a sale.
+  if (!topUpIccid && process.env.STRIPE_SECRET_KEY?.startsWith("sk_live")) {
+    try {
+      if ((await countAvailableEsims()) === 0) {
+        console.error("[checkout] No eSIMs left in stock: checkout refused before payment");
+        return NextResponse.json({ error: ESIM_CHECKOUT_PAUSED_ERROR }, { status: 503 });
+      }
+    } catch (error) {
+      console.error("[checkout] Stock check failed, continuing:", error instanceof Error ? error.message : error);
+    }
   }
 
   const resolvedLocale = hasLocale(routing.locales, locale) ? locale : routing.defaultLocale;

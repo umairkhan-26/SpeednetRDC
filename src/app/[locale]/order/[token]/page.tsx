@@ -139,6 +139,7 @@ async function ReadyToInstall({ activationCode, planId, t, locale }: { activatio
           <li>{t("noInternet3")}</li>
           <li>{t("noInternet4")}</li>
         </ol>
+        <p className="mt-3 font-medium text-ink">{t("keepEsim")}</p>
       </div>
       {isTopUpEnabled() && <HowToRecharge locale={locale} />}
       <HelpLine t={t} />

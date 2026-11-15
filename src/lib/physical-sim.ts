@@ -153,34 +153,37 @@ export function needsCustomsDeclaration(country: string | null, postalCode: stri
 // --- Answers still pending -------------------------------------------------------
 
 /**
- * PLACEHOLDERS — waiting on Transatel and the client. Shown in brackets on the
- * pages (only visible once the feature is switched on). Replace each value
- * with the confirmed wording, in all four languages, and set confirmed: true.
+ * Answers still waiting on Transatel. Until they arrive the pages use neutral
+ * wording (never bracketed placeholders): "a long time" for the inactivity
+ * period, nothing for the plan order, and "within 6 months of purchase" for
+ * the start window (Transatel's own data shows unused plans expire 6 months
+ * after purchase). Replace with the confirmed wording in all four languages
+ * and set confirmed: true.
  */
 export const PENDING_ANSWERS = {
   /** Transatel "dormancy": how long a SIM can go unused before it's deactivated. */
   inactivityPeriod: {
     confirmed: false,
-    en: "[X months — to be confirmed]",
-    fr: "[X mois — à confirmer]",
-    es: "[X meses — por confirmar]",
-    pt: "[X meses — a confirmar]",
+    en: "a long time",
+    fr: "une longue période",
+    es: "mucho tiempo",
+    pt: "muito tempo",
   },
   /** Which plan is used first when two plans cover the same country. */
   planPriority: {
     confirmed: false,
-    en: "[To be confirmed: which plan is used first when two plans cover the same country.]",
-    fr: "[À confirmer : quel forfait est utilisé en premier lorsque deux forfaits couvrent le même pays.]",
-    es: "[Por confirmar: qué plan se usa primero cuando dos planes cubren el mismo país.]",
-    pt: "[A confirmar: que tarifário é usado primeiro quando dois tarifários abrangem o mesmo país.]",
+    en: "",
+    fr: "",
+    es: "",
+    pt: "",
   },
   /** Plans have a 6-month deferred-activation period at Transatel; what happens at its end. */
   startWindow: {
     confirmed: false,
-    en: "[within 6 months of purchase — to be confirmed]",
-    fr: "[dans les 6 mois suivant l'achat — à confirmer]",
-    es: "[en los 6 meses siguientes a la compra — por confirmar]",
-    pt: "[nos 6 meses seguintes à compra — a confirmar]",
+    en: "within 6 months of purchase",
+    fr: "dans les 6 mois suivant l'achat",
+    es: "en los 6 meses siguientes a la compra",
+    pt: "nos 6 meses seguintes à compra",
   },
   /** Returns for the card: 14 days from delivery, unused, customer pays return postage (confirmed by the client). */
   returns: {

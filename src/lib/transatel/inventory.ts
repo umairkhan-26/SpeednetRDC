@@ -31,6 +31,15 @@ function toSim(row: SimRow): InventorySim {
   };
 }
 
+/** How many unused eSIMs are left in stock (the checkout stops selling at zero). */
+export async function countAvailableEsims(): Promise<number> {
+  const pool = await getPool();
+  const [rows] = await pool.query<(RowDataPacket & { n: number })[]>(
+    "SELECT COUNT(*) AS n FROM sim_inventory WHERE sim_type = 'esim' AND status = 'available'"
+  );
+  return Number(rows[0]?.n ?? 0);
+}
+
 /**
  * Reserves one unused eSIM from `sim_inventory` for a paid order, inside a
  * transaction with a row lock (`FOR UPDATE`) so two orders can never be

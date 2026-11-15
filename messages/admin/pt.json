@@ -238,7 +238,8 @@
     "left": "Restam {amount}",
     "expires": "Expira: {date}",
     "details": "Detalhes",
-    "customerPage": "Página do cliente"
+    "customerPage": "Página do cliente",
+    "outsideCoverage": "Vista fora dos países do tarifário: o cliente pode estar sem dados"
   },
   "simDetail": {
     "allSims": "Todos os SIM",

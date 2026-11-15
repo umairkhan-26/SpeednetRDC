@@ -3,6 +3,7 @@ import { requireAdminSession } from "@/lib/staff/auth";
 import { orderKind } from "@/lib/checkout/order-kind";
 import { listSoldSims, SOLD_SIM_LIMIT, type SoldSim } from "@/lib/sims/repository";
 import { formatKb, USAGE_STATUSES, usageStatus } from "@/lib/sims/status";
+import { seenOutsidePlanCoverage } from "@/lib/sims/coverage";
 import { getAdminT } from "@/i18n/admin";
 import { adminDateLocale } from "@/i18n/admin-locale";
 import { KindBadge, OrderDeliveryBadge, UsageBadge } from "../Badges";
@@ -197,6 +198,9 @@ export default async function AdminSimsPage({ searchParams }: { searchParams: Pr
                           <p>{s("activated", { date: fmtDate(snap.simActivationDate) })}</p>
                           <p>{s("lastSeen", { date: fmtDate(snap.lastSeenDate) })}</p>
                           <p>{s("lastCountry", { country: snap.lastOriginCountry ?? "—" })}</p>
+                          {seenOutsidePlanCoverage(sim.planId, snap.lastOriginCountry) && (
+                            <p className="mt-1 font-medium text-orange">{s("outsideCoverage")}</p>
+                          )}
                         </>
                       ) : (
                         <p>{s("notChecked")}</p>

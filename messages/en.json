@@ -732,7 +732,8 @@
     "noInternet1": "Turn the eSIM line on: Settings → Mobile data (Cellular) → select this eSIM.",
     "noInternet2": "Choose this eSIM for mobile data and turn on Data roaming for that line.",
     "noInternet3": "Check that you are in one of the countries listed above.",
-    "noInternet4": "Restart your phone and wait a minute. If it still doesn’t work, contact us with your order number."
+    "noInternet4": "Restart your phone and wait a minute. If it still doesn’t work, contact us with your order number.",
+    "keepEsim": "Please don’t delete the eSIM from your phone, even if it isn’t working: it can’t be installed again. Contact us first."
   },
   "help": {
     "title": "How can we help?",

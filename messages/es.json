@@ -344,7 +344,8 @@
     "noInternet1": "Activa la línea eSIM: Ajustes → Datos móviles (Celular) → selecciona esta eSIM.",
     "noInternet2": "Elige esta eSIM para los datos móviles y activa el roaming de datos en esa línea.",
     "noInternet3": "Comprueba que estás en uno de los países de la lista anterior.",
-    "noInternet4": "Reinicia el teléfono y espera un minuto. Si sigue sin funcionar, contáctanos con tu número de pedido."
+    "noInternet4": "Reinicia el teléfono y espera un minuto. Si sigue sin funcionar, contáctanos con tu número de pedido.",
+    "keepEsim": "No elimines la eSIM del teléfono, aunque no funcione: no se puede volver a instalar. Contáctanos primero."
   },
   "topUpPicker": {
     "title": "¿A qué SIM añadimos este plan?",

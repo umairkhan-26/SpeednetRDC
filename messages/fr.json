@@ -344,7 +344,8 @@
     "noInternet1": "Activez la ligne eSIM : Réglages → Données mobiles (Cellulaire) → sélectionnez cette eSIM.",
     "noInternet2": "Choisissez cette eSIM pour les données mobiles et activez l’itinérance des données pour cette ligne.",
     "noInternet3": "Vérifiez que vous êtes dans l’un des pays listés ci-dessus.",
-    "noInternet4": "Redémarrez votre téléphone et attendez une minute. Si cela ne fonctionne toujours pas, contactez-nous avec votre numéro de commande."
+    "noInternet4": "Redémarrez votre téléphone et attendez une minute. Si cela ne fonctionne toujours pas, contactez-nous avec votre numéro de commande.",
+    "keepEsim": "Ne supprimez pas l’eSIM de votre téléphone, même si elle ne fonctionne pas : elle ne peut pas être réinstallée. Contactez-nous d’abord."
   },
   "topUpPicker": {
     "title": "Sur quelle SIM ajouter ce forfait ?",

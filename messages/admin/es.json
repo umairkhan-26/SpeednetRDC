@@ -238,7 +238,8 @@
     "left": "Quedan {amount}",
     "expires": "Caduca: {date}",
     "details": "Detalles",
-    "customerPage": "Página del cliente"
+    "customerPage": "Página del cliente",
+    "outsideCoverage": "Vista fuera de los países del plan: el cliente puede no tener datos"
   },
   "simDetail": {
     "allSims": "Todas las SIM",

@@ -238,7 +238,8 @@
     "left": "{amount} restants",
     "expires": "Expire : {date}",
     "details": "Détails",
-    "customerPage": "Page client"
+    "customerPage": "Page client",
+    "outsideCoverage": "Vue hors des pays du forfait : le client n’a peut-être pas de données"
   },
   "simDetail": {
     "allSims": "Toutes les SIM",
