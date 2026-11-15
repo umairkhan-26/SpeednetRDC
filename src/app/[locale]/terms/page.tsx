@@ -34,6 +34,16 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
         <li>A prepaid, data-only eSIM plan for the destination, data allowance and validity shown when you ordered. It has no phone number for calls or texts unless the plan says otherwise.</li>
         <li>Connectivity is provided by our network partner and its partner networks in each destination. Speeds and coverage depend on local networks and are not guaranteed.</li>
         <li>
+          <strong>Where it works:</strong> a plan works only in the countries listed on its plan page and on your order page. Plan names such as
+          &ldquo;Caribbean&rdquo; or &ldquo;Europe&rdquo; can cover only some places, so please check the list before you buy. Outside those
+          countries your eSIM will not give you internet, even if your phone shows a signal. If you bought a plan that does not cover where
+          you are going, tell us before you use it: see our{" "}
+          <Link href="/refunds" className={linkClass}>
+            Refund Policy
+          </Link>
+          .
+        </li>
+        <li>
           You need an eSIM-compatible device that is not carrier-locked. Check the{" "}
           <Link href="/device-compatibility" className={linkClass}>
             device compatibility list
@@ -44,7 +54,11 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
 
       <H2>3. Orders and payment</H2>
       <UL>
-        <li>Prices are shown in euros and include VAT where it applies. You pay in full at checkout through our payment provider, Stripe.</li>
+        <li>
+          Prices are shown in euros. The plan price and the &ldquo;Taxes &amp; fees&rdquo; line shown at checkout make up the total you pay; the
+          total on the payment page is final and includes VAT where it applies. You pay in full at checkout through our payment provider,
+          Stripe.
+        </li>
         <li>A contract is formed when your payment is confirmed. We may cancel and fully refund an order if we cannot supply it (for example, a pricing error or a plan that is no longer available).</li>
         <li>You must give a valid email address: it is where your eSIM is delivered and how you sign in to &ldquo;My eSIMs&rdquo;.</li>
       </UL>
@@ -52,6 +66,7 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
       <H2>4. Delivery and installation</H2>
       <UL>
         <li>We email you a private link to your order page with your eSIM QR code and installation instructions, usually within minutes of payment.</li>
+        <li>If something does not work, use &ldquo;Report a problem&rdquo; in your account (or email <V>{COMPANY.supportEmail}</V>) with your order number: our team sees which SIM it is and answers you in the same conversation.</li>
         <li>Keep that link private: anyone who has it can install your eSIM. An eSIM can normally be installed only once; if you delete it from your device it may not be possible to reinstall it.</li>
         <li>Install the eSIM while you have an internet connection, ideally before you travel. You are responsible for installing it and for your device&apos;s settings (for example, turning on data roaming for the eSIM line).</li>
       </UL>

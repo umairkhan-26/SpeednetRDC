@@ -28,6 +28,11 @@ export default async function RefundPolicyPage({ params }: { params: Promise<{ l
         </li>
         <li>we were unable to deliver your eSIM; or</li>
         <li>
+          you bought a plan that does not cover the countries you need (for example a regional plan that leaves out your destination), the plan
+          has not been used, and you tell us within <V>{POLICY.coverageSwitchDays}</V> days of purchase: we will refund you in full, or switch
+          you to a plan that covers your destination if you prefer (you then pay only any price difference); or
+        </li>
+        <li>
           the eSIM doesn&apos;t work in the destination it was sold for because of a problem on our or our network partner&apos;s side, and we
           can&apos;t fix it within a reasonable time; or
         </li>
@@ -53,8 +58,8 @@ export default async function RefundPolicyPage({ params }: { params: Promise<{ l
 
       <H2>3. How refunds are paid</H2>
       <P>
-        Refunds go back to the card or payment method you used, through Stripe, usually within 5–10 business days of our approval depending on
-        your bank. Once an order is refunded, we may deactivate its eSIM.
+        We aim to review each request within 24 to 48 business hours. Refunds go back to the card or payment method you used, through Stripe,
+        usually within 5–10 business days of our approval depending on your bank. Once an order is refunded, we may deactivate its eSIM.
       </P>
 
       {isPhysicalSimEnabled() && (

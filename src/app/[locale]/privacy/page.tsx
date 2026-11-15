@@ -52,8 +52,9 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
           legitimate interests (keeping accounts and the service secure).
         </li>
         <li>
-          <strong>Messages you send us:</strong> if you contact support, the content of your message and our reply — to help you. Legal basis:
-          performance of our contract and legitimate interests.
+          <strong>Messages you send us:</strong> if you contact support by email or with &ldquo;Report a problem&rdquo; in your account, the
+          content of your message, the issue you chose, the order and SIM it concerns, and our replies — to help you. To answer, we also look at
+          that SIM&apos;s status at our network partner (see above). Legal basis: performance of our contract and legitimate interests.
         </li>
       </UL>
       <P>
