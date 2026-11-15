@@ -25,7 +25,8 @@
     "account": "Conta",
     "staffView": "Vista de colaborador",
     "logOut": "Terminar sessão",
-    "shipping": "Envios"
+    "shipping": "Envios",
+    "support": "Apoio"
   },
   "clock": {
     "clockedInSince": "Em serviço desde as {time}",
@@ -148,6 +149,13 @@
       "awaiting": "A aguardar envio",
       "shipped": "Enviado",
       "delivered": "Entregue"
+    },
+    "health": {
+      "working": "A funcionar",
+      "idle": "Em espera",
+      "problem": "Não funciona",
+      "ended": "Terminado",
+      "unknown": "Desconhecido"
     }
   },
   "orders": {
@@ -239,7 +247,8 @@
     "expires": "Expira: {date}",
     "details": "Detalhes",
     "customerPage": "Página do cliente",
-    "outsideCoverage": "Vista fora dos países do tarifário: o cliente pode estar sem dados"
+    "outsideCoverage": "Vista fora dos países do tarifário: o cliente pode estar sem dados",
+    "legendTitle": "Cores:"
   },
   "simDetail": {
     "allSims": "Todos os SIM",
@@ -275,7 +284,8 @@
       "dataLeft": "Dados restantes",
       "started": "Início",
       "expires": "Validade",
-      "dataAddedLater": "Dados adicionados depois"
+      "dataAddedLater": "Dados adicionados depois",
+      "health": "Estado"
     },
     "openQr": "Abrir (mostra o código QR: partilhe apenas com o cliente)",
     "usedOf": "{used} de {total}",
@@ -581,5 +591,64 @@
     "markShipped": "Marcar como enviada e avisar o cliente",
     "markDelivered": "Marcar como entregue",
     "confirmDelivered": "Marcar ORD-{id} como entregue?"
+  },
+  "support": {
+    "title": "Pedidos dos clientes",
+    "subtitle": "Problemas comunicados pelos clientes a partir da conta. Cada um mostra o SIM e o seu estado na Transatel. Responda aqui: o cliente vê na conta e por e-mail.",
+    "tabs": {
+      "open": "Abertos",
+      "answered": "Respondidos",
+      "resolved": "Resolvidos",
+      "all": "Todos"
+    },
+    "empty": "Sem pedidos aqui.",
+    "cols": {
+      "issue": "Problema",
+      "customer": "Cliente",
+      "order": "Encomenda",
+      "sim": "SIM",
+      "updated": "Atualizado"
+    },
+    "new": "Novo",
+    "categories": {
+      "no_internet": "Sem internet / sem dados",
+      "cant_install": "Não consegue instalar nem ler o eSIM",
+      "wrong_country": "O tarifário não abrange o país",
+      "data_gone": "Dados acabados ou em falta",
+      "billing": "Pagamento ou reembolso",
+      "other": "Outra coisa"
+    },
+    "status": {
+      "open": "A aguardar resposta nossa",
+      "answered": "Respondido",
+      "resolved": "Resolvido"
+    },
+    "back": "Todos os pedidos",
+    "conversation": "Conversa",
+    "noMessages": "O cliente não escreveu nenhuma mensagem.",
+    "team": "Equipa",
+    "customerLabel": "Cliente",
+    "replyPlaceholder": "Escreva a sua resposta ao cliente…",
+    "send": "Enviar resposta",
+    "emailNote": "O cliente é avisado por e-mail.",
+    "resolve": "Marcar como resolvido",
+    "reopen": "Reabrir",
+    "context": {
+      "title": "Sobre este SIM",
+      "customer": "Cliente",
+      "plan": "Tarifário",
+      "covers": "O tarifário abrange",
+      "countries": "{count} países",
+      "sim": "SIM",
+      "noSim": "Ainda sem SIM (não entregue)",
+      "health": "Estado",
+      "simStatus": "Estado do SIM",
+      "profile": "Perfil eSIM",
+      "planStatus": "Tarifário",
+      "lastSeen": "Visto pela última vez",
+      "lastCountry": "Último país",
+      "outside": "Vista fora dos países do tarifário: o cliente provavelmente não tem dados aí.",
+      "notChecked": "Ainda não verificado na Transatel: prima Atualizar na página do SIM."
+    }
   }
 }

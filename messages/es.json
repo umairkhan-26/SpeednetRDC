@@ -426,5 +426,46 @@
         "answer": "Escríbenos a contact@speednetrdc.com; solemos responder en un día laborable. Para respuestas rápidas a las preguntas frecuentes, pulsa el botón de chat de la esquina inferior derecha."
       }
     ]
+  },
+  "support": {
+    "title": "¿Necesitas ayuda con tu SIM?",
+    "subtitle": "Cuéntanos qué falla y nuestro equipo verá de qué SIM se trata. Respondemos aquí y por correo.",
+    "report": "Informar de un problema",
+    "whichOrder": "¿Qué pedido o SIM?",
+    "whichIssue": "¿Cuál es el problema?",
+    "categories": {
+      "no_internet": "Sin internet / sin datos",
+      "cant_install": "No puedo instalar ni escanear la eSIM",
+      "wrong_country": "Mi plan no cubre el país en el que estoy",
+      "data_gone": "Mis datos se agotaron o faltan",
+      "billing": "Pago o reembolso",
+      "other": "Otra cosa"
+    },
+    "messageLabel": "Cuéntanos más (opcional)",
+    "messagePlaceholder": "Por ejemplo: el país en el que estás, lo que ves en tu teléfono…",
+    "send": "Enviar a nuestro equipo",
+    "sending": "Enviando…",
+    "cancel": "Cancelar",
+    "sent": "Gracias. Nuestro equipo ha sido avisado y responderá aquí y por correo.",
+    "yourRequests": "Tus solicitudes",
+    "status": {
+      "open": "Esperando nuestra respuesta",
+      "answered": "Respondida",
+      "resolved": "Resuelta"
+    },
+    "newReply": "Nueva respuesta",
+    "you": "Tú",
+    "team": "Equipo SpeedNetRDC",
+    "noMessage": "Sin mensaje.",
+    "replyPlaceholder": "Escribe una respuesta…",
+    "reply": "Enviar",
+    "errors": {
+      "notSignedIn": "Inicia sesión de nuevo.",
+      "invalid": "Revisa lo que has escrito e inténtalo de nuevo.",
+      "tooMany": "Demasiadas solicitudes. Inténtalo más tarde.",
+      "noOrder": "No hemos encontrado ese pedido.",
+      "failed": "Algo ha salido mal. Inténtalo de nuevo.",
+      "chooseIssue": "Elige cuál es el problema."
+    }
   }
 }

@@ -2,11 +2,11 @@ import Link from "next/link";
 import { requireAdminSession } from "@/lib/staff/auth";
 import { orderKind } from "@/lib/checkout/order-kind";
 import { listSoldSims, SOLD_SIM_LIMIT, type SoldSim } from "@/lib/sims/repository";
-import { formatKb, USAGE_STATUSES, usageStatus } from "@/lib/sims/status";
+import { formatKb, HEALTH_BORDER, simHealth, USAGE_STATUSES, usageStatus } from "@/lib/sims/status";
 import { seenOutsidePlanCoverage } from "@/lib/sims/coverage";
 import { getAdminT } from "@/i18n/admin";
 import { adminDateLocale } from "@/i18n/admin-locale";
-import { KindBadge, OrderDeliveryBadge, UsageBadge } from "../Badges";
+import { HealthBadge, KindBadge, OrderDeliveryBadge, UsageBadge } from "../Badges";
 import RefreshButton from "./RefreshButton";
 
 type Params = Record<"q" | "status" | "type" | "country" | "from" | "to", string>;
@@ -87,6 +87,14 @@ export default async function AdminSimsPage({ searchParams }: { searchParams: Pr
         <RefreshButton label={s("refreshAll")} />
       </div>
 
+      <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
+        <span className="font-semibold text-ink">{s("legendTitle")}</span>
+        <HealthBadge health="working" />
+        <HealthBadge health="idle" />
+        <HealthBadge health="problem" />
+        <HealthBadge health="ended" />
+      </p>
+
       <form method="get" className="flex flex-wrap items-end gap-3">
         <input
           type="search"
@@ -159,10 +167,11 @@ export default async function AdminSimsPage({ searchParams }: { searchParams: Pr
                 const kind = orderKind(sim.stripeCheckoutSessionId);
                 const snap = sim.snapshot;
                 const usage = usageStatus(snap);
+                const health = simHealth(snap, sim.planId);
                 const used = snap?.dataTotalKb != null && snap.dataRemainingKb != null ? snap.dataTotalKb - snap.dataRemainingKb : null;
                 return (
                   <tr key={`${sim.orderId}-${sim.iccid}`} className="align-top">
-                    <td className="px-4 py-3">
+                    <td className={`border-l-4 px-4 py-3 ${HEALTH_BORDER[health]}`}>
                       <p className="flex items-center gap-1.5 font-medium whitespace-nowrap text-ink">
                         ORD-{sim.orderId} <KindBadge kind={kind} />
                       </p>
@@ -193,6 +202,7 @@ export default async function AdminSimsPage({ searchParams }: { searchParams: Pr
                     <td className="px-4 py-3 text-xs text-muted">
                       {snap?.fetchedAt ? (
                         <>
+                          <p className="mb-1"><HealthBadge health={health} /></p>
                           <p className="text-ink">{snap.simStatus ?? "—"}</p>
                           {snap.esimProfileStatus && <p>{s("profile", { status: snap.esimProfileStatus })}</p>}
                           <p>{s("activated", { date: fmtDate(snap.simActivationDate) })}</p>

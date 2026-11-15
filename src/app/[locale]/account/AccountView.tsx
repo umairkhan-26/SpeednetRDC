@@ -7,6 +7,7 @@ import { Link } from "@/i18n/navigation";
 import { customerLogoutAction } from "@/lib/customer/actions";
 import type { CustomerSimStatus } from "@/lib/sims/customer-sims";
 import MySims from "./MySims";
+import SupportPanel, { type CustomerTicket } from "./SupportPanel";
 
 export interface CustomerOrderSummary {
   id: number;
@@ -26,7 +27,7 @@ const STATE_STYLE = {
   refunded: { icon: RotateCcw, className: "bg-ink/5 text-muted", key: "statusRefunded" },
 } as const;
 
-export default function AccountView({ email, orders, sims = [] }: { email: string; orders: CustomerOrderSummary[]; sims?: CustomerSimStatus[] }) {
+export default function AccountView({ email, orders, sims = [], tickets = [] }: { email: string; orders: CustomerOrderSummary[]; sims?: CustomerSimStatus[]; tickets?: CustomerTicket[] }) {
   const locale = useLocale();
   const t = useTranslations("account");
   const formatDate = (iso: string) => new Date(iso).toLocaleDateString(languageTag(locale), { day: "numeric", month: "long", year: "numeric" });
@@ -47,6 +48,8 @@ export default function AccountView({ email, orders, sims = [] }: { email: strin
       </div>
 
       <MySims sims={sims} />
+
+      <SupportPanel orders={orders.filter((o) => o.state !== "refunded").map((o) => ({ id: o.id, planName: o.planName }))} tickets={tickets} />
 
       {orders.length === 0 ? (
         <div className="mt-10 rounded-2xl border border-dashed border-line bg-white py-16 text-center">

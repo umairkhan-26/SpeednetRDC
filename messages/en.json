@@ -979,5 +979,46 @@
       "note": "You can also choose “Add to my SIM” on any plan page.",
       "signIn": "Sign in to recharge"
     }
+  },
+  "support": {
+    "title": "Need help with your SIM?",
+    "subtitle": "Tell us what is wrong and our team will see which SIM it is. We answer here and by email.",
+    "report": "Report a problem",
+    "whichOrder": "Which order or SIM?",
+    "whichIssue": "What is the problem?",
+    "categories": {
+      "no_internet": "No internet / no data",
+      "cant_install": "I can’t install or scan the eSIM",
+      "wrong_country": "My plan doesn’t cover the country I’m in",
+      "data_gone": "My data ran out or is missing",
+      "billing": "Payment or refund",
+      "other": "Something else"
+    },
+    "messageLabel": "Tell us more (optional)",
+    "messagePlaceholder": "For example: the country you are in, what you see on your phone…",
+    "send": "Send to our team",
+    "sending": "Sending…",
+    "cancel": "Cancel",
+    "sent": "Thank you. Our team has been notified and will answer here and by email.",
+    "yourRequests": "Your requests",
+    "status": {
+      "open": "Waiting for us",
+      "answered": "Answered",
+      "resolved": "Solved"
+    },
+    "newReply": "New reply",
+    "you": "You",
+    "team": "SpeedNetRDC team",
+    "noMessage": "No message.",
+    "replyPlaceholder": "Write a reply…",
+    "reply": "Send",
+    "errors": {
+      "notSignedIn": "Please sign in again.",
+      "invalid": "Please check what you entered and try again.",
+      "tooMany": "Too many requests. Please try again later.",
+      "noOrder": "We couldn’t find that order.",
+      "failed": "Something went wrong. Please try again.",
+      "chooseIssue": "Please choose what the problem is."
+    }
   }
 }

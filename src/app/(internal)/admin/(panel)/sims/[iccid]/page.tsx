@@ -5,8 +5,8 @@ import { ArrowLeft } from "lucide-react";
 import { requireAdminSession } from "@/lib/staff/auth";
 import { orderKind } from "@/lib/checkout/order-kind";
 import { getSoldSimsByIccid } from "@/lib/sims/repository";
-import { formatKb, usageStatus } from "@/lib/sims/status";
-import { KindBadge, OrderDeliveryBadge, PaymentBadge, UsageBadge } from "../../Badges";
+import { formatKb, simHealth, usageStatus } from "@/lib/sims/status";
+import { HealthBadge, KindBadge, OrderDeliveryBadge, PaymentBadge, UsageBadge } from "../../Badges";
 import RefreshButton from "../RefreshButton";
 import { getAdminT } from "@/i18n/admin";
 import { adminDateLocale } from "@/i18n/admin-locale";
@@ -113,6 +113,9 @@ export default async function AdminSimDetailPage({ params }: { params: Promise<{
 
         <Section title={d("sections.sim")}>
           <Row label={d("rows.msisdn")}>{sim.msisdn ? `+${sim.msisdn}` : null}</Row>
+          <Row label={d("rows.health")}>
+            <HealthBadge health={simHealth(snap, sim.planId)} />
+          </Row>
           <Row label={d("rows.simStatus")}>{snap?.simStatus}</Row>
           <Row label={d("rows.esimProfile")}>{snap?.esimProfileStatus}</Row>
           <Row label={d("rows.profileUpdated")}>{snap?.esimProfileDate ? fmt(snap.esimProfileDate) : null}</Row>

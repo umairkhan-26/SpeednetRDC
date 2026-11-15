@@ -979,5 +979,46 @@
       "note": "Também pode escolher «Adicionar ao meu SIM» na página de qualquer plano.",
       "signIn": "Inicie sessão para recarregar"
     }
+  },
+  "support": {
+    "title": "Precisa de ajuda com o seu SIM?",
+    "subtitle": "Diga-nos o que se passa e a nossa equipa vê de que SIM se trata. Respondemos aqui e por e-mail.",
+    "report": "Comunicar um problema",
+    "whichOrder": "Que encomenda ou SIM?",
+    "whichIssue": "Qual é o problema?",
+    "categories": {
+      "no_internet": "Sem internet / sem dados",
+      "cant_install": "Não consigo instalar nem ler o eSIM",
+      "wrong_country": "O meu tarifário não abrange o país onde estou",
+      "data_gone": "Os meus dados acabaram ou não aparecem",
+      "billing": "Pagamento ou reembolso",
+      "other": "Outra coisa"
+    },
+    "messageLabel": "Diga-nos mais (opcional)",
+    "messagePlaceholder": "Por exemplo: o país onde está, o que vê no telemóvel…",
+    "send": "Enviar à nossa equipa",
+    "sending": "A enviar…",
+    "cancel": "Cancelar",
+    "sent": "Obrigado. A nossa equipa foi avisada e responderá aqui e por e-mail.",
+    "yourRequests": "Os seus pedidos",
+    "status": {
+      "open": "A aguardar a nossa resposta",
+      "answered": "Respondido",
+      "resolved": "Resolvido"
+    },
+    "newReply": "Nova resposta",
+    "you": "Você",
+    "team": "Equipa SpeedNetRDC",
+    "noMessage": "Sem mensagem.",
+    "replyPlaceholder": "Escreva uma resposta…",
+    "reply": "Enviar",
+    "errors": {
+      "notSignedIn": "Inicie sessão novamente.",
+      "invalid": "Verifique o que escreveu e tente novamente.",
+      "tooMany": "Demasiados pedidos. Tente mais tarde.",
+      "noOrder": "Não encontrámos essa encomenda.",
+      "failed": "Algo correu mal. Tente novamente.",
+      "chooseIssue": "Escolha qual é o problema."
+    }
   }
 }

@@ -25,7 +25,8 @@
     "account": "Account",
     "staffView": "Staff view",
     "logOut": "Log out",
-    "shipping": "Shipping"
+    "shipping": "Shipping",
+    "support": "Support"
   },
   "clock": {
     "clockedInSince": "Clocked in since {time}",
@@ -148,6 +149,13 @@
       "awaiting": "Awaiting shipment",
       "shipped": "Shipped",
       "delivered": "Delivered"
+    },
+    "health": {
+      "working": "Working",
+      "idle": "Idle",
+      "problem": "Not working",
+      "ended": "Ended",
+      "unknown": "Unknown"
     }
   },
   "orders": {
@@ -239,7 +247,8 @@
     "expires": "Expires: {date}",
     "details": "Details",
     "customerPage": "Customer page",
-    "outsideCoverage": "Seen outside this plan’s countries: the customer may have no data"
+    "outsideCoverage": "Seen outside this plan’s countries: the customer may have no data",
+    "legendTitle": "Colours:"
   },
   "simDetail": {
     "allSims": "All SIMs",
@@ -275,7 +284,8 @@
       "dataLeft": "Data left",
       "started": "Started",
       "expires": "Expires",
-      "dataAddedLater": "Data added later"
+      "dataAddedLater": "Data added later",
+      "health": "State"
     },
     "openQr": "Open (shows the QR code — only share with the customer)",
     "usedOf": "{used} of {total}",
@@ -581,5 +591,64 @@
     "markShipped": "Mark shipped & email customer",
     "markDelivered": "Mark delivered",
     "confirmDelivered": "Mark ORD-{id} as delivered?"
+  },
+  "support": {
+    "title": "Customer requests",
+    "subtitle": "Problems reported by customers from their account. Each shows which SIM it is and how it looks at Transatel. Answer here: the customer sees it in their account and by email.",
+    "tabs": {
+      "open": "Open",
+      "answered": "Answered",
+      "resolved": "Solved",
+      "all": "All"
+    },
+    "empty": "No requests here.",
+    "cols": {
+      "issue": "Issue",
+      "customer": "Customer",
+      "order": "Order",
+      "sim": "SIM",
+      "updated": "Updated"
+    },
+    "new": "New",
+    "categories": {
+      "no_internet": "No internet / no data",
+      "cant_install": "Can’t install or scan the eSIM",
+      "wrong_country": "Plan doesn’t cover their country",
+      "data_gone": "Data ran out or is missing",
+      "billing": "Payment or refund",
+      "other": "Something else"
+    },
+    "status": {
+      "open": "Waiting for us",
+      "answered": "Answered",
+      "resolved": "Solved"
+    },
+    "back": "All requests",
+    "conversation": "Conversation",
+    "noMessages": "The customer sent no message.",
+    "team": "Team",
+    "customerLabel": "Customer",
+    "replyPlaceholder": "Write your answer to the customer…",
+    "send": "Send reply",
+    "emailNote": "The customer is notified by email.",
+    "resolve": "Mark as solved",
+    "reopen": "Reopen",
+    "context": {
+      "title": "About this SIM",
+      "customer": "Customer",
+      "plan": "Plan",
+      "covers": "Plan covers",
+      "countries": "{count} countries",
+      "sim": "SIM",
+      "noSim": "No SIM yet (not delivered)",
+      "health": "State",
+      "simStatus": "SIM status",
+      "profile": "eSIM profile",
+      "planStatus": "Plan",
+      "lastSeen": "Last seen",
+      "lastCountry": "Last country",
+      "outside": "Last seen outside this plan’s countries: the customer probably has no data there.",
+      "notChecked": "Not checked at Transatel yet: press Refresh on the SIM page."
+    }
   }
 }

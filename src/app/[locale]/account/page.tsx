@@ -6,6 +6,8 @@ import { listOrdersForCustomer } from "@/lib/checkout/orders-repository";
 import AccountView, { type CustomerOrderSummary } from "./AccountView";
 import { isTopUpEnabled } from "@/lib/topup";
 import { getCustomerSimStatuses } from "@/lib/sims/customer-sims";
+import { listTicketsForCustomer } from "@/lib/support/repository";
+import type { CustomerTicket } from "./SupportPanel";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -41,5 +43,16 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
   // "My SIMs" (plans, data left, Buy more data) comes with the physical SIM / top-up feature.
   const sims = isTopUpEnabled() ? await getCustomerSimStatuses(email) : [];
 
-  return <AccountView email={email} orders={orders} sims={sims} />;
+  // Support requests: only what the customer needs (no staff names, no SIM details).
+  const tickets: CustomerTicket[] = (await listTicketsForCustomer(email).catch(() => [])).map((ticket) => ({
+    id: ticket.id,
+    orderId: ticket.orderId,
+    category: ticket.category,
+    status: ticket.status,
+    customerUnread: ticket.customerUnread,
+    updatedAt: ticket.updatedAt,
+    messages: ticket.messages.map((m) => ({ id: m.id, sender: m.sender, body: m.body, createdAt: m.createdAt })),
+  }));
+
+  return <AccountView email={email} orders={orders} sims={sims} tickets={tickets} />;
 }

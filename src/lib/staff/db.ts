@@ -235,6 +235,34 @@ const SCHEMA_STATEMENTS = [
     created_at DATETIME NOT NULL,
     INDEX (created_at)
   )`,
+  // Customer support: a customer reports a problem with one of their SIMs
+  // from their account; the admin panel shows it with the SIM's context and
+  // staff answer in the same thread (support_messages).
+  `CREATE TABLE IF NOT EXISTS support_tickets (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_email VARCHAR(255) NOT NULL,
+    order_id INT NOT NULL,
+    iccid VARCHAR(32) NULL,
+    category VARCHAR(32) NOT NULL,
+    status ENUM('open', 'answered', 'resolved') NOT NULL DEFAULT 'open',
+    admin_unread TINYINT(1) NOT NULL DEFAULT 1,
+    customer_unread TINYINT(1) NOT NULL DEFAULT 0,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
+    INDEX (customer_email),
+    INDEX (status, admin_unread),
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+  )`,
+  `CREATE TABLE IF NOT EXISTS support_messages (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    ticket_id INT NOT NULL,
+    sender ENUM('customer', 'staff') NOT NULL,
+    staff_id INT NULL,
+    body TEXT NOT NULL,
+    created_at DATETIME NOT NULL,
+    INDEX (ticket_id),
+    FOREIGN KEY (ticket_id) REFERENCES support_tickets(id)
+  )`,
 ];
 
 // Columns added after a table already existed in production. Plain ADD

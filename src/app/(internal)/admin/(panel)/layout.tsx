@@ -4,7 +4,8 @@ import { redirect } from "next/navigation";
 import { getStaffSession } from "@/lib/staff/auth";
 import { logoutAction } from "@/lib/staff/actions";
 import { getOpenShift } from "@/lib/staff/repository";
-import { CreditCard, LayoutDashboard, Receipt, ShieldCheck, Truck, Users } from "lucide-react";
+import { CreditCard, LayoutDashboard, LifeBuoy, Receipt, ShieldCheck, Truck, Users } from "lucide-react";
+import { countUnreadTicketsForAdmin } from "@/lib/support/repository";
 import { isPhysicalSimEnabled } from "@/lib/physical-sim";
 import Logo from "@/components/layout/Logo";
 import AdminClockControl from "./AdminClockControl";
@@ -16,6 +17,7 @@ const NAV_ITEMS = [
   { href: "/admin", label: "dashboard", icon: LayoutDashboard },
   { href: "/admin/orders", label: "orders", icon: Receipt },
   { href: "/admin/sims", label: "sims", icon: CreditCard },
+  { href: "/admin/support", label: "support", icon: LifeBuoy },
   { href: "/admin/staff", label: "staffDirectory", icon: Users },
   { href: "/admin/admins", label: "admins", icon: ShieldCheck },
 ];
@@ -30,6 +32,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   }
 
   const t = await getAdminT();
+  const unreadTickets = await countUnreadTicketsForAdmin();
   const openShift = await getOpenShift(session.staffId);
   const clockedInSince = openShift
     ? new Date(openShift.loginTime).toLocaleTimeString(adminDateLocale(t.locale), { hour: "2-digit", minute: "2-digit" })
@@ -51,6 +54,9 @@ export default async function AdminLayout({ children }: { children: ReactNode })
             >
               <Icon className="size-4" />
               {t(`nav.${label}`)}
+              {label === "support" && unreadTickets > 0 && (
+                <span className="ml-auto rounded-full bg-orange px-2 py-0.5 text-xs font-bold text-white">{unreadTickets}</span>
+              )}
             </Link>
           ))}
         </nav>

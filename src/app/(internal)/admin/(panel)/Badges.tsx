@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import type { OrderKind } from "@/lib/checkout/order-kind";
 import type { StaffAccountStatus } from "@/lib/staff/types";
-import type { UsageStatus } from "@/lib/sims/status";
+import type { SimHealth, UsageStatus } from "@/lib/sims/status";
 
 const PILL = "inline-block whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-medium";
 
@@ -92,6 +92,25 @@ const USAGE_STYLE: Record<UsageStatus, string> = {
   expired: "bg-ink/10 text-ink/60",
   unknown: "bg-ink/5 text-muted",
 };
+
+const HEALTH_STYLE: Record<SimHealth, string> = {
+  working: "bg-green-100 text-green-700",
+  idle: "bg-sky-100 text-sky-700",
+  problem: "bg-red-100 text-red-700",
+  ended: "bg-ink/10 text-ink/60",
+  unknown: "bg-ink/5 text-muted",
+};
+
+/** Green = working, blue = idle, red = deleted or not working, grey = ended / unknown. */
+export function HealthBadge({ health }: { health: SimHealth }) {
+  const t = useTranslations("admin.badges.health");
+  return (
+    <span className={`${PILL} ${HEALTH_STYLE[health]}`}>
+      <span aria-hidden className="mr-1">●</span>
+      {t(health)}
+    </span>
+  );
+}
 
 export function UsageBadge({ status }: { status: UsageStatus }) {
   const t = useTranslations("admin.badges.usage");
