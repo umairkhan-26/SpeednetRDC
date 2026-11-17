@@ -55,6 +55,8 @@ export interface CheckoutOrder {
   shippingAddress: ShippingAddress | null;
   shippingCountry: string | null;
   shippingEur: number | null;
+  /** Actual postage we paid, entered when the card is marked shipped. */
+  shippingCostEur: number | null;
   shippingStatus: ShippingStatus | null;
   shippedAt: string | null;
   deliveredAt: string | null;
@@ -92,6 +94,7 @@ interface OrderRow extends RowDataPacket {
   shipping_address?: string | null;
   shipping_country?: string | null;
   shipping_eur?: string | null;
+  shipping_cost_eur?: string | null;
   shipping_status?: ShippingStatus | null;
   shipped_at?: string | null;
   delivered_at?: string | null;
@@ -139,6 +142,7 @@ function toCheckoutOrder(row: OrderRow): CheckoutOrder {
     shippingAddress: parseAddress(row.shipping_address),
     shippingCountry: row.shipping_country ?? null,
     shippingEur: row.shipping_eur == null ? null : Number(row.shipping_eur),
+    shippingCostEur: row.shipping_cost_eur == null ? null : Number(row.shipping_cost_eur),
     shippingStatus: row.shipping_status ?? null,
     shippedAt: fromMySQLDateTime(row.shipped_at ?? null),
     deliveredAt: fromMySQLDateTime(row.delivered_at ?? null),
@@ -222,6 +226,7 @@ export async function createPendingOrder(input: {
     shippingAddress: null,
     shippingCountry: null,
     shippingEur: null,
+    shippingCostEur: null,
     shippingStatus: null,
     shippedAt: null,
     deliveredAt: null,
@@ -608,7 +613,7 @@ export type ShipResult = { ok: true; msisdn: string | null } | { ok: false; erro
  * in stock. In one transaction the SIM is assigned to the order and the
  * order marked shipped, so a card can never go to two customers.
  */
-export async function shipPhysicalOrder(orderId: number, iccid: string, trackingNumber: string | null, staffId: number): Promise<ShipResult> {
+export async function shipPhysicalOrder(orderId: number, iccid: string, trackingNumber: string | null, staffId: number, postageCostEur: number | null = null): Promise<ShipResult> {
   const pool = await getPool();
   const conn = await pool.getConnection();
   try {
@@ -632,9 +637,9 @@ export async function shipPhysicalOrder(orderId: number, iccid: string, tracking
     const now = toMySQLDateTime(new Date());
     await conn.query("UPDATE sim_inventory SET status = 'assigned', assigned_order_id = ? WHERE iccid = ? AND status = 'available'", [orderId, iccid]);
     await conn.query(
-      `UPDATE orders SET iccid = ?, msisdn = ?, shipping_status = 'shipped', shipped_at = ?, tracking_number = ?, shipped_by = ?
+      `UPDATE orders SET iccid = ?, msisdn = ?, shipping_status = 'shipped', shipped_at = ?, tracking_number = ?, shipped_by = ?, shipping_cost_eur = ?
        WHERE id = ?`,
-      [iccid, sim.msisdn, now, trackingNumber, staffId, orderId]
+      [iccid, sim.msisdn, now, trackingNumber, staffId, postageCostEur, orderId]
     );
     await conn.commit();
     return { ok: true, msisdn: sim.msisdn };

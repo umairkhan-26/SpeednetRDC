@@ -17,6 +17,18 @@ export function isPhysicalSimEnabled(): boolean {
   return process.env.PHYSICAL_SIM_ENABLED === "true";
 }
 
+/**
+ * What one blank SIM card costs us (EUR), from SIM_CARD_COST_EUR. null when
+ * unset or not a valid number: profit then shows "cost unknown" instead of a
+ * made-up figure.
+ */
+export function getSimCardCostEur(): number | null {
+  const raw = process.env.SIM_CARD_COST_EUR?.trim().replace(",", ".");
+  if (!raw) return null;
+  const n = Number(raw);
+  return Number.isFinite(n) && n >= 0 ? n : null;
+}
+
 // --- Prices -------------------------------------------------------------------
 
 /** The card, with the included data plan. */

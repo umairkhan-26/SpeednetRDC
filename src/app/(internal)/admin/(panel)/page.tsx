@@ -104,7 +104,7 @@ export default async function AdminDashboardPage() {
         <StatCard
           label={d("totalRevenue")}
           value={formatPrice(orderStats.totalRevenue)}
-          note={orderStats.simCardRevenue > 0 ? d("revenueNoteSim", { amount: formatPrice(orderStats.simCardRevenue) }) : d("revenueNote")}
+          note={orderStats.simCardRevenue > 0 ? d("revenueNoteSim", { amount: formatPrice(orderStats.simCardRevenue), profit: formatPrice(orderStats.simCardProfit) }) : d("revenueNote")}
         />
         <StatCard
           label={d("totalCost")}

@@ -88,15 +88,15 @@
     "confirmResolved": "Retirer ORD-{id} de cette liste ? À utiliser si le client a été aidé d’une autre façon. La commande reste dans Commandes comme commande payée.",
     "totalRevenue": "Chiffre d’affaires total",
     "revenueNote": "Ce que les clients ont payé, y compris la ligne taxes et frais de 5 %",
-    "totalCost": "Coût total (forfaits de données)",
-    "costNote": "Prix de gros Transatel, eSIM livrées uniquement",
-    "costNoteMissing": "Prix de gros Transatel, eSIM livrées uniquement. {count, plural, one {# commande livrée n’a} other {# commandes livrées n’ont}} pas de coût connu.",
-    "totalProfit": "Bénéfice (forfaits de données)",
-    "profitNote": "Forfaits de données uniquement, avant frais Stripe et TVA",
+    "totalCost": "Coût total",
+    "costNote": "Forfaits Transatel des commandes livrées, plus cartes vierges et frais d’envoi des cartes SIM expédiées",
+    "costNoteMissing": "Forfaits Transatel des commandes livrées, plus cartes vierges et frais d’envoi des cartes SIM expédiées. {count, plural, one {# commande a} other {# commandes ont}} un coût encore inconnu (forfait absent de la grille de prix, SIM_CARD_COST_EUR non défini ou frais d’envoi non saisis).",
+    "totalProfit": "Bénéfice",
+    "profitNote": "Chiffre d’affaires moins coûts, avant frais Stripe et TVA",
     "afterStripeFees": "Après frais Stripe :",
     "feesNotFetched": "({count, plural, one {# frais pas encore récupéré} other {# frais pas encore récupérés}})",
-    "profitMargin": "Marge bénéficiaire (forfaits de données)",
-    "marginNote": "Bénéfice ÷ chiffre d’affaires des forfaits, avant frais Stripe et TVA",
+    "profitMargin": "Marge bénéficiaire",
+    "marginNote": "Bénéfice ÷ chiffre d’affaires, avant frais Stripe et TVA",
     "totalOrders": "Commandes au total",
     "activeStaff": "Employés en service",
     "totalComplaints": "Réclamations",
@@ -116,7 +116,7 @@
       "open": "Ouverte",
       "resolved": "Résolue"
     },
-    "revenueNoteSim": "Ce que les clients ont payé, y compris la ligne taxes et frais de 5 %. Dont {amount} de ventes de cartes SIM."
+    "revenueNoteSim": "Ce que les clients ont payé, y compris la ligne taxes et frais de 5 %. Dont {amount} de ventes de cartes SIM ({profit} de bénéfice, après coûts de la carte, du forfait et de l’envoi)."
   },
   "badges": {
     "payment": {
@@ -161,7 +161,7 @@
   "orders": {
     "title": "Commandes",
     "intro": "Toutes les commandes, de la plus récente à la plus ancienne. Un lien de page client affiche le QR code de l’eSIM du client : traitez-le comme un mot de passe et ne l’envoyez qu’au client.",
-    "costIntro": "Le coût est le prix de gros Transatel enregistré au moment de la commande, compté une fois l’eSIM livrée. Le bénéfice est le montant payé (y compris la ligne taxes et frais de 5 %) moins ce coût, avant frais Stripe et TVA.",
+    "costIntro": "Le coût est le prix de gros Transatel enregistré au moment de la commande, compté une fois le forfait livré. Une carte SIM coûte aussi la carte vierge (SIM_CARD_COST_EUR) et les frais d’envoi saisis lors de l’expédition. Le bénéfice est le montant payé moins ce coût, avant frais Stripe et TVA. Les coûts inconnus sont indiqués comme tels, jamais devinés.",
     "fetchFees": "Récupérer les frais Stripe manquants",
     "askingStripe": "Interrogation de Stripe…",
     "filters": {
@@ -198,7 +198,9 @@
     "resendConfirm": "Renvoyer le lien privé de la commande ORD-{id} à {email} ?",
     "simSale": "Vente de carte SIM : hors bénéfice",
     "shipsTo": "Expédiée vers : {country}",
-    "addedToSim": "{country} · ajouté à la SIM …{last4}"
+    "addedToSim": "{country} · ajouté à la SIM …{last4}",
+    "simCostParts": "Forfait {plan} · Carte {card} · Envoi {postage}",
+    "partUnknown": "inconnu"
   },
   "sims": {
     "title": "SIM",
@@ -258,7 +260,8 @@
       "order": "Commande",
       "customer": "Client",
       "sim": "SIM (Transatel)",
-      "plan": "Forfait"
+      "plan": "Forfait",
+      "money": "Argent"
     },
     "rows": {
       "order": "Commande",
@@ -285,7 +288,14 @@
       "started": "Début",
       "expires": "Expiration",
       "dataAddedLater": "Données ajoutées ensuite",
-      "health": "État"
+      "health": "État",
+      "paid": "Payé par le client",
+      "planCost": "Coût du forfait (Transatel)",
+      "cardCost": "Coût de la carte vierge",
+      "postageCost": "Frais d’envoi",
+      "profit": "Bénéfice (avant frais Stripe)",
+      "unknown": "inconnu",
+      "notYet": "pas encore"
     },
     "openQr": "Ouvrir (affiche le QR code : à ne partager qu’avec le client)",
     "usedOf": "{used} sur {total}",
@@ -298,7 +308,8 @@
       "expires": "Expiration",
       "dataLeft": "Données restantes"
     },
-    "thisOrder": "(cette commande)"
+    "thisOrder": "(cette commande)",
+    "costUnknownNote": "Un coût est encore inconnu, ce bénéfice est donc trop élevé : définissez SIM_CARD_COST_EUR, saisissez les frais d’envoi lors de l’expédition ou ajoutez le forfait à la grille de prix."
   },
   "staff": {
     "title": "Équipe",
@@ -556,7 +567,8 @@
       "alreadyShipped": "Cette commande a déjà été expédiée.",
       "notInStock": "Cet ICCID n’est pas dans notre stock de SIM. Vérifiez le numéro imprimé sur la carte.",
       "isEsim": "Cet ICCID correspond à une eSIM, pas à une carte physique.",
-      "notAvailable": "Cette carte n’est pas disponible (statut : {status})."
+      "notAvailable": "Cette carte n’est pas disponible (statut : {status}).",
+      "badPostage": "Saisissez les frais d’envoi en euros, par exemple 4,50."
     }
   },
   "shipping": {
@@ -590,7 +602,11 @@
     "trackingAria": "Numéro de suivi pour ORD-{id}",
     "markShipped": "Marquer expédiée et prévenir le client",
     "markDelivered": "Marquer livrée",
-    "confirmDelivered": "Marquer ORD-{id} comme livrée ?"
+    "confirmDelivered": "Marquer ORD-{id} comme livrée ?",
+    "postagePlaceholder": "Frais d’envoi en € (facultatif)",
+    "postageAria": "Frais d’envoi en euros pour ORD-{id}",
+    "postageCost": "Frais d’envoi : {amount}",
+    "postageUnknown": "Frais d’envoi non saisis"
   },
   "support": {
     "title": "Demandes des clients",

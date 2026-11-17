@@ -32,15 +32,23 @@ function revalidateShipping() {
  * stock; the card is then assigned to this customer and they get a
  * "shipped" email.
  */
-export async function shipPhysicalOrderAction(orderId: number, rawIccid: string, rawTracking: string): Promise<ShippingActionResult> {
+export async function shipPhysicalOrderAction(orderId: number, rawIccid: string, rawTracking: string, rawPostage = ""): Promise<ShippingActionResult> {
   const session = await requireStaffSession();
   const iccid = normalizeIccid(rawIccid);
   if (!iccid) return { ok: false, message: await msg("shipping.enterIccid") };
   const tracking = rawTracking.trim().slice(0, 100) || null;
 
-  const result = await shipPhysicalOrder(orderId, iccid, tracking, session.staffId);
+  // Optional postage cost: empty = not known yet; anything else must be a sane amount.
+  const postageText = rawPostage.trim().replace(",", ".");
+  let postage: number | null = null;
+  if (postageText) {
+    postage = Math.round(Number(postageText) * 100) / 100;
+    if (!Number.isFinite(postage) || postage < 0 || postage > 500) return { ok: false, message: await msg("shipping.badPostage") };
+  }
+
+  const result = await shipPhysicalOrder(orderId, iccid, tracking, session.staffId, postage);
   if (!result.ok) return { ok: false, message: await msg(`shipping.${result.error}`, { status: result.simStatus ?? "" }) };
-  await logAudit(session.staffId, "sim_shipped", null, `ORD-${orderId}: SIM ${iccid}${tracking ? `, tracking ${tracking}` : ""}`);
+  await logAudit(session.staffId, "sim_shipped", null, `ORD-${orderId}: SIM ${iccid}${tracking ? `, tracking ${tracking}` : ""}${postage !== null ? `, postage EUR ${postage}` : ""}`);
   // Puts the included data plan on the card (live orders only; never throws:
   // a failure lands in the dashboard's "needing attention" list with Retry).
   await provisionEsimOrder(orderId);

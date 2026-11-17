@@ -2,9 +2,12 @@ import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import { fromMySQLDateTime, getPool, toMySQLDateTime } from "./db";
 import { LIVE_ORDER_SQL, orderKind } from "@/lib/checkout/order-kind";
 import { ensurePlanCostsBackfilled } from "@/lib/checkout/orders-repository";
+import { getSimCardCostEur } from "@/lib/physical-sim";
 
 /** A paid order whose plan was delivered: the only kind that has a cost. */
 const DELIVERED_SQL = "status = 'completed' AND provisioning_status = 'provisioned'";
+// A paid SIM card that has left the building: its blank card and postage are real costs from now on.
+const CARD_SHIPPED_SQL = "product_type = 'physical_sim' AND status = 'completed' AND shipping_status IN ('shipped', 'delivered')";
 /** Data plans (new eSIMs and top-ups) — SIM card sales are left out of cost and profit for now. */
 const DATA_PLAN_SQL = "product_type <> 'physical_sim'";
 import type {
@@ -312,7 +315,11 @@ export async function listRecentOrders(limit = 8): Promise<StoreOrder[]> {
  * non-refunded orders. Cost is the Transatel wholesale cost saved on each
  * order, counted only once its eSIM was delivered; a paid order whose
  * delivery failed has revenue but no cost yet, and a refunded one has
- * neither. Profit = revenue - cost, before Stripe fees and VAT.
+ * neither. A SIM card counts the same way: revenue is what was paid (card +
+ * shipping), costs are the included plan, plus the blank card
+ * (SIM_CARD_COST_EUR) and the real postage once it is shipped. Profit =
+ * revenue - cost, before Stripe fees and VAT. Costs that are not known are
+ * not invented: those orders go into ordersWithoutCost.
  */
 export async function getOrderStats(): Promise<{
   totalRevenue: number;
@@ -327,12 +334,17 @@ export async function getOrderStats(): Promise<{
   stripeFees: number;
   /** Paid orders whose Stripe fee hasn't been fetched yet. */
   ordersWithoutStripeFee: number;
-  /** Revenue from data plans only — the basis of cost, profit and margin. */
+  /** Revenue from data plans only. */
   dataPlanRevenue: number;
-  /** Revenue from SIM card sales (card + shipping); counted in totalRevenue, not in profit. */
+  /** Revenue from SIM card sales (card + shipping); part of totalRevenue. */
   simCardRevenue: number;
+  /** Known costs of SIM card sales (included plan, blank cards, postage). */
+  simCardCost: number;
+  simCardProfit: number;
 }> {
   await ensurePlanCostsBackfilled();
+  const cardCost = getSimCardCostEur();
+  const cardCostLiteral = cardCost === null ? 0 : cardCost; // our own number, never user input
   const pool = await getPool();
   const [rows] = await pool.query<
     (RowDataPacket & {
@@ -344,6 +356,9 @@ export async function getOrderStats(): Promise<{
       fees: string | null;
       fees_missing: string | number | null;
       plan_revenue: string | null;
+      sim_plan_cost: string | null;
+      postage: string | null;
+      cards_shipped: string | number | null;
     })[]
   >(
     `SELECT COUNT(*) AS total,
@@ -351,16 +366,21 @@ export async function getOrderStats(): Promise<{
             SUM(CASE WHEN status = 'completed' THEN amount_eur ELSE 0 END) AS revenue,
             SUM(CASE WHEN status = 'completed' AND ${DATA_PLAN_SQL} THEN amount_eur ELSE 0 END) AS plan_revenue,
             SUM(CASE WHEN ${DELIVERED_SQL} THEN COALESCE(plan_cost_eur, 0) ELSE 0 END) AS cost,
-            SUM(CASE WHEN ${DELIVERED_SQL} AND plan_cost_eur IS NULL THEN 1 ELSE 0 END) AS cost_unknown,
-            SUM(CASE WHEN status = 'completed' AND ${DATA_PLAN_SQL} THEN COALESCE(stripe_fee_eur, 0) ELSE 0 END) AS fees,
-            SUM(CASE WHEN status = 'completed' AND ${DATA_PLAN_SQL} AND stripe_fee_eur IS NULL THEN 1 ELSE 0 END) AS fees_missing
+            SUM(CASE WHEN (${DELIVERED_SQL} AND plan_cost_eur IS NULL)
+                       OR (${CARD_SHIPPED_SQL} AND (shipping_cost_eur IS NULL OR ${cardCost === null ? 1 : 0} = 1)) THEN 1 ELSE 0 END) AS cost_unknown,
+            SUM(CASE WHEN ${DELIVERED_SQL} AND NOT (${DATA_PLAN_SQL}) THEN COALESCE(plan_cost_eur, 0) ELSE 0 END) AS sim_plan_cost,
+            SUM(CASE WHEN ${CARD_SHIPPED_SQL} THEN COALESCE(shipping_cost_eur, 0) ELSE 0 END) AS postage,
+            SUM(CASE WHEN ${CARD_SHIPPED_SQL} THEN 1 ELSE 0 END) AS cards_shipped,
+            SUM(CASE WHEN status = 'completed' THEN COALESCE(stripe_fee_eur, 0) ELSE 0 END) AS fees,
+            SUM(CASE WHEN status = 'completed' AND stripe_fee_eur IS NULL THEN 1 ELSE 0 END) AS fees_missing
      FROM orders WHERE ${LIVE_ORDER_SQL}`
   );
   const r = rows[0];
   const revenue = Number(r.revenue ?? 0);
   const planRevenue = Number(r.plan_revenue ?? 0);
-  const cost = Number(r.cost ?? 0);
-  const profit = Math.round((planRevenue - cost) * 100) / 100;
+  const simCardsCost = Math.round((Number(r.sim_plan_cost ?? 0) + Number(r.postage ?? 0) + Number(r.cards_shipped ?? 0) * cardCostLiteral) * 100) / 100;
+  const cost = Math.round((Number(r.cost ?? 0) + Number(r.postage ?? 0) + Number(r.cards_shipped ?? 0) * cardCostLiteral) * 100) / 100;
+  const profit = Math.round((revenue - cost) * 100) / 100;
   const completed = Number(r.completed ?? 0);
   return {
     totalRevenue: revenue,
@@ -368,23 +388,26 @@ export async function getOrderStats(): Promise<{
     conversionRate: r.total > 0 ? (completed / r.total) * 100 : 0,
     totalCost: cost,
     totalProfit: profit,
-    profitMargin: planRevenue > 0 ? (profit / planRevenue) * 100 : null,
+    profitMargin: revenue > 0 ? (profit / revenue) * 100 : null,
     ordersWithoutCost: Number(r.cost_unknown ?? 0),
     stripeFees: Number(r.fees ?? 0),
     ordersWithoutStripeFee: Number(r.fees_missing ?? 0),
     dataPlanRevenue: planRevenue,
     simCardRevenue: Math.round((revenue - planRevenue) * 100) / 100,
+    simCardCost: simCardsCost,
+    simCardProfit: Math.round((revenue - planRevenue - simCardsCost) * 100) / 100,
   };
 }
 
 /** Revenue and profit per day (live orders), on the same basis as getOrderStats. */
 export async function getRevenueByDay(days = 14): Promise<{ date: string; revenue: number; profit: number }[]> {
   await ensurePlanCostsBackfilled();
+  const cardCost = getSimCardCostEur() ?? 0;
   const pool = await getPool();
-  const [rows] = await pool.query<(RowDataPacket & { date: string; revenue: string | null; plan_revenue: string | null; cost: string | null })[]>(
+  const [rows] = await pool.query<(RowDataPacket & { date: string; revenue: string | null; cost: string | null })[]>(
     `SELECT DATE(created_at) AS date, SUM(amount_eur) AS revenue,
-            SUM(CASE WHEN ${DATA_PLAN_SQL} THEN amount_eur ELSE 0 END) AS plan_revenue,
-            SUM(CASE WHEN provisioning_status = 'provisioned' THEN COALESCE(plan_cost_eur, 0) ELSE 0 END) AS cost
+            SUM(CASE WHEN provisioning_status = 'provisioned' THEN COALESCE(plan_cost_eur, 0) ELSE 0 END)
+              + SUM(CASE WHEN ${CARD_SHIPPED_SQL} THEN COALESCE(shipping_cost_eur, 0) + ${cardCost} ELSE 0 END) AS cost
      FROM orders
      WHERE status = 'completed' AND ${LIVE_ORDER_SQL} AND created_at >= DATE_SUB(NOW(), INTERVAL ? DAY)
      GROUP BY date
@@ -393,7 +416,7 @@ export async function getRevenueByDay(days = 14): Promise<{ date: string; revenu
   );
   return rows.map((r) => {
     const revenue = r.revenue ? Number(r.revenue) : 0;
-    return { date: r.date, revenue, profit: Math.round((Number(r.plan_revenue ?? 0) - Number(r.cost ?? 0)) * 100) / 100 };
+    return { date: r.date, revenue, profit: Math.round((revenue - Number(r.cost ?? 0)) * 100) / 100 };
   });
 }
 

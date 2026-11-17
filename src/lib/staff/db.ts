@@ -360,6 +360,8 @@ const ORDERS_NEW_COLUMNS: NewColumn[] = [
   { name: "delivered_at", ddl: "DATETIME NULL" },
   { name: "tracking_number", ddl: "VARCHAR(100) NULL" },
   { name: "shipped_by", ddl: "INT NULL" },
+  // What posting this card really cost us (EUR), typed when staff mark it shipped.
+  { name: "shipping_cost_eur", ddl: "DECIMAL(10,2) NULL" },
 ];
 
 // A connection-level failure (database down, wrong credentials) is not a

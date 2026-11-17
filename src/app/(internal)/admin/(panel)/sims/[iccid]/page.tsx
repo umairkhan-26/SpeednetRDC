@@ -4,6 +4,9 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { requireAdminSession } from "@/lib/staff/auth";
 import { orderKind } from "@/lib/checkout/order-kind";
+import { orderProfit } from "@/lib/checkout/order-profit";
+import { getSimCardCostEur } from "@/lib/physical-sim";
+import { formatPrice } from "@/lib/format";
 import { getSoldSimsByIccid } from "@/lib/sims/repository";
 import { formatKb, simHealth, usageStatus } from "@/lib/sims/status";
 import { HealthBadge, KindBadge, OrderDeliveryBadge, PaymentBadge, UsageBadge } from "../../Badges";
@@ -103,6 +106,27 @@ export default async function AdminSimDetailPage({ params }: { params: Promise<{
           </Row>
           {sales.length > 1 && <Row label={d("rows.earlierOrders")}>{sales.slice(1).map((s) => `ORD-${s.orderId}`).join(", ")}</Row>}
           {topUps.length > 0 && <Row label={d("rows.dataAddedLater")}>{topUps.map((s) => `ORD-${s.orderId} (${s.planName})`).join(", ")}</Row>}
+        </Section>
+
+        <Section title={d("sections.money")}>
+          {(() => {
+            const p = orderProfit({ status: sim.paymentStatus, provisioningStatus: sim.provisioningStatus, amountEur: sim.amountEur, planCostEur: sim.planCostEur, stripeFeeEur: sim.stripeFeeEur, productType: sim.productType, shippingStatus: sim.shippingStatus as "awaiting" | "shipped" | "delivered" | null, shippingCostEur: sim.shippingCostEur }, getSimCardCostEur());
+            const part = (v: number | null, expected: boolean) => (v !== null ? formatPrice(v) : expected ? d("rows.unknown") : d("rows.notYet"));
+            return (
+              <>
+                <Row label={d("rows.paid")}>{formatPrice(sim.amountEur)}</Row>
+                <Row label={d("rows.planCost")}>{part(sim.provisioningStatus === "provisioned" ? sim.planCostEur : null, sim.provisioningStatus === "provisioned")}</Row>
+                {sim.productType === "physical_sim" && (
+                  <>
+                    <Row label={d("rows.cardCost")}>{part(p.parts?.card ?? null, p.parts !== null && ["shipped", "delivered"].includes(sim.shippingStatus ?? ""))}</Row>
+                    <Row label={d("rows.postageCost")}>{part(p.parts?.postage ?? null, p.parts !== null && ["shipped", "delivered"].includes(sim.shippingStatus ?? ""))}</Row>
+                  </>
+                )}
+                <Row label={d("rows.profit")}>{p.profit === null ? null : formatPrice(p.profit)}</Row>
+                {p.costUnknown && <p className="px-1 pt-1 text-xs text-red-700">{d("costUnknownNote")}</p>}
+              </>
+            );
+          })()}
         </Section>
 
         <Section title={d("sections.customer")}>

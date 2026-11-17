@@ -88,15 +88,15 @@
     "confirmResolved": "Remover ORD-{id} desta lista? Use esta opção se o cliente foi ajudado de outra forma. A encomenda continua em Encomendas como encomenda paga.",
     "totalRevenue": "Receita total",
     "revenueNote": "O que os clientes pagaram, incluindo a linha de impostos e taxas de 5%",
-    "totalCost": "Custo total (tarifários de dados)",
-    "costNote": "Preço grossista da Transatel, apenas eSIM entregues",
-    "costNoteMissing": "Preço grossista da Transatel, apenas eSIM entregues. {count, plural, one {# encomenda entregue não tem} other {# encomendas entregues não têm}} custo conhecido.",
-    "totalProfit": "Lucro (tarifários de dados)",
-    "profitNote": "Apenas tarifários de dados, antes das taxas do Stripe e do IVA",
+    "totalCost": "Custo total",
+    "costNote": "Planos da Transatel dos pedidos entregues, mais cartões em branco e portes dos cartões SIM enviados",
+    "costNoteMissing": "Planos da Transatel dos pedidos entregues, mais cartões em branco e portes dos cartões SIM enviados. {count, plural, one {# pedido tem} other {# pedidos têm}} um custo ainda desconhecido (plano em falta na tabela de preços, SIM_CARD_COST_EUR não definido ou portes não indicados).",
+    "totalProfit": "Lucro",
+    "profitNote": "Receitas menos custos, antes das taxas Stripe e do IVA",
     "afterStripeFees": "Depois das taxas do Stripe:",
     "feesNotFetched": "({count, plural, one {# taxa ainda por obter} other {# taxas ainda por obter}})",
-    "profitMargin": "Margem de lucro (tarifários de dados)",
-    "marginNote": "Lucro ÷ receita dos tarifários de dados, antes das taxas do Stripe e do IVA",
+    "profitMargin": "Margem de lucro",
+    "marginNote": "Lucro ÷ receitas, antes das taxas Stripe e do IVA",
     "totalOrders": "Total de encomendas",
     "activeStaff": "Colaboradores em serviço agora",
     "totalComplaints": "Reclamações",
@@ -116,7 +116,7 @@
       "open": "Aberta",
       "resolved": "Resolvida"
     },
-    "revenueNoteSim": "O que os clientes pagaram, incluindo a linha de impostos e taxas de 5%. Inclui {amount} de vendas de cartões SIM."
+    "revenueNoteSim": "O que os clientes pagaram, incl. a linha de impostos e taxas de 5 %. Inclui {amount} de vendas de cartões SIM ({profit} de lucro, após custos do cartão, do plano e dos portes)."
   },
   "badges": {
     "payment": {
@@ -161,7 +161,7 @@
   "orders": {
     "title": "Encomendas",
     "intro": "Todas as encomendas, da mais recente para a mais antiga. A ligação para a página do cliente mostra o código QR do eSIM do cliente: trate-a como uma palavra-passe e envie-a apenas ao cliente.",
-    "costIntro": "O custo é o preço grossista da Transatel guardado no momento da encomenda, contado depois de o eSIM ser entregue. O lucro é o valor pago (incluindo a linha de impostos e taxas de 5%) menos esse custo, antes das taxas do Stripe e do IVA.",
+    "costIntro": "O custo é o preço grossista da Transatel guardado ao fazer o pedido, contado quando o plano é entregue. Um cartão SIM custa ainda o cartão em branco (SIM_CARD_COST_EUR) e os portes indicados ao marcá-lo como enviado. O lucro é o valor pago menos esse custo, antes das taxas Stripe e do IVA. Os custos desconhecidos aparecem como tal, nunca são estimados.",
     "fetchFees": "Obter as taxas do Stripe em falta",
     "askingStripe": "A consultar o Stripe…",
     "filters": {
@@ -198,7 +198,9 @@
     "resendConfirm": "Enviar novamente a ligação privada da encomenda ORD-{id} para {email}?",
     "simSale": "Venda de cartão SIM: não conta no lucro",
     "shipsTo": "Envio para: {country}",
-    "addedToSim": "{country} · adicionado ao SIM …{last4}"
+    "addedToSim": "{country} · adicionado ao SIM …{last4}",
+    "simCostParts": "Plano {plan} · Cartão {card} · Portes {postage}",
+    "partUnknown": "desconhecido"
   },
   "sims": {
     "title": "SIM",
@@ -258,7 +260,8 @@
       "order": "Encomenda",
       "customer": "Cliente",
       "sim": "SIM (Transatel)",
-      "plan": "Tarifário"
+      "plan": "Tarifário",
+      "money": "Dinheiro"
     },
     "rows": {
       "order": "Encomenda",
@@ -285,7 +288,14 @@
       "started": "Início",
       "expires": "Validade",
       "dataAddedLater": "Dados adicionados depois",
-      "health": "Estado"
+      "health": "Estado",
+      "paid": "Pago pelo cliente",
+      "planCost": "Custo do plano (Transatel)",
+      "cardCost": "Custo do cartão em branco",
+      "postageCost": "Custo dos portes",
+      "profit": "Lucro (antes das taxas Stripe)",
+      "unknown": "desconhecido",
+      "notYet": "ainda não"
     },
     "openQr": "Abrir (mostra o código QR: partilhe apenas com o cliente)",
     "usedOf": "{used} de {total}",
@@ -298,7 +308,8 @@
       "expires": "Validade",
       "dataLeft": "Dados restantes"
     },
-    "thisOrder": "(esta encomenda)"
+    "thisOrder": "(esta encomenda)",
+    "costUnknownNote": "Falta algum custo, por isso este lucro está demasiado alto: defina SIM_CARD_COST_EUR, indique os portes ao marcar o cartão como enviado ou adicione o plano à tabela de preços."
   },
   "staff": {
     "title": "Equipa",
@@ -556,7 +567,8 @@
       "alreadyShipped": "Esta encomenda já foi enviada.",
       "notInStock": "Esse ICCID não está no nosso stock de SIM. Verifique o número impresso no cartão.",
       "isEsim": "Esse ICCID pertence a um eSIM, não a um cartão físico.",
-      "notAvailable": "Esse cartão não está disponível (estado: {status})."
+      "notAvailable": "Esse cartão não está disponível (estado: {status}).",
+      "badPostage": "Indique os portes em euros, por exemplo 4,50."
     }
   },
   "shipping": {
@@ -590,7 +602,11 @@
     "trackingAria": "Número de seguimento para ORD-{id}",
     "markShipped": "Marcar como enviada e avisar o cliente",
     "markDelivered": "Marcar como entregue",
-    "confirmDelivered": "Marcar ORD-{id} como entregue?"
+    "confirmDelivered": "Marcar ORD-{id} como entregue?",
+    "postagePlaceholder": "Custo dos portes em € (opcional)",
+    "postageAria": "Custo dos portes em euros para ORD-{id}",
+    "postageCost": "Custo dos portes: {amount}",
+    "postageUnknown": "Portes não indicados"
   },
   "support": {
     "title": "Pedidos dos clientes",

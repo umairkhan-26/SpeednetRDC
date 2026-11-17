@@ -88,15 +88,15 @@
     "confirmResolved": "Remove ORD-{id} from this list? Use this if the customer was helped another way. The order stays in Orders as a paid order.",
     "totalRevenue": "Total Revenue",
     "revenueNote": "What customers paid, incl. the 5% taxes & fees line",
-    "totalCost": "Total Cost (data plans)",
-    "costNote": "Transatel wholesale, delivered eSIMs only",
-    "costNoteMissing": "Transatel wholesale, delivered eSIMs only. {count, plural, one {# delivered order has} other {# delivered orders have}} no known cost.",
-    "totalProfit": "Profit (data plans)",
-    "profitNote": "Data plans only, before Stripe fees and VAT",
+    "totalCost": "Total Cost",
+    "costNote": "Transatel plans on delivered orders, plus blank cards and postage on shipped SIM cards",
+    "costNoteMissing": "Transatel plans on delivered orders, plus blank cards and postage on shipped SIM cards. {count, plural, one {# order has} other {# orders have}} a cost we don’t know yet (plan missing from the price grid, SIM_CARD_COST_EUR not set, or postage not entered).",
+    "totalProfit": "Profit",
+    "profitNote": "Revenue minus cost, before Stripe fees and VAT",
     "afterStripeFees": "After Stripe fees:",
     "feesNotFetched": "({count, plural, one {# fee} other {# fees}} not fetched yet)",
-    "profitMargin": "Profit Margin (data plans)",
-    "marginNote": "Profit ÷ data-plan revenue, before Stripe fees and VAT",
+    "profitMargin": "Profit Margin",
+    "marginNote": "Profit ÷ revenue, before Stripe fees and VAT",
     "totalOrders": "Total Orders",
     "activeStaff": "Active Staff Right Now",
     "totalComplaints": "Total Complaints",
@@ -116,7 +116,7 @@
       "open": "Open",
       "resolved": "Resolved"
     },
-    "revenueNoteSim": "What customers paid, incl. the 5% taxes & fees line. Includes {amount} from SIM card sales."
+    "revenueNoteSim": "What customers paid, incl. the 5% taxes & fees line. Includes {amount} from SIM card sales ({profit} profit on those, after card, plan and postage costs)."
   },
   "badges": {
     "payment": {
@@ -161,7 +161,7 @@
   "orders": {
     "title": "Orders",
     "intro": "Every order, newest first. A customer page link shows that customer’s eSIM QR code — treat it like a password and only send it to the customer.",
-    "costIntro": "Cost is the Transatel wholesale price saved when the order was placed, counted once the eSIM is delivered. Profit is the amount paid (incl. the 5% taxes & fees line) minus that cost, before Stripe fees and VAT.",
+    "costIntro": "Cost is the Transatel wholesale price saved when the order was placed, counted once the plan is delivered. A SIM card also costs the blank card (SIM_CARD_COST_EUR) and the postage typed when it was marked shipped. Profit is the amount paid minus that cost, before Stripe fees and VAT. Costs we don’t know are shown as unknown, never guessed.",
     "fetchFees": "Fetch missing Stripe fees",
     "askingStripe": "Asking Stripe…",
     "filters": {
@@ -198,7 +198,9 @@
     "resendConfirm": "Email the private order link for ORD-{id} to {email} again?",
     "simSale": "SIM card sale — not in profit",
     "shipsTo": "Ships to {country}",
-    "addedToSim": "{country} · added to SIM …{last4}"
+    "addedToSim": "{country} · added to SIM …{last4}",
+    "simCostParts": "Plan {plan} · Card {card} · Postage {postage}",
+    "partUnknown": "unknown"
   },
   "sims": {
     "title": "SIMs",
@@ -258,7 +260,8 @@
       "order": "Order",
       "customer": "Customer",
       "sim": "SIM (Transatel)",
-      "plan": "Plan"
+      "plan": "Plan",
+      "money": "Money"
     },
     "rows": {
       "order": "Order",
@@ -285,7 +288,14 @@
       "started": "Started",
       "expires": "Expires",
       "dataAddedLater": "Data added later",
-      "health": "State"
+      "health": "State",
+      "paid": "Paid by customer",
+      "planCost": "Plan cost (Transatel)",
+      "cardCost": "Blank card cost",
+      "postageCost": "Postage cost",
+      "profit": "Profit (before Stripe fees)",
+      "unknown": "unknown",
+      "notYet": "not yet"
     },
     "openQr": "Open (shows the QR code — only share with the customer)",
     "usedOf": "{used} of {total}",
@@ -298,7 +308,8 @@
       "expires": "Expires",
       "dataLeft": "Data left"
     },
-    "thisOrder": "(this order)"
+    "thisOrder": "(this order)",
+    "costUnknownNote": "Some cost is still unknown, so this profit is too high: set SIM_CARD_COST_EUR, enter the postage when marking the card shipped, or add the plan to the price grid."
   },
   "staff": {
     "title": "Staff Directory",
@@ -556,7 +567,8 @@
       "alreadyShipped": "This order has already been shipped.",
       "notInStock": "That ICCID isn’t in our SIM stock. Check the number printed on the card.",
       "isEsim": "That ICCID belongs to an eSIM, not a physical card.",
-      "notAvailable": "That card isn’t available (it’s {status})."
+      "notAvailable": "That card isn’t available (it’s {status}).",
+      "badPostage": "Enter the postage as an amount in euros, for example 4.50."
     }
   },
   "shipping": {
@@ -590,7 +602,11 @@
     "trackingAria": "Tracking number for ORD-{id}",
     "markShipped": "Mark shipped & email customer",
     "markDelivered": "Mark delivered",
-    "confirmDelivered": "Mark ORD-{id} as delivered?"
+    "confirmDelivered": "Mark ORD-{id} as delivered?",
+    "postagePlaceholder": "Postage cost in € (optional)",
+    "postageAria": "Postage cost in euros for ORD-{id}",
+    "postageCost": "Postage cost: {amount}",
+    "postageUnknown": "Postage cost not entered"
   },
   "support": {
     "title": "Customer requests",

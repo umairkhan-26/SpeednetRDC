@@ -45,6 +45,11 @@ export interface SoldSim {
   productType: "esim" | "physical_sim" | "topup";
   /** SIM card orders only: awaiting | shipped | delivered. */
   shippingStatus: string | null;
+  /** What the customer paid, our plan cost, postage and Stripe fee (null = not known). */
+  amountEur: number;
+  planCostEur: number | null;
+  shippingCostEur: number | null;
+  stripeFeeEur: number | null;
   iccid: string;
   msisdn: string | null;
   simType: "esim" | "physical" | null;
@@ -68,6 +73,10 @@ interface SoldSimRow extends RowDataPacket {
   transatel_order_id: string | null;
   product_type: "esim" | "physical_sim" | "topup" | null;
   shipping_status: string | null;
+  amount_eur: string | number;
+  plan_cost_eur: string | number | null;
+  shipping_cost_eur: string | number | null;
+  stripe_fee_eur: string | number | null;
   iccid: string;
   order_msisdn: string | null;
   sim_type: "esim" | "physical" | null;
@@ -94,7 +103,7 @@ const SOLD_SIM_SELECT = `
   SELECT o.id AS order_id, o.created_at AS order_created_at, o.stripe_checkout_session_id,
          o.status AS payment_status, o.provisioning_status, o.plan_id, o.plan_name, o.country_name,
          o.country_code, o.customer_name, o.customer_email, o.billing_country, o.access_token,
-         o.transatel_order_id, o.product_type, o.shipping_status, o.iccid, o.msisdn AS order_msisdn,
+         o.transatel_order_id, o.product_type, o.shipping_status, o.amount_eur, o.plan_cost_eur, o.shipping_cost_eur, o.stripe_fee_eur, o.iccid, o.msisdn AS order_msisdn,
          si.sim_type,
          s.iccid AS snap_iccid, s.msisdn AS snap_msisdn, s.sim_status, s.esim_profile_status, s.esim_profile_date,
          s.sim_activation_date, s.last_seen_date, s.last_origin_country, s.plan_status, s.plan_activation_date,
@@ -134,6 +143,10 @@ function toSoldSim(row: SoldSimRow): SoldSim {
     transatelSubscriptionId: row.transatel_order_id,
     productType: row.product_type ?? "esim",
     shippingStatus: row.shipping_status ?? null,
+    amountEur: Number(row.amount_eur),
+    planCostEur: row.plan_cost_eur == null ? null : Number(row.plan_cost_eur),
+    shippingCostEur: row.shipping_cost_eur == null ? null : Number(row.shipping_cost_eur),
+    stripeFeeEur: row.stripe_fee_eur == null ? null : Number(row.stripe_fee_eur),
     iccid: row.iccid,
     msisdn: row.order_msisdn ?? row.snap_msisdn,
     simType: row.sim_type,

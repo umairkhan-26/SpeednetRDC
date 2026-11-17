@@ -5,6 +5,7 @@ import { KindBadge, OrderDeliveryBadge, PaymentBadge } from "../Badges";
 import ResendEmailButton from "./ResendEmailButton";
 import FetchFeesButton from "./FetchFeesButton";
 import { orderProfit } from "@/lib/checkout/order-profit";
+import { getSimCardCostEur } from "@/lib/physical-sim";
 import { getAdminT, type AdminTranslator } from "@/i18n/admin";
 import { adminDateLocale } from "@/i18n/admin-locale";
 
@@ -14,9 +15,8 @@ function formatDateTime(iso: string, locale: string): string {
   return new Date(iso).toLocaleString(adminDateLocale(locale), { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
 }
 
-function ProfitCell({ order, t }: { order: Parameters<typeof orderProfit>[0] & { productType: string }; t: AdminTranslator }) {
-  if (order.productType === "physical_sim") return <span className="text-muted">{t("orders.simSale")}</span>;
-  const p = orderProfit(order);
+function ProfitCell({ order, t }: { order: Parameters<typeof orderProfit>[0]; t: AdminTranslator }) {
+  const p = orderProfit(order, getSimCardCostEur());
   if (p.profit === null) return <span className="text-muted">—</span>;
   return (
     <div className="space-y-0.5">
@@ -30,6 +30,15 @@ function ProfitCell({ order, t }: { order: Parameters<typeof orderProfit>[0] & {
           t("orders.costNone")
         )}
       </p>
+      {p.parts && (p.cost !== null || p.costUnknown) && (
+        <p className="text-xs text-muted">
+          {t("orders.simCostParts", {
+            plan: p.parts.plan !== null ? formatPrice(p.parts.plan) : t("orders.partUnknown"),
+            card: p.parts.card !== null ? formatPrice(p.parts.card) : t("orders.partUnknown"),
+            postage: p.parts.postage !== null ? formatPrice(p.parts.postage) : t("orders.partUnknown"),
+          })}
+        </p>
+      )}
       <p className="font-semibold text-ink">{t("orders.profit", { amount: formatPrice(p.profit) })}</p>
       {p.profitAfterStripeFee !== null && (
         <p className="text-muted">

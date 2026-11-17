@@ -8,6 +8,7 @@ import { markPhysicalOrderDeliveredAction, shipPhysicalOrderAction, type Shippin
 export function ShipOrderForm({ orderId }: { orderId: number }) {
   const [iccid, setIccid] = useState("");
   const [tracking, setTracking] = useState("");
+  const [postage, setPostage] = useState("");
   const [isPending, startTransition] = useTransition();
   const [result, setResult] = useState<ShippingActionResult | null>(null);
   const t = useTranslations("admin");
@@ -18,7 +19,7 @@ export function ShipOrderForm({ orderId }: { orderId: number }) {
       onSubmit={(e) => {
         e.preventDefault();
         setResult(null);
-        startTransition(async () => setResult(await shipPhysicalOrderAction(orderId, iccid, tracking)));
+        startTransition(async () => setResult(await shipPhysicalOrderAction(orderId, iccid, tracking, postage)));
       }}
     >
       <input
@@ -37,6 +38,16 @@ export function ShipOrderForm({ orderId }: { orderId: number }) {
         placeholder={t("shipping.trackingPlaceholder")}
         maxLength={100}
         aria-label={t("shipping.trackingAria", { id: orderId })}
+        className="w-64 rounded-lg border border-line px-3 py-2 text-sm outline-none focus:border-orange"
+      />
+      <input
+        value={postage}
+        onChange={(e) => setPostage(e.target.value)}
+        placeholder={t("shipping.postagePlaceholder")}
+        inputMode="decimal"
+        maxLength={7}
+        autoComplete="off"
+        aria-label={t("shipping.postageAria", { id: orderId })}
         className="w-64 rounded-lg border border-line px-3 py-2 text-sm outline-none focus:border-orange"
       />
       <button type="submit" disabled={isPending} className="w-max rounded-lg bg-ink px-3 py-2 text-xs font-semibold text-white hover:opacity-90 disabled:opacity-50">

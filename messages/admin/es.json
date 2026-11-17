@@ -88,15 +88,15 @@
     "confirmResolved": "¿Quitar ORD-{id} de esta lista? Úsalo si se ha ayudado al cliente de otra forma. El pedido sigue en Pedidos como pedido pagado.",
     "totalRevenue": "Ingresos totales",
     "revenueNote": "Lo que pagaron los clientes, incluida la línea de impuestos y comisiones del 5 %",
-    "totalCost": "Coste total (planes de datos)",
-    "costNote": "Precio mayorista de Transatel, solo eSIM entregadas",
-    "costNoteMissing": "Precio mayorista de Transatel, solo eSIM entregadas. {count, plural, one {# pedido entregado no tiene} other {# pedidos entregados no tienen}} coste conocido.",
-    "totalProfit": "Beneficio (planes de datos)",
-    "profitNote": "Solo planes de datos, antes de comisiones de Stripe e IVA",
+    "totalCost": "Coste total",
+    "costNote": "Planes de Transatel de los pedidos entregados, más tarjetas en blanco y envío de las tarjetas SIM enviadas",
+    "costNoteMissing": "Planes de Transatel de los pedidos entregados, más tarjetas en blanco y envío de las tarjetas SIM enviadas. {count, plural, one {# pedido tiene} other {# pedidos tienen}} un coste aún desconocido (plan ausente de la tabla de precios, SIM_CARD_COST_EUR sin definir o envío sin introducir).",
+    "totalProfit": "Beneficio",
+    "profitNote": "Ingresos menos costes, antes de comisiones de Stripe e IVA",
     "afterStripeFees": "Tras comisiones de Stripe:",
     "feesNotFetched": "({count, plural, one {# comisión pendiente de obtener} other {# comisiones pendientes de obtener}})",
-    "profitMargin": "Margen de beneficio (planes de datos)",
-    "marginNote": "Beneficio ÷ ingresos de planes de datos, antes de comisiones de Stripe e IVA",
+    "profitMargin": "Margen de beneficio",
+    "marginNote": "Beneficio ÷ ingresos, antes de comisiones de Stripe e IVA",
     "totalOrders": "Pedidos totales",
     "activeStaff": "Empleados en turno ahora",
     "totalComplaints": "Reclamaciones",
@@ -116,7 +116,7 @@
       "open": "Abierta",
       "resolved": "Resuelta"
     },
-    "revenueNoteSim": "Lo que pagaron los clientes, incluida la línea de impuestos y comisiones del 5 %. Incluye {amount} de ventas de tarjetas SIM."
+    "revenueNoteSim": "Lo que pagaron los clientes, incl. la línea de impuestos y tasas del 5 %. Incluye {amount} de ventas de tarjetas SIM ({profit} de beneficio, tras costes de tarjeta, plan y envío)."
   },
   "badges": {
     "payment": {
@@ -161,7 +161,7 @@
   "orders": {
     "title": "Pedidos",
     "intro": "Todos los pedidos, del más reciente al más antiguo. El enlace a la página del cliente muestra el código QR de su eSIM: trátalo como una contraseña y envíalo solo al cliente.",
-    "costIntro": "El coste es el precio mayorista de Transatel guardado al hacer el pedido, y se cuenta una vez entregada la eSIM. El beneficio es el importe pagado (incluida la línea de impuestos y comisiones del 5 %) menos ese coste, antes de comisiones de Stripe e IVA.",
+    "costIntro": "El coste es el precio mayorista de Transatel guardado al hacer el pedido, contado cuando el plan se entrega. Una tarjeta SIM cuesta además la tarjeta en blanco (SIM_CARD_COST_EUR) y el envío introducido al marcarla como enviada. El beneficio es lo pagado menos ese coste, antes de comisiones de Stripe e IVA. Los costes desconocidos se muestran como tales, nunca se estiman.",
     "fetchFees": "Obtener las comisiones de Stripe que faltan",
     "askingStripe": "Consultando a Stripe…",
     "filters": {
@@ -198,7 +198,9 @@
     "resendConfirm": "¿Volver a enviar el enlace privado del pedido ORD-{id} a {email}?",
     "simSale": "Venta de tarjeta SIM: no cuenta en el beneficio",
     "shipsTo": "Se envía a: {country}",
-    "addedToSim": "{country} · añadido a la SIM …{last4}"
+    "addedToSim": "{country} · añadido a la SIM …{last4}",
+    "simCostParts": "Plan {plan} · Tarjeta {card} · Envío {postage}",
+    "partUnknown": "desconocido"
   },
   "sims": {
     "title": "SIM",
@@ -258,7 +260,8 @@
       "order": "Pedido",
       "customer": "Cliente",
       "sim": "SIM (Transatel)",
-      "plan": "Plan"
+      "plan": "Plan",
+      "money": "Dinero"
     },
     "rows": {
       "order": "Pedido",
@@ -285,7 +288,14 @@
       "started": "Inicio",
       "expires": "Caducidad",
       "dataAddedLater": "Datos añadidos después",
-      "health": "Estado"
+      "health": "Estado",
+      "paid": "Pagado por el cliente",
+      "planCost": "Coste del plan (Transatel)",
+      "cardCost": "Coste de la tarjeta en blanco",
+      "postageCost": "Coste del envío",
+      "profit": "Beneficio (antes de comisiones de Stripe)",
+      "unknown": "desconocido",
+      "notYet": "aún no"
     },
     "openQr": "Abrir (muestra el código QR: compártelo solo con el cliente)",
     "usedOf": "{used} de {total}",
@@ -298,7 +308,8 @@
       "expires": "Caducidad",
       "dataLeft": "Datos restantes"
     },
-    "thisOrder": "(este pedido)"
+    "thisOrder": "(este pedido)",
+    "costUnknownNote": "Falta algún coste, así que este beneficio es demasiado alto: define SIM_CARD_COST_EUR, introduce el envío al marcar la tarjeta como enviada o añade el plan a la tabla de precios."
   },
   "staff": {
     "title": "Equipo",
@@ -556,7 +567,8 @@
       "alreadyShipped": "Este pedido ya se ha enviado.",
       "notInStock": "Ese ICCID no está en nuestro stock de SIM. Comprueba el número impreso en la tarjeta.",
       "isEsim": "Ese ICCID es de una eSIM, no de una tarjeta física.",
-      "notAvailable": "Esa tarjeta no está disponible (estado: {status})."
+      "notAvailable": "Esa tarjeta no está disponible (estado: {status}).",
+      "badPostage": "Introduce el coste del envío en euros, por ejemplo 4,50."
     }
   },
   "shipping": {
@@ -590,7 +602,11 @@
     "trackingAria": "Número de seguimiento para ORD-{id}",
     "markShipped": "Marcar como enviado y avisar al cliente",
     "markDelivered": "Marcar como entregado",
-    "confirmDelivered": "¿Marcar ORD-{id} como entregado?"
+    "confirmDelivered": "¿Marcar ORD-{id} como entregado?",
+    "postagePlaceholder": "Coste del envío en € (opcional)",
+    "postageAria": "Coste del envío en euros para ORD-{id}",
+    "postageCost": "Coste del envío: {amount}",
+    "postageUnknown": "Coste del envío sin introducir"
   },
   "support": {
     "title": "Solicitudes de clientes",

@@ -101,6 +101,11 @@ export default async function ShippingBoard({ basePath, statusParam }: { basePat
                       {order.shippedAt && <p className="mt-1 text-muted">{t("shipping.posted", { date: fmt(order.shippedAt) })}</p>}
                       {order.iccid && <p className="font-mono text-muted">{order.iccid}</p>}
                       {order.trackingNumber && <p className="text-muted">{t("shipping.tracking", { number: order.trackingNumber })}</p>}
+                      {order.shippedAt && (
+                        <p className={order.shippingCostEur === null ? "text-red-700" : "text-muted"}>
+                          {order.shippingCostEur === null ? t("shipping.postageUnknown") : t("shipping.postageCost", { amount: formatPrice(order.shippingCostEur) })}
+                        </p>
+                      )}
                       {order.deliveredAt && <p className="text-muted">{t("shipping.delivered", { date: fmt(order.deliveredAt) })}</p>}
                     </td>
                     <td className="px-4 py-3">
