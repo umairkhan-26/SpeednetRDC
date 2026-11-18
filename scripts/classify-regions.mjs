@@ -41,7 +41,7 @@ console.log(unclassified.map((m) => `${m.code} ${m.zoneName}`).join("\n"));
 const counts = {};
 for (const region of Object.values(classification)) counts[region] = (counts[region] || 0) + 1;
 // Manual fallback for countries absent from every broad zone list we checked.
-const manualOverrides = { AGO: "africa", BTN: "asia", COD: "africa", NAM: "africa" };
+const manualOverrides = { AGO: "africa", BTN: "asia", COD: "africa", NAM: "africa", GUF: "caribbean", MDV: "asia", TLS: "asia", STP: "africa" };
 for (const [code, region] of Object.entries(manualOverrides)) {
   if (!classification[code]) {
     classification[code] = region;

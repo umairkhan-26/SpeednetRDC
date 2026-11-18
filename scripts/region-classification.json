@@ -54,7 +54,6 @@
     "FJI": "oceania",
     "FIN": "europe",
     "FRA": "europe",
-    "GUF": "caribbean",
     "GAB": "africa",
     "GMB": "africa",
     "GEO": "europe",
@@ -172,7 +171,11 @@
     "AGO": "africa",
     "BTN": "asia",
     "COD": "africa",
-    "NAM": "africa"
+    "NAM": "africa",
+    "GUF": "caribbean",
+    "MDV": "asia",
+    "TLS": "asia",
+    "STP": "africa"
   },
   "unclassified": [
     {
@@ -194,10 +197,34 @@
       "plans": 1
     },
     {
+      "area": "FRENCH GUIANA",
+      "code": "GUF",
+      "zoneName": "French Guiana",
+      "plans": 1
+    },
+    {
+      "area": "MALDIVES",
+      "code": "MDV",
+      "zoneName": "Maldives",
+      "plans": 1
+    },
+    {
       "area": "NAMIBIA",
       "code": "NAM",
       "zoneName": "Nambia",
       "plans": 1
+    },
+    {
+      "area": "SÃO TOMÉ AND PRÍNCIPE",
+      "code": "STP",
+      "zoneName": "São Tomé and Príncipe",
+      "plans": 2
+    },
+    {
+      "area": "TIMOR-LESTE",
+      "code": "TLS",
+      "zoneName": "Timor-Leste",
+      "plans": 2
     }
   ]
 }

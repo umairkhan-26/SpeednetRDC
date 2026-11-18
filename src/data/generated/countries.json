@@ -582,7 +582,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 14.99
+    "fromPrice": 3.99
   },
   {
     "slug": "croatia",
@@ -627,7 +627,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 4.99
+    "fromPrice": 3.99
   },
   {
     "slug": "czech-republic",
@@ -927,7 +927,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 6.99
+    "fromPrice": 3.99
   },
   {
     "slug": "ghana",
@@ -987,7 +987,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 39.99
+    "fromPrice": 11.99
   },
   {
     "slug": "guadeloupe",
@@ -1077,7 +1077,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 11.99
+    "fromPrice": 6.99
   },
   {
     "slug": "honduras",
@@ -1257,7 +1257,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 8.99
+    "fromPrice": 3.99
   },
   {
     "slug": "jordan",
@@ -1287,7 +1287,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 7.99
+    "fromPrice": 2.99
   },
   {
     "slug": "kenya",
@@ -1468,6 +1468,21 @@
     "networkCount": 1,
     "popular": false,
     "fromPrice": 6.99
+  },
+  {
+    "slug": "maldives",
+    "name": "Maldives",
+    "region": "asia",
+    "iso": "MV",
+    "heroImage": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Mal%C3%A9.jpg/960px-Mal%C3%A9.jpg",
+    "tagline": "Instant eSIM data for Maldives.",
+    "speed": "4G/5G",
+    "networks": [
+      "SpeedNetRDC"
+    ],
+    "networkCount": 1,
+    "popular": false,
+    "fromPrice": 33.99
   },
   {
     "slug": "mali",
@@ -1962,7 +1977,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 7.99
+    "fromPrice": 4.99
   },
   {
     "slug": "russian-federation",
@@ -2038,6 +2053,21 @@
     "networkCount": 1,
     "popular": false,
     "fromPrice": 10.99
+  },
+  {
+    "slug": "sao-tome-and-principe",
+    "name": "São Tomé and Príncipe",
+    "region": "africa",
+    "iso": "ST",
+    "heroImage": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/2012SaoTome-8_%288042889363%29.jpg/960px-2012SaoTome-8_%288042889363%29.jpg",
+    "tagline": "Instant eSIM data for São Tomé and Príncipe.",
+    "speed": "4G/5G",
+    "networks": [
+      "SpeedNetRDC"
+    ],
+    "networkCount": 1,
+    "popular": false,
+    "fromPrice": 21.99
   },
   {
     "slug": "saudi-arabia",
@@ -2217,7 +2247,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 4.99
+    "fromPrice": 3.99
   },
   {
     "slug": "sri-lanka",
@@ -2292,7 +2322,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 5.99
+    "fromPrice": 3.99
   },
   {
     "slug": "taiwan",
@@ -2353,6 +2383,21 @@
     "networkCount": 1,
     "popular": true,
     "fromPrice": 2.99
+  },
+  {
+    "slug": "timor-leste",
+    "name": "Timor-Leste",
+    "region": "asia",
+    "iso": "TL",
+    "heroImage": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Government_Palace%2C_Dili%2C_2023_%2802%29.jpg/960px-Government_Palace%2C_Dili%2C_2023_%2802%29.jpg",
+    "tagline": "Instant eSIM data for Timor-Leste.",
+    "speed": "4G/5G",
+    "networks": [
+      "SpeedNetRDC"
+    ],
+    "networkCount": 1,
+    "popular": false,
+    "fromPrice": 16.99
   },
   {
     "slug": "togo",
@@ -2577,7 +2622,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 6.99
+    "fromPrice": 5.99
   },
   {
     "slug": "zambia",

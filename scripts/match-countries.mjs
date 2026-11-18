@@ -16,7 +16,7 @@ const nonCountryAreas = new Set([
   "AFRICA", "AMERICAS", "ASIA", "BEST AFRICA", "BEST ASIA", "BEST CARIBBEAN", "BEST LATAM",
   "BEST MIDDLE EAST", "BEST WORLD", "CARIBBEAN", "EUROPE", "EUROPE EXTENDED", "MEDITERRANEAN",
   "MIDDLE EAST", "NORTH AMERICA", "OCEANIA", "SCANDINAVIA & BALTIC", "WORLD",
-  "AUSTRALIA+NZL", "MALAYSIA + SINGAPORE", "ILE OF MAN + CHANNEL ISLANDS",
+  "AUSTRALIA+NZL", "MALAYSIA + SINGAPORE", "ILE OF MAN + CHANNEL ISLANDS", "ISLE OF MAN + CHANNEL ISLANDS",
 ]);
 
 // Manual aliases for areas whose plans.json spelling doesn't normalize-match zones.json.
@@ -61,6 +61,15 @@ for (const list of Object.values(zones)) {
     const existing = canonicalName.get(c.code);
     if (!existing || c.name.length < existing.length) canonicalName.set(c.code, c.name);
   }
+}
+
+// Countries Transatel sells single-country plans for but leaves out of every zone
+// list in the monthly grid (so they can't be found above). They get a country
+// page of their own; they are NOT added to any zone's coverage.
+const extras = JSON.parse(fs.readFileSync(new URL("./extra-countries.json", import.meta.url))).countries;
+for (const c of extras) {
+  byNorm.set(norm(c.name), { code: c.code, name: c.name });
+  canonicalName.set(c.code, c.name); // our own spelling wins over any zone list
 }
 
 const matched = [];

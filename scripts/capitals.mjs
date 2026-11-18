@@ -4,6 +4,7 @@
 // territories with sparse capital-article photos, etc).
 export const PHOTO_SOURCE_TITLE = {
   AFG: "Kabul", ALB: "Tirana", DZA: "Algiers", AND: "Andorra la Vella", AGO: "Luanda",
+  MDV: "Malé", TLS: "Dili", STP: "São Tomé",
   ARG: "Buenos Aires", ARM: "Yerevan", ABW: "Oranjestad", AUT: "Vienna",
   AZE: "Baku", BHS: "Nassau, Bahamas", BHR: "Manama", BGD: "Dhaka", BLR: "Minsk",
   BEL: "Brussels", BLZ: "Belmopan", BEN: "Porto-Novo", BTN: "Thimphu", BOL: "La Paz",

@@ -232,7 +232,7 @@
       "area": "COSTA RICA",
       "code": "CRI",
       "zoneName": "Costa Rica",
-      "plans": 7
+      "plans": 10
     },
     {
       "area": "CROATIA",
@@ -322,7 +322,7 @@
       "area": "FAROE ISLANDS",
       "code": "FRO",
       "zoneName": "Faroe Islands",
-      "plans": 4
+      "plans": 6
     },
     {
       "area": "FIJI",
@@ -340,7 +340,7 @@
       "area": "FRANCE",
       "code": "FRA",
       "zoneName": "France",
-      "plans": 12
+      "plans": 16
     },
     {
       "area": "FRENCH GUIANA",
@@ -394,7 +394,7 @@
       "area": "GREENLAND",
       "code": "GRL",
       "zoneName": "Greenland",
-      "plans": 4
+      "plans": 7
     },
     {
       "area": "GUATEMALA",
@@ -460,7 +460,7 @@
       "area": "INDIA",
       "code": "IND",
       "zoneName": "India",
-      "plans": 10
+      "plans": 11
     },
     {
       "area": "INDONESIA",
@@ -502,7 +502,7 @@
       "area": "JAPAN",
       "code": "JPN",
       "zoneName": "Japan",
-      "plans": 12
+      "plans": 11
     },
     {
       "area": "KAZAKHSTAN",
@@ -514,7 +514,7 @@
       "area": "KENYA",
       "code": "KEN",
       "zoneName": "Kenya",
-      "plans": 8
+      "plans": 7
     },
     {
       "area": "KYRGYZSTAN",
@@ -589,6 +589,12 @@
       "plans": 7
     },
     {
+      "area": "MALDIVES",
+      "code": "MDV",
+      "zoneName": "Maldives",
+      "plans": 1
+    },
+    {
       "area": "MALI",
       "code": "MLI",
       "zoneName": "Mali",
@@ -634,7 +640,7 @@
       "area": "MEXICO",
       "code": "MEX",
       "zoneName": "Mexico",
-      "plans": 6
+      "plans": 7
     },
     {
       "area": "MOLDOVA",
@@ -796,7 +802,7 @@
       "area": "ROMANIA",
       "code": "ROU",
       "zoneName": "Romania",
-      "plans": 3
+      "plans": 6
     },
     {
       "area": "RUSSIA",
@@ -826,7 +832,7 @@
       "area": "SENEGAL",
       "code": "SEN",
       "zoneName": "Senegal",
-      "plans": 5
+      "plans": 7
     },
     {
       "area": "SERBIA",
@@ -889,6 +895,12 @@
       "plans": 7
     },
     {
+      "area": "SÃO TOMÉ AND PRÍNCIPE",
+      "code": "STP",
+      "zoneName": "São Tomé and Príncipe",
+      "plans": 2
+    },
+    {
       "area": "SUDAN",
       "code": "SDN",
       "zoneName": "Sudan",
@@ -910,7 +922,7 @@
       "area": "SWITZERLAND",
       "code": "CHE",
       "zoneName": "Switzerland",
-      "plans": 10
+      "plans": 11
     },
     {
       "area": "TAIWAN",
@@ -934,7 +946,13 @@
       "area": "THAILAND",
       "code": "THA",
       "zoneName": "Thailand",
-      "plans": 10
+      "plans": 9
+    },
+    {
+      "area": "TIMOR-LESTE",
+      "code": "TLS",
+      "zoneName": "Timor-Leste",
+      "plans": 2
     },
     {
       "area": "TOGO",
@@ -970,7 +988,7 @@
       "area": "UAE",
       "code": "ARE",
       "zoneName": "United Arab Emirates",
-      "plans": 9
+      "plans": 11
     },
     {
       "area": "UGANDA",
@@ -1000,7 +1018,7 @@
       "area": "USA",
       "code": "USA",
       "zoneName": "United States of America",
-      "plans": 13
+      "plans": 14
     },
     {
       "area": "UZBEKISTAN",

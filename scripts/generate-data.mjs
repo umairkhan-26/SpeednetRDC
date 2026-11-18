@@ -163,6 +163,7 @@ function fairUseGb(p) {
 // UK also carries the Channel-Islands-only plans (no clean home elsewhere).
 const FOLD_INTO_COUNTRY = {
   "ILE OF MAN + CHANNEL ISLANDS": "GBR",
+  "ISLE OF MAN + CHANNEL ISLANDS": "GBR", // spelled this way since the 27 Oct 2026 grid
 };
 
 function dataLabel(gb, unlimited) {
@@ -276,7 +277,7 @@ for (const p of plans) {
   }
   const slug = slugByCode.get(match.code);
   const countryName = countries.find((c) => c.slug === slug).name;
-  if (p.area === "ILE OF MAN + CHANNEL ISLANDS") {
+  if (p.area === "ILE OF MAN + CHANNEL ISLANDS" || p.area === "ISLE OF MAN + CHANNEL ISLANDS") {
     outPlans.push({
       ...base,
       scope: "country",

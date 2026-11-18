@@ -22,7 +22,12 @@ else). Neither prints activation codes.
 
 ## Re-running after a new data drop from the provider
 
-1. Replace `scripts/source/plans.json` and `scripts/source/zones.json` with the new export.
+1. Turn the provider's monthly price grid (.xlsx, "Coverage usages prices") into
+   `scripts/source/plans.json` and `scripts/source/zones.json`:
+   `node scripts/import-grid.mjs "<path to the .xlsx>"`. It renames zones the grid
+   renamed (e.g. BESTAFRICA2 -> BEST AFRICA), keeps our existing country names, and
+   gives plans with no wholesale price (`#N/A`) a null price so they are skipped.
+   Countries that have plans but sit in no zone list go in `extra-countries.json`.
 2. `node scripts/match-countries.mjs` — matches every single-country `area` in
    plans.json to a country in zones.json. Prints any **unmatched** areas —
    add an alias in the `aliases` map at the top of the script for each one,
