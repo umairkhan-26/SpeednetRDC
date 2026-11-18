@@ -467,5 +467,15 @@
       "failed": "Un problème est survenu. Réessayez.",
       "chooseIssue": "Veuillez choisir le problème."
     }
+  },
+  "coverage": {
+    "worksIn": "{count, plural, one {Fonctionne dans # pays} other {Fonctionne dans # pays}}",
+    "worksOnly": "Couverture : {country} uniquement",
+    "noInternet": "En dehors de ces pays, il n’y a pas d’internet.",
+    "noInternetSingle": "En dehors de ce pays ({country}), il n’y a pas d’internet.",
+    "notIncluded": "Non inclus",
+    "notIncludedHint": "Dans la même zone, mais ce forfait n’y fonctionne pas :",
+    "showMore": "+{count} de plus",
+    "showLess": "Voir moins"
   }
 }

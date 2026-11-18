@@ -42,7 +42,7 @@ export default async function RegionalPlanDetailPage({
       plan={plan}
       salesPaused={!isEsimCheckoutEnabled()}
       topUpEnabled={isTopUpEnabled()}
-      title={t("title", { area: names.region(region.slug, region.name) })}
+      title={t("title", { area: plan.zone ? names.planArea(plan) : names.region(region.slug, region.name) })}
       subtitle={`${names.data(plan.dataAmountGb)} · ${names.validity(plan.validityDays)}`}
       iconSlot={
         <span className="flex h-10 w-[3.75rem] shrink-0 items-center justify-center rounded-md bg-orange/10 text-orange">

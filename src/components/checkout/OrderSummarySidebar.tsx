@@ -7,6 +7,7 @@ import { useNames } from "@/i18n/use-names";
 import { calculateOrderTotals } from "@/lib/pricing";
 import { getCountryBySlug } from "@/data/countries";
 import { useCheckoutStore } from "@/lib/store/checkout-store";
+import PlanCoverage from "@/components/plans/PlanCoverage";
 
 export default function OrderSummarySidebar({ plan }: { plan: Plan }) {
   const t = useTranslations("checkout.summary");
@@ -27,6 +28,10 @@ export default function OrderSummarySidebar({ plan }: { plan: Plan }) {
         <Row label={t("data")} value={names.data(plan.dataAmountGb)} />
         {mode === "topup" && <Row label={t("addedTo")} value={topUpIccid ? t("simEnding", { last4: topUpIccid.slice(-4) }) : t("chooseSim")} />}
       </dl>
+
+      <div className="mt-4 border-t border-line pt-4">
+        <PlanCoverage plan={plan} />
+      </div>
 
       <div className="mt-4 space-y-2 border-t border-line pt-4 text-sm">
         <Row label={t("price")} value={names.price(totals.subtotal)} />

@@ -9,6 +9,7 @@ import { useCheckoutStore } from "@/lib/store/checkout-store";
 import { LinkButton, Button } from "@/components/ui/Button";
 import { EsimSalesPausedNotice } from "@/components/checkout/EsimSalesPaused";
 import TopUpCoverageNotice from "@/components/checkout/TopUpCoverageNotice";
+import PlanCoverage from "@/components/plans/PlanCoverage";
 import { useNames } from "@/i18n/use-names";
 import { trackMeta } from "@/lib/meta/pixel";
 
@@ -29,7 +30,6 @@ export default function PlanDetailView({
   topUpEnabled?: boolean;
 }) {
   const t = useTranslations("planDetail");
-  const tCoverage = useTranslations("coverage");
   const names = useNames();
   const router = useRouter();
   const startCheckout = useCheckoutStore((s) => s.startCheckout);
@@ -71,13 +71,6 @@ export default function PlanDetailView({
             </p>
           )}
 
-          {plan.countriesIncluded && plan.countriesIncluded.length > 1 && (
-            <div className="mt-8 rounded-2xl border border-line bg-cream p-5">
-              <p className="text-sm font-semibold text-ink">{tCoverage("countriesCovered", { count: plan.countriesIncluded.length })}</p>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{plan.countriesIncluded.join(", ")}</p>
-            </div>
-          )}
-
           <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
             <InfoTile icon={Database} label={t("dataAllowance")} value={names.data(plan.dataAmountGb)} />
             <InfoTile icon={Signal} label={t("validity")} value={names.validity(plan.validityDays)} />
@@ -96,6 +89,10 @@ export default function PlanDetailView({
         <aside className="h-max rounded-2xl border border-line bg-white p-6 lg:sticky lg:top-24">
           <p className="text-xs font-semibold uppercase tracking-wide text-muted">{t("totalPrice")}</p>
           <p className="mt-1 text-3xl font-bold text-orange">{names.price(plan.price)}</p>
+
+          <div className="mt-5 border-t border-line pt-5">
+            <PlanCoverage plan={plan} />
+          </div>
 
           {salesPaused ? (
             <EsimSalesPausedNotice />

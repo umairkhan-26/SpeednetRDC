@@ -1,5 +1,5 @@
 {
-  "_note": "Plans in Transatel's price grid that are missing from (or not sellable in) our account's live OCS catalogue. They are never sold: an order would fail after the customer has paid. Maintained by scripts/catalog-guard.mjs (run with --fix); you can also edit it by hand.",
+  "_note": "Plans in Transatel's price grid that are missing from (or not sellable in) our account's live OCS catalogue. They are never sold: an order would fail after the customer has paid. Maintained by scripts/catalog-guard.mjs (run with --fix); you can also edit it by hand. 2026-11-18: WW_901O_STACK_ONEOFF_MEDITERRANEAN_10GB_30D is hidden because Transatel's live product lists 55 countries WITHOUT Morocco and Tunisia, while the price grid (and our \"Europe, Morocco & Tunisia\" name) promises them. Re-list it once Transatel confirms the coverage.",
   "ids": [
     "WW_901O_STACK_ONEOFF_CAMBO_UNLIMITED_7D_FUP20",
     "WW_901O_STACK_ONEOFF_CONGO_3GB_15D",
@@ -14,6 +14,7 @@
     "WW_901O_STACK_ONEOFF_JPN_1GB_30D",
     "WW_901O_STACK_ONEOFF_JPN_3GB_15D",
     "WW_901O_STACK_ONEOFF_PHILIPPINES_1GB_7D",
-    "WW_901O_STACK_ONEOFF_USA_500MB_1D"
+    "WW_901O_STACK_ONEOFF_USA_500MB_1D",
+    "WW_901O_STACK_ONEOFF_MEDITERRANEAN_10GB_30D"
   ]
 }

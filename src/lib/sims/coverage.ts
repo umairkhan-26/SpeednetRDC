@@ -1,28 +1,16 @@
 import { countries } from "@/data/countries";
 import { getPlanById } from "@/data/plans";
+import extraPlaces from "@/data/extra-place-iso.json";
 
-// Places that plans cover but that have no country page of their own.
-const EXTRA_ISO: Record<string, string> = {
-  Anguilla: "AI",
-  "Antigua and Barbuda": "AG",
-  Barbados: "BB",
-  Bermuda: "BM",
-  Bonaire: "BQ",
-  "British Virgin Islands": "VG",
-  "Cayman Islands": "KY",
-  Dominica: "DM",
-  Grenada: "GD",
-  Haiti: "HT",
-  Jamaica: "JM",
-  Montserrat: "MS",
-  "Saint Kitts and Nevis": "KN",
-  "Saint Lucia": "LC",
-  "Saint Vincent and the Grenadines": "VC",
-  "Turks and Caicos Islands": "TC",
-  "Sint Maarten (Dutch part)": "SX",
-  "Puerto Rico": "PR",
-};
+// Places that plans cover but that have no country page of their own (name -> ISO code).
+// Kept in a JSON file so scripts/catalog-guard.mjs reads the same list.
+const EXTRA_ISO: Record<string, string> = extraPlaces;
 const NAME_TO_ISO = new Map(countries.map((c) => [c.name, c.iso.toUpperCase()]));
+
+/** ISO code of a place named in a plan's coverage list, when we know it. */
+export function isoForPlace(name: string): string | undefined {
+  return NAME_TO_ISO.get(name) ?? EXTRA_ISO[name];
+}
 
 /**
  * True when a SIM was last seen in a country its plan does not cover (the

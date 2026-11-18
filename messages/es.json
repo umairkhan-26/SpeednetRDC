@@ -467,5 +467,15 @@
       "failed": "Algo ha salido mal. Inténtalo de nuevo.",
       "chooseIssue": "Elige cuál es el problema."
     }
+  },
+  "coverage": {
+    "worksIn": "{count, plural, one {Funciona en # país} other {Funciona en # países}}",
+    "worksOnly": "Cobertura: solo {country}",
+    "noInternet": "Fuera de estos países no hay internet.",
+    "noInternetSingle": "Fuera de este país ({country}) no hay internet.",
+    "notIncluded": "No incluidos",
+    "notIncludedHint": "En la misma zona, pero este plan no funciona allí:",
+    "showMore": "+{count} más",
+    "showLess": "Ver menos"
   }
 }
