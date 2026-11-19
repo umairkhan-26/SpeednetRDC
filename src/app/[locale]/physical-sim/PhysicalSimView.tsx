@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { CheckCircle2, CreditCard, Mail, MapPin, Package, Smartphone, Truck } from "lucide-react";
 import { useNames } from "@/i18n/use-names";
 import { CONTACT_EMAIL, SHIPPING_PRICE_EUR, SIM_CARD_PRICE_EUR } from "@/components/physical-sim/facts";
+import HowSteps from "@/components/physical-sim/HowSteps";
 
 const STEPS = [
   { icon: Truck, key: "ship" },
@@ -57,18 +58,10 @@ export default function PhysicalSimView({
           </div>
 
           <h2 className="mt-12 text-xl font-bold text-ink">{t("howTitle")}</h2>
-          <ol className="mt-5 grid gap-4 sm:grid-cols-3">
-            {STEPS.map((step, i) => (
-              <li key={step.key} className="relative rounded-2xl border border-line bg-white p-5">
-                <span className="absolute -top-3 left-5 flex size-7 items-center justify-center rounded-full bg-ink text-xs font-bold text-white">
-                  {i + 1}
-                </span>
-                <step.icon className="size-6 text-orange" />
-                <p className="mt-3 font-semibold text-ink">{t(`steps.${step.key}Title`)}</p>
-                <p className="mt-1 text-sm text-muted">{t(`steps.${step.key}Text`)}</p>
-              </li>
-            ))}
-          </ol>
+          <HowSteps
+            layout="grid"
+            steps={STEPS.map((step) => ({ icon: step.icon, title: t(`steps.${step.key}Title`), text: t(`steps.${step.key}Text`) }))}
+          />
 
           <h2 className="mt-12 text-xl font-bold text-ink">{t("faqTitle")}</h2>
           <div className="mt-4 divide-y divide-line rounded-2xl border border-line bg-white">

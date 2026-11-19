@@ -34,11 +34,12 @@ export default function MultiPlansHero({
           <h1 className="max-w-2xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">{title}</h1>
           <p className="max-w-lg text-white/70">{subtitle}</p>
 
-          <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {/* Centred whatever the number of boxes (a 4-column grid left a 3-box row off-centre). */}
+          <div className="mt-4 flex w-full flex-wrap justify-center gap-3">
             {stats.map((s, i) => {
               const Icon = statIcons[i % statIcons.length];
               return (
-                <div key={s.label} className="rounded-2xl bg-white/5 px-6 py-5 text-center">
+                <div key={s.label} className="w-[calc(50%-0.375rem)] rounded-2xl bg-white/5 px-4 py-5 text-center sm:w-44 sm:px-6">
                   <Icon className="mx-auto size-4 text-amber-400" />
                   <p className="mt-2 text-xl font-bold text-white">{s.value}</p>
                   <p className="text-xs text-white/50">{s.label}</p>

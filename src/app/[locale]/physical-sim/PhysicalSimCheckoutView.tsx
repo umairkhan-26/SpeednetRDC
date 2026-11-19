@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { useNames } from "@/i18n/use-names";
 import { isValidEmail, isValidFullName } from "@/lib/validation";
 import type { PhysicalSimPricing } from "@/lib/physical-sim";
+import HowSteps from "@/components/physical-sim/HowSteps";
 
 interface Pending {
   inactivityPeriod: string;
@@ -113,18 +114,10 @@ export default function PhysicalSimCheckoutView({
           </div>
 
           <h2 className="mt-12 text-xl font-bold text-ink">{t("howTitle")}</h2>
-          <ol className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {STEPS.map((step, i) => (
-              <li key={step.key} className="relative rounded-2xl border border-line bg-white p-5">
-                <span className="absolute -top-3 left-5 flex size-7 items-center justify-center rounded-full bg-ink text-xs font-bold text-white">
-                  {i + 1}
-                </span>
-                <step.icon className="size-6 text-orange" />
-                <p className="mt-3 font-semibold text-ink">{t(`steps.${step.key}Title`)}</p>
-                <p className="mt-1 text-sm text-muted">{t(`steps.${step.key}Text`)}</p>
-              </li>
-            ))}
-          </ol>
+          <HowSteps
+            layout="list"
+            steps={STEPS.map((step) => ({ icon: step.icon, title: t(`steps.${step.key}Title`), text: t(`steps.${step.key}Text`) }))}
+          />
 
           <h2 className="mt-12 text-xl font-bold text-ink">{t("faqTitle")}</h2>
           <div className="mt-4 divide-y divide-line rounded-2xl border border-line bg-white">
