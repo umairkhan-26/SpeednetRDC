@@ -1,9 +1,33 @@
 {
-  "_note": "Countries that have single-country plans in Transatel's price grid but appear in none of its zone lists. match-countries.mjs treats them as known countries. They are NOT added to any zone, so they never count as covered by a regional or global plan.",
+  "_note": "Countries that have single-country plans in Transatel's price grid but appear in none of its zone lists. match-countries.mjs treats them as known countries. They are NOT added to any zone, so they never count as covered by a regional or global plan. Bhutan, DR Congo and Namibia were added when the 24 Nov 2026 grid took them out of Best World: they keep their own single-country plans and pages.",
   "countries": [
-    { "code": "AGO", "name": "Angola" },
-    { "code": "MDV", "name": "Maldives" },
-    { "code": "TLS", "name": "Timor-Leste" },
-    { "code": "STP", "name": "São Tomé and Príncipe" }
+    {
+      "code": "AGO",
+      "name": "Angola"
+    },
+    {
+      "code": "MDV",
+      "name": "Maldives"
+    },
+    {
+      "code": "TLS",
+      "name": "Timor-Leste"
+    },
+    {
+      "code": "STP",
+      "name": "São Tomé and Príncipe"
+    },
+    {
+      "code": "BTN",
+      "name": "Bhutan"
+    },
+    {
+      "code": "COD",
+      "name": "Congo Democratic Republic"
+    },
+    {
+      "code": "NAM",
+      "name": "Namibia"
+    }
   ]
 }

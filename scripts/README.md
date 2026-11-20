@@ -50,6 +50,18 @@ else). Neither prints activation codes.
 Steps 2–4 only need re-running when the provider adds/removes areas; if it's
 just a pricing refresh with the same area list, step 5 alone is enough.
 
+## Closed plans and old grids (24 Nov 2026 grid)
+
+- A plan whose `status` is `Closed` in the grid is never put on sale. `generate-data.mjs` writes
+  it to `src/data/generated/retired-plans.json` instead, and `getPlanForOrder()` (src/data/plans.ts)
+  finds it for customers who already bought it (order page, order email, admin, My SIMs).
+  Plan pages and the checkout use `getPlanById()` and so refuse it.
+- The previous grid's source data is kept in `scripts/source/archive-2026-10-27/` (plans.json and
+  zones.json). To roll back a grid: copy those two files back into `scripts/source/`, run
+  `node scripts/match-countries.mjs`, `node scripts/classify-regions.mjs`, `node scripts/generate-data.mjs`.
+- A country that has its own plans but is in no zone list (Bhutan, DR Congo and Namibia since 24 Nov 2026)
+  goes in `extra-countries.json`, and its region in `manualOverrides` in `classify-regions.mjs`.
+
 ## Known limitations from the current data drop (2026-09)
 
 - Only `bundle_type: "One-Off"` plans are shown (1,006 of 1,059). The 51

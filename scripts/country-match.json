@@ -232,7 +232,7 @@
       "area": "COSTA RICA",
       "code": "CRI",
       "zoneName": "Costa Rica",
-      "plans": 10
+      "plans": 8
     },
     {
       "area": "CROATIA",
@@ -250,7 +250,7 @@
       "area": "CYPRUS",
       "code": "CYP",
       "zoneName": "Cyprus",
-      "plans": 8
+      "plans": 9
     },
     {
       "area": "CZECH REPUBLIC",
@@ -340,7 +340,7 @@
       "area": "FRANCE",
       "code": "FRA",
       "zoneName": "France",
-      "plans": 16
+      "plans": 14
     },
     {
       "area": "FRENCH GUIANA",
@@ -394,7 +394,7 @@
       "area": "GREENLAND",
       "code": "GRL",
       "zoneName": "Greenland",
-      "plans": 7
+      "plans": 4
     },
     {
       "area": "GUATEMALA",
@@ -454,13 +454,13 @@
       "area": "ICELAND",
       "code": "ISL",
       "zoneName": "Iceland",
-      "plans": 5
+      "plans": 7
     },
     {
       "area": "INDIA",
       "code": "IND",
       "zoneName": "India",
-      "plans": 11
+      "plans": 10
     },
     {
       "area": "INDONESIA",
@@ -508,7 +508,7 @@
       "area": "KAZAKHSTAN",
       "code": "KAZ",
       "zoneName": "Kazakhstan",
-      "plans": 7
+      "plans": 10
     },
     {
       "area": "KENYA",
@@ -538,7 +538,7 @@
       "area": "SAUDI ARABIA",
       "code": "SAU",
       "zoneName": "Saudi Arabia",
-      "plans": 4
+      "plans": 9
     },
     {
       "area": "KUWAIT",
@@ -675,7 +675,7 @@
     {
       "area": "NAMIBIA",
       "code": "NAM",
-      "zoneName": "Nambia",
+      "zoneName": "Namibia",
       "plans": 1
     },
     {
@@ -766,7 +766,7 @@
       "area": "PHILIPPINES",
       "code": "PHL",
       "zoneName": "Philippines",
-      "plans": 9
+      "plans": 8
     },
     {
       "area": "POLAND",
@@ -844,7 +844,7 @@
       "area": "SEYCHELLES",
       "code": "SYC",
       "zoneName": "Seychelles",
-      "plans": 5
+      "plans": 6
     },
     {
       "area": "SIERRA LEONE",
@@ -928,7 +928,7 @@
       "area": "TAIWAN",
       "code": "TWN",
       "zoneName": "Taiwan",
-      "plans": 9
+      "plans": 12
     },
     {
       "area": "TAJIKISTAN",
@@ -982,7 +982,7 @@
       "area": "TURKEY",
       "code": "TUR",
       "zoneName": "Turkey",
-      "plans": 10
+      "plans": 11
     },
     {
       "area": "UAE",

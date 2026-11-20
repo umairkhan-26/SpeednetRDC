@@ -57,7 +57,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 3.99
+    "fromPrice": 2.99
   },
   {
     "slug": "angola",
@@ -1917,7 +1917,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 5.99
+    "fromPrice": 4.99
   },
   {
     "slug": "portugal",
@@ -2082,7 +2082,7 @@
     ],
     "networkCount": 1,
     "popular": true,
-    "fromPrice": 8.99
+    "fromPrice": 4.99
   },
   {
     "slug": "senegal",
@@ -2127,7 +2127,7 @@
     ],
     "networkCount": 1,
     "popular": false,
-    "fromPrice": 7.99
+    "fromPrice": 6.99
   },
   {
     "slug": "sierra-leone",

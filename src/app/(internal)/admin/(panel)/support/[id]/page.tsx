@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { requireAdminSession } from "@/lib/staff/auth";
 import { getAdminT } from "@/i18n/admin";
 import { adminDateLocale } from "@/i18n/admin-locale";
-import { getPlanById } from "@/data/plans";
+import { getPlanForOrder } from "@/data/plans";
 import { getOrderById } from "@/lib/checkout/orders-repository";
 import { getSoldSimsByIccid } from "@/lib/sims/repository";
 import { seenOutsidePlanCoverage } from "@/lib/sims/coverage";
@@ -41,7 +41,7 @@ export default async function AdminSupportTicketPage({ params }: { params: Promi
   const order = await getOrderById(ticket.orderId);
   const sim = ticket.iccid ? (await getSoldSimsByIccid(ticket.iccid)).find((x) => x.productType !== "topup") ?? null : null;
   const snap = sim?.snapshot ?? null;
-  const plan = order?.planId ? getPlanById(order.planId) : undefined;
+  const plan = order?.planId ? getPlanForOrder(order.planId) : undefined;
   const outside = seenOutsidePlanCoverage(order?.planId ?? null, snap?.lastOriginCountry ?? null);
   const covered = plan?.countriesIncluded ?? [];
 

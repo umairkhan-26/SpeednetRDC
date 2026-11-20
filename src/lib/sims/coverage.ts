@@ -1,5 +1,5 @@
 import { countries } from "@/data/countries";
-import { getPlanById } from "@/data/plans";
+import { getPlanForOrder } from "@/data/plans";
 import extraPlaces from "@/data/extra-place-iso.json";
 
 // Places that plans cover but that have no country page of their own (name -> ISO code).
@@ -19,7 +19,7 @@ export function isoForPlace(name: string): string | undefined {
  */
 export function seenOutsidePlanCoverage(planId: string | null, lastCountryIso: string | null): boolean {
   if (!planId || !lastCountryIso) return false;
-  const covered = getPlanById(planId)?.countriesIncluded;
+  const covered = getPlanForOrder(planId)?.countriesIncluded;
   if (!covered?.length) return false;
   const iso = covered.map((name) => NAME_TO_ISO.get(name) ?? EXTRA_ISO[name]);
   if (iso.some((code) => !code)) return false;

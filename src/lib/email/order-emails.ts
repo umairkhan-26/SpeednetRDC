@@ -3,7 +3,7 @@ import { routing } from "@/i18n/routing";
 import { getOrderById, markConfirmationEmailSent, type CheckoutOrder } from "@/lib/checkout/orders-repository";
 import { getAppUrl } from "@/lib/checkout/stripe";
 import { pendingAnswer, SHIPS_FROM } from "@/lib/physical-sim";
-import { getPlanById } from "@/data/plans";
+import { getPlanForOrder } from "@/data/plans";
 import { coveredPlaces } from "@/lib/plan-coverage";
 import { sendEmail } from "./send";
 import { orderReadyEmail, simOnItsWayEmail, simShippedEmail, topUpReadyEmail } from "./templates";
@@ -27,7 +27,7 @@ function reportProblemUrl(order: Pick<CheckoutOrder, "locale">): string {
 
 /** Every place the order's plan works in. Empty when the plan is no longer in the catalogue. */
 function coveredCountryNames(planId: string | null): string[] {
-  const plan = planId ? getPlanById(planId) : undefined;
+  const plan = planId ? getPlanForOrder(planId) : undefined;
   return plan ? coveredPlaces(plan).map((p) => p.name) : [];
 }
 

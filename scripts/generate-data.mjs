@@ -118,7 +118,8 @@ const AREA_ZONE = {
   "BEST CARIBBEAN": { zone: "french-caribbean", name: "French Caribbean & Guiana", zoneKey: "BEST CARIBBEAN" },
   EUROPE: { zone: "europe", name: "Europe", zoneKey: "EU28PLUS (EUROPE)" },
   "EUROPE EXTENDED": { zone: "europe-plus", name: "Europe Plus", zoneKey: "EU EXTENDED" },
-  MEDITERRANEAN: { zone: "europe-maghreb", name: "Europe, Morocco & Tunisia", zoneKey: "MEDITERRANEAN" },
+  // Morocco and Tunisia left this zone in the 24 Nov 2026 grid, so the name no longer mentions them.
+  MEDITERRANEAN: { zone: "europe-mediterranean", name: "Europe & Mediterranean", zoneKey: "MEDITERRANEAN" },
   "SCANDINAVIA & BALTIC": { zone: "scandinavia-baltics", name: "Scandinavia & Baltics", zoneKey: "SCANDINAVIA  & BALTIC" },
   "BEST LATAM": { zone: "latin-america", name: "Latin America", zoneKey: "BEST LATAM" },
   "MIDDLE EAST": { zone: "middle-east-plus", name: "Middle East Plus", zoneKey: "MIDDLE EAST" },
@@ -230,6 +231,10 @@ for (const p of plans) {
     validityDays,
     price: priceFor(p),
     ...(fairUseGb(p) ? { fairUseGb: fairUseGb(p) } : {}),
+    // Status "Closed" in the grid = Transatel stopped offering the plan. It is
+    // never sold again but customers who already bought it keep their order
+    // page and coverage (see retired-plans.json below).
+    ...(p.status === "Closed" ? { retired: true } : {}),
     network: "SpeedNetRDC",
     speed: "4G/5G",
     hotspot: true,
@@ -298,6 +303,16 @@ for (const p of plans) {
   });
 }
 
+// Closed plans leave the sale list here; they are written to retired-plans.json.
+const retiredPlans = [];
+for (let i = outPlans.length - 1; i >= 0; i--) {
+  if (outPlans[i].retired) {
+    const [plan] = outPlans.splice(i, 1);
+    delete plan.retired;
+    retiredPlans.unshift(plan);
+  }
+}
+
 // Hide plans another plan of the same product beats on every point (at least
 // as much data — counting an unlimited plan's fair-use limit — at least as
 // many days, for no more money): nobody should buy them.
@@ -357,11 +372,13 @@ fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(new URL("countries.json", outDir), JSON.stringify(countries, null, 2));
 fs.writeFileSync(new URL("regions.json", outDir), JSON.stringify(outRegions, null, 2));
 fs.writeFileSync(new URL("plans.json", outDir), JSON.stringify(outPlans, null, 2));
+fs.writeFileSync(new URL("retired-plans.json", outDir), JSON.stringify(retiredPlans, null, 2));
 
 console.log("Countries:", countries.length);
 console.log("Countries with no plans (fromPrice null):", countries.filter((c) => c.fromPrice === null).length);
 console.log("Regions:", outRegions.length, outRegions.map((r) => `${r.slug}(${r.countryCount})`).join(", "));
 console.log("Plans written:", outPlans.length);
+console.log("Plans retired (Closed in the grid, not for sale, kept for existing orders):", retiredPlans.length, retiredPlans.map((p) => p.id));
 console.log("Plans hidden (beaten on every point by a plan of the same product):", hiddenDominated.length, hiddenDominated);
 console.log("Plans excluded (recurring bundle):", excludedRecurring.length);
 console.log("Plans skipped (null price):", skippedNullPrice.length, skippedNullPrice);

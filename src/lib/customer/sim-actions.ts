@@ -2,7 +2,7 @@
 
 import { getClientIp, isRateLimited, rateLimitBucket, recordAttempt } from "@/lib/auth/rate-limit";
 import { listCustomerSims } from "@/lib/checkout/orders-repository";
-import { getPlanById } from "@/data/plans";
+import { getPlanForOrder } from "@/data/plans";
 import { isTopUpEnabled, simHomeCountrySlug } from "@/lib/topup";
 import { findTopUpTarget } from "@/lib/sims/eligibility";
 import { getCustomerEmail } from "./session";
@@ -32,5 +32,5 @@ export async function listMySimsAction(): Promise<{ iccid: string; simType: "esi
   if (!isTopUpEnabled()) return [];
   const email = await getCustomerEmail();
   if (!email) return [];
-  return (await listCustomerSims(email)).map((s) => ({ iccid: s.iccid, simType: s.simType, homeCountrySlug: simHomeCountrySlug(s.planId, getPlanById) }));
+  return (await listCustomerSims(email)).map((s) => ({ iccid: s.iccid, simType: s.simType, homeCountrySlug: simHomeCountrySlug(s.planId, getPlanForOrder) }));
 }
