@@ -9,6 +9,7 @@ import {
   listRecentOrders,
 } from "@/lib/staff/repository";
 import { listOrdersNeedingProvisioning } from "@/lib/checkout/orders-repository";
+import { countAvailableEsims } from "@/lib/transatel/inventory";
 import { formatPrice } from "@/lib/format";
 import Flag from "@/components/ui/Flag";
 import StatCard from "./StatCard";
@@ -19,6 +20,9 @@ import { KindBadge, OrderDeliveryBadge, PaymentBadge } from "./Badges";
 import Link from "next/link";
 import { getAdminT } from "@/i18n/admin";
 import { adminDateLocale } from "@/i18n/admin-locale";
+
+/** Below this many unused eSIMs the dashboard turns the stock card orange. */
+const LOW_ESIM_STOCK = 50;
 
 const PROVISIONING_STATUSES = new Set(["failed", "pending", "activating"]);
 
@@ -51,6 +55,8 @@ export default async function AdminDashboardPage() {
       listRecentComplaints(5),
       listOrdersNeedingProvisioning(),
     ]);
+  // A stock-count failure must never break the dashboard.
+  const esimStock = await countAvailableEsims().catch(() => null);
 
   return (
     <div className="space-y-8">
@@ -130,7 +136,13 @@ export default async function AdminDashboardPage() {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
+        <StatCard
+          label={d("esimStock")}
+          value={esimStock === null ? "—" : String(esimStock)}
+          warn={esimStock !== null && esimStock < LOW_ESIM_STOCK}
+          note={esimStock === null ? d("esimStockUnknown") : esimStock < LOW_ESIM_STOCK ? d("esimStockLow", { limit: LOW_ESIM_STOCK }) : d("esimStockNote")}
+        />
         <StatCard label={d("totalOrders")} value={String(orderStats.totalOrders)} />
         <StatCard label={d("activeStaff")} value={String(activeStaff)} />
         <StatCard label={d("totalComplaints")} value={String(openComplaints)} />

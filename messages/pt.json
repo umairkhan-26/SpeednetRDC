@@ -653,6 +653,7 @@
       "addedTo": "Adicionado a",
       "simEnding": "SIM terminado em {last4}",
       "chooseSim": "O seu SIM (escolha-o)",
+      "plainTotal": "Paga {total} num único pagamento: o plano ({price}) mais impostos e taxas ({fees}).",
       "footerTopUp": "Pagamento encriptado · Adicionado ao seu SIM em minutos · Pedidos de reembolso: contact@speednetrdc.com"
     },
     "cancelled": {
@@ -736,12 +737,15 @@
     },
     "coverageTitle": "Onde este tarifário funciona",
     "coverageText": "Os seus dados só funcionam nestes países. Fora deles não terá internet, mesmo que o telemóvel mostre rede.",
+    "coverageTextSingle": "Os seus dados só funcionam em {country}. Em qualquer outro lugar não terá internet, mesmo que o telemóvel mostre rede.",
     "noInternetTitle": "Sem internet?",
     "noInternet1": "Ative a linha eSIM: Definições → Dados móveis (Celular) → selecione este eSIM.",
     "noInternet2": "Escolha este eSIM para os dados móveis e ative o roaming de dados nessa linha.",
     "noInternet3": "Verifique que está num dos países listados acima.",
     "noInternet4": "Reinicie o telemóvel e aguarde um minuto. Se continuar sem funcionar, contacte-nos com o seu número de encomenda.",
-    "keepEsim": "Não elimine o eSIM do telemóvel, mesmo que não funcione: não pode ser instalado de novo. Contacte-nos primeiro."
+    "keepEsim": "Não elimine o eSIM do telemóvel, mesmo que não funcione: não pode ser instalado de novo. Contacte-nos primeiro.",
+    "reportIntro": "Ainda sem internet?",
+    "reportLink": "Comunicar um problema a partir da sua conta"
   },
   "help": {
     "title": "Como podemos ajudar?",

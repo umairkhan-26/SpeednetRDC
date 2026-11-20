@@ -3,6 +3,8 @@ import { routing } from "@/i18n/routing";
 import { getOrderById, markConfirmationEmailSent, type CheckoutOrder } from "@/lib/checkout/orders-repository";
 import { getAppUrl } from "@/lib/checkout/stripe";
 import { pendingAnswer, SHIPS_FROM } from "@/lib/physical-sim";
+import { getPlanById } from "@/data/plans";
+import { coveredPlaces } from "@/lib/plan-coverage";
 import { sendEmail } from "./send";
 import { orderReadyEmail, simOnItsWayEmail, simShippedEmail, topUpReadyEmail } from "./templates";
 
@@ -10,11 +12,23 @@ const DELIVERY_ESTIMATE = "3–5 working days";
 
 type EmailResult = { ok: boolean; message: string };
 
+const orderLocale = (order: Pick<CheckoutOrder, "locale">) => (hasLocale(routing.locales, order.locale) ? order.locale : routing.defaultLocale);
+
 /** The customer's private order page, in the language they checked out in. */
 export function orderPageUrl(order: Pick<CheckoutOrder, "accessToken" | "locale">): string | null {
   if (!order.accessToken) return null;
-  const locale = hasLocale(routing.locales, order.locale) ? order.locale : routing.defaultLocale;
-  return `${getAppUrl()}/${locale}/order/${order.accessToken}`;
+  return `${getAppUrl()}/${orderLocale(order)}/order/${order.accessToken}`;
+}
+
+/** The account's "Report a problem" section (the customer signs in with their order email). */
+function reportProblemUrl(order: Pick<CheckoutOrder, "locale">): string {
+  return `${getAppUrl()}/${orderLocale(order)}/account#support`;
+}
+
+/** Every place the order's plan works in. Empty when the plan is no longer in the catalogue. */
+function coveredCountryNames(planId: string | null): string[] {
+  const plan = planId ? getPlanById(planId) : undefined;
+  return plan ? coveredPlaces(plan).map((p) => p.name) : [];
 }
 
 export interface OrderEmailResult {
@@ -44,7 +58,15 @@ export async function sendOrderReadyEmail(orderId: number, opts: { resend?: bool
     const url = orderPageUrl(order);
     if (!url) return { ok: false, code: "noLink", message: "Order has no private link." };
 
-    const email = orderReadyEmail({ customerName: order.customerName, planName: order.planName, orderNumber: order.id, orderUrl: url, withdrawalConsentAt: order.withdrawalConsentAt });
+    const email = orderReadyEmail({
+      customerName: order.customerName,
+      planName: order.planName,
+      orderNumber: order.id,
+      orderUrl: url,
+      reportProblemUrl: reportProblemUrl(order),
+      coveredCountries: coveredCountryNames(order.planId),
+      withdrawalConsentAt: order.withdrawalConsentAt,
+    });
     const result = await sendEmail({
       to: order.customerEmail,
       ...email,

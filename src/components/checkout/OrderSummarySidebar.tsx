@@ -42,6 +42,9 @@ export default function OrderSummarySidebar({ plan }: { plan: Plan }) {
         <span className="font-semibold text-ink">{t("total")}</span>
         <span className="text-xl font-bold text-orange">{names.price(totals.total)}</span>
       </div>
+      <p className="mt-2 text-xs text-muted">
+        {t("plainTotal", { total: names.price(totals.total), price: names.price(totals.subtotal), fees: names.price(totals.taxesAndFees) })}
+      </p>
 
       <p className="mt-4 flex items-start gap-1.5 text-xs text-muted">
         <ShieldCheck className="mt-0.5 size-3.5 shrink-0 text-emerald-600" />

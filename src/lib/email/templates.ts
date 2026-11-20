@@ -12,9 +12,31 @@ export interface EmailContent {
 const escapeHtml = (value: string) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
-function layout(opts: { heading: string; paragraphs: string[]; button?: { label: string; url: string }; footnote?: string }): string {
+interface EmailSection {
+  title: string;
+  /** A plain sentence under the title. */
+  text?: string;
+  /** Numbered steps, shown as a list. */
+  steps?: string[];
+  /** A link under the text. */
+  link?: { label: string; url: string };
+}
+
+function layout(opts: { heading: string; paragraphs: string[]; sections?: EmailSection[]; button?: { label: string; url: string }; footnote?: string }): string {
   const paragraphs = opts.paragraphs
     .map((p) => `<p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#0a0a0a;">${escapeHtml(p)}</p>`)
+    .join("");
+  const sections = (opts.sections ?? [])
+    .map((sec) => {
+      const text = sec.text ? `<p style="margin:0 0 8px;font-size:14px;line-height:1.6;color:#0a0a0a;">${escapeHtml(sec.text)}</p>` : "";
+      const steps = sec.steps?.length
+        ? `<ol style="margin:0;padding-left:20px;font-size:14px;line-height:1.6;color:#0a0a0a;">${sec.steps.map((x) => `<li style="margin:0 0 4px;">${escapeHtml(x)}</li>`).join("")}</ol>`
+        : "";
+      const link = sec.link
+        ? `<p style="margin:0;font-size:14px;"><a href="${escapeHtml(sec.link.url)}" style="color:#f06104;font-weight:600;">${escapeHtml(sec.link.label)}</a></p>`
+        : "";
+      return `<div style="margin:0 0 16px;padding:14px 16px;background:#fcf0e6;border-radius:12px;"><p style="margin:0 0 6px;font-size:14px;font-weight:700;color:#0a0a0a;">${escapeHtml(sec.title)}</p>${text}${steps}${link}</div>`;
+    })
     .join("");
   const button = opts.button
     ? `<p style="margin:24px 0;"><a href="${escapeHtml(opts.button.url)}" style="display:inline-block;background:#f06104;color:#ffffff;text-decoration:none;font-weight:600;font-size:15px;padding:12px 22px;border-radius:999px;">${escapeHtml(opts.button.label)}</a></p>
@@ -29,7 +51,7 @@ function layout(opts: { heading: string; paragraphs: string[]; button?: { label:
 <tr><td>
 <p style="margin:0 0 24px;font-size:18px;font-weight:700;color:#0a0a0a;">SpeedNet<span style="color:#f06104;">RDC</span></p>
 <h1 style="margin:0 0 16px;font-size:22px;line-height:1.3;color:#0a0a0a;">${escapeHtml(opts.heading)}</h1>
-${paragraphs}${button}${footnote}
+${paragraphs}${sections}${button}${footnote}
 </td></tr></table></td></tr></table></body></html>`;
 }
 
@@ -42,20 +64,58 @@ export function orderReadyEmail(opts: {
   planName: string;
   orderNumber: number;
   orderUrl: string;
+  /** Where "Report a problem" lives (the customer account's support section). */
+  reportProblemUrl?: string;
+  /** Every place the plan works in, by name. Empty when unknown. */
+  coveredCountries?: string[];
   /** Set when the customer gave the checkout's withdrawal-right consent: confirmed here, as EU law requires. */
   withdrawalConsentAt?: string | null;
 }): EmailContent {
   const intro = `Hi ${opts.customerName}, your eSIM for ${opts.planName} (order ORD-${opts.orderNumber}) is ready to install.`;
   const how = "Open your order page to see your QR code and step-by-step install instructions. Install it while you have Wi-Fi, ideally before you travel. Your plan only starts the first time you connect in a country it covers.";
+  const covered = opts.coveredCountries ?? [];
+  const where: EmailSection | undefined = covered.length
+    ? {
+        title: "Where this plan works",
+        text:
+          covered.length === 1
+            ? `Your data only works in ${covered[0]}. Anywhere else you will have no internet, even if your phone shows a signal.`
+            : `Your data only works in these ${covered.length} places: ${covered.join(", ")}. Anywhere else you will have no internet, even if your phone shows a signal.`,
+      }
+    : undefined;
+  const noInternetSteps = [
+    "Turn the eSIM line on: Settings → Mobile data (Cellular) → select this eSIM.",
+    "Choose this eSIM for mobile data and turn on Data roaming for that line.",
+    "Check that you are in one of the countries listed above.",
+    "Restart your phone and wait a minute. If it still doesn’t work, report a problem with your order number.",
+  ];
+  const keep = "Please don’t delete the eSIM from your phone, even if it isn’t working: it can’t be installed again. Contact us first.";
+  const reportText = "Still no internet? Tell us from your account (sign in with this email address) and we will see which eSIM it is.";
   const consent = opts.withdrawalConsentAt
     ? "At checkout you asked for your eSIM to be delivered immediately and acknowledged that you lose your 14-day right of withdrawal once it has been delivered."
     : undefined;
   const warn = "Keep this link private: anyone with it can install your eSIM, and it can only be installed once.";
   const footnote = consent ? `${warn} ${consent}` : warn;
+  const sections: EmailSection[] = [
+    ...(where ? [where] : []),
+    { title: "No internet?", steps: noInternetSteps },
+    { title: "Please keep your eSIM", text: keep },
+    ...(opts.reportProblemUrl ? [{ title: "Report a problem", text: reportText, link: { label: "Report a problem", url: opts.reportProblemUrl } }] : []),
+  ];
   return {
     subject: `Your eSIM is ready — order ORD-${opts.orderNumber}`,
-    html: layout({ heading: "Your eSIM is ready", paragraphs: [intro, how], button: { label: "View my eSIM", url: opts.orderUrl }, footnote }),
-    text: plain([intro, how, `Your order page: ${opts.orderUrl}`, warn, consent]),
+    html: layout({ heading: "Your eSIM is ready", paragraphs: [intro, how], sections, button: { label: "View my eSIM", url: opts.orderUrl }, footnote }),
+    text: plain([
+      intro,
+      how,
+      `Your order page: ${opts.orderUrl}`,
+      where && `${where.title}\n${where.text}`,
+      `No internet?\n${noInternetSteps.map((x, i) => `${i + 1}. ${x}`).join("\n")}`,
+      keep,
+      opts.reportProblemUrl && `${reportText}\nReport a problem: ${opts.reportProblemUrl}`,
+      warn,
+      consent,
+    ]),
   };
 }
 

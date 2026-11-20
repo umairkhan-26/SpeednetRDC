@@ -11,6 +11,8 @@ import { appleOneTapInstallUrl, supportsAppleOneTapInstall } from "@/lib/esim-in
 import { generateQrDataUrl } from "@/lib/qr";
 import { isTopUpEnabled } from "@/lib/topup";
 import { getPlanById } from "@/data/plans";
+import { coveredPlaces } from "@/lib/plan-coverage";
+import { getNames } from "@/i18n/get-names";
 
 // The URL token is the only thing protecting the activation code shown
 // here: keep the page out of search engines, and never send it as a
@@ -58,7 +60,9 @@ export default async function PrivateOrderPage({ params }: { params: Promise<{ t
 }
 
 async function ReadyToInstall({ activationCode, planId, t, locale }: { activationCode: string; planId: string | null; t: T; locale: string }) {
-  const covered = planId ? getPlanById(planId)?.countriesIncluded ?? [] : [];
+  const plan = planId ? getPlanById(planId) : undefined;
+  const names = await getNames(locale);
+  const covered = (plan ? coveredPlaces(plan) : []).map((p) => names.country({ name: p.name, iso: p.iso ?? "" })).sort((a, b) => a.localeCompare(b, languageTag(locale)));
   const qr = await generateQrDataUrl(activationCode);
   // LPA:1$<SM-DP+ address>$<matching ID>
   const [, smdpAddress = "", matchingId = ""] = activationCode.replace(/^LPA:/, "").split("$");
@@ -127,8 +131,8 @@ async function ReadyToInstall({ activationCode, planId, t, locale }: { activatio
       {covered.length > 0 && (
         <div className="mt-6 rounded-2xl border border-line bg-white p-5 text-sm">
           <p className="font-semibold text-ink">{t("coverageTitle")}</p>
-          <p className="mt-1 text-muted">{t("coverageText")}</p>
-          <p className="mt-3 leading-relaxed text-ink">{covered.join(", ")}</p>
+          <p className="mt-1 text-muted">{covered.length === 1 ? t("coverageTextSingle", { country: covered[0] }) : t("coverageText")}</p>
+          {covered.length > 1 && <p className="mt-3 leading-relaxed text-ink">{covered.join(", ")}</p>}
         </div>
       )}
       <div className="mt-6 rounded-2xl border border-line bg-white p-5 text-sm">
@@ -140,6 +144,12 @@ async function ReadyToInstall({ activationCode, planId, t, locale }: { activatio
           <li>{t("noInternet4")}</li>
         </ol>
         <p className="mt-3 font-medium text-ink">{t("keepEsim")}</p>
+        <p className="mt-3 text-muted">
+          {t("reportIntro")}{" "}
+          <Link href="/account#support" className="font-semibold text-orange hover:underline">
+            {t("reportLink")} →
+          </Link>
+        </p>
       </div>
       {isTopUpEnabled() && <HowToRecharge locale={locale} />}
       <HelpLine t={t} />

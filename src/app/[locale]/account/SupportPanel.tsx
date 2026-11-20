@@ -79,7 +79,7 @@ export default function SupportPanel({ orders, tickets }: { orders: SupportOrder
   }
 
   return (
-    <section className="mt-8 rounded-2xl border border-line bg-white p-5">
+    <section id="support" className="mt-8 scroll-mt-24 rounded-2xl border border-line bg-white p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex items-start gap-3">
           <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-orange/10 text-orange">

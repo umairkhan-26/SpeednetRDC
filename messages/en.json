@@ -653,6 +653,7 @@
       "addedTo": "Added to",
       "simEnding": "SIM ending {last4}",
       "chooseSim": "Your SIM (choose it)",
+      "plainTotal": "You pay {total} in one payment: the plan ({price}) plus taxes & fees ({fees}).",
       "footerTopUp": "Encrypted checkout · Added to your SIM within minutes · Refund requests: contact@speednetrdc.com"
     },
     "cancelled": {
@@ -736,12 +737,15 @@
     },
     "coverageTitle": "Where this plan works",
     "coverageText": "Your data only works in these countries. Outside them you will have no internet, even if your phone shows a signal.",
+    "coverageTextSingle": "Your data only works in {country}. Anywhere else you will have no internet, even if your phone shows a signal.",
     "noInternetTitle": "No internet?",
     "noInternet1": "Turn the eSIM line on: Settings → Mobile data (Cellular) → select this eSIM.",
     "noInternet2": "Choose this eSIM for mobile data and turn on Data roaming for that line.",
     "noInternet3": "Check that you are in one of the countries listed above.",
     "noInternet4": "Restart your phone and wait a minute. If it still doesn’t work, contact us with your order number.",
-    "keepEsim": "Please don’t delete the eSIM from your phone, even if it isn’t working: it can’t be installed again. Contact us first."
+    "keepEsim": "Please don’t delete the eSIM from your phone, even if it isn’t working: it can’t be installed again. Contact us first.",
+    "reportIntro": "Still no internet?",
+    "reportLink": "Report a problem from your account"
   },
   "help": {
     "title": "How can we help?",

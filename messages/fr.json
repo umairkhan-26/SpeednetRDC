@@ -281,6 +281,7 @@
       "addedTo": "Ajouté à",
       "simEnding": "SIM se terminant par {last4}",
       "chooseSim": "Votre SIM (à choisir)",
+      "plainTotal": "Vous payez {total} en un seul paiement : le forfait ({price}) plus les taxes et frais ({fees}).",
       "footerTopUp": "Paiement chiffré · Ajouté à votre SIM en quelques minutes · Demandes de remboursement : contact@speednetrdc.com"
     },
     "planStep": {
@@ -340,12 +341,15 @@
     },
     "coverageTitle": "Où ce forfait fonctionne",
     "coverageText": "Vos données ne fonctionnent que dans ces pays. En dehors, vous n’aurez pas d’internet, même si votre téléphone affiche du réseau.",
+    "coverageTextSingle": "Vos données ne fonctionnent qu’en {country}. Partout ailleurs, vous n’aurez pas d’internet, même si votre téléphone affiche du réseau.",
     "noInternetTitle": "Pas d’internet ?",
     "noInternet1": "Activez la ligne eSIM : Réglages → Données mobiles (Cellulaire) → sélectionnez cette eSIM.",
     "noInternet2": "Choisissez cette eSIM pour les données mobiles et activez l’itinérance des données pour cette ligne.",
     "noInternet3": "Vérifiez que vous êtes dans l’un des pays listés ci-dessus.",
     "noInternet4": "Redémarrez votre téléphone et attendez une minute. Si cela ne fonctionne toujours pas, contactez-nous avec votre numéro de commande.",
-    "keepEsim": "Ne supprimez pas l’eSIM de votre téléphone, même si elle ne fonctionne pas : elle ne peut pas être réinstallée. Contactez-nous d’abord."
+    "keepEsim": "Ne supprimez pas l’eSIM de votre téléphone, même si elle ne fonctionne pas : elle ne peut pas être réinstallée. Contactez-nous d’abord.",
+    "reportIntro": "Toujours pas d’internet ?",
+    "reportLink": "Signaler un problème depuis votre compte"
   },
   "topUpPicker": {
     "title": "Sur quelle SIM ajouter ce forfait ?",
