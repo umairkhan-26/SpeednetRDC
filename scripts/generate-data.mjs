@@ -118,7 +118,8 @@ const AREA_ZONE = {
   "BEST CARIBBEAN": { zone: "french-caribbean", name: "French Caribbean & Guiana", zoneKey: "BEST CARIBBEAN" },
   EUROPE: { zone: "europe", name: "Europe", zoneKey: "EU28PLUS (EUROPE)" },
   "EUROPE EXTENDED": { zone: "europe-plus", name: "Europe Plus", zoneKey: "EU EXTENDED" },
-  MEDITERRANEAN: { zone: "europe-maghreb", name: "Europe, Morocco & Tunisia", zoneKey: "MEDITERRANEAN" },
+  // Morocco and Tunisia left this zone in the 24 Nov 2026 grid, so the name no longer mentions them.
+  MEDITERRANEAN: { zone: "europe-mediterranean", name: "Europe & Mediterranean", zoneKey: "MEDITERRANEAN" },
   "SCANDINAVIA & BALTIC": { zone: "scandinavia-baltics", name: "Scandinavia & Baltics", zoneKey: "SCANDINAVIA  & BALTIC" },
   "BEST LATAM": { zone: "latin-america", name: "Latin America", zoneKey: "BEST LATAM" },
   "MIDDLE EAST": { zone: "middle-east-plus", name: "Middle East Plus", zoneKey: "MIDDLE EAST" },

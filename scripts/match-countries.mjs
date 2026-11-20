@@ -39,7 +39,7 @@ const aliases = {
   "SAINT MARTIN (FRENCH PART)": "SAINTMARTINFRENCHPART",
   "SAINT BARTHELEMY": "SAINTBARTHELEMY",
   COMOROS: "COMORES",
-  NAMIBIA: "NAMBIA", // zones.json has a typo, missing the second "i"
+  // NAMIBIA: the old grid spelled it "Nambia" in the zone lists; since 24 Nov 2026 it is an extra country (extra-countries.json).
   RUSSIA: "RUSSIAN FEDERATION",
 };
 
