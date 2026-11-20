@@ -143,7 +143,7 @@ function areaCountries(info) {
 const PRICING_RULE = "tiered"; // "tiered" (option B) | "transatel-cap" (option A) | "legacy" (the old ×2.5 prices)
 const CHECKOUT_FEE = 1.05;
 const end99 = (x) => Math.max(0.99, Math.ceil(x) - 0.01);
-function priceFor(p) {
+function ruleRetail(p) {
   const w = p.wholesale_price_excl_vat_eur;
   if (PRICING_RULE === "legacy" || typeof w !== "number") return p.recommended_retail_price_eur;
   if (PRICING_RULE === "transatel-cap") {
@@ -153,6 +153,34 @@ function priceFor(p) {
   const margin = w <= 5 ? 2.5 : w <= 10 ? 2.0 : w <= 20 ? 1.7 : 1.5;
   // The rule fixes overpricing; it never raises a plan above its old price.
   return Math.min(p.recommended_retail_price_eur, end99(Math.max(w * margin, w + 2.5) / CHECKOUT_FEE));
+}
+
+// Price guard (owner, 2026-11-20). The margin steps above can make a price move
+// the wrong way when a plan's wholesale price changes: dearer for customers
+// although it got cheaper for us, or cheaper although it got dearer. So, compared
+// with the PREVIOUS grid (the one before the grid being imported):
+//   - wholesale fell  -> the retail price never goes up (the old retail stays);
+//   - wholesale rose  -> the retail price never goes down (the old retail stays).
+// Point PREVIOUS_GRID at the grid before the one in scripts/source when a new grid
+// is imported (the old files are archived in scripts/source/archive-<date>).
+const PREVIOUS_GRID = new URL("./source/archive-2026-10-27/plans.json", import.meta.url);
+const previousGrid = fs.existsSync(PREVIOUS_GRID)
+  ? new Map(JSON.parse(fs.readFileSync(PREVIOUS_GRID, "utf8")).map((p) => [p.technical_reference, p]))
+  : new Map();
+const priceGuardKept = [];
+function priceFor(p) {
+  const fresh = ruleRetail(p);
+  if (PRICING_RULE !== "tiered") return fresh;
+  const prev = previousGrid.get(p.technical_reference);
+  const w = p.wholesale_price_excl_vat_eur;
+  const wOld = prev?.wholesale_price_excl_vat_eur;
+  if (typeof w !== "number" || typeof wOld !== "number") return fresh;
+  const oldRetail = ruleRetail(prev);
+  if ((w < wOld && fresh > oldRetail) || (w > wOld && fresh < oldRetail)) {
+    priceGuardKept.push(`${p.technical_reference.replace("WW_901O_STACK_ONEOFF_", "")}: wholesale ${wOld} -> ${w}, retail would be ${fresh}, kept ${oldRetail}`);
+    return oldRetail;
+  }
+  return fresh;
 }
 
 // "Unlimited" plans all have a fair-use limit, in the reference: …_FUP20 = 20 GB.
@@ -378,6 +406,7 @@ console.log("Countries:", countries.length);
 console.log("Countries with no plans (fromPrice null):", countries.filter((c) => c.fromPrice === null).length);
 console.log("Regions:", outRegions.length, outRegions.map((r) => `${r.slug}(${r.countryCount})`).join(", "));
 console.log("Plans written:", outPlans.length);
+console.log("Price guard kept the old retail price on", priceGuardKept.length, "plans:", priceGuardKept);
 console.log("Plans retired (Closed in the grid, not for sale, kept for existing orders):", retiredPlans.length, retiredPlans.map((p) => p.id));
 console.log("Plans hidden (beaten on every point by a plan of the same product):", hiddenDominated.length, hiddenDominated);
 console.log("Plans excluded (recurring bundle):", excludedRecurring.length);

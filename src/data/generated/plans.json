@@ -10564,6 +10564,22 @@
     ]
   },
   {
+    "id": "WW_901O_STACK_ONEOFF_ICELAND_10GB_7D",
+    "dataAmountGb": 10,
+    "validityDays": 7,
+    "price": 9.99,
+    "network": "SpeedNetRDC",
+    "speed": "4G/5G",
+    "hotspot": true,
+    "badge": "price-drop",
+    "scope": "country",
+    "countrySlug": "iceland",
+    "name": "Iceland 10GB / 7 Days",
+    "countriesIncluded": [
+      "Iceland"
+    ]
+  },
+  {
     "id": "WW_901O_STACK_ONEOFF_ICELAND_3GB_15D",
     "dataAmountGb": 3,
     "validityDays": 15,
@@ -11742,7 +11758,7 @@
     "id": "WW_901O_STACK_ONEOFF_KAZ_UNLIMITED_7D_FUP20",
     "dataAmountGb": "unlimited",
     "validityDays": 7,
-    "price": 17.99,
+    "price": 16.99,
     "fairUseGb": 20,
     "network": "SpeedNetRDC",
     "speed": "4G/5G",
@@ -15662,7 +15678,7 @@
     "id": "WW_901O_STACK_ONEOFF_RUSSIA_10GB_30D",
     "dataAmountGb": 10,
     "validityDays": 30,
-    "price": 10.99,
+    "price": 9.99,
     "network": "SpeedNetRDC",
     "speed": "4G/5G",
     "hotspot": true,
@@ -16727,7 +16743,7 @@
     "id": "WW_901O_STACK_ONEOFF_SRILANKA_10GB_30D",
     "dataAmountGb": 10,
     "validityDays": 30,
-    "price": 9.99,
+    "price": 10.99,
     "network": "SpeedNetRDC",
     "speed": "4G/5G",
     "hotspot": true,
@@ -20767,7 +20783,7 @@
     "id": "WW_901O_STACK_ONEOFF_ZAF_10GB_30D",
     "dataAmountGb": 10,
     "validityDays": 30,
-    "price": 17.99,
+    "price": 19.99,
     "network": "SpeedNetRDC",
     "speed": "4G/5G",
     "hotspot": true,
