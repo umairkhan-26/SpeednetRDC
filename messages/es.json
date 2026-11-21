@@ -293,11 +293,11 @@
       "subtitleTopUp": "Este plan se añadirá a una SIM que ya tienes: no hay que instalar ninguna eSIM nueva."
     },
     "paymentStep": {
-      "consentTopUp": "Quiero que mi plan de datos se entregue inmediatamente después del pago y entiendo que pierdo mi derecho de desistimiento de 14 días una vez entregado.",
+      "consentTopUp": "Entrega mi plan de datos justo después del pago. Entiendo que, una vez entregado, ya no se aplica el derecho habitual de desistimiento de 14 días. Aún puedo obtener un reembolso en los casos indicados en la <refunds>Política de reembolso</refunds>.",
       "errorTopUpUnavailable": "Aún no se puede añadir un plan a una SIM existente.",
       "errorTooMany": "Demasiados intentos. Inténtalo más tarde.",
       "errorSimNotFound": "No hemos encontrado esa SIM. Comprueba el número impreso en tu tarjeta SIM.",
-      "consent": "Quiero que mi eSIM se entregue inmediatamente después del pago y entiendo que pierdo mi derecho de desistimiento de 14 días una vez entregada.",
+      "consent": "Entrega mi eSIM justo después del pago. Entiendo que, una vez entregada, ya no se aplica el derecho habitual de desistimiento de 14 días. Aún puedo obtener un reembolso en los casos indicados en la <refunds>Política de reembolso</refunds>.",
       "legal": "Al continuar, aceptas nuestros <terms>Términos y condiciones</terms> y nuestra <refunds>Política de reembolso</refunds>. Consulta cómo usamos tus datos en nuestra <privacy>Política de privacidad</privacy>.",
       "errorConsent": "Marca la casilla para confirmar la entrega inmediata de tu eSIM."
     }

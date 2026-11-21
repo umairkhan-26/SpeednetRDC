@@ -293,11 +293,11 @@
       "subtitleTopUp": "Ce forfait sera ajouté à une SIM que vous avez déjà : aucune nouvelle eSIM à installer."
     },
     "paymentStep": {
-      "consentTopUp": "Je souhaite que mon forfait de données soit livré immédiatement après le paiement, et je comprends que je perds mon droit de rétractation de 14 jours une fois qu’il a été livré.",
+      "consentTopUp": "Livrez mon forfait de données dès le paiement. Je comprends qu’une fois livré, le droit habituel de rétractation de 14 jours ne s’applique plus. Je peux toujours être remboursé dans les cas prévus par la <refunds>Politique de remboursement</refunds>.",
       "errorTopUpUnavailable": "L’ajout d’un forfait à une SIM existante n’est pas encore disponible.",
       "errorTooMany": "Trop de tentatives. Réessayez plus tard.",
       "errorSimNotFound": "Nous n’avons pas trouvé cette SIM. Vérifiez le numéro imprimé sur votre carte SIM.",
-      "consent": "Je souhaite que mon eSIM soit livrée immédiatement après le paiement, et je comprends que je perds mon droit de rétractation de 14 jours une fois qu’elle a été livrée.",
+      "consent": "Livrez mon eSIM dès le paiement. Je comprends qu’une fois livrée, le droit habituel de rétractation de 14 jours ne s’applique plus. Je peux toujours être remboursé dans les cas prévus par la <refunds>Politique de remboursement</refunds>.",
       "legal": "En continuant, vous acceptez nos <terms>Conditions générales</terms> et notre <refunds>Politique de remboursement</refunds>. Découvrez comment nous utilisons vos données dans notre <privacy>Politique de confidentialité</privacy>.",
       "errorConsent": "Veuillez cocher la case pour confirmer la livraison immédiate de votre eSIM."
     }

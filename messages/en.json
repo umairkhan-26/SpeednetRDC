@@ -631,7 +631,7 @@
       "title": "Payment",
       "intro": "You'll enter your card details on Stripe's secure checkout page — we never see or store your card number.",
       "methods": "Card, Apple Pay, Google Pay, and other methods enabled on our account will be offered on the next screen. Payment is processed by Stripe; nothing is charged until you confirm there.",
-      "consent": "I want my eSIM delivered immediately after payment, and I understand that I lose my 14-day right of withdrawal once it has been delivered.",
+      "consent": "Deliver my eSIM right after payment. I understand that once it is delivered, the usual 14-day right to cancel no longer applies. I can still get a refund in the cases listed in the <refunds>Refund Policy</refunds>.",
       "legal": "By continuing you agree to our <terms>Terms & Conditions</terms> and <refunds>Refund Policy</refunds>. Read how we use your data in our <privacy>Privacy Policy</privacy>.",
       "back": "Back",
       "pay": "Continue to secure payment · {total}",
@@ -640,7 +640,7 @@
       "errorPlan": "Unknown plan",
       "errorConsent": "Please tick the box to confirm immediate delivery of your eSIM.",
       "errorGeneric": "Could not start checkout. Please try again.",
-      "consentTopUp": "I want my data plan delivered immediately after payment, and I understand that I lose my 14-day right of withdrawal once it has been delivered.",
+      "consentTopUp": "Deliver my data plan right after payment. I understand that once it is delivered, the usual 14-day right to cancel no longer applies. I can still get a refund in the cases listed in the <refunds>Refund Policy</refunds>.",
       "errorTopUpUnavailable": "Adding a plan to an existing SIM isn’t available yet.",
       "errorTooMany": "Too many attempts. Please try again later.",
       "errorSimNotFound": "We couldn’t find that SIM. Check the number printed on your SIM card."

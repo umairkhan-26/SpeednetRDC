@@ -89,7 +89,7 @@ export default function PaymentStep({
               onChange={(e) => setWithdrawalConsent(e.target.checked)}
               className="mt-0.5 size-4 shrink-0 accent-orange"
             />
-            <span>{isTopUp ? t("consentTopUp") : t("consent")}</span>
+            <span>{t.rich(isTopUp ? "consentTopUp" : "consent", { refunds: (chunks) => (<a href={`/${locale}/refunds`} target="_blank" rel="noopener" className="font-semibold underline hover:text-orange">{chunks}</a>) })}</span>
           </label>
           <p className="text-xs text-muted">
             {t.rich("legal", {
