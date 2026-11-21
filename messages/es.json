@@ -29,7 +29,8 @@
     "popularDestinations": "Destinos populares",
     "contactUs": "Contáctanos",
     "legalNotice": "Aviso legal",
-    "securePayments": "Pagos seguros con Stripe"
+    "securePayments": "Pagos seguros con Stripe",
+    "operatedBy": "SpeedNetRDC es operado por una empresa de telecomunicaciones con sede en Bélgica."
   },
   "home": {
     "hero": {

@@ -195,6 +195,7 @@ export default async function Footer({ locale }: { locale: AppLocale }) {
             <MastercardBadge />
           </div>
         </div>
+        <p className="container-page pb-3 text-xs text-ink/60">{t("operatedBy")}</p>
         <div className="container-page pb-6 text-[11px] text-ink/50">
           {t("designedBy")}{" "}
           <a href="https://corenovait.com.au" target="_blank" rel="noopener noreferrer" className="underline-offset-4 hover:text-orange hover:underline">

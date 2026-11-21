@@ -30,7 +30,8 @@
     "popularDestinations": "Popular destinations",
     "contactUs": "Contact us",
     "legalNotice": "Legal notice",
-    "securePayments": "Secure payments by Stripe"
+    "securePayments": "Secure payments by Stripe",
+    "operatedBy": "SpeedNetRDC is operated by a telecommunications company based in Belgium."
   },
   "home": {
     "hero": {

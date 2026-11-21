@@ -21,7 +21,7 @@ export default function TermsEn() {
 
       <H2>1. About us</H2>
       <P>
-        This website is operated by <V>{COMPANY.legalName}</V>, registered at <V>{COMPANY.address}</V>, company number{" "}
+        SpeedNetRDC is operated by a telecommunications company based in Belgium. This website is operated by <V>{COMPANY.legalName}</V>, registered at <V>{COMPANY.address}</V>, company number{" "}
         <V>{COMPANY.registrationNumber}</V>, VAT number <V>{COMPANY.vatNumber}</V>. Contact us at <V>{COMPANY.supportEmail}</V>.
       </P>
 
