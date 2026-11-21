@@ -112,8 +112,27 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
       <P>
         These terms are governed by the law of <V>{COMPANY.governingLaw}</V>. If you are a consumer, you also keep the protection of the
         mandatory laws of the country where you live, and you can bring a claim in its courts. If you have a complaint, please contact us
-        first at <V>{COMPANY.supportEmail}</V> — we&apos;ll do our best to resolve it.
+        first at <V>{COMPANY.supportEmail}</V> — we&apos;ll do our best to resolve it. Consumer mediation body: <V>{COMPANY.mediationBody}</V>.
       </P>
+
+      <H2>11. Legal notice</H2>
+      <UL>
+        <li>
+          <strong>Company:</strong> <V>{COMPANY.legalName}</V>, trading as {COMPANY.tradingName}
+        </li>
+        <li>
+          <strong>Registered address:</strong> <V>{COMPANY.address}</V>
+        </li>
+        <li>
+          <strong>Company number (BCE/KBO):</strong> <V>{COMPANY.registrationNumber}</V>
+        </li>
+        <li>
+          <strong>VAT number:</strong> <V>{COMPANY.vatNumber}</V>
+        </li>
+        <li>
+          <strong>Email:</strong> <V>{COMPANY.supportEmail}</V>
+        </li>
+      </UL>
     </LegalPage>
   );
 }

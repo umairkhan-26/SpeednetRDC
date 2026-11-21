@@ -18,10 +18,10 @@ export const PUBLISH_LEGAL_PAGES = false;
 // exact registered name with its legal form, the BCE (company) number and
 // the VAT number.
 export const COMPANY = {
-  legalName: "[LEGAL COMPANY NAME]",
+  legalName: "[SpeednetRDC + LEGAL FORM, e.g. SRL: to add after the KBO lookup]",
   tradingName: "SpeedNetRDC",
   address: "Avenue Louise 163, 1050 Brussels, Belgium",
-  registrationNumber: "[COMPANY REGISTRATION NUMBER]",
+  registrationNumber: "BE0676820270",
   vatNumber: "[VAT NUMBER]",
   privacyEmail: "contact@speednetrdc.com",
   supportEmail: "contact@speednetrdc.com",
@@ -29,22 +29,24 @@ export const COMPANY = {
   governingLaw: "Belgium",
   /** Lead data protection authority, e.g. "the CNIL (France)". */
   supervisoryAuthority: "the Belgian Data Protection Authority (APD-GBA)",
+  /** Consumer mediation / ADR body named in the Terms. Owner, 2026-11-21: none for now; the lawyer must confirm. */
+  mediationBody: "[CONSUMER MEDIATION BODY: none for now, to confirm with the lawyer]",
 };
 
 export const POLICY = {
-  /** Days after purchase in which an unused, uninstalled eSIM can be refunded. */
-  refundWindowDays: "[30]",
+  /** Days after ACTIVATION (the eSIM first connecting to a network) in which a refund can be asked (owner, 2026-11-21: 10). */
+  refundWindowDays: "10",
   /** How long order and invoice records are kept (usually set by tax law; Belgian accounting records are normally kept 7 years: the accountant confirms). */
-  orderRecordYears: "[7]",
+  orderRecordYears: "[7, to confirm with the accountant]",
   /**
-   * Days after purchase in which a customer who bought a plan that does not
+   * Days after activation (owner, 2026-11-21: 10) in which a customer who bought a plan that does not
    * cover the countries they need can have it refunded or switched, if the
    * plan has not been used. A business decision for the owner.
    */
-  coverageSwitchDays: "[30]",
+  coverageSwitchDays: "10",
 };
 
-export const LEGAL_LAST_UPDATED = "15 November 2026";
+export const LEGAL_LAST_UPDATED = "21 November 2026";
 
 export const isPlaceholder = (value: string) => value.startsWith("[") && value.endsWith("]");
 
