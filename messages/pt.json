@@ -12,7 +12,7 @@
     "toggleMenu": "Abrir ou fechar o menu"
   },
   "footer": {
-    "tagline": "Sempre ligado. Em qualquer lugar. Dados eSIM instantâneos em mais de 190 destinos, sem preocupações com roaming e sem cartão SIM físico.",
+    "tagline": "Sempre ligado. Em qualquer lugar. Dados eSIM instantâneos para mais de 180 países, entregues por e-mail.",
     "shopHeading": "Loja",
     "supportHeading": "Apoio",
     "languageHeading": "Idioma",
@@ -26,13 +26,15 @@
     "refunds": "Política de Reembolso",
     "cookieSettings": "Definições de cookies",
     "followUs": "Siga-nos",
-    "followOn": "SpeedNetRDC no {network}"
+    "followOn": "SpeedNetRDC no {network}",
+    "companyNo": "N.º de empresa",
+    "vat": "IVA"
   },
   "home": {
     "hero": {
       "titleLine1": "Sempre ligado.",
       "titleLine2": "Em qualquer lugar.",
-      "subtitle": "Dados eSIM instantâneos em mais de 190 destinos. Sem surpresas de roaming, sem cartão SIM físico, sem contratos — é só aterrar e começar a navegar.",
+      "subtitle": "Dados eSIM instantâneos para mais de 180 países. Sem contratos — é só aterrar e começar a navegar.",
       "explorePlans": "Ver planos eSIM",
       "howItWorks": "Como funciona",
       "searchPlaceholder": "Para onde vai viajar?",
@@ -299,7 +301,7 @@
   },
   "meta": {
     "siteTitle": "SpeedNetRDC — Dados eSIM instantâneos, em qualquer lugar",
-    "siteDescription": "Fique ligado em mais de 190 destinos com dados eSIM instantâneos. Sem preocupações com roaming e sem cartão SIM físico.",
+    "siteDescription": "Fique ligado em mais de 180 países com dados eSIM instantâneos. Sem contratos.",
     "store": "Loja eSIM",
     "destinations": "Destinos",
     "destination": "eSIM {country}",
@@ -374,7 +376,7 @@
   },
   "destinations": {
     "title": "Todos os países, à distância de um toque",
-    "subtitle": "Veja planos de dados eSIM para mais de 190 destinos, agrupados por região.",
+    "subtitle": "Veja planos de dados eSIM para mais de 180 países, agrupados por região.",
     "filterPlaceholder": "Filtrar países...",
     "noMatch": "Nenhum país corresponde a «{query}»."
   },

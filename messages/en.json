@@ -12,7 +12,7 @@
     "toggleMenu": "Toggle menu"
   },
   "footer": {
-    "tagline": "Stay Connected. Anywhere. Instant eSIM data in 190+ destinations, no roaming stress and no physical SIM.",
+    "tagline": "Stay Connected. Anywhere. Instant eSIM data for 180+ countries, delivered by email.",
     "shopHeading": "Shop",
     "supportHeading": "Support",
     "languageHeading": "Language",
@@ -26,13 +26,15 @@
     "refunds": "Refund Policy",
     "cookieSettings": "Cookie settings",
     "followUs": "Follow us",
-    "followOn": "SpeedNetRDC on {network}"
+    "followOn": "SpeedNetRDC on {network}",
+    "companyNo": "Company no.",
+    "vat": "VAT"
   },
   "home": {
     "hero": {
       "titleLine1": "Stay Connected.",
       "titleLine2": "Anywhere.",
-      "subtitle": "Instant eSIM data in 190+ destinations. No roaming stress, no physical SIM, no contracts — just land and connect.",
+      "subtitle": "Instant eSIM data for 180+ countries. No contracts — just land and connect.",
       "explorePlans": "Explore eSIM Plans",
       "howItWorks": "How It Works",
       "searchPlaceholder": "Where are you traveling?",
@@ -299,7 +301,7 @@
   },
   "meta": {
     "siteTitle": "SpeedNetRDC — Instant eSIM Data, Anywhere",
-    "siteDescription": "Stay connected in 190+ destinations with instant eSIM data. No roaming stress, no physical SIM.",
+    "siteDescription": "Stay connected in 180+ countries with instant eSIM data. No contracts.",
     "store": "eSIM Store",
     "destinations": "Destinations",
     "destination": "{country} eSIM",
@@ -374,7 +376,7 @@
   },
   "destinations": {
     "title": "Every country, one tap away",
-    "subtitle": "Browse eSIM data plans in 190+ destinations, grouped by region.",
+    "subtitle": "Browse eSIM data plans for 180+ countries, grouped by region.",
     "filterPlaceholder": "Filter countries...",
     "noMatch": "No countries match “{query}”."
   },

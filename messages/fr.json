@@ -11,7 +11,7 @@
     "physicalSim": "Carte SIM"
   },
   "footer": {
-    "tagline": "Restez connecté. Partout. Données eSIM instantanées dans plus de 190 destinations, sans stress d'itinérance et sans carte SIM physique.",
+    "tagline": "Restez connecté. Partout. Données eSIM instantanées pour plus de 180 pays, livrées par e-mail.",
     "shopHeading": "Boutique",
     "supportHeading": "Assistance",
     "languageHeading": "Langue",
@@ -25,13 +25,15 @@
     "refunds": "Politique de remboursement",
     "cookieSettings": "Paramètres des cookies",
     "followUs": "Suivez-nous",
-    "followOn": "SpeedNetRDC sur {network}"
+    "followOn": "SpeedNetRDC sur {network}",
+    "companyNo": "N° d’entreprise",
+    "vat": "TVA"
   },
   "home": {
     "hero": {
       "titleLine1": "Restez connecté.",
       "titleLine2": "Partout.",
-      "subtitle": "Données eSIM instantanées dans plus de 190 destinations. Sans stress d'itinérance, sans carte SIM physique, sans contrat — atterrissez et connectez-vous.",
+      "subtitle": "Données eSIM instantanées pour plus de 180 pays. Sans contrat — atterrissez et connectez-vous.",
       "explorePlans": "Découvrir les forfaits eSIM",
       "howItWorks": "Comment ça marche",
       "searchPlaceholder": "Où voyagez-vous ?",
@@ -291,7 +293,10 @@
       "consentTopUp": "Je souhaite que mon forfait de données soit livré immédiatement après le paiement, et je comprends que je perds mon droit de rétractation de 14 jours une fois qu’il a été livré.",
       "errorTopUpUnavailable": "L’ajout d’un forfait à une SIM existante n’est pas encore disponible.",
       "errorTooMany": "Trop de tentatives. Réessayez plus tard.",
-      "errorSimNotFound": "Nous n’avons pas trouvé cette SIM. Vérifiez le numéro imprimé sur votre carte SIM."
+      "errorSimNotFound": "Nous n’avons pas trouvé cette SIM. Vérifiez le numéro imprimé sur votre carte SIM.",
+      "consent": "Je souhaite que mon eSIM soit livrée immédiatement après le paiement, et je comprends que je perds mon droit de rétractation de 14 jours une fois qu’elle a été livrée.",
+      "legal": "En continuant, vous acceptez nos <terms>Conditions générales</terms> et notre <refunds>Politique de remboursement</refunds>. Découvrez comment nous utilisons vos données dans notre <privacy>Politique de confidentialité</privacy>.",
+      "errorConsent": "Veuillez cocher la case pour confirmer la livraison immédiate de votre eSIM."
     }
   },
   "planDetail": {

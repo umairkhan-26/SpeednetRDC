@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import type { AppLocale } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
-import { legalPagesLive } from "@/lib/legal";
+import { COMPANY, legalPagesLive } from "@/lib/legal";
 import CookieSettingsButton from "@/components/consent/CookieSettingsButton";
 import Logo from "./Logo";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -123,6 +123,11 @@ export default async function Footer({ locale }: { locale: AppLocale }) {
             </a>
           </p>
         </div>
+        {legalPagesLive() && (
+          <p className="container-page pt-3 text-xs text-white/40">
+            {locale === "fr" ? COMPANY.legalNameFr : COMPANY.legalName} &middot; {COMPANY.tradingName} &middot; {t("companyNo")} {COMPANY.registrationNumber} &middot; {t("vat")} {COMPANY.vatNumber}
+          </p>
+        )}
       </div>
     </footer>
   );

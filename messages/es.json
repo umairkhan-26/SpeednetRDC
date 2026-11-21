@@ -11,7 +11,7 @@
     "physicalSim": "Tarjeta SIM"
   },
   "footer": {
-    "tagline": "Mantente conectado. En cualquier lugar. Datos eSIM al instante en más de 190 destinos, sin estrés de roaming y sin tarjeta SIM física.",
+    "tagline": "Mantente conectado. En cualquier lugar. Datos eSIM al instante para más de 180 países, entregados por correo electrónico.",
     "shopHeading": "Tienda",
     "supportHeading": "Soporte",
     "languageHeading": "Idioma",
@@ -25,13 +25,15 @@
     "refunds": "Política de reembolso",
     "cookieSettings": "Configuración de cookies",
     "followUs": "Síguenos",
-    "followOn": "SpeedNetRDC en {network}"
+    "followOn": "SpeedNetRDC en {network}",
+    "companyNo": "N.º de empresa",
+    "vat": "IVA"
   },
   "home": {
     "hero": {
       "titleLine1": "Mantente conectado.",
       "titleLine2": "En cualquier lugar.",
-      "subtitle": "Datos eSIM al instante en más de 190 destinos. Sin estrés de roaming, sin tarjeta SIM física, sin contratos: aterriza y conéctate.",
+      "subtitle": "Datos eSIM al instante para más de 180 países. Sin contratos: aterriza y conéctate.",
       "explorePlans": "Explorar planes eSIM",
       "howItWorks": "Cómo funciona",
       "searchPlaceholder": "¿A dónde viajas?",
@@ -291,7 +293,10 @@
       "consentTopUp": "Quiero que mi plan de datos se entregue inmediatamente después del pago y entiendo que pierdo mi derecho de desistimiento de 14 días una vez entregado.",
       "errorTopUpUnavailable": "Aún no se puede añadir un plan a una SIM existente.",
       "errorTooMany": "Demasiados intentos. Inténtalo más tarde.",
-      "errorSimNotFound": "No hemos encontrado esa SIM. Comprueba el número impreso en tu tarjeta SIM."
+      "errorSimNotFound": "No hemos encontrado esa SIM. Comprueba el número impreso en tu tarjeta SIM.",
+      "consent": "Quiero que mi eSIM se entregue inmediatamente después del pago y entiendo que pierdo mi derecho de desistimiento de 14 días una vez entregada.",
+      "legal": "Al continuar, aceptas nuestros <terms>Términos y condiciones</terms> y nuestra <refunds>Política de reembolso</refunds>. Consulta cómo usamos tus datos en nuestra <privacy>Política de privacidad</privacy>.",
+      "errorConsent": "Marca la casilla para confirmar la entrega inmediata de tu eSIM."
     }
   },
   "planDetail": {

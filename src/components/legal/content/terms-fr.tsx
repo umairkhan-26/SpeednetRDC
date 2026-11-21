@@ -145,7 +145,7 @@ export default function TermsFr() {
         Ces conditions sont régies par le droit de <V>{COMPANY.governingLawFr}</V>. Si vous êtes un consommateur, vous conservez aussi la
         protection des lois impératives du pays où vous vivez et vous pouvez saisir ses tribunaux. Si vous avez une réclamation,
         veuillez d’abord nous contacter à <V>{COMPANY.supportEmail}</V> : nous ferons de notre mieux pour la résoudre. Organisme de médiation
-        de la consommation : <V>{COMPANY.mediationBody}</V>.
+        de la consommation : <V>{COMPANY.mediationBodyFr}</V>.
       </P>
 
       <H2>11. Mentions légales</H2>

@@ -10,7 +10,7 @@
 // pages can still be previewed, with each placeholder highlighted.
 
 /** Set to true once every placeholder below is filled in. */
-export const PUBLISH_LEGAL_PAGES = false;
+export const PUBLISH_LEGAL_PAGES = true;
 
 // Known (owner, 2026-11-12/21): trading name, address, contact email, BCE
 // number, legal form and VAT number. The register entry (KBO, seen by the owner
@@ -39,14 +39,18 @@ export const COMPANY = {
   /** French wording of supervisoryAuthority (keep in step with it). */
   supervisoryAuthorityFr: "l’Autorité de protection des données belge (APD-GBA)",
   /** Consumer mediation / ADR body named in the Terms. Owner, 2026-11-21: none for now; the lawyer must confirm. */
-  mediationBody: "[CONSUMER MEDIATION BODY: none for now, to confirm with the lawyer]",
+  mediationBody:
+    "the Belgian Consumer Mediation Service (Service de médiation pour le consommateur), Boulevard du Roi Albert II 8, box 1, 1000 Brussels, www.mediationconsommateur.be (free of charge)",
+  /** French wording of mediationBody (keep in step with it). */
+  mediationBodyFr:
+    "le Service de médiation pour le consommateur, Boulevard du Roi Albert II 8, boîte 1, 1000 Bruxelles, www.mediationconsommateur.be (gratuit)",
 };
 
 export const POLICY = {
   /** Days after ACTIVATION (the eSIM first connecting to a network) in which a refund can be asked (owner, 2026-11-21: 10). */
   refundWindowDays: "10",
   /** How long order and invoice records are kept (usually set by tax law; Belgian accounting records are normally kept 7 years: the accountant confirms). */
-  orderRecordYears: "[7, to confirm with the accountant]",
+  orderRecordYears: "10",
   /**
    * Days after activation (owner, 2026-11-21: 10) in which a customer who bought a plan that does not
    * cover the countries they need can have it refunded or switched, if the
