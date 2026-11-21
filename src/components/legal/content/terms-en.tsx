@@ -111,7 +111,7 @@ export default function TermsEn() {
         first at <V>{COMPANY.supportEmail}</V> — we&apos;ll do our best to resolve it. Consumer mediation body: <V>{COMPANY.mediationBody}</V>.
       </P>
 
-      <H2>11. Legal notice</H2>
+      <H2 id="legal-notice">11. Legal notice</H2>
       <UL>
         <li>
           <strong>Company:</strong> <V>{COMPANY.legalName}</V>, trading as {COMPANY.tradingName}

@@ -26,8 +26,10 @@
     "cookieSettings": "Paramètres des cookies",
     "followUs": "Suivez-nous",
     "followOn": "SpeedNetRDC sur {network}",
-    "companyNo": "N° d’entreprise",
-    "vat": "TVA"
+    "popularDestinations": "Destinations populaires",
+    "contactUs": "Nous contacter",
+    "legalNotice": "Mentions légales",
+    "securePayments": "Paiements sécurisés par Stripe"
   },
   "home": {
     "hero": {

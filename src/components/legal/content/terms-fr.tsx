@@ -148,7 +148,7 @@ export default function TermsFr() {
         de la consommation : <V>{COMPANY.mediationBodyFr}</V>.
       </P>
 
-      <H2>11. Mentions légales</H2>
+      <H2 id="legal-notice">11. Mentions légales</H2>
       <UL>
         <li>
           <strong>Société :</strong> <V>{COMPANY.legalNameFr}</V>, sous le nom commercial {COMPANY.tradingName}

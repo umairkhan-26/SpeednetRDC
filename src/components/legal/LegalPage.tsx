@@ -7,8 +7,12 @@ export function V({ children }: { children: string }) {
   return isPlaceholder(children) ? <mark className="rounded bg-yellow-200 px-1 text-ink">{children}</mark> : <>{children}</>;
 }
 
-export function H2({ children }: { children: ReactNode }) {
-  return <h2 className="mt-10 text-xl font-bold text-ink">{children}</h2>;
+export function H2({ children, id }: { children: ReactNode; id?: string }) {
+  return (
+    <h2 id={id} className="mt-10 scroll-mt-24 text-xl font-bold text-ink">
+      {children}
+    </h2>
+  );
 }
 
 export function P({ children }: { children: ReactNode }) {
