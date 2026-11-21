@@ -21,7 +21,7 @@ export default function TermsEn() {
 
       <H2>1. About us</H2>
       <P>
-        {COMPANY.tradingName} is operated by <V>{COMPANY.legalName}</V>, registered at <V>{COMPANY.address}</V>, company number{" "}
+        This website is operated by <V>{COMPANY.legalName}</V>, registered at <V>{COMPANY.address}</V>, company number{" "}
         <V>{COMPANY.registrationNumber}</V>, VAT number <V>{COMPANY.vatNumber}</V>. Contact us at <V>{COMPANY.supportEmail}</V>.
       </P>
 
@@ -114,7 +114,7 @@ export default function TermsEn() {
       <H2 id="legal-notice">11. Legal notice</H2>
       <UL>
         <li>
-          <strong>Company:</strong> <V>{COMPANY.legalName}</V>, trading as {COMPANY.tradingName}
+          <strong>Company:</strong> <V>{COMPANY.legalName}</V>
         </li>
         <li>
           <strong>Registered address:</strong> <V>{COMPANY.address}</V>

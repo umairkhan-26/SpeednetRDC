@@ -15,13 +15,13 @@ export const PUBLISH_LEGAL_PAGES = true;
 // Known (owner, 2026-11-12/21): trading name, address, contact email, BCE
 // number, legal form and VAT number. The register entry (KBO, seen by the owner
 // on 2026-11-21) shows BE0676.820.270 as an "Entreprise individuelle" (sole
-// proprietorship) in the name of Mayenda Guy, subject to VAT. In Belgium the VAT
+// proprietorship), subject to VAT. The owner's personal name is deliberately NOT shown anywhere on the site (owner's choice, 2026-11-21). In Belgium the VAT
 // number is "BE" + the company number. The governing law and the authority are
 // the usual choices for a business in Brussels: a lawyer must confirm them.
 export const COMPANY = {
-  legalName: "Mayenda Guy, sole proprietorship (entreprise individuelle)",
+  legalName: "SpeedNetRDC, a sole proprietorship (entreprise individuelle)",
   /** French wording of legalName (keep in step with it). */
-  legalNameFr: "Mayenda Guy, entreprise individuelle",
+  legalNameFr: "SpeedNetRDC, entreprise individuelle",
   tradingName: "SpeedNetRDC",
   address: "Avenue Louise 163, 1050 Brussels, Belgium",
   /** French wording of address (keep in step with it). */

@@ -15,7 +15,7 @@ export default function PrivacyFr() {
 
       <H2>1. Qui sommes-nous</H2>
       <P>
-        Le responsable du traitement est <V>{COMPANY.legalNameFr}</V>, sous le nom commercial {COMPANY.tradingName}, dont le siège est situé{" "}
+        Le responsable du traitement est <V>{COMPANY.legalNameFr}</V>, dont le siège est situé{" "}
         <V>{COMPANY.addressFr}</V> (numéro d’entreprise <V>{COMPANY.registrationNumber}</V>, numéro de TVA <V>{COMPANY.vatNumber}</V>). Pour
         toute question ou demande relative à la vie privée, écrivez à <V>{COMPANY.privacyEmail}</V>.
       </P>
