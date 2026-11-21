@@ -22,7 +22,7 @@ export default function TermsFr() {
 
       <H2>1. Qui sommes-nous</H2>
       <P>
-        {COMPANY.tradingName} est exploité par <V>{COMPANY.legalName}</V>, dont le siège est situé <V>{COMPANY.address}</V>, numéro
+        {COMPANY.tradingName} est exploité par <V>{COMPANY.legalNameFr}</V>, dont le siège est situé <V>{COMPANY.addressFr}</V>, numéro
         d’entreprise <V>{COMPANY.registrationNumber}</V>, numéro de TVA <V>{COMPANY.vatNumber}</V>. Contact : <V>{COMPANY.supportEmail}</V>.
       </P>
 
@@ -151,10 +151,10 @@ export default function TermsFr() {
       <H2>11. Mentions légales</H2>
       <UL>
         <li>
-          <strong>Société :</strong> <V>{COMPANY.legalName}</V>, sous le nom commercial {COMPANY.tradingName}
+          <strong>Société :</strong> <V>{COMPANY.legalNameFr}</V>, sous le nom commercial {COMPANY.tradingName}
         </li>
         <li>
-          <strong>Siège :</strong> <V>{COMPANY.address}</V>
+          <strong>Siège :</strong> <V>{COMPANY.addressFr}</V>
         </li>
         <li>
           <strong>Numéro d’entreprise (BCE/KBO) :</strong> <V>{COMPANY.registrationNumber}</V>
