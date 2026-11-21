@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
-import { hasLegalPlaceholders, isPlaceholder, LEGAL_LAST_UPDATED, legalPagesLive, legalPagesViewable } from "@/lib/legal";
+import { hasLegalPlaceholders, isPlaceholder, LEGAL_LAST_UPDATED_BY_LOCALE, legalPagesLive, legalPagesViewable } from "@/lib/legal";
 
 /** A company detail or policy value; placeholders are highlighted until filled in (src/lib/legal.ts). */
 export function V({ children }: { children: string }) {
@@ -19,7 +19,7 @@ export function UL({ children }: { children: ReactNode }) {
   return <ul className="mt-3 list-disc space-y-1.5 pl-6 leading-relaxed text-ink/80">{children}</ul>;
 }
 
-/** Shared frame for the Privacy Policy, Terms and Refund Policy (English only for now). */
+/** Shared frame for the Privacy Policy, Terms and Refund Policy (English and French; other languages show the English text with a note). */
 export default function LegalPage({ title, locale, children }: { title: string; locale: string; children: ReactNode }) {
   if (!legalPagesViewable()) notFound();
   return (
@@ -32,8 +32,10 @@ export default function LegalPage({ title, locale, children }: { title: string; 
         </p>
       )}
       <h1 className="text-3xl font-bold text-ink sm:text-4xl">{title}</h1>
-      <p className="mt-2 text-sm text-muted">Last updated: {LEGAL_LAST_UPDATED}</p>
-      {locale !== "en" && <p className="mt-2 text-sm text-muted">This page is currently available in English only.</p>}
+      <p className="mt-2 text-sm text-muted">
+        {locale === "fr" ? "Dernière mise à jour :" : "Last updated:"} {LEGAL_LAST_UPDATED_BY_LOCALE[locale] ?? LEGAL_LAST_UPDATED_BY_LOCALE.en}
+      </p>
+      {!(locale in LEGAL_LAST_UPDATED_BY_LOCALE) && <p className="mt-2 text-sm text-muted">This page is currently available in English only.</p>}
       {children}
     </article>
   );

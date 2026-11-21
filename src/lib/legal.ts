@@ -27,8 +27,12 @@ export const COMPANY = {
   supportEmail: "contact@speednetrdc.com",
   /** The country whose law governs the Terms, e.g. "France". */
   governingLaw: "Belgium",
+  /** French wording of governingLaw (keep in step with it). */
+  governingLawFr: "la Belgique",
   /** Lead data protection authority, e.g. "the CNIL (France)". */
   supervisoryAuthority: "the Belgian Data Protection Authority (APD-GBA)",
+  /** French wording of supervisoryAuthority (keep in step with it). */
+  supervisoryAuthorityFr: "l’Autorité de protection des données belge (APD-GBA)",
   /** Consumer mediation / ADR body named in the Terms. Owner, 2026-11-21: none for now; the lawyer must confirm. */
   mediationBody: "[CONSUMER MEDIATION BODY: none for now, to confirm with the lawyer]",
 };
@@ -47,6 +51,8 @@ export const POLICY = {
 };
 
 export const LEGAL_LAST_UPDATED = "21 November 2026";
+/** The same date written out per language (keep in step with LEGAL_LAST_UPDATED). */
+export const LEGAL_LAST_UPDATED_BY_LOCALE: Record<string, string> = { en: "21 November 2026", fr: "21 novembre 2026" };
 
 export const isPlaceholder = (value: string) => value.startsWith("[") && value.endsWith("]");
 
