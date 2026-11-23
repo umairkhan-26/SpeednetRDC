@@ -39,6 +39,11 @@ export default function LegalPage({ title, locale, children }: { title: string; 
       <p className="mt-2 text-sm text-muted">
         {locale === "fr" ? "Dernière mise à jour :" : "Last updated:"} {LEGAL_LAST_UPDATED_BY_LOCALE[locale] ?? LEGAL_LAST_UPDATED_BY_LOCALE.en}
       </p>
+      <p className="mt-4 font-medium text-ink">
+        {locale === "fr"
+          ? "SpeedNetRDC est exploité par une société de télécommunications établie en Belgique."
+          : "SpeedNetRDC is operated by a telecommunications company based in Belgium."}
+      </p>
       {!(locale in LEGAL_LAST_UPDATED_BY_LOCALE) && <p className="mt-2 text-sm text-muted">This page is currently available in English only.</p>}
       {children}
     </article>

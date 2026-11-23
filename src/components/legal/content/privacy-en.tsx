@@ -12,7 +12,7 @@ export default function PrivacyEn() {
 
       <H2>1. Who we are</H2>
       <P>
-        SpeedNetRDC is operated by a telecommunications company based in Belgium. The data controller is <V>{COMPANY.legalName}</V>, registered at <V>{COMPANY.address}</V> (company
+        The data controller is <V>{COMPANY.legalName}</V>, registered at <V>{COMPANY.address}</V> (company
         number <V>{COMPANY.registrationNumber}</V>, VAT number <V>{COMPANY.vatNumber}</V>). For any privacy question or request, email{" "}
         <V>{COMPANY.privacyEmail}</V>.
       </P>
