@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Manrope } from "next/font/google";
+import { manrope } from "@/fonts/manrope";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import "../globals.css";
 import SiteChrome from "@/components/layout/SiteChrome";
@@ -11,11 +11,6 @@ import { languageTag, routing } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import { loadMessages } from "@/i18n/messages";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-});
 
 
 export function generateStaticParams() {
