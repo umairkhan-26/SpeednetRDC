@@ -19,9 +19,9 @@ export const PUBLISH_LEGAL_PAGES = true;
 // number is "BE" + the company number. The governing law and the authority are
 // the usual choices for a business in Brussels: a lawyer must confirm them.
 export const COMPANY = {
-  legalName: "SpeedNetRDC, a sole proprietorship (entreprise individuelle)",
+  legalName: "SpeedNetRDC, a telecommunications company based in Belgium",
   /** French wording of legalName (keep in step with it). */
-  legalNameFr: "SpeedNetRDC, entreprise individuelle",
+  legalNameFr: "SpeedNetRDC, société de télécommunications établie en Belgique",
   tradingName: "SpeedNetRDC",
   address: "Avenue Louise 163, 1050 Brussels, Belgium",
   /** French wording of address (keep in step with it). */
