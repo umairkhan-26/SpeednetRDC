@@ -51,18 +51,3 @@ body {
     padding-inline: 2.5rem;
   }
 }
-
-/* The header needs more room than the page body: French, Spanish and Portuguese
-   menu labels are longer than the English ones. */
-.container-header {
-  width: 100%;
-  max-width: 96rem;
-  margin-inline: auto;
-  padding-inline: 1.25rem;
-}
-
-@media (min-width: 1024px) {
-  .container-header {
-    padding-inline: 1.5rem;
-  }
-}

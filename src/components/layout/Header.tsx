@@ -13,6 +13,9 @@ export default function Header() {
   const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations("nav");
+  // French, Spanish and Portuguese labels are longer than the English ones, so
+  // those languages use slightly smaller text and tighter gaps to fit on one line.
+  const compact = locale !== "en";
 
   const navLinks = [
     { label: t("esimStore"), href: "/esim-store" },
@@ -26,12 +29,12 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-cream/95 backdrop-blur">
-      <div className="container-header flex h-16 items-center justify-between gap-6">
+      <div className="container-page flex h-16 items-center justify-between gap-4">
         <div className="shrink-0">
           <Logo href={`/${locale}`} />
         </div>
 
-        <nav className="hidden min-w-0 items-center gap-5 min-[1340px]:flex min-[1560px]:gap-7">
+        <nav className={clsx("hidden min-w-0 items-center xl:flex", compact ? "gap-4" : "gap-7")}>
           {navLinks.map((link) => {
             const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
             return (
@@ -39,7 +42,8 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 className={clsx(
-                  "whitespace-nowrap text-sm font-medium transition-colors",
+                  "whitespace-nowrap font-medium transition-colors",
+                  compact ? "text-[13px]" : "text-sm",
                   active ? "text-orange" : "text-ink/80 hover:text-ink",
                 )}
               >
@@ -49,11 +53,11 @@ export default function Header() {
           })}
         </nav>
 
-        <div className="hidden shrink-0 items-center gap-4 min-[1340px]:flex">
+        <div className={clsx("hidden shrink-0 items-center xl:flex", compact ? "gap-3" : "gap-4")}>
           <LanguageSwitcher />
           <Link
             href="/account"
-            className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-orange px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-orange-soft"
+            className={clsx("inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-orange py-2.5 text-sm font-semibold text-white transition-colors hover:bg-orange-soft", compact ? "px-4" : "px-5")}
           >
             <Phone className="size-4" />
             {t("myEsims")}
@@ -64,14 +68,14 @@ export default function Header() {
           type="button"
           aria-label={t("toggleMenu")}
           onClick={() => setOpen((v) => !v)}
-          className="flex size-10 shrink-0 items-center justify-center rounded-full border border-line min-[1340px]:hidden"
+          className="flex size-10 shrink-0 items-center justify-center rounded-full border border-line xl:hidden"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
       </div>
 
       {open && (
-        <div className="border-t border-line bg-cream min-[1340px]:hidden">
+        <div className="border-t border-line bg-cream xl:hidden">
           <nav className="container-page flex flex-col gap-1 py-3">
             {navLinks.map((link) => (
               <Link
