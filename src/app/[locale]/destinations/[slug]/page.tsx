@@ -48,19 +48,29 @@ export default async function DestinationPage({ params }: { params: Promise<{ sl
 
   const plans = getPlansForCountry(country.slug);
   const otherPlans = getMultiCountryPlansCovering(country.name);
+  const photoIsOurs = country.heroImage.startsWith("/");
 
   return (
     <div>
-      <section className="relative overflow-hidden bg-ink">
+      <section className={`relative overflow-hidden bg-ink ${photoIsOurs ? "flex min-h-[340px] flex-col justify-center sm:min-h-[420px]" : ""}`}>
         <Image
           src={country.heroImage}
           alt=""
           fill
           priority
+          quality={90}
           sizes="100vw"
-          className="object-cover opacity-40"
+          className={photoIsOurs ? "object-cover object-[50%_40%]" : "object-cover opacity-40"}
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/40" />
+        {/* Our own photographs are shown at full brightness with just enough shade to read the title;
+            the older catalogue photos stay dimmed. */}
+        <div
+          className={
+            photoIsOurs
+              ? "pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/40 to-ink/30"
+              : "pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/40"
+          }
+        />
         <div className="container-page relative flex flex-col items-center gap-5 py-16 text-center sm:py-20">
           <span className="flex size-12 items-center justify-center rounded-xl bg-white/95 text-sm font-bold text-ink shadow">
             {country.iso}

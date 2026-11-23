@@ -3,6 +3,8 @@ import createNextIntlPlugin from "next-intl/plugin";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    // Our own destination photos are served at 85-90 so they stay crisp.
+    qualities: [75, 85, 90],
     remotePatterns: [
       { protocol: "https", hostname: "thumb.wikimedia.org" },
       { protocol: "https", hostname: "upload.wikimedia.org" },

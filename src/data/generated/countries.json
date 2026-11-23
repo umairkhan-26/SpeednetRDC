@@ -124,7 +124,7 @@
     "name": "Australia",
     "region": "oceania",
     "iso": "AU",
-    "heroImage": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/Sydney_Australia._%2821339175489%29.jpg/1280px-Sydney_Australia._%2821339175489%29.jpg",
+    "heroImage": "/destinations/australia.webp",
     "tagline": "Sydney to the Outback, fully covered.",
     "speed": "5G",
     "networks": [
@@ -454,7 +454,7 @@
     "name": "Canada",
     "region": "north-america",
     "iso": "CA",
-    "heroImage": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/3Falls_Niagara.jpg/1280px-3Falls_Niagara.jpg",
+    "heroImage": "/destinations/canada.webp",
     "tagline": "From Vancouver to Toronto, always connected.",
     "speed": "5G",
     "networks": [
@@ -1249,7 +1249,7 @@
     "name": "Japan",
     "region": "asia",
     "iso": "JP",
-    "heroImage": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/View_of_Mount_Fuji_from_%C5%8Cwakudani_20211202.jpg/1280px-View_of_Mount_Fuji_from_%C5%8Cwakudani_20211202.jpg",
+    "heroImage": "/destinations/japan.webp",
     "tagline": "Blazing-fast 5G from Tokyo to Kyoto.",
     "speed": "5G",
     "networks": [
@@ -2074,7 +2074,7 @@
     "name": "Saudi Arabia",
     "region": "middle-east",
     "iso": "SA",
-    "heroImage": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/The_Ka%27ba%2C_Great_Mosque_of_Mecca%2C_Saudi_Arabia_%284%29.jpg/1280px-The_Ka%27ba%2C_Great_Mosque_of_Mecca%2C_Saudi_Arabia_%284%29.jpg",
+    "heroImage": "/destinations/saudi-arabia.webp",
     "tagline": "Riyadh to Jeddah, dependable coverage.",
     "speed": "5G",
     "networks": [
@@ -2314,7 +2314,7 @@
     "name": "Switzerland",
     "region": "europe",
     "iso": "CH",
-    "heroImage": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Altstadt_Z%C3%BCrich_2015.jpg/960px-Altstadt_Z%C3%BCrich_2015.jpg",
+    "heroImage": "/destinations/switzerland.webp",
     "tagline": "Instant eSIM data for Switzerland.",
     "speed": "4G/5G",
     "networks": [
@@ -2374,7 +2374,7 @@
     "name": "Thailand",
     "region": "asia",
     "iso": "TH",
-    "heroImage": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/%E0%B9%80%E0%B8%88%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B9%8C%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B8%84%E0%B9%8C%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B8%B8%E0%B8%932.jpg/1280px-%E0%B9%80%E0%B8%88%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B9%8C%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B8%84%E0%B9%8C%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B8%B8%E0%B8%932.jpg",
+    "heroImage": "/destinations/thailand.webp",
     "tagline": "Bangkok streets to island beaches, always on.",
     "speed": "4G/5G",
     "networks": [
@@ -2464,7 +2464,7 @@
     "name": "Turkey",
     "region": "middle-east",
     "iso": "TR",
-    "heroImage": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4a/Hagia_Sophia_%28228968325%29.jpeg/1280px-Hagia_Sophia_%28228968325%29.jpeg",
+    "heroImage": "/destinations/turkey.webp",
     "tagline": "Istanbul to the coast, never lose signal.",
     "speed": "4G/5G",
     "networks": [
@@ -2509,7 +2509,7 @@
     "name": "United Arab Emirates",
     "region": "middle-east",
     "iso": "AE",
-    "heroImage": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Burj_Khalifa_%28worlds_tallest_building%29_and_the_Dubai_skyline_%2825781049892%29.jpg/1280px-Burj_Khalifa_%28worlds_tallest_building%29_and_the_Dubai_skyline_%2825781049892%29.jpg",
+    "heroImage": "/destinations/uae.webp",
     "tagline": "Dubai and Abu Dhabi, fully connected.",
     "speed": "5G",
     "networks": [
@@ -2524,7 +2524,7 @@
     "name": "United Kingdom",
     "region": "europe",
     "iso": "GB",
-    "heroImage": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Elizabeth_Tower_and_the_north_front_of_the_Palace_of_Westminster%2C_London.jpg/1280px-Elizabeth_Tower_and_the_north_front_of_the_Palace_of_Westminster%2C_London.jpg",
+    "heroImage": "/destinations/united-kingdom.webp",
     "tagline": "London to the Highlands, always connected.",
     "speed": "5G",
     "networks": [

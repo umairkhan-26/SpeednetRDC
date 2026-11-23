@@ -39,6 +39,7 @@ export default function DestinationTile({
           src={imageUrl}
           alt=""
           fill
+          quality={85}
           sizes="(min-width: 1024px) 220px, (min-width: 640px) 30vw, 45vw"
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
