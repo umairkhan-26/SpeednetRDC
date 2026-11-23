@@ -30,7 +30,8 @@
     "contactUs": "Nous contacter",
     "legalNotice": "Mentions légales",
     "securePayments": "Paiements sécurisés par Stripe",
-    "operatedBy": "SpeedNetRDC est exploité par une société de télécommunications établie en Belgique."
+    "operatedBy": "SpeedNetRDC est exploité par une société de télécommunications établie en Belgique.",
+    "companyDetails": "{address} · N° d’entreprise (BCE/KBO) {registration} · TVA {vat} · {email}"
   },
   "home": {
     "hero": {

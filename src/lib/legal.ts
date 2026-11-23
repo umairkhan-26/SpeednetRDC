@@ -22,10 +22,17 @@ export const COMPANY = {
   legalName: "SpeedNetRDC, a telecommunications company based in Belgium",
   /** French wording of legalName (keep in step with it). */
   legalNameFr: "SpeedNetRDC, société de télécommunications établie en Belgique",
+  /** Spanish wording of legalName (keep in step with it). */
+  legalNameEs: "SpeedNetRDC, empresa de telecomunicaciones con sede en Bélgica",
+  /** Portuguese wording of legalName (keep in step with it). */
+  legalNamePt: "SpeedNetRDC, empresa de telecomunicações sediada na Bélgica",
   tradingName: "SpeedNetRDC",
   address: "Avenue Louise 163, 1050 Brussels, Belgium",
   /** French wording of address (keep in step with it). */
   addressFr: "Avenue Louise 163, 1050 Bruxelles, Belgique",
+  /** Spanish / Portuguese wording of address (keep in step with it). */
+  addressEs: "Avenue Louise 163, 1050 Bruselas, Bélgica",
+  addressPt: "Avenue Louise 163, 1050 Bruxelas, Bélgica",
   registrationNumber: "BE0676820270",
   vatNumber: "BE0676820270",
   privacyEmail: "contact@speednetrdc.com",
@@ -34,16 +41,27 @@ export const COMPANY = {
   governingLaw: "Belgium",
   /** French wording of governingLaw (keep in step with it). */
   governingLawFr: "la Belgique",
+  /** Spanish / Portuguese wording of governingLaw (the texts add "derecho de" / "lei da"). */
+  governingLawEs: "Bélgica",
+  governingLawPt: "Bélgica",
   /** Lead data protection authority, e.g. "the CNIL (France)". */
   supervisoryAuthority: "the Belgian Data Protection Authority (APD-GBA)",
   /** French wording of supervisoryAuthority (keep in step with it). */
   supervisoryAuthorityFr: "l’Autorité de protection des données belge (APD-GBA)",
+  /** Spanish / Portuguese wording of supervisoryAuthority (keep in step with it). */
+  supervisoryAuthorityEs: "la Autoridad belga de Protección de Datos (APD-GBA)",
+  supervisoryAuthorityPt: "a Autoridade belga de Proteção de Dados (APD-GBA)",
   /** Consumer mediation / ADR body named in the Terms. Owner, 2026-11-21: none for now; the lawyer must confirm. */
   mediationBody:
     "the Belgian Consumer Mediation Service (Service de médiation pour le consommateur), Boulevard du Roi Albert II 8, box 1, 1000 Brussels, www.mediationconsommateur.be (free of charge)",
   /** French wording of mediationBody (keep in step with it). */
   mediationBodyFr:
     "le Service de médiation pour le consommateur, Boulevard du Roi Albert II 8, boîte 1, 1000 Bruxelles, www.mediationconsommateur.be (gratuit)",
+  /** Spanish / Portuguese wording of mediationBody (keep in step with it). */
+  mediationBodyEs:
+    "el Servicio belga de Mediación del Consumidor (Service de médiation pour le consommateur), Boulevard du Roi Albert II 8, caja 1, 1000 Bruselas, www.mediationconsommateur.be (gratuito)",
+  mediationBodyPt:
+    "o Serviço belga de Mediação do Consumidor (Service de médiation pour le consommateur), Boulevard du Roi Albert II 8, caixa 1, 1000 Bruxelas, www.mediationconsommateur.be (gratuito)",
 };
 
 export const POLICY = {
@@ -61,7 +79,12 @@ export const POLICY = {
 
 export const LEGAL_LAST_UPDATED = "21 November 2026";
 /** The same date written out per language (keep in step with LEGAL_LAST_UPDATED). */
-export const LEGAL_LAST_UPDATED_BY_LOCALE: Record<string, string> = { en: "21 November 2026", fr: "21 novembre 2026" };
+export const LEGAL_LAST_UPDATED_BY_LOCALE: Record<string, string> = {
+  en: "21 November 2026",
+  fr: "21 novembre 2026",
+  es: "21 de noviembre de 2026",
+  pt: "21 de novembro de 2026",
+};
 
 export const isPlaceholder = (value: string) => value.startsWith("[") && value.endsWith("]");
 

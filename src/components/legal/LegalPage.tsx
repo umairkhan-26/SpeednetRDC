@@ -23,7 +23,21 @@ export function UL({ children }: { children: ReactNode }) {
   return <ul className="mt-3 list-disc space-y-1.5 pl-6 leading-relaxed text-ink/80">{children}</ul>;
 }
 
-/** Shared frame for the Privacy Policy, Terms and Refund Policy (English and French; other languages show the English text with a note). */
+const LAST_UPDATED_LABEL: Record<string, string> = {
+  en: "Last updated:",
+  fr: "Dernière mise à jour :",
+  es: "Última actualización:",
+  pt: "Última atualização:",
+};
+
+const OPERATED_BY: Record<string, string> = {
+  en: "SpeedNetRDC is operated by a telecommunications company based in Belgium.",
+  fr: "SpeedNetRDC est exploité par une société de télécommunications établie en Belgique.",
+  es: "SpeedNetRDC está operado por una empresa de telecomunicaciones con sede en Bélgica.",
+  pt: "A SpeedNetRDC é explorada por uma empresa de telecomunicações sediada na Bélgica.",
+};
+
+/** Shared frame for the Privacy Policy, Terms and Refund Policy (English, French, Spanish and Portuguese; other languages show the English text with a note). */
 export default function LegalPage({ title, locale, children }: { title: string; locale: string; children: ReactNode }) {
   if (!legalPagesViewable()) notFound();
   return (
@@ -37,12 +51,10 @@ export default function LegalPage({ title, locale, children }: { title: string; 
       )}
       <h1 className="text-3xl font-bold text-ink sm:text-4xl">{title}</h1>
       <p className="mt-2 text-sm text-muted">
-        {locale === "fr" ? "Dernière mise à jour :" : "Last updated:"} {LEGAL_LAST_UPDATED_BY_LOCALE[locale] ?? LEGAL_LAST_UPDATED_BY_LOCALE.en}
+        {LAST_UPDATED_LABEL[locale] ?? LAST_UPDATED_LABEL.en} {LEGAL_LAST_UPDATED_BY_LOCALE[locale] ?? LEGAL_LAST_UPDATED_BY_LOCALE.en}
       </p>
       <p className="mt-4 font-medium text-ink">
-        {locale === "fr"
-          ? "SpeedNetRDC est exploité par une société de télécommunications établie en Belgique."
-          : "SpeedNetRDC is operated by a telecommunications company based in Belgium."}
+        {OPERATED_BY[locale] ?? OPERATED_BY.en}
       </p>
       {!(locale in LEGAL_LAST_UPDATED_BY_LOCALE) && <p className="mt-2 text-sm text-muted">This page is currently available in English only.</p>}
       {children}

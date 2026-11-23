@@ -3,7 +3,7 @@ import type { AppLocale } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import { languageTag } from "@/i18n/routing";
 import { getCountryBySlug } from "@/data/countries";
-import { legalPagesLive } from "@/lib/legal";
+import { COMPANY, legalPagesLive } from "@/lib/legal";
 import { SOCIAL_LINKS, SUPPORT_EMAIL } from "@/lib/contact";
 import CookieSettingsButton from "@/components/consent/CookieSettingsButton";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -80,6 +80,7 @@ export default async function Footer({ locale }: { locale: AppLocale }) {
 
   const showCookieSettings = /^\d{5,20}$/.test(process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "");
   const legalLive = legalPagesLive();
+  const companyAddress = locale === "fr" ? COMPANY.addressFr : locale === "es" ? COMPANY.addressEs : locale === "pt" ? COMPANY.addressPt : COMPANY.address;
   const bottomLink = "text-ink/75 underline-offset-4 transition-colors hover:text-orange hover:underline";
 
   return (
@@ -195,7 +196,12 @@ export default async function Footer({ locale }: { locale: AppLocale }) {
             <MastercardBadge />
           </div>
         </div>
-        <p className="container-page pb-3 text-xs text-ink/60">{t("operatedBy")}</p>
+        <p className="container-page pb-1 text-xs text-ink/60">{t("operatedBy")}</p>
+        {legalLive && (
+          <p className="container-page pb-3 text-xs text-ink/60">
+            {t("companyDetails", { address: companyAddress, registration: COMPANY.registrationNumber, vat: COMPANY.vatNumber, email: COMPANY.supportEmail })}
+          </p>
+        )}
         <div className="container-page pb-6 text-[11px] text-ink/50">
           {t("designedBy")}{" "}
           <a href="https://corenovait.com.au" target="_blank" rel="noopener noreferrer" className="underline-offset-4 hover:text-orange hover:underline">
