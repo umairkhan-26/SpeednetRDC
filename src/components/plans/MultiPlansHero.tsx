@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { CalendarDays, Globe2, Radio, SignalHigh, Wifi } from "lucide-react";
 import type { Plan } from "@/lib/types";
+import { useNames } from "@/i18n/use-names";
 import PlanCard from "./PlanCard";
 
 export default function MultiPlansHero({
@@ -23,6 +24,7 @@ export default function MultiPlansHero({
   networks: string[];
 }) {
   const t = useTranslations("coverage");
+  const names = useNames();
   const statIcons = [Globe2, SignalHigh, Wifi, CalendarDays];
 
   return (
@@ -65,7 +67,7 @@ export default function MultiPlansHero({
           <div className="mt-6 grid gap-5 lg:grid-cols-[2fr_1fr]">
             <div className="rounded-2xl border border-line bg-cream p-5">
               <p className="text-sm font-semibold text-ink">{t("countriesCovered", { count: countriesIncluded.length })}</p>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{countriesIncluded.join(", ")}</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{names.countryList(countriesIncluded).join(", ")}</p>
             </div>
             <div className="space-y-4">
               <div className="rounded-2xl border border-line bg-cream p-5">

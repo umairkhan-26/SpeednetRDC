@@ -2,15 +2,16 @@ import type { Plan } from "@/lib/types";
 import { getCountryBySlug } from "@/data/countries";
 import { getRegionBySlug } from "@/data/regions";
 import { formatPrice as formatPriceEur } from "@/lib/format";
+import { isoForPlace } from "@/lib/sims/coverage";
 import { languageTag } from "./routing";
 
 // Names that come from data rather than translation files: countries,
 // regions, plan names ("Albania 1GB / 7 Days"), data amounts, durations and
 // prices. They're shown in a language's own words only for languages whose
-// pages are fully translated — French and Spanish pages are still largely
-// English, so they keep English names rather than a mix. Add a language here
-// once its pages are fully translated.
-const LOCALIZED_NAME_LOCALES = new Set(["pt"]);
+// pages are fully translated, so a page never mixes English text with
+// translated names. Add a language here once its pages are fully translated.
+// (French and Spanish joined on 23 Nov 2026, once every text key was translated.)
+const LOCALIZED_NAME_LOCALES = new Set(["fr", "es", "pt"]);
 
 export function localizesNames(locale: string): boolean {
   return LOCALIZED_NAME_LOCALES.has(locale);
@@ -20,7 +21,16 @@ type Translate = (key: string, values?: Record<string, string | number>) => stri
 
 /** Where the browser's standard name reads awkwardly on a travel site ("Hong Kong, RAE da China"). */
 const NAME_OVERRIDES: Record<string, Record<string, string>> = {
+  fr: { CD: "RD Congo", HK: "Hong Kong", MO: "Macao" },
+  es: { CD: "RD Congo", HK: "Hong Kong", MO: "Macao" },
   pt: { CI: "Costa do Marfim", HK: "Hong Kong", MO: "Macau" },
+};
+
+/** The provider's "Netherlands Antilles" has no ISO code any more, so it is matched by its English name. */
+const NAME_OVERRIDES_BY_ENGLISH_NAME: Record<string, Record<string, string>> = {
+  fr: { "Netherlands Antilles": "Antilles néerlandaises" },
+  es: { "Netherlands Antilles": "Antillas Neerlandesas" },
+  pt: { "Netherlands Antilles": "Antilhas Holandesas" },
 };
 
 const displayNames = new Map<string, Intl.DisplayNames | null>();
@@ -43,8 +53,17 @@ export function createNames(locale: string, tFormat: Translate, tRegions: Transl
   const country = (c: { name: string; iso: string }): string => {
     if (!localized) return c.name;
     const iso = c.iso.toUpperCase();
-    const name = NAME_OVERRIDES[locale]?.[iso] ?? (iso.length === 2 ? regionDisplayNames(locale)?.of(iso) : undefined);
+    const name =
+      NAME_OVERRIDES_BY_ENGLISH_NAME[locale]?.[c.name] ??
+      NAME_OVERRIDES[locale]?.[iso] ??
+      (iso.length === 2 ? regionDisplayNames(locale)?.of(iso) : undefined);
     return name || c.name;
+  };
+
+  /** A list of place names as the catalogue spells them (English) → this language, sorted for the reader. */
+  const countryList = (englishNames: string[]): string[] => {
+    const mapped = englishNames.map((n) => country({ name: n, iso: isoForPlace(n) ?? "" }));
+    return localized ? mapped.sort((a, b) => a.localeCompare(b, languageTag(locale))) : mapped;
   };
 
   const region = (slug: string, englishName?: string): string => {
@@ -78,7 +97,7 @@ export function createNames(locale: string, tFormat: Translate, tRegions: Transl
   const planName = (plan: Plan): string =>
     localized ? tFormat("planName", { area: planArea(plan), data: data(plan.dataAmountGb), validity: validity(plan.validityDays) }) : plan.name;
 
-  return { locale, localized, country, region, data, validity, price, planArea, planName };
+  return { locale, localized, country, countryList, region, data, validity, price, planArea, planName };
 }
 
 export type Names = ReturnType<typeof createNames>;
