@@ -12,7 +12,7 @@
     "toggleMenu": "Abrir ou fechar o menu"
   },
   "footer": {
-    "tagline": "Sempre ligado. Em qualquer lugar. Dados eSIM instantâneos em mais de 190 destinos, sem preocupações com roaming e sem cartão SIM físico.",
+    "tagline": "Sempre ligado. Em qualquer lugar. Dados eSIM instantâneos para mais de 180 países, entregues por e-mail.",
     "shopHeading": "Loja",
     "supportHeading": "Apoio",
     "languageHeading": "Idioma",
@@ -26,13 +26,19 @@
     "refunds": "Política de Reembolso",
     "cookieSettings": "Definições de cookies",
     "followUs": "Siga-nos",
-    "followOn": "SpeedNetRDC no {network}"
+    "followOn": "SpeedNetRDC no {network}",
+    "popularDestinations": "Destinos populares",
+    "contactUs": "Contacte-nos",
+    "legalNotice": "Aviso legal",
+    "securePayments": "Pagamentos seguros com a Stripe",
+    "operatedBy": "A SpeedNetRDC é operada por uma empresa de telecomunicações sediada na Bélgica.",
+    "companyDetails": "{address} · N.º de empresa (BCE/KBO) {registration} · IVA {vat} · {email}"
   },
   "home": {
     "hero": {
       "titleLine1": "Sempre ligado.",
       "titleLine2": "Em qualquer lugar.",
-      "subtitle": "Dados eSIM instantâneos em mais de 190 destinos. Sem surpresas de roaming, sem cartão SIM físico, sem contratos — é só aterrar e começar a navegar.",
+      "subtitle": "Dados eSIM instantâneos para mais de 180 países. Sem contratos — é só aterrar e começar a navegar.",
       "explorePlans": "Ver planos eSIM",
       "howItWorks": "Como funciona",
       "searchPlaceholder": "Para onde vai viajar?",
@@ -299,7 +305,7 @@
   },
   "meta": {
     "siteTitle": "SpeedNetRDC — Dados eSIM instantâneos, em qualquer lugar",
-    "siteDescription": "Fique ligado em mais de 190 destinos com dados eSIM instantâneos. Sem preocupações com roaming e sem cartão SIM físico.",
+    "siteDescription": "Fique ligado em mais de 180 países com dados eSIM instantâneos. Sem contratos.",
     "store": "Loja eSIM",
     "destinations": "Destinos",
     "destination": "eSIM {country}",
@@ -374,7 +380,7 @@
   },
   "destinations": {
     "title": "Todos os países, à distância de um toque",
-    "subtitle": "Veja planos de dados eSIM para mais de 190 destinos, agrupados por região.",
+    "subtitle": "Veja planos de dados eSIM para mais de 180 países, agrupados por região.",
     "filterPlaceholder": "Filtrar países...",
     "noMatch": "Nenhum país corresponde a «{query}»."
   },
@@ -626,7 +632,7 @@
       "title": "Pagamento",
       "intro": "Vai introduzir os dados do cartão na página de pagamento segura da Stripe — nunca vemos nem guardamos o número do seu cartão.",
       "methods": "No ecrã seguinte poderá pagar com cartão, Apple Pay, Google Pay e outros métodos disponíveis na nossa conta. O pagamento é processado pela Stripe e nada é cobrado até confirmar lá.",
-      "consent": "Quero receber o meu eSIM imediatamente após o pagamento e compreendo que, depois de entregue, perco o direito de livre resolução de 14 dias.",
+      "consent": "Entreguem o meu eSIM logo após o pagamento. Compreendo que, depois de entregue, o direito habitual de livre resolução de 14 dias deixa de se aplicar. Posso continuar a obter reembolso nos casos indicados na <refunds>Política de Reembolso</refunds>.",
       "legal": "Ao continuar, aceita os nossos <terms>Termos e Condições</terms> e a nossa <refunds>Política de Reembolso</refunds>. Saiba como usamos os seus dados na nossa <privacy>Política de Privacidade</privacy>.",
       "back": "Voltar",
       "pay": "Continuar para o pagamento seguro · {total}",
@@ -635,7 +641,7 @@
       "errorPlan": "Este plano já não está disponível. Escolha outro plano.",
       "errorConsent": "Assinale a caixa para confirmar a entrega imediata do seu eSIM.",
       "errorGeneric": "Não foi possível iniciar o pagamento. Tente novamente.",
-      "consentTopUp": "Quero que o meu tarifário de dados seja entregue imediatamente após o pagamento e compreendo que perco o meu direito de livre resolução de 14 dias depois de ser entregue.",
+      "consentTopUp": "Entreguem o meu tarifário de dados logo após o pagamento. Compreendo que, depois de entregue, o direito habitual de livre resolução de 14 dias deixa de se aplicar. Posso continuar a obter reembolso nos casos indicados na <refunds>Política de Reembolso</refunds>.",
       "errorTopUpUnavailable": "Ainda não é possível adicionar um tarifário a um SIM existente.",
       "errorTooMany": "Demasiadas tentativas. Tente novamente mais tarde.",
       "errorSimNotFound": "Não encontrámos esse SIM. Verifique o número impresso no seu cartão SIM."

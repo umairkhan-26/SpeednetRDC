@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { manrope } from "@/fonts/manrope";
 import { NextIntlClientProvider } from "next-intl";
 import "../globals.css";
 import Providers from "../providers";
 import { getAdminLocale, loadAdminMessages } from "@/i18n/admin";
 import { languageTag } from "@/i18n/routing";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-});
 
 export const metadata: Metadata = {
   title: "SpeedNetRDC",

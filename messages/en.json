@@ -12,7 +12,7 @@
     "toggleMenu": "Toggle menu"
   },
   "footer": {
-    "tagline": "Stay Connected. Anywhere. Instant eSIM data in 190+ destinations, no roaming stress and no physical SIM.",
+    "tagline": "Stay Connected. Anywhere. Instant eSIM data for 180+ countries, delivered by email.",
     "shopHeading": "Shop",
     "supportHeading": "Support",
     "languageHeading": "Language",
@@ -26,13 +26,19 @@
     "refunds": "Refund Policy",
     "cookieSettings": "Cookie settings",
     "followUs": "Follow us",
-    "followOn": "SpeedNetRDC on {network}"
+    "followOn": "SpeedNetRDC on {network}",
+    "popularDestinations": "Popular destinations",
+    "contactUs": "Contact us",
+    "legalNotice": "Legal notice",
+    "securePayments": "Secure payments by Stripe",
+    "operatedBy": "SpeedNetRDC is operated by a telecommunications company based in Belgium.",
+    "companyDetails": "{address} · Company no. (BCE/KBO) {registration} · VAT {vat} · {email}"
   },
   "home": {
     "hero": {
       "titleLine1": "Stay Connected.",
       "titleLine2": "Anywhere.",
-      "subtitle": "Instant eSIM data in 190+ destinations. No roaming stress, no physical SIM, no contracts — just land and connect.",
+      "subtitle": "Instant eSIM data for 180+ countries. No contracts — just land and connect.",
       "explorePlans": "Explore eSIM Plans",
       "howItWorks": "How It Works",
       "searchPlaceholder": "Where are you traveling?",
@@ -299,7 +305,7 @@
   },
   "meta": {
     "siteTitle": "SpeedNetRDC — Instant eSIM Data, Anywhere",
-    "siteDescription": "Stay connected in 190+ destinations with instant eSIM data. No roaming stress, no physical SIM.",
+    "siteDescription": "Stay connected in 180+ countries with instant eSIM data. No contracts.",
     "store": "eSIM Store",
     "destinations": "Destinations",
     "destination": "{country} eSIM",
@@ -374,7 +380,7 @@
   },
   "destinations": {
     "title": "Every country, one tap away",
-    "subtitle": "Browse eSIM data plans in 190+ destinations, grouped by region.",
+    "subtitle": "Browse eSIM data plans for 180+ countries, grouped by region.",
     "filterPlaceholder": "Filter countries...",
     "noMatch": "No countries match “{query}”."
   },
@@ -626,7 +632,7 @@
       "title": "Payment",
       "intro": "You'll enter your card details on Stripe's secure checkout page — we never see or store your card number.",
       "methods": "Card, Apple Pay, Google Pay, and other methods enabled on our account will be offered on the next screen. Payment is processed by Stripe; nothing is charged until you confirm there.",
-      "consent": "I want my eSIM delivered immediately after payment, and I understand that I lose my 14-day right of withdrawal once it has been delivered.",
+      "consent": "Deliver my eSIM right after payment. I understand that once it is delivered, the usual 14-day right to cancel no longer applies. I can still get a refund in the cases listed in the <refunds>Refund Policy</refunds>.",
       "legal": "By continuing you agree to our <terms>Terms & Conditions</terms> and <refunds>Refund Policy</refunds>. Read how we use your data in our <privacy>Privacy Policy</privacy>.",
       "back": "Back",
       "pay": "Continue to secure payment · {total}",
@@ -635,7 +641,7 @@
       "errorPlan": "Unknown plan",
       "errorConsent": "Please tick the box to confirm immediate delivery of your eSIM.",
       "errorGeneric": "Could not start checkout. Please try again.",
-      "consentTopUp": "I want my data plan delivered immediately after payment, and I understand that I lose my 14-day right of withdrawal once it has been delivered.",
+      "consentTopUp": "Deliver my data plan right after payment. I understand that once it is delivered, the usual 14-day right to cancel no longer applies. I can still get a refund in the cases listed in the <refunds>Refund Policy</refunds>.",
       "errorTopUpUnavailable": "Adding a plan to an existing SIM isn’t available yet.",
       "errorTooMany": "Too many attempts. Please try again later.",
       "errorSimNotFound": "We couldn’t find that SIM. Check the number printed on your SIM card."
