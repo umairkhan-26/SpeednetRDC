@@ -10,7 +10,7 @@ import { pendingAnswer } from "@/lib/physical-sim";
 import { appleOneTapInstallUrl, supportsAppleOneTapInstall } from "@/lib/esim-install";
 import { generateQrDataUrl } from "@/lib/qr";
 import { isTopUpEnabled } from "@/lib/topup";
-import { getPlanById } from "@/data/plans";
+import { getPlanForOrder } from "@/data/plans";
 import { coveredPlaces } from "@/lib/plan-coverage";
 import { getNames } from "@/i18n/get-names";
 
@@ -60,7 +60,7 @@ export default async function PrivateOrderPage({ params }: { params: Promise<{ t
 }
 
 async function ReadyToInstall({ activationCode, planId, t, locale }: { activationCode: string; planId: string | null; t: T; locale: string }) {
-  const plan = planId ? getPlanById(planId) : undefined;
+  const plan = planId ? getPlanForOrder(planId) : undefined;
   const names = await getNames(locale);
   const covered = (plan ? coveredPlaces(plan) : []).map((p) => names.country({ name: p.name, iso: p.iso ?? "" })).sort((a, b) => a.localeCompare(b, languageTag(locale)));
   const qr = await generateQrDataUrl(activationCode);

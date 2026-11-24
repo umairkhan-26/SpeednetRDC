@@ -1,4 +1,4 @@
-import { getPlanById } from "@/data/plans";
+import { getPlanForOrder } from "@/data/plans";
 import { simHomeCountrySlug } from "@/lib/topup";
 import { listCustomerSims } from "@/lib/checkout/orders-repository";
 import { getSoldSimsByIccid } from "./repository";
@@ -49,13 +49,13 @@ export async function getCustomerSimStatuses(email: string): Promise<CustomerSim
         .filter((p) => NOT_OVER.has(p.status) && !(p.expirationDate && Date.parse(p.expirationDate) < Date.now()))
         .sort((a, b) => (a.status === "active" ? -1 : 0) - (b.status === "active" ? -1 : 0))
         .map((p) => ({
-          name: getPlanById(p.productId)?.name ?? p.productId,
+          name: getPlanForOrder(p.productId)?.name ?? p.productId,
           state: p.status === "active" ? ("active" as const) : ("waiting" as const),
           dataRemainingKb: p.dataRemainingKb,
           dataTotalKb: p.dataTotalKb,
           expiresAt: p.status === "active" ? p.expirationDate : null,
         }));
-      return { iccid: sim.iccid, simType: sim.simType, orderAccessToken: sim.orderAccessToken, homeCountrySlug: simHomeCountrySlug(sim.planId, getPlanById), plans, checkedAt: sale?.snapshot?.fetchedAt ?? null };
+      return { iccid: sim.iccid, simType: sim.simType, orderAccessToken: sim.orderAccessToken, homeCountrySlug: simHomeCountrySlug(sim.planId, getPlanForOrder), plans, checkedAt: sale?.snapshot?.fetchedAt ?? null };
     })
   );
 }

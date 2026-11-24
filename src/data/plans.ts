@@ -1,5 +1,6 @@
 import type { Plan, RegionSlug } from "@/lib/types";
 import raw from "./generated/plans.json";
+import retiredRaw from "./generated/retired-plans.json";
 
 // Generated from the provider's real plans.json + zones.json — see
 // scripts/generate-data.mjs. Re-run that script after a new data drop.
@@ -7,6 +8,18 @@ export const plans: Plan[] = raw as Plan[];
 
 export function getPlanById(id: string) {
   return plans.find((p) => p.id === id);
+}
+
+/**
+ * Plans Transatel has closed ("Closed" in the price grid): never for sale, so
+ * plan pages and the checkout (getPlanById) don't know them, but customers who
+ * already bought one keep their order page, coverage list and email.
+ */
+export const retiredPlans: Plan[] = retiredRaw as Plan[];
+
+/** A plan for an EXISTING order or SIM: on sale or closed. Never use this for selling. */
+export function getPlanForOrder(id: string) {
+  return getPlanById(id) ?? retiredPlans.find((p) => p.id === id);
 }
 
 export function getPlansForCountry(countrySlug: string) {
