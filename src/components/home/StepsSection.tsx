@@ -21,7 +21,7 @@ export default function StepsSection() {
       <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {steps.map((step, i) => (
           <div key={step.titleKey} className="relative rounded-2xl border border-line bg-white p-6">
-            <span className="absolute -top-3 left-6 flex size-7 items-center justify-center rounded-full bg-ink text-xs font-bold text-white">
+            <span className="absolute -top-3 start-6 flex size-7 items-center justify-center rounded-full bg-ink text-xs font-bold text-white">
               {i + 1}
             </span>
             <step.icon className="size-7 text-orange" />

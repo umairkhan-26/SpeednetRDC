@@ -7,7 +7,7 @@ import SiteChrome from "@/components/layout/SiteChrome";
 import Providers from "../providers";
 import { SITE_URL } from "@/lib/site";
 import { SOCIAL_LINKS, SUPPORT_EMAIL } from "@/lib/contact";
-import { languageTag, routing } from "@/i18n/routing";
+import { languageTag, routing, textDirection } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import { loadMessages } from "@/i18n/messages";
 
@@ -91,7 +91,7 @@ export default async function LocaleRootLayout({
   };
 
   return (
-    <html lang={languageTag(locale)} className={`${manrope.variable} h-full antialiased`}>
+    <html lang={languageTag(locale)} dir={textDirection(locale)} className={`${manrope.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-cream text-ink">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }} />
         <NextIntlClientProvider locale={locale} messages={messages}>

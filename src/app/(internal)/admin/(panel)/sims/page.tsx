@@ -126,11 +126,11 @@ export default async function AdminSimsPage({ searchParams }: { searchParams: Pr
         </select>
         <label className="text-xs text-muted">
           {s("from")}
-          <input type="date" name="from" defaultValue={params.from} className={`${selectClass} ml-1.5`} />
+          <input type="date" name="from" defaultValue={params.from} className={`${selectClass} ms-1.5`} />
         </label>
         <label className="text-xs text-muted">
           {s("to")}
-          <input type="date" name="to" defaultValue={params.to} className={`${selectClass} ml-1.5`} />
+          <input type="date" name="to" defaultValue={params.to} className={`${selectClass} ms-1.5`} />
         </label>
         <button type="submit" className="rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white hover:opacity-90">
           {s("filter")}
@@ -151,7 +151,7 @@ export default async function AdminSimsPage({ searchParams }: { searchParams: Pr
 
       {filtered.length > 0 && (
         <div className="overflow-x-auto rounded-2xl border border-line bg-white">
-          <table className="w-full text-left text-sm">
+          <table className="w-full text-start text-sm">
             <thead className="border-b border-line text-xs uppercase tracking-wide text-muted">
               <tr>
                 {(["order", "plan", "customer", "sim", "transatel", "planStatus"] as const).map((c) => (
@@ -171,7 +171,7 @@ export default async function AdminSimsPage({ searchParams }: { searchParams: Pr
                 const used = snap?.dataTotalKb != null && snap.dataRemainingKb != null ? snap.dataTotalKb - snap.dataRemainingKb : null;
                 return (
                   <tr key={`${sim.orderId}-${sim.iccid}`} className="align-top">
-                    <td className={`border-l-4 px-4 py-3 ${HEALTH_BORDER[health]}`}>
+                    <td className={`border-s-4 px-4 py-3 ${HEALTH_BORDER[health]}`}>
                       <p className="flex items-center gap-1.5 font-medium whitespace-nowrap text-ink">
                         ORD-{sim.orderId} <KindBadge kind={kind} />
                       </p>

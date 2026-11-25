@@ -27,7 +27,7 @@ export default function RetryProvisioningButton({ orderId }: { orderId: number }
       >
         {isPending ? t("retrying") : t("retry")}
       </button>
-      {result && <span className={`max-w-56 text-right text-xs ${result.ok ? "text-green-700" : "text-red-700"}`}>{result.message}</span>}
+      {result && <span className={`max-w-56 text-end text-xs ${result.ok ? "text-green-700" : "text-red-700"}`}>{result.message}</span>}
     </div>
   );
 }

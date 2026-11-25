@@ -40,7 +40,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
 
   return (
     <div className="flex min-h-screen bg-cream">
-      <aside className="flex w-60 shrink-0 flex-col border-r border-line bg-ink">
+      <aside className="flex w-60 shrink-0 flex-col border-e border-line bg-ink">
         <div className="px-6 py-6">
           <Logo theme="dark" />
           <p className="mt-2 text-sm font-semibold text-white/70">{t("nav.panelTitle")}</p>
@@ -55,7 +55,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
               <Icon className="size-4" />
               {t(`nav.${label}`)}
               {label === "support" && unreadTickets > 0 && (
-                <span className="ml-auto rounded-full bg-orange px-2 py-0.5 text-xs font-bold text-white">{unreadTickets}</span>
+                <span className="ms-auto rounded-full bg-orange px-2 py-0.5 text-xs font-bold text-white">{unreadTickets}</span>
               )}
             </Link>
           ))}

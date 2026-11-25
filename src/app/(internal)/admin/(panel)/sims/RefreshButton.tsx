@@ -25,7 +25,7 @@ export default function RefreshButton({ iccid, label }: { iccid?: string; label:
         <RefreshCw className={`size-4 ${isPending ? "animate-spin" : ""}`} />
         {isPending ? t("askingTransatel") : label}
       </button>
-      {result && <span className={`max-w-sm text-right text-xs ${result.ok ? "text-green-700" : "text-red-700"}`}>{result.message}</span>}
+      {result && <span className={`max-w-sm text-end text-xs ${result.ok ? "text-green-700" : "text-red-700"}`}>{result.message}</span>}
     </div>
   );
 }

@@ -63,7 +63,7 @@ export default async function ShippingBoard({ basePath, statusParam }: { basePat
         <p className="text-sm text-muted">{t("shipping.none")}</p>
       ) : (
         <div className="overflow-x-auto rounded-2xl border border-line bg-white">
-          <table className="w-full text-left text-sm">
+          <table className="w-full text-start text-sm">
             <thead className="border-b border-line text-xs uppercase tracking-wide text-muted">
               <tr>
                 {(["order", "customer", "shipTo", "status", "action"] as const).map((c) => (
@@ -83,7 +83,7 @@ export default async function ShippingBoard({ basePath, statusParam }: { basePat
                   <tr key={order.id} className="align-top">
                     <td className="px-4 py-3">
                       <p className="font-medium text-ink">
-                        ORD-{order.id} {kind !== "live" && <span className="ml-1 rounded-full bg-sky-100 px-2 py-0.5 text-xs text-sky-700">{t(`badges.${kind}`)}</span>}
+                        ORD-{order.id} {kind !== "live" && <span className="ms-1 rounded-full bg-sky-100 px-2 py-0.5 text-xs text-sky-700">{t(`badges.${kind}`)}</span>}
                       </p>
                       <p className="text-xs text-muted">{t("shipping.paid", { date: fmt(order.createdAt) })}</p>
                       <p className="text-xs text-muted">{formatPrice(order.amountEur)}</p>

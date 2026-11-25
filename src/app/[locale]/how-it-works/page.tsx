@@ -24,7 +24,7 @@ export default async function HowItWorksPage({ params }: { params: Promise<{ loc
           </h1>
           <p className="max-w-lg text-white/70">{t("subtitle")}</p>
           <LinkButton href="/esim-store" size="lg">
-            {t("explore")} <ArrowRight className="size-4" />
+            {t("explore")} <ArrowRight className="size-4 rtl:-scale-x-100" />
           </LinkButton>
         </div>
       </section>

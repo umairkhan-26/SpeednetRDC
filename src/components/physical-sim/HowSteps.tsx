@@ -42,7 +42,7 @@ export default function HowSteps({ steps, layout = "list" }: { steps: HowStep[];
           </span>
           <div className="min-w-0 flex-1">
             <p className="font-semibold text-ink">
-              <span className="mr-2 text-orange">{i + 1}.</span>
+              <span className="me-2 text-orange">{i + 1}.</span>
               {step.title}
             </p>
             <p className="mt-1 text-sm leading-relaxed text-muted">{step.text}</p>

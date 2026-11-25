@@ -35,7 +35,7 @@ export default function AdminLanguageSwitcher({ theme = "light" }: { theme?: "li
         value={locale}
         disabled={isPending}
         onChange={(e) => handleChange(e.target.value)}
-        className={clsx("cursor-pointer appearance-none bg-transparent pr-1 text-sm font-medium outline-none", theme === "dark" ? "text-white/85" : "text-ink/80")}
+        className={clsx("cursor-pointer appearance-none bg-transparent pe-1 text-sm font-medium outline-none", theme === "dark" ? "text-white/85" : "text-ink/80")}
         style={theme === "dark" ? { colorScheme: "dark" } : undefined}
       >
         {routing.locales.map((l) => (

@@ -13,7 +13,7 @@ export default function ProgressBar({
   return (
     <div className={clsx("h-2 w-full overflow-hidden rounded-full bg-ink/10", className)}>
       <div
-        className="h-full rounded-full bg-gradient-to-r from-orange to-orange-soft transition-all"
+        className="h-full rounded-full bg-gradient-to-r rtl:bg-gradient-to-l from-orange to-orange-soft transition-all"
         style={{ width: `${pct}%` }}
       />
     </div>

@@ -62,7 +62,7 @@ export default async function AdminSimDetailPage({ params }: { params: Promise<{
     <div className="space-y-6">
       <div>
         <Link href="/admin/sims" className="inline-flex items-center gap-1 text-sm font-medium text-muted hover:text-orange">
-          <ArrowLeft className="size-4" /> {d("allSims")}
+          <ArrowLeft className="size-4 rtl:-scale-x-100" /> {d("allSims")}
         </Link>
         <div className="mt-3 flex flex-wrap items-start justify-between gap-4">
           <div>
@@ -166,7 +166,7 @@ export default async function AdminSimDetailPage({ params }: { params: Promise<{
         <div>
           <h2 className="text-lg font-bold text-ink">{d("everyPlan")}</h2>
           <div className="mt-3 overflow-x-auto rounded-2xl border border-line bg-white">
-            <table className="w-full text-left text-sm">
+            <table className="w-full text-start text-sm">
               <thead className="border-b border-line text-xs uppercase tracking-wide text-muted">
                 <tr>
                   {(["product", "status", "bought", "started", "expires", "dataLeft"] as const).map((c) => (
@@ -181,7 +181,7 @@ export default async function AdminSimDetailPage({ params }: { params: Promise<{
                   <tr key={plan.subscriptionId}>
                     <td className="px-4 py-3 font-mono text-xs text-ink">
                       {plan.productId}
-                      {plan.subscriptionId === sim.transatelSubscriptionId && <span className="ml-1.5 font-sans text-orange">{d("thisOrder")}</span>}
+                      {plan.subscriptionId === sim.transatelSubscriptionId && <span className="ms-1.5 font-sans text-orange">{d("thisOrder")}</span>}
                     </td>
                     <td className="px-4 py-3 text-ink">{plan.status}</td>
                     <td className="px-4 py-3 text-muted">{fmt(plan.subscriptionDate)}</td>

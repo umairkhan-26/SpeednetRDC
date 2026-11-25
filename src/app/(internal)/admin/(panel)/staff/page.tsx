@@ -78,7 +78,7 @@ export default async function AdminStaffDirectoryPage() {
                   <span className={`size-2 rounded-full ${isOnline ? "bg-green-500" : "bg-muted-light"}`} />
                   <span className="font-medium text-ink">{isOnline ? t("staff.online") : t("staff.offline")}</span>
                 </div>
-                <p className="w-28 text-right text-sm text-muted">
+                <p className="w-28 text-end text-sm text-muted">
                   {openShift ? t("staff.since", { time: formatTime(openShift.loginTime, t.locale) }) : t("staff.notClockedIn")}
                 </p>
                 <EditNameButton staffId={member.id} name={member.name} />

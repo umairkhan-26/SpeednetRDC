@@ -1,5 +1,6 @@
 "use client";
 
+import { formatTag } from "@/i18n/routing";
 import { useLocale, useTranslations } from "next-intl";
 import { CreditCard, Smartphone } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
@@ -21,8 +22,8 @@ export default function MySims({ sims }: { sims: CustomerSimStatus[] }) {
   const suggestTopUp = useCheckoutStore((s) => s.suggestTopUp);
   if (sims.length === 0) return null;
 
-  const formatDate = (iso: string) => new Date(iso).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
-  const formatTime = (iso: string) => new Date(iso).toLocaleString(locale, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+  const formatDate = (iso: string) => new Date(iso).toLocaleDateString(formatTag(locale), { day: "numeric", month: "long", year: "numeric" });
+  const formatTime = (iso: string) => new Date(iso).toLocaleString(formatTag(locale), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 
   return (
     <section className="mt-8">
@@ -65,7 +66,7 @@ export default function MySims({ sims }: { sims: CustomerSimStatus[] }) {
                       <p className="font-medium text-ink">{plan.name}</p>
                       <p className="text-xs text-muted">{plan.state === "active" ? t("planActive") : t("planWaiting")}</p>
                     </div>
-                    <div className="text-right text-xs text-muted">
+                    <div className="text-end text-xs text-muted">
                       {plan.dataTotalKb !== null && <p>{t("dataLeft", { left: formatKb(plan.dataRemainingKb ?? plan.dataTotalKb), total: formatKb(plan.dataTotalKb) })}</p>}
                       {plan.expiresAt && <p>{t("expires", { date: formatDate(plan.expiresAt) })}</p>}
                     </div>

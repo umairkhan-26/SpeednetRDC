@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { languageTag } from "@/i18n/routing";
+import { formatTag } from "@/i18n/routing";
 import { CheckCircle2, Clock, RotateCcw } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { customerLogoutAction } from "@/lib/customer/actions";
@@ -30,7 +30,7 @@ const STATE_STYLE = {
 export default function AccountView({ email, orders, sims = [], tickets = [] }: { email: string; orders: CustomerOrderSummary[]; sims?: CustomerSimStatus[]; tickets?: CustomerTicket[] }) {
   const locale = useLocale();
   const t = useTranslations("account");
-  const formatDate = (iso: string) => new Date(iso).toLocaleDateString(languageTag(locale), { day: "numeric", month: "long", year: "numeric" });
+  const formatDate = (iso: string) => new Date(iso).toLocaleDateString(formatTag(locale), { day: "numeric", month: "long", year: "numeric" });
 
   return (
     <div className="container-page max-w-3xl py-14">
@@ -56,7 +56,7 @@ export default function AccountView({ email, orders, sims = [], tickets = [] }: 
           <p className="font-semibold text-ink">{t("emptyTitle")}</p>
           <p className="mt-1 text-sm text-muted">{t("emptyBody")}</p>
           <Link href="/esim-store" className="mt-4 inline-block text-sm font-semibold text-orange hover:underline">
-            {t("emptyCta")} →
+            {t("emptyCta")} <span aria-hidden className="inline-block rtl:-scale-x-100">→</span>
           </Link>
         </div>
       ) : (
@@ -79,7 +79,7 @@ export default function AccountView({ email, orders, sims = [], tickets = [] }: 
                   </span>
                   {order.state === "ready" && order.orderPath && (
                     <Link href={order.orderPath} className="text-sm font-semibold text-orange hover:underline">
-                      {order.productType === "esim" ? t("viewEsim") : t("viewOrder")} →
+                      {order.productType === "esim" ? t("viewEsim") : t("viewOrder")} <span aria-hidden className="inline-block rtl:-scale-x-100">→</span>
                     </Link>
                   )}
                   {order.state === "preparing" && <p className="text-xs text-muted">{t("preparingNote")}</p>}

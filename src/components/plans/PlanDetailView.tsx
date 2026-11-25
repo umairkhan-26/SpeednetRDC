@@ -112,7 +112,7 @@ export default function PlanDetailView({
                       role="radio"
                       aria-checked={choice === value}
                       onClick={() => setChoice(value)}
-                      className={`rounded-xl border p-3 text-left ${choice === value ? "border-orange bg-orange/5" : "border-line hover:border-ink/30"}`}
+                      className={`rounded-xl border p-3 text-start ${choice === value ? "border-orange bg-orange/5" : "border-line hover:border-ink/30"}`}
                     >
                       <span className="block font-semibold text-ink">{label}</span>
                       <span className="block text-xs text-muted">{hint}</span>

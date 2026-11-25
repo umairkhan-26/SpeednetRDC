@@ -183,6 +183,7 @@ export const PENDING_ANSWERS = {
     nl: "lange tijd",
     de: "lange Zeit",
     it: "molto tempo",
+    ar: "طويلة",
   },
   /** Which plan is used first when two plans cover the same country. */
   planPriority: {
@@ -194,6 +195,7 @@ export const PENDING_ANSWERS = {
     nl: "",
     de: "",
     it: "",
+    ar: "",
   },
   /** Plans have a 6-month deferred-activation period at Transatel; what happens at its end. */
   startWindow: {
@@ -205,6 +207,7 @@ export const PENDING_ANSWERS = {
     nl: "binnen 6 maanden na aankoop",
     de: "innerhalb von 6 Monaten nach dem Kauf",
     it: "entro 6 mesi dall'acquisto",
+    ar: "خلال 6 أشهر من الشراء",
   },
   /** Returns for the card: 14 days from delivery, unused, customer pays return postage (confirmed by the client). */
   returns: {
@@ -216,12 +219,13 @@ export const PENDING_ANSWERS = {
     nl: "Je kunt de ongebruikte simkaart binnen 14 dagen na levering terugsturen voor een volledige terugbetaling van de kaart en de oorspronkelijke verzending; de retourkosten zijn voor jou. Mail om terug te sturen naar contact@speednetrdc.com.",
     de: "Sie können die ungenutzte SIM-Karte innerhalb von 14 Tagen nach Zustellung zurücksenden und erhalten Karte und ursprünglichen Versand vollständig erstattet; die Rücksendekosten tragen Sie. Schreiben Sie dazu an contact@speednetrdc.com.",
     it: "Puoi restituire la SIM non usata entro 14 giorni dalla consegna con rimborso completo della scheda e della spedizione originale; le spese di reso sono a tuo carico. Per restituirla scrivi a contact@speednetrdc.com.",
+    ar: "يمكنك إرجاع الشريحة غير المستخدمة خلال 14 يوماً من التسليم واسترداد كامل ثمن البطاقة والشحن الأصلي، وتكاليف الإرجاع عليك. لإرجاعها راسل contact@speednetrdc.com.",
   },
 } as const;
 
-type Locale = "en" | "fr" | "es" | "pt" | "nl" | "de" | "it";
+type Locale = "en" | "fr" | "es" | "pt" | "nl" | "de" | "it" | "ar";
 
 export function pendingAnswer(key: keyof typeof PENDING_ANSWERS, locale: string): string {
   const answer = PENDING_ANSWERS[key];
-  return answer[(["en", "fr", "es", "pt", "nl", "de", "it"].includes(locale) ? locale : "en") as Locale];
+  return answer[(["en", "fr", "es", "pt", "nl", "de", "it", "ar"].includes(locale) ? locale : "en") as Locale];
 }

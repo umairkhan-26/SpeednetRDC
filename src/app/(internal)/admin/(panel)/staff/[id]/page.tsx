@@ -31,7 +31,7 @@ export default async function AdminStaffDetailPage({ params }: { params: Promise
     <div className="space-y-8">
       <div>
         <Link href="/admin/staff" className="inline-flex items-center gap-1 text-sm font-medium text-muted hover:text-orange">
-          <ArrowLeft className="size-4" /> {t("staff.back")}
+          <ArrowLeft className="size-4 rtl:-scale-x-100" /> {t("staff.back")}
         </Link>
         <div className="mt-3 flex items-center gap-4">
           <div className="flex size-14 items-center justify-center rounded-full bg-orange/10 text-lg font-bold text-orange">

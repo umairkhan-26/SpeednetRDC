@@ -4,7 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import "../globals.css";
 import Providers from "../providers";
 import { getAdminLocale, loadAdminMessages } from "@/i18n/admin";
-import { languageTag } from "@/i18n/routing";
+import { languageTag, textDirection } from "@/i18n/routing";
 
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export default async function InternalRootLayout({ children }: LayoutProps<"/">)
   const messages = await loadAdminMessages(locale);
 
   return (
-    <html lang={languageTag(locale)} className={`${manrope.variable} h-full antialiased`}>
+    <html lang={languageTag(locale)} dir={textDirection(locale)} className={`${manrope.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-cream text-ink">
         <NextIntlClientProvider locale={locale} messages={messages} timeZone="UTC">
           <Providers>{children}</Providers>

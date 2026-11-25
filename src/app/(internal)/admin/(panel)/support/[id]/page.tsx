@@ -48,7 +48,7 @@ export default async function AdminSupportTicketPage({ params }: { params: Promi
   return (
     <div className="space-y-6">
       <Link href="/admin/support" className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-orange">
-        <ArrowLeft className="size-4" />
+        <ArrowLeft className="size-4 rtl:-scale-x-100" />
         {s("back")}
       </Link>
       <div className="flex flex-wrap items-center gap-3">
@@ -64,7 +64,7 @@ export default async function AdminSupportTicketPage({ params }: { params: Promi
           <div className="mt-4 space-y-3">
             {ticket.messages.length === 0 && <p className="text-sm text-muted">{s("noMessages")}</p>}
             {ticket.messages.map((m) => (
-              <div key={m.id} className={m.sender === "staff" ? "ml-10 rounded-xl bg-orange/10 px-3 py-2" : "mr-10 rounded-xl bg-ink/5 px-3 py-2"}>
+              <div key={m.id} className={m.sender === "staff" ? "ms-10 rounded-xl bg-orange/10 px-3 py-2" : "me-10 rounded-xl bg-ink/5 px-3 py-2"}>
                 <p className="text-xs font-semibold text-muted">
                   {m.sender === "staff" ? (m.staffName ?? s("team")) : s("customerLabel")} · {fmt(m.createdAt)}
                 </p>

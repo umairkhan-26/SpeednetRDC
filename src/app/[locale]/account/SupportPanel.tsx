@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { LifeBuoy, MessageCircle, Send } from "lucide-react";
-import { languageTag } from "@/i18n/routing";
+import { formatTag } from "@/i18n/routing";
 import { useRouter } from "@/i18n/navigation";
 import { createTicketAction, markTicketReadAction, replyToTicketAction, type SupportResult } from "@/lib/support/actions";
 import { MAX_SUPPORT_MESSAGE, SUPPORT_CATEGORIES, type SupportCategory, type TicketStatus } from "@/lib/support/categories";
@@ -50,7 +50,7 @@ export default function SupportPanel({ orders, tickets }: { orders: SupportOrder
 
   if (orders.length === 0) return null;
 
-  const formatDate = (iso: string) => new Date(iso).toLocaleString(languageTag(locale), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+  const formatDate = (iso: string) => new Date(iso).toLocaleString(formatTag(locale), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 
   function handleResult(result: SupportResult, onOk: () => void) {
     if (result.ok) {
@@ -223,7 +223,7 @@ function TicketThread({ ticket, formatDate }: { ticket: CustomerTicket; formatDa
         <div className="space-y-3 border-t border-line px-4 py-4">
           {ticket.messages.length === 0 && <p className="text-sm text-muted">{t("noMessage")}</p>}
           {ticket.messages.map((m) => (
-            <div key={m.id} className={m.sender === "customer" ? "ml-8 rounded-xl bg-orange/10 px-3 py-2" : "mr-8 rounded-xl bg-ink/5 px-3 py-2"}>
+            <div key={m.id} className={m.sender === "customer" ? "ms-8 rounded-xl bg-orange/10 px-3 py-2" : "me-8 rounded-xl bg-ink/5 px-3 py-2"}>
               <p className="text-xs font-semibold text-muted">
                 {m.sender === "customer" ? t("you") : t("team")} · {formatDate(m.createdAt)}
               </p>

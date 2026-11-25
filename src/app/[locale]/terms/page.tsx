@@ -7,8 +7,9 @@ import TermsPt from "@/components/legal/content/terms-pt";
 import TermsNl from "@/components/legal/content/terms-nl";
 import TermsDe from "@/components/legal/content/terms-de";
 import TermsIt from "@/components/legal/content/terms-it";
+import TermsAr from "@/components/legal/content/terms-ar";
 
-const TITLES: Record<string, string> = { en: "Terms & Conditions", fr: "Conditions générales", es: "Términos y condiciones", pt: "Termos e Condições", nl: "Algemene voorwaarden", de: "Allgemeine Geschäftsbedingungen", it: "Termini e condizioni" };
+const TITLES: Record<string, string> = { en: "Terms & Conditions", fr: "Conditions générales", es: "Términos y condiciones", pt: "Termos e Condições", nl: "Algemene voorwaarden", de: "Allgemeine Geschäftsbedingungen", it: "Termini e condizioni", ar: "الشروط والأحكام" };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -17,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function TermsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const CONTENT = { en: TermsEn, fr: TermsFr, es: TermsEs, pt: TermsPt, nl: TermsNl, de: TermsDe, it: TermsIt };
+  const CONTENT = { en: TermsEn, fr: TermsFr, es: TermsEs, pt: TermsPt, nl: TermsNl, de: TermsDe, it: TermsIt, ar: TermsAr };
   const Content = CONTENT[locale as keyof typeof CONTENT] ?? TermsEn;
   return <LegalPage title={TITLES[locale] ?? TITLES.en} locale={locale}><Content /></LegalPage>;
 }

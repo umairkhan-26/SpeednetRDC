@@ -29,7 +29,7 @@ export default async function AdminsPage() {
       </div>
 
       <div className="overflow-x-auto rounded-2xl border border-line bg-white">
-        <table className="w-full text-left text-sm">
+        <table className="w-full text-start text-sm">
           <thead className="border-b border-line text-xs uppercase tracking-wide text-muted">
             <tr>
               {(["name", "email", "status", "lastSignIn", "added", "actions"] as const).map((c) => (
@@ -46,7 +46,7 @@ export default async function AdminsPage() {
                 <tr key={admin.id} className="align-top">
                   <td className="px-4 py-3 font-medium text-ink">
                     {admin.name}
-                    {admin.id === session.staffId && <span className="ml-1.5 text-xs font-normal text-muted">{t("common.you")}</span>}
+                    {admin.id === session.staffId && <span className="ms-1.5 text-xs font-normal text-muted">{t("common.you")}</span>}
                   </td>
                   <td className="px-4 py-3 text-ink">{admin.email}</td>
                   <td className="px-4 py-3">

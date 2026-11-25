@@ -58,7 +58,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between gap-4">
       <dt className="text-muted">{label}</dt>
-      <dd className="text-right font-medium text-ink">{value}</dd>
+      <dd className="text-end font-medium text-ink">{value}</dd>
     </div>
   );
 }

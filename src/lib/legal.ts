@@ -30,6 +30,7 @@ export const COMPANY = {
   legalNameNl: "SpeedNetRDC, een telecommunicatiebedrijf gevestigd in België",
   legalNameDe: "SpeedNetRDC, ein Telekommunikationsunternehmen mit Sitz in Belgien",
   legalNameIt: "SpeedNetRDC, società di telecomunicazioni con sede in Belgio",
+  legalNameAr: "SpeedNetRDC، شركة اتصالات مقرها بلجيكا",
   tradingName: "SpeedNetRDC",
   address: "Avenue Louise 163, 1050 Brussels, Belgium",
   /** French wording of address (keep in step with it). */
@@ -41,6 +42,7 @@ export const COMPANY = {
   addressNl: "Louizalaan 163, 1050 Brussel, België",
   addressDe: "Avenue Louise 163, 1050 Brüssel, Belgien",
   addressIt: "Avenue Louise 163, 1050 Bruxelles, Belgio",
+  addressAr: "Avenue Louise 163, 1050 بروكسل، بلجيكا",
   registrationNumber: "BE0676820270",
   vatNumber: "BE0676820270",
   privacyEmail: "contact@speednetrdc.com",
@@ -55,6 +57,7 @@ export const COMPANY = {
   governingLawNl: "België",
   governingLawDe: "Belgien",
   governingLawIt: "Belgio",
+  governingLawAr: "بلجيكا",
   /** Lead data protection authority, e.g. "the CNIL (France)". */
   supervisoryAuthority: "the Belgian Data Protection Authority (APD-GBA)",
   /** French wording of supervisoryAuthority (keep in step with it). */
@@ -65,6 +68,7 @@ export const COMPANY = {
   supervisoryAuthorityNl: "de Belgische Gegevensbeschermingsautoriteit (GBA)",
   supervisoryAuthorityDe: "die belgische Datenschutzbehörde (APD-GBA)",
   supervisoryAuthorityIt: "l’Autorità belga per la protezione dei dati (APD-GBA)",
+  supervisoryAuthorityAr: "هيئة حماية البيانات البلجيكية (APD-GBA)",
   /** Consumer mediation / ADR body named in the Terms. Owner, 2026-11-21: none for now; the lawyer must confirm. */
   mediationBody:
     "the Belgian Consumer Mediation Service (Service de médiation pour le consommateur), Boulevard du Roi Albert II 8, box 1, 1000 Brussels, www.mediationconsommateur.be (free of charge)",
@@ -83,6 +87,8 @@ export const COMPANY = {
     "der belgische Ombudsdienst für Verbraucher (Service de médiation pour le consommateur), Boulevard du Roi Albert II 8, Postfach 1, 1000 Brüssel, www.mediationconsommateur.be (kostenlos)",
   mediationBodyIt:
     "il Servizio belga di mediazione per i consumatori (Service de médiation pour le consommateur), Boulevard du Roi Albert II 8, casella 1, 1000 Bruxelles, www.mediationconsommateur.be (gratuito)",
+  mediationBodyAr:
+    "الخدمة البلجيكية لوساطة المستهلك (Service de médiation pour le consommateur)، Boulevard du Roi Albert II 8، صندوق 1، 1000 بروكسل، www.mediationconsommateur.be (مجانية)",
 };
 
 export const POLICY = {
@@ -114,6 +120,7 @@ export const LEGAL_LAST_UPDATED_BY_LOCALE: Record<string, string> = {
   nl: "25 november 2026",
   de: "25. November 2026",
   it: "25 novembre 2026",
+  ar: "25 نوفمبر 2026",
 };
 
 export const isPlaceholder = (value: string) => value.startsWith("[") && value.endsWith("]");

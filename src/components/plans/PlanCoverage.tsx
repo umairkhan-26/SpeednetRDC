@@ -22,7 +22,7 @@ function Chips({ places, tone }: { places: Place[]; tone: "covered" | "left" }) 
       : "rounded-full border border-dashed border-line px-2.5 py-1 text-xs text-muted";
 
   return (
-    <ul className={`mt-2 flex flex-wrap gap-1.5 ${open ? "max-h-44 overflow-y-auto pr-1" : ""}`}>
+    <ul className={`mt-2 flex flex-wrap gap-1.5 ${open ? "max-h-44 overflow-y-auto pe-1" : ""}`}>
       {shown.map((p) => (
         <li key={`${p.iso ?? ""}-${p.name}`} className={chip}>
           {names.country({ name: p.name, iso: p.iso ?? "" })}

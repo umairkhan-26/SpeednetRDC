@@ -102,7 +102,7 @@ export default async function AdminOrdersPage({
 
       {orders.length > 0 && (
         <div className="overflow-x-auto rounded-2xl border border-line bg-white">
-          <table className="w-full text-left text-sm">
+          <table className="w-full text-start text-sm">
             <thead className="border-b border-line text-xs uppercase tracking-wide text-muted">
               <tr>
                 {(["order", "customer", "plan", "amount", "costProfit", "payment", "delivery", "sim", "customerPage"] as const).map((c) => (

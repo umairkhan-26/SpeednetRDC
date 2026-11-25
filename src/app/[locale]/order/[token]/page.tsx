@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { CheckCircle2, Clock, Package, ShieldAlert, Smartphone, Truck } from "lucide-react";
-import { languageTag } from "@/i18n/routing";
+import { languageTag, formatTag } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import { getOrderByAccessToken, type CheckoutOrder, type ShippingAddress } from "@/lib/checkout/orders-repository";
 import { pendingAnswer } from "@/lib/physical-sim";
@@ -97,7 +97,7 @@ async function ReadyToInstall({ activationCode, planId, t, locale }: { activatio
         </div>
         <div className="space-y-4 rounded-2xl border border-line bg-white p-5 text-sm">
           <p className="font-semibold text-ink">{t("scanTitle")}</p>
-          <ol className="list-decimal space-y-1.5 pl-5 text-muted">
+          <ol className="list-decimal space-y-1.5 ps-5 text-muted">
             <li>
               <span className="font-medium text-ink">iPhone:</span> {t("iphoneSteps")}
             </li>
@@ -132,12 +132,12 @@ async function ReadyToInstall({ activationCode, planId, t, locale }: { activatio
         <div className="mt-6 rounded-2xl border border-line bg-white p-5 text-sm">
           <p className="font-semibold text-ink">{t("coverageTitle")}</p>
           <p className="mt-1 text-muted">{covered.length === 1 ? t("coverageTextSingle", { country: covered[0] }) : t("coverageText")}</p>
-          {covered.length > 1 && <p className="mt-3 leading-relaxed text-ink">{covered.join(", ")}</p>}
+          {covered.length > 1 && <p className="mt-3 leading-relaxed text-ink">{names.list(covered)}</p>}
         </div>
       )}
       <div className="mt-6 rounded-2xl border border-line bg-white p-5 text-sm">
         <p className="font-semibold text-ink">{t("noInternetTitle")}</p>
-        <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-muted">
+        <ol className="mt-2 list-decimal space-y-1.5 ps-5 text-muted">
           <li>{t("noInternet1")}</li>
           <li>{t("noInternet2")}</li>
           <li>{t("noInternet3")}</li>
@@ -147,7 +147,7 @@ async function ReadyToInstall({ activationCode, planId, t, locale }: { activatio
         <p className="mt-3 text-muted">
           {t("reportIntro")}{" "}
           <Link href="/account#support" className="font-semibold text-orange hover:underline">
-            {t("reportLink")} →
+            {t("reportLink")} <span aria-hidden className="inline-block rtl:-scale-x-100">→</span>
           </Link>
         </p>
       </div>
@@ -163,14 +163,14 @@ async function HowToRecharge({ locale }: { locale: string }) {
   return (
     <div className="mt-6 rounded-2xl border border-line bg-white p-5 text-sm">
       <p className="font-semibold text-ink">{t("title")}</p>
-      <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-muted">
+      <ol className="mt-2 list-decimal space-y-1.5 ps-5 text-muted">
         <li>{t("step1")}</li>
         <li>{t("step2")}</li>
         <li>{t("step3")}</li>
       </ol>
       <p className="mt-3 text-muted">{t("note")}</p>
       <Link href="/login" className="mt-3 inline-block font-semibold text-orange hover:underline">
-        {t("signIn")} →
+        {t("signIn")} <span aria-hidden className="inline-block rtl:-scale-x-100">→</span>
       </Link>
     </div>
   );
@@ -195,7 +195,7 @@ function NotReadyYet({ order, t }: { order: CheckoutOrder; t: T }) {
 
 function SimCardOrder({ order, locale, t }: { order: CheckoutOrder; locale: string; t: T }) {
   const status = order.shippingStatus ?? "awaiting";
-  const date = (iso: string) => new Date(iso).toLocaleDateString(languageTag(locale), { day: "numeric", month: "long", year: "numeric" });
+  const date = (iso: string) => new Date(iso).toLocaleDateString(formatTag(locale), { day: "numeric", month: "long", year: "numeric" });
   return (
     <>
       <h1 className="mt-2 flex items-center gap-2 text-2xl font-bold text-ink sm:text-3xl">
@@ -235,7 +235,7 @@ function SimCardOrder({ order, locale, t }: { order: CheckoutOrder; locale: stri
 
       <div className="mt-6 rounded-2xl border border-line bg-white p-5 text-sm">
         <p className="font-semibold text-ink">{t("sim.whenArrives")}</p>
-        <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-muted">
+        <ol className="mt-2 list-decimal space-y-1.5 ps-5 text-muted">
           <li>{t("sim.step1")}</li>
           <li>{t("sim.step2")}</li>
           <li>{t("sim.step3")}</li>

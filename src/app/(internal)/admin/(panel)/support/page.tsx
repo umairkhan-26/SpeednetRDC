@@ -51,7 +51,7 @@ export default async function AdminSupportPage({ searchParams }: { searchParams:
         <p className="rounded-2xl border border-dashed border-line bg-white py-14 text-center text-sm text-muted">{s("empty")}</p>
       ) : (
         <div className="overflow-x-auto rounded-2xl border border-line bg-white">
-          <table className="w-full min-w-[820px] text-left text-sm">
+          <table className="w-full min-w-[820px] text-start text-sm">
             <thead className="border-b border-line text-xs uppercase tracking-wide text-muted">
               <tr>
                 {["issue", "customer", "order", "sim", "updated"].map((c) => (

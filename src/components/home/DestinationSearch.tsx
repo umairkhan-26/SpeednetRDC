@@ -40,7 +40,7 @@ export default function DestinationSearch() {
         }}
         className="relative flex items-center rounded-full bg-white p-1.5 shadow-xl"
       >
-        <Search className="ml-4 size-5 shrink-0 text-muted" />
+        <Search className="ms-4 size-5 shrink-0 text-muted" />
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -65,7 +65,7 @@ export default function DestinationSearch() {
               key={c.slug}
               type="button"
               onClick={() => goToStore(c.label)}
-              className="flex w-full items-center gap-3 px-5 py-3 text-left text-sm hover:bg-cream"
+              className="flex w-full items-center gap-3 px-5 py-3 text-start text-sm hover:bg-cream"
             >
               <span className="flex size-5 items-center justify-center rounded bg-cream text-[9px] font-bold text-ink">
                 {c.iso}

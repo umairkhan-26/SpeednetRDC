@@ -3,7 +3,7 @@ import { getCountryBySlug } from "@/data/countries";
 import { getRegionBySlug } from "@/data/regions";
 import { formatPrice as formatPriceEur } from "@/lib/format";
 import { isoForPlace } from "@/lib/sims/coverage";
-import { languageTag } from "./routing";
+import { formatTag, languageTag, textDirection } from "./routing";
 
 // Names that come from data rather than translation files: countries,
 // regions, plan names ("Albania 1GB / 7 Days"), data amounts, durations and
@@ -11,7 +11,7 @@ import { languageTag } from "./routing";
 // pages are fully translated, so a page never mixes English text with
 // translated names. Add a language here once its pages are fully translated.
 // (French and Spanish joined on 23 Nov 2026, once every text key was translated.)
-const LOCALIZED_NAME_LOCALES = new Set(["fr", "es", "pt", "nl", "de", "it"]);
+const LOCALIZED_NAME_LOCALES = new Set(["fr", "es", "pt", "nl", "de", "it", "ar"]);
 
 export function localizesNames(locale: string): boolean {
   return LOCALIZED_NAME_LOCALES.has(locale);
@@ -27,6 +27,7 @@ const NAME_OVERRIDES: Record<string, Record<string, string>> = {
   nl: { CD: "DR Congo", HK: "Hongkong", MO: "Macau" },
   de: { CD: "DR Kongo", HK: "Hongkong", MO: "Macau" },
   it: { CD: "RD del Congo", HK: "Hong Kong", MO: "Macao" },
+  ar: { CD: "الكونغو الديمقراطية", HK: "هونغ كونغ", MO: "ماكاو", PS: "فلسطين" },
 };
 
 /** The provider's "Netherlands Antilles" has no ISO code any more, so it is matched by its English name. */
@@ -37,6 +38,7 @@ const NAME_OVERRIDES_BY_ENGLISH_NAME: Record<string, Record<string, string>> = {
   nl: { "Netherlands Antilles": "Nederlandse Antillen" },
   de: { "Netherlands Antilles": "Niederländische Antillen" },
   it: { "Netherlands Antilles": "Antille Olandesi" },
+  ar: { "Netherlands Antilles": "جزر الأنتيل الهولندية" },
 };
 
 const displayNames = new Map<string, Intl.DisplayNames | null>();
@@ -55,6 +57,9 @@ function regionDisplayNames(locale: string): Intl.DisplayNames | null {
 /** The labels formatter for one language. `tFormat` / `tRegions` are translators for the "format" and "regions" namespaces. */
 export function createNames(locale: string, tFormat: Translate, tRegions: Translate) {
   const localized = localizesNames(locale);
+  const rightToLeft = textDirection(locale) === "rtl";
+  // Arabic: this mark keeps "1GB" from pulling the number that follows it out of order.
+  const rtlMark = rightToLeft ? "\u200F" : "";
 
   const country = (c: { name: string; iso: string }): string => {
     if (!localized) return c.name;
@@ -72,19 +77,23 @@ export function createNames(locale: string, tFormat: Translate, tRegions: Transl
     return localized ? mapped.sort((a, b) => a.localeCompare(b, languageTag(locale))) : mapped;
   };
 
+  /** Joins place names into one sentence-style list, with the comma this language uses. */
+  const list = (items: string[]): string => items.join(rightToLeft ? "\u060C " : ", ");
+
   const region = (slug: string, englishName?: string): string => {
     const fallback = englishName ?? getRegionBySlug(slug)?.name ?? slug;
     return localized ? tRegions(slug) : fallback;
   };
 
+  const decimalMark = localized && !rightToLeft ? "," : ".";
   const data = (gb: number | "unlimited"): string =>
-    gb === "unlimited" ? tFormat("unlimited") : gb < 1 ? `${Math.round(gb * 1000)}MB` : `${String(gb).replace(".", localized ? "," : ".")}GB`;
+    gb === "unlimited" ? tFormat("unlimited") : (gb < 1 ? `${Math.round(gb * 1000)}MB` : `${String(gb).replace(".", decimalMark)}GB`) + rtlMark;
 
   const validity = (days: number): string => tFormat("days", { count: days });
 
   const price = (amount: number): string =>
     localized
-      ? new Intl.NumberFormat(languageTag(locale), { style: "currency", currency: "EUR" }).format(amount)
+      ? new Intl.NumberFormat(formatTag(locale), { style: "currency", currency: "EUR" }).format(amount)
       : formatPriceEur(amount);
 
   /** "Albania", "Europe", "Global Plus"… */
@@ -103,7 +112,7 @@ export function createNames(locale: string, tFormat: Translate, tRegions: Transl
   const planName = (plan: Plan): string =>
     localized ? tFormat("planName", { area: planArea(plan), data: data(plan.dataAmountGb), validity: validity(plan.validityDays) }) : plan.name;
 
-  return { locale, localized, country, countryList, region, data, validity, price, planArea, planName };
+  return { locale, localized, country, countryList, list, region, data, validity, price, planArea, planName };
 }
 
 export type Names = ReturnType<typeof createNames>;

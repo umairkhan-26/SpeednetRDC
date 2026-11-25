@@ -67,7 +67,7 @@ export default function MultiPlansHero({
           <div className="mt-6 grid gap-5 lg:grid-cols-[2fr_1fr]">
             <div className="rounded-2xl border border-line bg-cream p-5">
               <p className="text-sm font-semibold text-ink">{t("countriesCovered", { count: countriesIncluded.length })}</p>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{names.countryList(countriesIncluded).join(", ")}</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{names.list(names.countryList(countriesIncluded))}</p>
             </div>
             <div className="space-y-4">
               <div className="rounded-2xl border border-line bg-cream p-5">

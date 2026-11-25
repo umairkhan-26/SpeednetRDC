@@ -45,7 +45,7 @@ export default function DestinationTile({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/0" />
 
-        <span className="absolute left-2.5 top-2.5 flex size-7 items-center justify-center rounded-md bg-white/95 text-[11px] font-bold text-ink shadow">
+        <span className="absolute start-2.5 top-2.5 flex size-7 items-center justify-center rounded-md bg-white/95 text-[11px] font-bold text-ink shadow">
           {isGlobal ? <Globe className="size-4 text-sky-600" /> : code}
         </span>
 

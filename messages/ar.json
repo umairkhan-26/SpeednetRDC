@@ -1,0 +1,1042 @@
+{
+  "nav": {
+    "esimStore": "متجر eSIM",
+    "destinations": "الوجهات",
+    "regionalPlans": "الباقات الإقليمية",
+    "globalPlans": "الباقات العالمية",
+    "howItWorks": "كيف يعمل",
+    "help": "المساعدة",
+    "myEsims": "شرائحي",
+    "language": "اللغة",
+    "physicalSim": "شريحة SIM",
+    "toggleMenu": "فتح القائمة أو إغلاقها"
+  },
+  "footer": {
+    "tagline": "ابقَ على اتصال في أي مكان. بيانات eSIM فورية لأكثر من 180 دولة تصلك بالبريد الإلكتروني.",
+    "shopHeading": "المتجر",
+    "supportHeading": "الدعم",
+    "languageHeading": "اللغة",
+    "globalEsim": "eSIM عالمية",
+    "deviceCompatibility": "توافق الجهاز",
+    "helpCenter": "مركز المساعدة",
+    "copyright": "© {year} SpeedNetRDC. جميع الحقوق محفوظة.",
+    "designedBy": "تصميم",
+    "privacy": "سياسة الخصوصية",
+    "terms": "الشروط والأحكام",
+    "refunds": "سياسة الاسترداد",
+    "cookieSettings": "إعدادات ملفات تعريف الارتباط",
+    "followUs": "تابعنا",
+    "followOn": "SpeedNetRDC على {network}",
+    "popularDestinations": "وجهات رائجة",
+    "contactUs": "اتصل بنا",
+    "legalNotice": "إشعار قانوني",
+    "securePayments": "مدفوعات آمنة عبر Stripe",
+    "operatedBy": "تدير SpeedNetRDC شركة اتصالات مقرها بلجيكا.",
+    "companyDetails": "{address} · رقم المنشأة (BCE/KBO) {registration} · الرقم الضريبي {vat} · {email}"
+  },
+  "home": {
+    "hero": {
+      "titleLine1": "ابقَ على اتصال.",
+      "titleLine2": "في أي مكان.",
+      "subtitle": "بيانات eSIM فورية لأكثر من 180 دولة. بلا عقود، اهبط واتصل.",
+      "explorePlans": "استكشف باقات eSIM",
+      "howItWorks": "كيف يعمل",
+      "searchPlaceholder": "إلى أين تسافر؟",
+      "search": "بحث"
+    },
+    "valueProps": {
+      "instantDeliveryTitle": "تسليم فوري",
+      "instantDeliveryDescription": "رمز QR وبيانات التفعيل لحظة الدفع.",
+      "securePaymentsTitle": "دفع آمن",
+      "securePaymentsDescription": "دفع مشفّر بالبطاقة، مع Apple Pay وGoogle Pay على الأجهزة المدعومة.",
+      "keepNumberTitle": "احتفظ برقمك",
+      "keepNumberDescription": "تبقى شريحتك المعتادة للمكالمات والرسائل بينما تتولى eSIM البيانات.",
+      "supportTitle": "دعم عبر البريد وواتساب",
+      "supportDescription": "أشخاص حقيقيون يردّون، عادةً خلال يوم عمل واحد."
+    },
+    "steps": {
+      "eyebrow": "كيف يعمل",
+      "title": "اتصال في أربع خطوات بسيطة",
+      "searchTitle": "ابحث عن وجهتك",
+      "searchDescription": "أخبرنا إلى أين تتجه وسنعرض كل الباقات التي تغطيها.",
+      "pickTitle": "اختر باقة وادفع",
+      "pickDescription": "اختر حجم البيانات ومدة الصلاحية، ثم ادفع بأمان في أقل من دقيقة.",
+      "scanTitle": "امسح رمز QR",
+      "scanDescription": "ثبّتها فوراً بمسح رمز QR أو إدخال بيانات التفعيل.",
+      "landTitle": "اهبط واتصل",
+      "landDescription": "تُفعَّل شريحتك تلقائياً على أول شبكة مدعومة."
+    },
+    "popularDestinations": {
+      "eyebrow": "وجهات رائجة",
+      "title": "أكثر الأماكن التي يتصل منها المسافرون",
+      "allDestinations": "كل الوجهات",
+      "names": {
+        "australia": "أستراليا",
+        "canada": "كندا",
+        "europe": "أوروبا",
+        "global": "عالمي",
+        "japan": "اليابان",
+        "saudi-arabia": "السعودية",
+        "thailand": "تايلاند",
+        "turkey": "تركيا",
+        "uae": "الإمارات",
+        "united-kingdom": "المملكة المتحدة"
+      },
+      "subtitles": {
+        "australia": "أوقيانوسيا",
+        "canada": "أمريكا الشمالية",
+        "europe": "أكثر من 22 دولة",
+        "global": "أكثر من 81 دولة",
+        "japan": "آسيا",
+        "saudi-arabia": "الشرق الأوسط",
+        "thailand": "آسيا",
+        "turkey": "أوروبا",
+        "uae": "الشرق الأوسط",
+        "united-kingdom": "أوروبا"
+      }
+    },
+    "regionalStrip": {
+      "eyebrow": "تغطية متعددة الدول",
+      "title": "شريحة eSIM واحدة لرحلتك كلها",
+      "subtitle": "تعبر الحدود؟ باقة واحدة تغطي كل دول المنطقة.",
+      "seeAllRegions": "عرض كل المناطق",
+      "global": "عالمي",
+      "countriesCount": "أكثر من {count} دولة",
+      "countriesCountPlain": "حتى {count} دولة",
+      "fromPrice": "ابتداءً من {price}"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "تسجيل الدخول",
+      "subtitle": "أدخل البريد الإلكتروني الذي استخدمته عند الدفع. سنرسل لك رابط دخول، بلا كلمة مرور.",
+      "emailLabel": "البريد الإلكتروني",
+      "emailPlaceholder": "you@example.com",
+      "emailError": "أدخل بريداً إلكترونياً صحيحاً.",
+      "submit": "أرسل لي رابط الدخول",
+      "sending": "جارٍ الإرسال…",
+      "sentTitle": "تحقق من بريدك الوارد",
+      "sentBody": "إذا كان {email} قد طلب منا من قبل، فقد أرسلنا إليه رابط دخول. يعمل مرة واحدة وتنتهي صلاحيته بعد 15 دقيقة.",
+      "tooMany": "محاولات كثيرة. حاول لاحقاً.",
+      "useDifferent": "استخدم بريداً آخر",
+      "unavailable": "تسجيل الدخول غير متاح حالياً. رابط شريحتك موجود في رسالة تأكيد الطلب، أو تواصل مع الدعم."
+    },
+    "verify": {
+      "title": "تسجيل الدخول إلى SpeedNetRDC",
+      "body": "أنت تسجّل الدخول باسم {email}.",
+      "submit": "تسجيل الدخول",
+      "signingIn": "جارٍ تسجيل الدخول…",
+      "invalidTitle": "انتهت صلاحية هذا الرابط",
+      "invalidBody": "روابط الدخول تعمل مرة واحدة وتنتهي بعد 15 دقيقة.",
+      "newLink": "اطلب رابط دخول جديداً",
+      "tooMany": "محاولات كثيرة. حاول لاحقاً.",
+      "unavailable": "تسجيل الدخول غير متاح حالياً. رابط شريحتك موجود في رسالة تأكيد الطلب، أو تواصل مع الدعم."
+    }
+  },
+  "regions": {
+    "africa": "أفريقيا",
+    "americas": "الأمريكتان",
+    "asia": "آسيا",
+    "caribbean": "الكاريبي",
+    "europe": "أوروبا",
+    "middle-east": "الشرق الأوسط",
+    "global": "عالمي",
+    "latin-america": "أمريكا اللاتينية",
+    "oceania": "أوقيانوسيا",
+    "north-america": "أمريكا الشمالية",
+    "africa-plus": "أفريقيا بلس",
+    "asia-plus": "آسيا بلس",
+    "malaysia-singapore": "ماليزيا وسنغافورة",
+    "caribbean-plus": "الكاريبي بلس",
+    "europe-plus": "أوروبا بلس",
+    "europe-mediterranean": "أوروبا والبحر المتوسط",
+    "scandinavia-baltics": "إسكندنافيا ودول البلطيق",
+    "middle-east-plus": "الشرق الأوسط بلس",
+    "australia-new-zealand": "أستراليا ونيوزيلندا",
+    "isle-of-man-channel-islands": "جزيرة مان وجزر القنال",
+    "french-caribbean": "الكاريبي الفرنسي وغيانا"
+  },
+  "account": {
+    "title": "شرائحي",
+    "subtitle": "مسجّل الدخول باسم {email}. كل الشرائح المشتراة بهذا البريد.",
+    "signOut": "تسجيل الخروج",
+    "emptyTitle": "لا توجد طلبات لهذا البريد بعد",
+    "emptyBody": "تظهر الطلبات هنا بعد دفعها.",
+    "emptyCta": "تصفّح باقات eSIM",
+    "orderNumber": "الطلب ORD-{id}",
+    "bought": "تاريخ الشراء {date}",
+    "statusReady": "جاهزة للتثبيت",
+    "statusPreparing": "قيد التحضير",
+    "statusRefunded": "مسترد",
+    "viewEsim": "عرض eSIM ورمز QR",
+    "preparingNote": "سنراسلك حالما تصبح جاهزة.",
+    "help": "طلب مفقود؟ ستجده تحت البريد المستخدم عند الدفع. تحتاج مساعدة؟",
+    "contactSupport": "تواصل مع الدعم",
+    "mySimsTitle": "شرائحي",
+    "mySimsSubtitle": "شرائحك وباقات البيانات عليها.",
+    "simCard": "شريحة SIM",
+    "esim": "eSIM",
+    "ending": "تنتهي بـ {digits}",
+    "noPlan": "لا توجد باقة بيانات على هذه الشريحة حالياً.",
+    "planActive": "نشطة",
+    "planWaiting": "تبدأ عند أول اتصال في دولة مغطاة",
+    "dataLeft": "المتبقي {left} من {total}",
+    "expires": "تنتهي {date}",
+    "buyMore": "اشترِ بيانات إضافية",
+    "checkedAt": "آخر فحص {time}",
+    "viewOrder": "عرض الطلب",
+    "recharge": "إعادة الشحن"
+  },
+  "homePhysicalSim": {
+    "eyebrow": "شريحة SIM فعلية · متاحة الآن",
+    "title": "هاتفك لا يدعم eSIM؟ احصل على شريحة فعلية",
+    "text": "شريحة SpeedNetRDC لأي هاتف غير مقفل، تتضمن بيانات دولية، تُشحن من بلجيكا إلى أي مكان في العالم خلال 3–5 أيام عمل.",
+    "price": "€{total} شاملة: الشريحة و{gb} من البيانات والشحن العالمي والضريبة",
+    "cta": "اعرف المزيد"
+  },
+  "physicalSim": {
+    "metaTitle": "شريحة SIM فعلية — SpeedNetRDC",
+    "eyebrow": "شريحة SIM فعلية",
+    "title": "هاتفك لا يدعم eSIM؟ احصل على شريحة SpeedNetRDC",
+    "subtitle": "شريحة حقيقية لأي هاتف غير مقفل، تتضمن {gb} من البيانات الدولية، تُشحن من بلجيكا إلى أي مكان في العالم.",
+    "priceTitle": "السعر",
+    "simLine": "الشريحة + {gb} من البيانات",
+    "shippingLine": "شحن عالمي",
+    "total": "الإجمالي",
+    "taxNote": "شامل الضريبة ({vat}).",
+    "features": {
+      "shipsFrom": "تُشحن من بلجيكا",
+      "delivery": "توصيل حول العالم خلال 3–5 أيام عمل",
+      "unlocked": "تعمل في أي هاتف غير مقفل",
+      "data": "تتضمن {gb} من البيانات الدولية"
+    },
+    "howTitle": "كيف يعمل",
+    "steps": {
+      "shipTitle": "نشحنها إليك",
+      "shipText": "نرسل شريحتك من بلجيكا، وتصلك خلال 3–5 أيام عمل أينما كنت.",
+      "insertTitle": "أدخلها",
+      "insertText": "ضع الشريحة في أي هاتف غير مقفل.",
+      "dataTitle": "اتصل",
+      "dataText": "البيانات المضمّنة موجودة على الشريحة: فعّل تجوال البيانات وستكون متصلاً."
+    },
+    "orderTitle": "متاحة الآن",
+    "orderText": "اطلب شريحتك بالبريد: أرسل اسمك وعنوان التوصيل وسنرد بالخطوات التالية.",
+    "contactButton": "اطلب بالبريد",
+    "contactSubject": "طلب شريحة فعلية",
+    "faqTitle": "أسئلة",
+    "faq": {
+      "whatQ": "ما هي شريحة SpeedNetRDC؟",
+      "whatA": "شريحة فعلية للهواتف التي لا تدعم eSIM. تأتي مع {gb} من البيانات الدولية (صالحة {days} يوماً في {countries} دولة)، فتعمل فور وصولها.",
+      "phonesQ": "على أي هواتف تعمل؟",
+      "phonesA": "أي هاتف غير مقفل على مشغّل ويقبل شريحة SIM قياسية.",
+      "priceQ": "كم سعرها؟",
+      "priceA": "{total} شاملة: الشريحة و{gb} من البيانات الدولية والشحن إلى أي مكان في العالم والضريبة.",
+      "shippingQ": "إلى أين تشحنون وكم يستغرق ذلك؟",
+      "shippingA": "نشحن من بلجيكا إلى أي مكان في العالم. يستغرق التوصيل 3–5 أيام عمل.",
+      "whenQ": "هل يمكنني طلبها الآن؟",
+      "whenA": "نعم. راسلنا على {email} باسمك وعنوان التوصيل وسنرد بالخطوات التالية."
+    }
+  },
+  "physicalSimShop": {
+    "metaTitle": "شريحة SIM فعلية — SpeedNetRDC",
+    "eyebrow": "شريحة SIM فعلية",
+    "title": "هاتفك لا يدعم eSIM؟ احصل على شريحة SpeedNetRDC",
+    "subtitle": "شريحة حقيقية لأي هاتف غير مقفل مع بيانات دولية. احتفظ بها وأضف بيانات من موقعنا كلما سافرت.",
+    "priceTitle": "السعر",
+    "simLine": "الشريحة + {gb} من البيانات",
+    "shippingLine": "شحن عالمي",
+    "feesLine": "الضرائب والرسوم",
+    "total": "الإجمالي",
+    "taxFinal": "شامل الضريبة ({vat}).",
+    "taxSurcharge": "يشمل 5% ضرائب ورسوماً.",
+    "taxVat": "يشمل ضريبة القيمة المضافة {vat} (21%).",
+    "features": {
+      "shipsFrom": "تُشحن من بلجيكا",
+      "delivery": "توصيل حول العالم خلال 3–5 أيام عمل",
+      "unlocked": "تعمل في أي هاتف غير مقفل",
+      "keep": "البيانات مضمّنة، والشريحة لك، أعد شحنها كلما سافرت"
+    },
+    "howTitle": "كيف يعمل",
+    "steps": {
+      "orderTitle": "اطلب",
+      "orderText": "اطلب شريحتك هنا وادفع بأمان.",
+      "shipTitle": "نشحن",
+      "shipText": "نرسلها من بلجيكا وتصل خلال 3–5 أيام عمل إلى أي مكان في العالم.",
+      "insertTitle": "أدخل",
+      "insertText": "ضع الشريحة في هاتف غير مقفل وفعّل تجوال البيانات.",
+      "buyTitle": "استخدم بياناتك",
+      "buyText": "البيانات المضمّنة على الشريحة. تحتاج المزيد؟ اختر باقة ثم «أضف إلى شريحتي».",
+      "connectTitle": "اتصل",
+      "connectText": "تبدأ باقتك عند أول اتصال في دولة مغطاة."
+    },
+    "orderTitle": "اطلب شريحتك",
+    "nameLabel": "الاسم الكامل",
+    "emailLabel": "عنوان البريد الإلكتروني",
+    "emailHint": "سنرسل تحديثات الطلب إلى هنا. سجّل الدخول بهذا البريد لاحقاً لترى شريحتك في «شرائحي».",
+    "addressNote": "ستدخل عنوان الشحن في صفحة الدفع الآمنة. نشحن إلى كل العالم.",
+    "oneSim": "شريحة واحدة لكل طلب.",
+    "submit": "المتابعة إلى الدفع · {total}",
+    "submitting": "جارٍ فتح الدفع الآمن…",
+    "invalid": "أدخل اسمك الكامل وبريداً إلكترونياً صحيحاً.",
+    "error": "حدث خطأ ما. حاول مرة أخرى.",
+    "faqTitle": "أسئلة",
+    "faq": {
+      "whatQ": "ما هي شريحة SpeedNetRDC؟",
+      "whatA": "شريحة فعلية للهواتف دون eSIM. تأتي مع {gb} من البيانات الدولية فتعمل فور وصولها، ويمكنك إضافة بيانات متى احتجت.",
+      "includedQ": "ماذا يشمل السعر؟",
+      "includedA": "{total} شاملة: الشريحة و{gb} من البيانات الدولية صالحة {days} يوماً في {countries} دولة، والشحن إلى أي مكان والضريبة. توضع البيانات على الشريحة قبل إرسالها، وتبدأ مدة {days} يوماً عند أول اتصال.",
+      "phonesQ": "على أي هواتف تعمل؟",
+      "phonesA": "أي هاتف غير مقفل على مشغّل ويقبل شريحة SIM قياسية.",
+      "shippingQ": "إلى أين تشحنون وكم يستغرق ذلك؟",
+      "shippingA": "نشحن من بلجيكا إلى أي مكان في العالم، بما في ذلك أوروبا والأمريكتان وأفريقيا. يستغرق التوصيل 3–5 أيام عمل بعد الإرسال.",
+      "customsQ": "هل توجد رسوم جمركية خارج الاتحاد الأوروبي؟",
+      "customsA": "سعرنا يشمل الضريبة. خارج الاتحاد الأوروبي قد يطبّق بلد الوجهة إجراءات جمركية أو رسوم استيراد خاصة به، تُدفع عند التسليم.",
+      "keepQ": "كم من الوقت يمكنني الاحتفاظ بالشريحة؟",
+      "keepA": "هي لك دون تاريخ انتهاء محدد. تُلغى الشريحة إذا بقيت دون استخدام مدة {period}.",
+      "dataQ": "كيف أضيف بيانات؟",
+      "dataA": "اختر أي باقة من موقعنا ثم «أضف إلى شريحتي»، وأدخل الرقم المطبوع على شريحتك، أو اخترها من «شرائحي» بعد تسجيل الدخول.",
+      "startQ": "متى تبدأ الباقة؟",
+      "startA": "عند أول اتصال لهاتفك في دولة تغطيها الباقة {window}.",
+      "twoQ": "ماذا لو كانت لدي باقتان للدولة نفسها؟",
+      "twoA": "تتراكم الباقات: تحتفظ كل واحدة ببياناتها وتاريخ انتهائها. {priority}",
+      "returnsQ": "هل يمكنني إرجاع الشريحة؟",
+      "returnsA": "{returns}"
+    }
+  },
+  "meta": {
+    "siteTitle": "SpeedNetRDC — بيانات eSIM فورية في أي مكان",
+    "siteDescription": "ابقَ على اتصال في أكثر من 180 دولة ببيانات eSIM فورية. بلا عقود.",
+    "store": "متجر eSIM",
+    "destinations": "الوجهات",
+    "destination": "eSIM {country}",
+    "destinationFallback": "الوجهة",
+    "regionalPlans": "الباقات الإقليمية",
+    "regionPlans": "باقات {region}",
+    "planFallback": "الباقة",
+    "globalPlans": "الباقات العالمية",
+    "help": "مركز المساعدة",
+    "howItWorks": "كيف يعمل",
+    "deviceCompatibility": "توافق الجهاز",
+    "checkout": "الدفع",
+    "checkoutSuccess": "تم تأكيد الطلب",
+    "checkoutCancelled": "أُلغي الدفع",
+    "order": "شريحتك eSIM",
+    "account": "شرائحي",
+    "physicalSim": "شريحة SIM فعلية"
+  },
+  "format": {
+    "unlimited": "غير محدود",
+    "days": "{count, plural, zero {# يوم} one {يوم واحد} two {يومان} few {# أيام} many {# يوماً} other {# يوم}}",
+    "global": "عالمي",
+    "globalPlus": "Global Plus",
+    "planName": "{area} {data} / {validity}"
+  },
+  "planCard": {
+    "bestValue": "أفضل قيمة",
+    "badgePriceDrop": "انخفض السعر",
+    "badgeNew": "جديد",
+    "data": "البيانات",
+    "validity": "الصلاحية",
+    "from": "ابتداءً من",
+    "viewPlan": "عرض الباقة",
+    "countries": "{count, plural, zero {# دولة} one {دولة واحدة} two {دولتان} few {# دول} many {# دولة} other {# دولة}}",
+    "fairUse": "الاستخدام العادل: {gb} جيجابايت"
+  },
+  "store": {
+    "title": "باقات «{destination}»",
+    "everywhere": "في كل مكان",
+    "subtitle": "صفِّ حسب الوجهة والمنطقة والبيانات والمدة لتجد الشريحة المناسبة.",
+    "found": "{count, plural, zero {لم يُعثر على باقات} one {عُثر على باقة واحدة} two {عُثر على باقتين} few {عُثر على # باقات} many {عُثر على # باقة} other {عُثر على # باقة}}",
+    "capped": " — تُعرض أول {cap}، ضيّق البحث لرؤية المزيد",
+    "noResultsTitle": "لا توجد باقات تطابق هذه المرشحات",
+    "noResultsText": "أزل أحد المرشحات أو ابحث عن وجهة أخرى."
+  },
+  "sort": {
+    "sortBy": "ترتيب حسب",
+    "recommended": "الموصى به",
+    "price": "الأقل سعراً",
+    "data": "الأكثر بيانات",
+    "validity": "الأطول صلاحية",
+    "value": "أفضل قيمة"
+  },
+  "filters": {
+    "destination": "الوجهة",
+    "destinationPlaceholder": "ابحث عن دولة أو منطقة",
+    "region": "المنطقة",
+    "allRegions": "كل المناطق",
+    "dataAmount": "حجم البيانات",
+    "anyData": "أي حجم",
+    "dataMin": "{amount} جيجابايت فأكثر",
+    "duration": "المدة",
+    "anyDuration": "أي مدة",
+    "days": "{count, plural, zero {# يوم} one {يوم واحد} two {يومان} few {# أيام} many {# يوماً} other {# يوم}}",
+    "maxPrice": "أقصى سعر",
+    "anyPrice": "أي سعر",
+    "under": "أقل من {price}",
+    "network": "الشبكة",
+    "allNetworks": "كل الشبكات",
+    "unlimitedOnly": "البيانات غير المحدودة فقط",
+    "fiveG": "5G متاح"
+  },
+  "destinations": {
+    "title": "كل دولة بلمسة واحدة",
+    "subtitle": "تصفّح باقات بيانات eSIM لأكثر من 180 دولة مصنّفة حسب المنطقة.",
+    "filterPlaceholder": "ابحث في الدول…",
+    "noMatch": "لا توجد دول تطابق «{query}»."
+  },
+  "destinationTile": {
+    "from": "من"
+  },
+  "installSteps": {
+    "openSettings": "افتح إعدادات هاتفك",
+    "selectMobile": "اختر «شبكة الجوال»",
+    "addEsim": "إضافة eSIM",
+    "scanQr": "امسح رمز QR من SpeedNetRDC",
+    "enableData": "فعّل SpeedNetRDC لبيانات الجوال"
+  },
+  "destination": {
+    "title": "eSIM {country}",
+    "oneCountry": "دولة واحدة مغطاة",
+    "networks": "{count, plural, zero {# شبكة} one {شبكة واحدة} two {شبكتان} few {# شبكات} many {# شبكة} other {# شبكة}}",
+    "plansEyebrow": "الباقات",
+    "plansTitle": "اختر باقتك",
+    "setupEyebrow": "الإعداد",
+    "installTitle": "التثبيت في خمس خطوات",
+    "deviceEyebrow": "فحص الجهاز",
+    "deviceTitle": "هل هاتفك متوافق؟",
+    "needDifferent": "تحتاج دولة أخرى؟",
+    "browseAll": "تصفّح كل الوجهات",
+    "alsoEyebrow": "خيارات أخرى",
+    "alsoTitle": "باقات إقليمية وعالمية تغطي {country} أيضاً",
+    "alsoText": "تغطي هذه الباقات عدة دول منها هذه الدولة. تذكر كل باقة الدول التي تغطيها."
+  },
+  "coverage": {
+    "eyebrow": "التغطية",
+    "title": "التغطية والشبكات",
+    "countriesCovered": "الدول المغطاة ({count})",
+    "availableNetworks": "الشبكات المتاحة",
+    "speed": "السرعة",
+    "dataOptions": "خيارات البيانات",
+    "worksIn": "{count, plural, zero {تعمل في # دولة} one {تعمل في دولة واحدة} two {تعمل في دولتين} few {تعمل في # دول} many {تعمل في # دولة} other {تعمل في # دولة}}",
+    "worksOnly": "تعمل في {country} فقط",
+    "noInternet": "لا إنترنت خارج هذه الدول.",
+    "noInternetSingle": "لا إنترنت خارج {country}.",
+    "notIncluded": "غير مشمولة",
+    "notIncludedHint": "في المنطقة نفسها، لكن هذه الباقة لا تعمل هناك:",
+    "showMore": "+{count} أخرى",
+    "showLess": "عرض أقل"
+  },
+  "taglines": {
+    "default": "بيانات eSIM فورية في {country}.",
+    "custom": {
+      "argentina": "من بوينس آيرس إلى باتاغونيا.",
+      "australia": "من سيدني إلى المناطق النائية، تغطية كاملة.",
+      "bahamas": "تنقّل بين الجزر دون فقدان الإشارة.",
+      "brazil": "من ريو إلى الأمازون، بيانات يمكن الاعتماد عليها.",
+      "canada": "من فانكوفر إلى تورنتو، متصل دائماً.",
+      "colombia": "من بوغوتا إلى كارتاخينا بسلاسة.",
+      "dominican-republic": "من المنتجع إلى المدينة، متصل دائماً.",
+      "egypt": "من القاهرة إلى البحر الأحمر، ابقَ على اتصال.",
+      "fiji": "منتجعات الجزر ببيانات موثوقة.",
+      "france": "من برج إيفل إلى الريفييرا، متصل في كل مكان.",
+      "germany": "بيانات سريعة وموثوقة في الولايات الـ16 كلها.",
+      "indonesia": "من شواطئ بالي إلى زحام جاكرتا.",
+      "israel": "من الساحل إلى الصحراء، ابقَ على تواصل.",
+      "italy": "بيانات تواكب رحلتك الإيطالية.",
+      "japan": "5G فائق السرعة من طوكيو إلى كيوتو.",
+      "kenya": "نيروبي وبلاد السفاري، مغطاة.",
+      "mexico": "من بلدات الشواطئ إلى مكسيكو سيتي، متصل دائماً.",
+      "morocco": "من أسواق مراكش إلى الصحراء الكبرى.",
+      "new-zealand": "من الجزيرة الشمالية إلى الجنوبية، متصل دائماً.",
+      "qatar": "أفق الدوحة، وبياناتك معك.",
+      "saudi-arabia": "من الرياض إلى جدة، تغطية موثوقة.",
+      "singapore": "5G في أنحاء المدينة بلا مناطق ميتة.",
+      "south-africa": "من كيب تاون إلى كروغر، متاح دائماً.",
+      "south-korea": "من أسرع الشبكات في العالم.",
+      "spain": "من الساحل إلى المدينة، تغطية سلسة في إسبانيا.",
+      "thailand": "من شوارع بانكوك إلى شواطئ الجزر، متصل دائماً.",
+      "turkey": "من إسطنبول إلى الساحل، لا تفقد الإشارة.",
+      "uae": "دبي وأبوظبي باتصال كامل.",
+      "united-kingdom": "من لندن إلى المرتفعات، متصل دائماً.",
+      "united-states": "من الساحل إلى الساحل دون مفاجآت التجوال.",
+      "vietnam": "بيانات موثوقة على امتداد الساحل."
+    }
+  },
+  "faq": {
+    "eyebrow": "الأسئلة الشائعة",
+    "title": "الأسئلة المتكررة",
+    "destination": [
+      {
+        "id": "what-is-esim",
+        "question": "ما هي eSIM؟",
+        "answer": "eSIM شريحة رقمية مدمجة في هاتفك. بدلاً من تبديل بطاقة فعلية، تثبّت باقة بمسح رمز QR أو لمس رابط، دون زيارة متجر ودون انتظار."
+      },
+      {
+        "id": "when-install",
+        "question": "متى أثبّت شريحتي؟",
+        "answer": "يمكنك تثبيتها في أي وقت بعد الشراء، لكننا ننصح بذلك قبل السفر ما دمت متصلاً بالواي فاي. لا تتفعّل الباقة إلا عند الاتصال بشبكة مدعومة في وجهتك."
+      },
+      {
+        "id": "keep-number",
+        "question": "هل أحتفظ برقمي المعتاد؟",
+        "answer": "نعم. تضيف eSIM خطاً ثانياً للبيانات فقط بجانب شريحتك، فتستمر باستقبال المكالمات والرسائل على رقمك المعتاد."
+      },
+      {
+        "id": "hotspot",
+        "question": "هل تشمل باقتي نقطة الاتصال؟",
+        "answer": "تدعم معظم باقات SpeedNetRDC مشاركة الإنترنت دون تكلفة إضافية. تحقق من خانة «نقطة الاتصال» في صفحة الباقة."
+      }
+    ],
+    "help": [
+      {
+        "id": "delivery",
+        "question": "كم يستغرق تسليم eSIM؟",
+        "answer": "فوراً. يصبح رمز QR وبيانات التفعيل جاهزين في حسابك وبريدك حالما يكتمل الدفع."
+      },
+      {
+        "id": "compatible",
+        "question": "ماذا لو لم يكن هاتفي متوافقاً مع eSIM؟",
+        "answer": "تحقق من هاتفك في صفحة توافق الأجهزة قبل الشراء. باقة eSIM لا تعمل إلا على هاتف يدعمها."
+      },
+      {
+        "id": "refund",
+        "question": "هل يمكنني استرداد المبلغ؟",
+        "answer": "لطلبات الاسترداد راسلنا على contact@speednetrdc.com."
+      },
+      {
+        "id": "payment",
+        "question": "ما وسائل الدفع المقبولة؟",
+        "answer": "بطاقات الخصم والائتمان عبر صفحة الدفع الآمنة من Stripe. تُعرض Apple Pay وGoogle Pay على الأجهزة التي تدعمها."
+      },
+      {
+        "id": "recharge",
+        "question": "كيف أعيد شحن شريحتي؟",
+        "answer": "سجّل الدخول بالبريد المستخدم عند الدفع، وافتح «شرائحي»، واضغط «إعادة الشحن» بجانب شريحتك، واختر باقة تغطي الدولة التي أنت فيها. يمكنك أيضاً اختيار «أضف إلى شريحتي» في صفحة أي باقة. تُضاف البيانات إلى الشريحة نفسها."
+      },
+      {
+        "id": "contact",
+        "question": "كيف أتواصل مع شخص؟",
+        "answer": "راسلنا على contact@speednetrdc.com، ونرد عادةً خلال يوم عمل. للإجابات السريعة المس زر المحادثة في أسفل الصفحة."
+      }
+    ]
+  },
+  "regionalPlans": {
+    "title": "شريحة eSIM واحدة لرحلتك كلها",
+    "subtitle": "تعبر عدة حدود في منطقة واحدة؟ باقة واحدة تغطي كل دولها.",
+    "countries": "{count, plural, one {دولة واحدة} two {حتى دولتين} few {حتى # دول} many {حتى # دولة} other {حتى # دولة}}",
+    "from": "ابتداءً من {price}"
+  },
+  "regionPage": {
+    "eyebrow": "eSIM {region}",
+    "titleStart": "شريحة واحدة.",
+    "titleEnd": "{region} كلها.",
+    "subtitle": "باقات تغطي حتى {count} دولة في {region} دون تبديل الشريحة عند الحدود. تذكر كل باقة الدول المغطاة بالتحديد.",
+    "statCountries": "الدول المغطاة",
+    "statNetwork": "الشبكة",
+    "statSpeed": "السرعة",
+    "statValidity": "الصلاحية",
+    "validityRange": "3–30 يوماً"
+  },
+  "globalPlans": {
+    "budget": {
+      "label": "عالمي",
+      "eyebrow": "eSIM عالمية",
+      "titleStart": "شريحة واحدة.",
+      "titleEnd": "العالم لك.",
+      "subtitle": "باقتنا العالمية اليومية: تغطية واسعة بأقل سعر للجيجابايت."
+    },
+    "premium": {
+      "label": "Global Plus",
+      "eyebrow": "eSIM Global Plus",
+      "titleStart": "Global Plus.",
+      "titleEnd": "تغطية أوسع وشبكات أسرع.",
+      "subtitle": "فئتنا العالمية المميزة: مشغّلون أكثر للمسافرين الذين يحتاجون التغطية في كل مكان."
+    },
+    "statCountries": "الدول المغطاة",
+    "statNetwork": "الشبكة",
+    "statSpeed": "السرعة",
+    "statPlans": "الباقات"
+  },
+  "planDetail": {
+    "title": "eSIM {area}",
+    "dataAllowance": "حجم البيانات",
+    "validity": "الصلاحية",
+    "network": "الشبكة",
+    "speed": "السرعة",
+    "hotspot": "نقطة الاتصال",
+    "supported": "مدعومة",
+    "notSupported": "غير مدعومة",
+    "activationPolicy": "سياسة التفعيل",
+    "activationPolicyValue": "تتفعّل تلقائياً عند أول اتصال بشبكة مدعومة",
+    "supportedDevices": "الأجهزة المدعومة",
+    "supportedDevicesValue": "هواتف غير مقفلة تدعم eSIM",
+    "refunds": "الاسترداد",
+    "refundsValue": "لطلبات الاسترداد: contact@speednetrdc.com",
+    "totalPrice": "السعر الإجمالي",
+    "buy": "اشترِ هذه الشريحة",
+    "checkDevice": "تحقق من توافق الجهاز",
+    "instantSecure": "تسليم فوري · دفع آمن",
+    "whereTitle": "أين تريد هذه الباقة؟",
+    "newEsim": "eSIM جديدة",
+    "newEsimHint": "احصل على eSIM جديدة بهذه الباقة",
+    "addToSim": "أضف إلى شريحتي",
+    "addToSimHint": "ضعها على شريحة تملكها",
+    "buyTopUp": "أضف هذه الباقة إلى شريحتي",
+    "fairUse": "الاستخدام العادل",
+    "fairUseValue": "حد الاستخدام العادل {gb} جيجابايت",
+    "multiCountryNote": "تعمل هذه الباقة في دولة واحدة فقط. تزور أكثر من دولة؟ اختر باقة إقليمية أو عالمية.",
+    "multiCountryRegional": "الباقات الإقليمية",
+    "multiCountryGlobal": "الباقات العالمية"
+  },
+  "salesPaused": {
+    "title": "طلبات eSIM متوقفة مؤقتاً",
+    "notice": "نجري بعض التحسينات وسنعود قريباً.",
+    "page": "نعمل على تحسينات وسنعود قريباً. في هذه الأثناء يمكنك تصفّح الباقات والتحقق من دعم هاتفك لـ eSIM.",
+    "browsePlans": "تصفّح الباقات",
+    "checkPhone": "تحقق من هاتفي",
+    "questions": "أسئلة؟",
+    "getHelp": "احصل على المساعدة"
+  },
+  "checkout": {
+    "noPlanTitle": "لم تُختر باقة بعد",
+    "noPlanText": "اختر باقة eSIM أولاً ثم عد لإتمام الدفع.",
+    "browsePlans": "تصفّح باقات eSIM",
+    "trouble": "تواجه مشكلة؟",
+    "getHelp": "احصل على المساعدة",
+    "steps": {
+      "plan": "الباقة",
+      "account": "الحساب",
+      "payment": "الدفع",
+      "confirmation": "التأكيد"
+    },
+    "planStep": {
+      "title": "أكّد باقتك",
+      "subtitle": "راجع التفاصيل قبل المتابعة.",
+      "changePlan": "ليست الباقة المناسبة؟ غيّر الباقة",
+      "continue": "متابعة",
+      "subtitleTopUp": "ستُضاف هذه الباقة إلى شريحة تملكها، دون تثبيت eSIM جديدة."
+    },
+    "accountStep": {
+      "title": "حسابك",
+      "subtitle": "سنرسل الشريحة والإيصال إلى هذا البريد.",
+      "fullName": "الاسم الكامل",
+      "namePlaceholder": "محمد أحمد",
+      "nameError": "أدخل اسمك الكامل.",
+      "email": "عنوان البريد الإلكتروني",
+      "emailPlaceholder": "you@example.com",
+      "emailError": "أدخل عنوان بريد صحيحاً.",
+      "back": "رجوع",
+      "continue": "المتابعة إلى الدفع"
+    },
+    "paymentStep": {
+      "title": "الدفع",
+      "intro": "ستدخل بيانات بطاقتك في صفحة Stripe الآمنة، ولا نرى رقم بطاقتك أو نخزّنه أبداً.",
+      "methods": "ستُعرض البطاقة وApple Pay وGoogle Pay ووسائل أخرى مفعّلة في الشاشة التالية. تعالج Stripe الدفع، ولا يُخصم شيء قبل تأكيدك هناك.",
+      "consent": "سلّموا شريحتي فور الدفع. أفهم أنه بعد تسليمها لا ينطبق حق الإلغاء المعتاد خلال 14 يوماً. ويظل بإمكاني استرداد المبلغ في الحالات المذكورة في <refunds>سياسة الاسترداد</refunds>.",
+      "legal": "بالمتابعة فإنك توافق على <terms>الشروط والأحكام</terms> و<refunds>سياسة الاسترداد</refunds>. اقرأ كيف نستخدم بياناتك في <privacy>سياسة الخصوصية</privacy>.",
+      "back": "رجوع",
+      "pay": "المتابعة إلى الدفع الآمن · {total}",
+      "errorPaused": "طلبات eSIM متوقفة مؤقتاً. سنعود قريباً، حاول لاحقاً.",
+      "errorDetails": "أدخل اسماً وبريداً صحيحين",
+      "errorPlan": "باقة غير معروفة",
+      "errorConsent": "يرجى تحديد المربع لتأكيد التسليم الفوري لشريحتك.",
+      "errorGeneric": "تعذّر بدء الدفع. حاول مرة أخرى.",
+      "consentTopUp": "سلّموا باقة البيانات فور الدفع. أفهم أنه بعد تسليمها لا ينطبق حق الإلغاء المعتاد خلال 14 يوماً. ويظل بإمكاني استرداد المبلغ في الحالات المذكورة في <refunds>سياسة الاسترداد</refunds>.",
+      "errorTopUpUnavailable": "إضافة باقة إلى شريحة موجودة غير متاحة بعد.",
+      "errorTooMany": "محاولات كثيرة. حاول لاحقاً.",
+      "errorSimNotFound": "لم نعثر على هذه الشريحة. تحقق من الرقم المطبوع عليها."
+    },
+    "summary": {
+      "title": "ملخص الطلب",
+      "destination": "الوجهة",
+      "plan": "الباقة",
+      "validity": "الصلاحية",
+      "data": "البيانات",
+      "price": "السعر",
+      "taxes": "الضرائب والرسوم",
+      "total": "الإجمالي",
+      "footer": "دفع مشفّر · تسليم فوري · الاسترداد: contact@speednetrdc.com",
+      "addedTo": "أُضيفت إلى",
+      "simEnding": "شريحة تنتهي بـ {last4}",
+      "chooseSim": "شريحتك (اخترها)",
+      "plainTotal": "تدفع {total} دفعة واحدة: الباقة ({price}) مع الضرائب والرسوم ({fees}).",
+      "footerTopUp": "دفع مشفّر · تُضاف إلى شريحتك خلال دقائق · الاسترداد: contact@speednetrdc.com"
+    },
+    "cancelled": {
+      "title": "أُلغي الدفع",
+      "text": "لم يُخصم منك شيء. لم تُحفظ سلتك لكن يمكنك اختيار باقتك مجدداً بلمسات قليلة.",
+      "backToPlans": "العودة إلى الباقات",
+      "getHelp": "احصل على المساعدة"
+    },
+    "success": {
+      "confirming": "جارٍ تأكيد دفعتك…",
+      "settingUp": "استلمنا الدفعة، نجهّز شريحتك…",
+      "fewSeconds": "يستغرق هذا ثوانٍ عادةً. لا تغلق الصفحة.",
+      "needsMomentTitle": "استلمنا الدفعة، شريحتك تحتاج لحظة",
+      "stillPreparingTitle": "استلمنا الدفعة، ما زلنا نجهّز شريحتك",
+      "needsMomentText": "واجهنا مشكلة في تجهيز شريحتك تلقائياً. أُبلغ فريقنا وسيكمل تجهيزها لك.",
+      "stillPreparingText": "يستغرق الأمر أطول من المعتاد.",
+      "orderPageNote": "ستظهر شريحتك ورمز QR في صفحة طلبك الخاصة. احفظها، فكل من لديه الرابط يرى شريحتك.",
+      "openOrderPage": "افتح صفحة طلبي",
+      "getHelp": "احصل على المساعدة",
+      "paymentFailedTitle": "لم تنجح الدفعة",
+      "notConfirmedTitle": "لم نتمكن من تأكيد دفعتك بعد",
+      "paymentFailedText": "لم يُخصم من بطاقتك. حاول مجدداً أو استخدم وسيلة دفع أخرى.",
+      "notConfirmedText": "قد يحدث هذا إذا تأخر التأكيد. إن خُصم المبلغ فتواصل مع الدعم وسنحل الأمر.",
+      "missingSession": "جلسة الدفع مفقودة.",
+      "somethingWrong": "حدث خطأ ما.",
+      "backToPlans": "العودة إلى الباقات"
+    }
+  },
+  "orderPage": {
+    "orderNumber": "الطلب ORD-{id}",
+    "readyTitle": "شريحتك جاهزة للتثبيت",
+    "readyText": "تبدأ باقتك عند أول اتصال لهاتفك بشبكة في دولة تغطيها، وليس قبل ذلك.",
+    "installOnPhone": "التثبيت على هذا الـ iPhone",
+    "installOnPhoneHint": "بلمسة واحدة يُفتح إعداد eSIM على هذا الـ iPhone (iOS 17.4 أو أحدث). تثبّت على هاتف آخر؟ امسح رمز QR أدناه به.",
+    "qrAlt": "رمز QR لتثبيت eSIM",
+    "scanTitle": "امسح هذا الرمز بالهاتف الذي تثبّت عليه الشريحة",
+    "iphoneSteps": "الإعدادات ‹ شبكة الجوال ‹ إضافة eSIM ‹ استخدام رمز QR",
+    "androidSteps": "الإعدادات ‹ الشبكة والإنترنت ‹ شرائح SIM ‹ إضافة eSIM (تختلف التسمية حسب الشركة)",
+    "roaming": "فعّل تجوال البيانات لهذه الشريحة عند وصولك.",
+    "wifi": "ثبّتها وأنت متصل بالواي فاي، ويُفضّل قبل السفر.",
+    "manualTitle": "تعذّر المسح؟ أدخلها يدوياً",
+    "smdpAddress": "عنوان SM-DP+‎",
+    "activationCode": "رمز التفعيل",
+    "keepPrivate": "أبقِ هذه الصفحة خاصة: كل من لديه الرابط أو رمز QR يستطيع تثبيت شريحتك، ولا تُثبَّت إلا مرة واحدة. احفظها لتعود إليها.",
+    "failedTitle": "تحتاج شريحتك وقتاً أطول قليلاً",
+    "settingUpTitle": "نجهّز شريحتك",
+    "failedText": "نجحت الدفعة لكن تعذّر تجهيز شريحتك تلقائياً. سيكملها فريقنا ويتواصل معك على {email} عند الحاجة.",
+    "settingUpText": "نجحت الدفعة. يستغرق هذا أقل من دقيقة عادةً، حدّث الصفحة بعد قليل.",
+    "qrWillAppear": "سيظهر رمز QR هنا حالما يجهز، فاحفظ هذه الصفحة.",
+    "yourEmail": "بريدك",
+    "questions": "أسئلة؟",
+    "getHelp": "احصل على المساعدة",
+    "sim": {
+      "awaitingTitle": "شريحتك في الطريق",
+      "shippedTitle": "أُرسلت شريحتك بالبريد",
+      "deliveredTitle": "تم تسليم شريحتك",
+      "awaitingText": "نجهّز شريحتك. تُشحن من بلجيكا وتصل عادةً خلال 3–5 أيام عمل من إرسالها. سنراسلك عند إرسالها.",
+      "shippedText": "أُرسلت شريحتك وتصل عادةً خلال 3–5 أيام عمل.",
+      "deliveredText": "وصلت شريحتك. أدخلها ثم أضف إليها باقة بيانات.",
+      "shippingTo": "الشحن إلى",
+      "status": "الحالة",
+      "paid": "مدفوع · {date}",
+      "posted": "أُرسلت · {date}",
+      "tracking": "رقم التتبع:",
+      "delivered": "سُلّمت · {date}",
+      "iccid": "رقم الشريحة (ICCID):",
+      "whenArrives": "عند وصولها",
+      "step1": "أدخل الشريحة في أي هاتف غير مقفل.",
+      "step2": "بياناتك الدولية المضمّنة على الشريحة. تحتاج المزيد لاحقاً؟ اختر باقة من موقعنا ثم «أضف إلى شريحتي».",
+      "step3": "فعّل تجوال البيانات لهذه الشريحة. تبدأ باقتك عند أول اتصال في دولة تغطيها.",
+      "keep": "هي لك: أضف بيانات كلما سافرت. تُلغى الشريحة إذا بقيت دون استخدام مدة {period}.",
+      "productName": "شريحة SpeedNetRDC"
+    },
+    "topup": {
+      "readyTitle": "باقتك على شريحتك",
+      "readyText": "أُضيفت {plan} إلى شريحتك المنتهية بـ {ending}. لا شيء للتثبيت: تبدأ الباقة عند أول اتصال في دولة تغطيها {window}. تأكد من تفعيل تجوال البيانات.",
+      "failedTitle": "تحتاج باقتك وقتاً أطول قليلاً",
+      "addingTitle": "جارٍ إضافة باقتك إلى الشريحة {ending}",
+      "failedText": "نجحت الدفعة لكن تعذّرت إضافة الباقة تلقائياً. سيكملها فريقنا ويتواصل معك على {email} عند الحاجة.",
+      "addingText": "نجحت الدفعة. يستغرق هذا أقل من دقيقة عادةً، حدّث الصفحة بعد قليل."
+    },
+    "coverageTitle": "أين تعمل هذه الباقة",
+    "coverageText": "تعمل بياناتك في هذه الدول فقط. خارجها لن يكون لديك إنترنت حتى لو أظهر هاتفك إشارة.",
+    "coverageTextSingle": "تعمل بياناتك في {country} فقط. في أي مكان آخر لن يكون لديك إنترنت حتى لو ظهرت إشارة.",
+    "noInternetTitle": "لا إنترنت؟",
+    "noInternet1": "شغّل خط eSIM: الإعدادات ← بيانات الجوال ← اختر هذه الشريحة.",
+    "noInternet2": "اختر هذه الشريحة لبيانات الجوال وفعّل «تجوال البيانات» لهذا الخط.",
+    "noInternet3": "تأكد أنك في إحدى الدول المذكورة أعلاه.",
+    "noInternet4": "أعد تشغيل هاتفك وانتظر دقيقة. إن لم تعمل، تواصل معنا برقم طلبك.",
+    "keepEsim": "لا تحذف الشريحة من هاتفك حتى لو لم تعمل، فلا يمكن تثبيتها مجدداً. تواصل معنا أولاً.",
+    "reportIntro": "ما زال لا يوجد إنترنت؟",
+    "reportLink": "أبلغ عن مشكلة من حسابك"
+  },
+  "help": {
+    "title": "كيف يمكننا مساعدتك؟",
+    "subtitle": "اعثر على إجابات سريعة أو تواصل مع شخص حقيقي بالبريد أو واتساب.",
+    "categories": {
+      "installation": {
+        "title": "مساعدة التثبيت",
+        "description": "إعداد برمز QR أو يدوياً خطوة بخطوة."
+      },
+      "compatibility": {
+        "title": "توافق الأجهزة",
+        "description": "تحقق من دعم هاتفك لـ eSIM."
+      },
+      "payment": {
+        "title": "مساعدة الدفع",
+        "description": "البطاقات والمحافظ والإيصالات والاسترداد."
+      },
+      "activation": {
+        "title": "تفعيل eSIM",
+        "description": "تشغيل باقتك عند الوصول."
+      }
+    },
+    "whatsappTitle": "WhatsApp",
+    "whatsappText": "أرسل لنا رسالة على واتساب.",
+    "whatsappButton": "تحدّث إلينا على واتساب",
+    "emailSupport": "الدعم بالبريد",
+    "emailSupportText": "نرد عادةً خلال يوم عمل واحد."
+  },
+  "howItWorks": {
+    "title": "من البحث إلى <accent>الاتصال</accent> في دقائق",
+    "subtitle": "لا أدراج شرائح ولا زيارة متاجر ولا مفاجآت تجوال. هكذا تصلك SpeedNetRDC بالإنترنت.",
+    "explore": "استكشف باقات eSIM",
+    "setupEyebrow": "الإعداد",
+    "setupTitle": "تثبيت شريحتك"
+  },
+  "deviceChecker": {
+    "pickBrand": "1 · اختر الشركة",
+    "otherBrand": "أخرى",
+    "selectModel": "2 · اختر الطراز",
+    "chooseModel": "اختر طرازاً…",
+    "compatible": "متوافق مع eSIM",
+    "mayNotSupport": "قد لا يدعم eSIM",
+    "compatibleText": "هاتفك {model} يدعم eSIM. قبل الشراء تأكد أنه غير مقفل ومحدّث، وأن لديك واي فاي للتثبيت.",
+    "unconfirmedText": "لم نتمكن من تأكيد دعم eSIM لـ {model}. راجع إعدادات جهازك أو تواصل مع الدعم.",
+    "models": [
+      {
+        "model": "iPhone 13 series",
+        "label": "سلسلة iPhone 13"
+      },
+      {
+        "model": "iPhone 12 series",
+        "label": "سلسلة iPhone 12"
+      },
+      {
+        "model": "iPhone 11 series",
+        "label": "سلسلة iPhone 11"
+      },
+      {
+        "model": "iPhone SE (2nd gen or later)",
+        "label": "iPhone SE (الجيل الثاني أو أحدث)"
+      },
+      {
+        "model": "iPhone SE (1st gen)",
+        "label": "iPhone SE (الجيل الأول)"
+      },
+      {
+        "model": "iPhone X / 8 / 8 Plus or earlier",
+        "label": "iPhone X / 8 / 8 Plus أو أقدم"
+      },
+      {
+        "model": "Galaxy S25 series",
+        "label": "سلسلة Galaxy S25"
+      },
+      {
+        "model": "Galaxy S24 series",
+        "label": "سلسلة Galaxy S24"
+      },
+      {
+        "model": "Galaxy S23 series",
+        "label": "سلسلة Galaxy S23"
+      },
+      {
+        "model": "Galaxy S22 series",
+        "label": "سلسلة Galaxy S22"
+      },
+      {
+        "model": "Galaxy S21 series",
+        "label": "سلسلة Galaxy S21"
+      },
+      {
+        "model": "Galaxy S20 series",
+        "label": "سلسلة Galaxy S20",
+        "notes": "بعض نسخ المشغّلين مقفلة على eSIM ذلك المشغّل."
+      },
+      {
+        "model": "Galaxy Z Fold / Z Flip (all generations)",
+        "label": "Galaxy Z Fold / Z Flip (كل الأجيال)"
+      },
+      {
+        "model": "Galaxy Note 20 series",
+        "label": "سلسلة Galaxy Note 20"
+      },
+      {
+        "model": "Galaxy S10 series or earlier",
+        "label": "سلسلة Galaxy S10 أو أقدم"
+      },
+      {
+        "model": "Galaxy A-series (budget line)",
+        "label": "سلسلة Galaxy A (الفئة الاقتصادية)",
+        "notes": "معظم هواتف الفئة A لا تحتوي على شريحة eSIM."
+      },
+      {
+        "model": "Pixel 9 series",
+        "label": "سلسلة Pixel 9"
+      },
+      {
+        "model": "Pixel 8 series",
+        "label": "سلسلة Pixel 8"
+      },
+      {
+        "model": "Pixel 7 series",
+        "label": "سلسلة Pixel 7"
+      },
+      {
+        "model": "Pixel 6 series",
+        "label": "سلسلة Pixel 6"
+      },
+      {
+        "model": "Pixel 4 series",
+        "label": "سلسلة Pixel 4"
+      },
+      {
+        "model": "Pixel 3a / 3a XL",
+        "label": "Pixel 3a / 3a XL",
+        "notes": "صدرت سلسلة 3a دون شريحة eSIM."
+      },
+      {
+        "model": "Xiaomi 14 / 14 Ultra",
+        "label": "Xiaomi 14 / 14 Ultra",
+        "notes": "يختلف دعم eSIM حسب المنطقة، تأكد أن جهازك بيع في سوق يدعمها."
+      },
+      {
+        "model": "Xiaomi 13 / 13 Pro",
+        "label": "Xiaomi 13 / 13 Pro",
+        "notes": "يختلف دعم eSIM حسب المنطقة، تأكد أن جهازك بيع في سوق يدعمها."
+      },
+      {
+        "model": "Redmi / Poco series",
+        "label": "سلسلة Redmi / Poco",
+        "notes": "هواتف Redmi وPoco لا تأتي بـ eSIM حالياً."
+      },
+      {
+        "model": "Other Xiaomi model",
+        "label": "طراز Xiaomi آخر"
+      },
+      {
+        "model": "Razr / Razr+ (all generations)",
+        "label": "Razr / Razr+ (كل الأجيال)"
+      },
+      {
+        "model": "Edge 40 / 50 series",
+        "label": "سلسلة Edge 40 / 50"
+      },
+      {
+        "model": "Moto G series",
+        "label": "سلسلة Moto G",
+        "notes": "سلسلة G لا تحتوي على شريحة eSIM."
+      },
+      {
+        "model": "Other Motorola model",
+        "label": "طراز Motorola آخر"
+      },
+      {
+        "model": "My device isn't listed",
+        "label": "جهازي غير مدرج",
+        "notes": "لم نتمكن من تأكيد دعم eSIM تلقائياً. ابحث في إعدادات شبكة الجوال عن «إضافة eSIM» أو تواصل مع الدعم."
+      }
+    ]
+  },
+  "devicePage": {
+    "title": "هل تعمل SpeedNetRDC على هاتفي؟",
+    "subtitle": "اختر جهازك أدناه وسنخبرك فوراً إن كان يدعم eSIM.",
+    "cards": {
+      "capable": {
+        "title": "هاتف يدعم eSIM",
+        "description": "معظم الهواتف الصادرة بعد 2018 تدعم eSIM، تحقق من طرازك أعلاه."
+      },
+      "unlocked": {
+        "title": "غير مقفل على مشغّل",
+        "description": "الهواتف المقفلة لا تثبّت eSIM من جهة أخرى. اطلب من مشغّلك فتحه أولاً."
+      },
+      "wifi": {
+        "title": "واي فاي للتثبيت",
+        "description": "تحتاج إلى اتصال بالإنترنت للإعداد (نحو دقيقتين)، والواي فاي هو الأفضل."
+      }
+    }
+  },
+  "chat": {
+    "title": "مساعدة SpeedNetRDC",
+    "subtitle": "إجابات للأسئلة الشائعة",
+    "greeting": "مرحباً! هذه أكثر الأسئلة التي تصلنا. المس سؤالاً لرؤية الإجابة.",
+    "more": "شيء آخر؟ اختر سؤالاً آخر.",
+    "whatsapp": "تحدّث إلينا على واتساب",
+    "whatsappMessage": "مرحباً SpeedNetRDC، لدي سؤال.",
+    "emailUs": "راسلنا",
+    "open": "فتح المساعدة",
+    "close": "إغلاق المساعدة"
+  },
+  "consent": {
+    "title": "ملفات تعريف الارتباط",
+    "text": "نود استخدام ملفات تعريف ارتباط Meta (فيسبوك) لقياس إعلاناتنا وعرض إعلانات مناسبة لك. فقط إذا قبلت تعرف Meta الصفحات والباقات التي تشاهدها وما تشتريه، مع بريدك وبلد الفوترة بصيغة مشفّرة (مُجزّأة). يمكنك تغيير اختيارك في أي وقت من «إعدادات ملفات تعريف الارتباط» أسفل الصفحة.",
+    "accept": "قبول",
+    "reject": "رفض",
+    "learnMore": "سياسة الخصوصية"
+  },
+  "topUpPicker": {
+    "title": "إلى أي شريحة نضيف هذه الباقة؟",
+    "simCard": "شريحة تنتهي بـ {last4}",
+    "esim": "eSIM تنتهي بـ {last4}",
+    "orAnother": "أو أدخل رقم شريحة أخرى أدناه.",
+    "iccidLabel": "رقم الشريحة (ICCID)",
+    "check": "تحقق من الشريحة",
+    "checking": "جارٍ التحقق…",
+    "hint": "مطبوع على شريحتك. لشريحة eSIM اشتريتها هنا، سجّل الدخول ببريد الطلب واخترها من شرائحك.",
+    "errors": {
+      "unavailable": "إضافة بيانات إلى شريحة موجودة غير متاحة بعد.",
+      "tooMany": "محاولات كثيرة. حاول لاحقاً.",
+      "notFound": "لم نعثر على هذه الشريحة. تحقق من الرقم المطبوع عليها."
+    },
+    "willAddCard": "ستُضاف هذه الباقة إلى شريحتك المنتهية بـ {last4}.",
+    "willAddEsim": "ستُضاف هذه الباقة إلى eSIM المنتهية بـ {last4}."
+  },
+  "recharge": {
+    "coverage": {
+      "generic": "قبل الدفع: تعمل الباقة في الدول التي تغطيها فقط. تأكد أنها تغطي الدولة التي تستخدم فيها هذه الشريحة.",
+      "warning": "تنبيه: يبدو أن هذه الباقة لا تغطي {country}، الدولة التي اشتُريت لها الشريحة. إن كنت في {country} فاختر باقة تغطيها وإلا فلن تعمل البيانات هناك."
+    },
+    "how": {
+      "title": "كيف تعيد شحن شريحتك",
+      "step1": "سجّل الدخول ببريد هذا الطلب وافتح «شرائحي».",
+      "step2": "اضغط «إعادة الشحن» بجانب شريحتك واختر باقة تغطي الدولة التي أنت فيها.",
+      "step3": "ادفع: تُضاف البيانات الجديدة إلى الشريحة نفسها.",
+      "note": "يمكنك أيضاً اختيار «أضف إلى شريحتي» في صفحة أي باقة.",
+      "signIn": "سجّل الدخول لإعادة الشحن"
+    }
+  },
+  "support": {
+    "title": "تحتاج مساعدة بشأن شريحتك؟",
+    "subtitle": "أخبرنا بالمشكلة وسيرى فريقنا الشريحة المعنية. نرد هنا وبالبريد.",
+    "report": "أبلغ عن مشكلة",
+    "whichOrder": "أي طلب أو شريحة؟",
+    "whichIssue": "ما المشكلة؟",
+    "categories": {
+      "no_internet": "لا إنترنت / لا بيانات",
+      "cant_install": "لا أستطيع تثبيت الشريحة أو مسحها",
+      "wrong_country": "باقتي لا تغطي الدولة التي أنا فيها",
+      "data_gone": "نفدت بياناتي أو اختفت",
+      "billing": "دفع أو استرداد",
+      "other": "شيء آخر"
+    },
+    "messageLabel": "أخبرنا المزيد (اختياري)",
+    "messagePlaceholder": "مثلاً: الدولة التي أنت فيها وما تراه على هاتفك…",
+    "send": "أرسل إلى فريقنا",
+    "sending": "جارٍ الإرسال…",
+    "cancel": "إلغاء",
+    "sent": "شكراً. أُبلغ فريقنا وسيرد هنا وبالبريد.",
+    "yourRequests": "طلباتك",
+    "status": {
+      "open": "بانتظارنا",
+      "answered": "تم الرد",
+      "resolved": "تم الحل"
+    },
+    "newReply": "رد جديد",
+    "you": "أنت",
+    "team": "فريق SpeedNetRDC",
+    "noMessage": "لا توجد رسالة.",
+    "replyPlaceholder": "اكتب رداً…",
+    "reply": "إرسال",
+    "errors": {
+      "notSignedIn": "يرجى تسجيل الدخول من جديد.",
+      "invalid": "تحقق مما أدخلته وحاول مرة أخرى.",
+      "tooMany": "طلبات كثيرة. حاول لاحقاً.",
+      "noOrder": "لم نعثر على هذا الطلب.",
+      "failed": "حدث خطأ ما. حاول مرة أخرى.",
+      "chooseIssue": "يرجى اختيار نوع المشكلة."
+    }
+  }
+}

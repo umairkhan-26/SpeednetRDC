@@ -20,7 +20,7 @@ export function P({ children }: { children: ReactNode }) {
 }
 
 export function UL({ children }: { children: ReactNode }) {
-  return <ul className="mt-3 list-disc space-y-1.5 pl-6 leading-relaxed text-ink/80">{children}</ul>;
+  return <ul className="mt-3 list-disc space-y-1.5 ps-6 leading-relaxed text-ink/80">{children}</ul>;
 }
 
 const LAST_UPDATED_LABEL: Record<string, string> = {
@@ -31,6 +31,7 @@ const LAST_UPDATED_LABEL: Record<string, string> = {
   nl: "Laatst bijgewerkt:",
   de: "Zuletzt aktualisiert:",
   it: "Ultimo aggiornamento:",
+  ar: "آخر تحديث:",
 };
 
 const OPERATED_BY: Record<string, string> = {
@@ -41,6 +42,7 @@ const OPERATED_BY: Record<string, string> = {
   nl: "SpeedNetRDC wordt uitgebaat door een telecommunicatiebedrijf gevestigd in België.",
   de: "SpeedNetRDC wird von einem Telekommunikationsunternehmen mit Sitz in Belgien betrieben.",
   it: "SpeedNetRDC è gestito da una società di telecomunicazioni con sede in Belgio.",
+  ar: "تدير SpeedNetRDC شركة اتصالات مقرها بلجيكا.",
 };
 
 /** Shared frame for the Privacy Policy, Terms and Refund Policy (every site language; any other shows the English text with a note). */

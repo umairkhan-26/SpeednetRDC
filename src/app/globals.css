@@ -39,6 +39,23 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/* Arabic: its own font stack (Manrope has no Arabic letters) and no letter
+   spacing, which would break the joins between letters. */
+html[dir="rtl"] body {
+  font-family: "manrope", "Noto Sans Arabic", "Segoe UI", "Geeza Pro", Tahoma, Arial, sans-serif;
+}
+
+html[dir="rtl"] body * {
+  letter-spacing: normal !important;
+}
+
+/* Codes, card numbers, addresses and passwords are always read left to right. */
+html[dir="rtl"] :is(.font-mono, input[type="email"], input[type="password"], input[type="tel"], input[type="url"], input[inputmode="numeric"]) {
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: right;
+}
+
 .container-page {
   width: 100%;
   max-width: 80rem;

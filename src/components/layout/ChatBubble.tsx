@@ -40,14 +40,14 @@ export default function ChatBubble() {
   }, [open]);
 
   return (
-    <div className="fixed bottom-20 right-5 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-20 end-5 z-50 flex flex-col items-end gap-3">
       {open && (
         <div
           role="dialog"
           aria-label={t("title")}
           className="flex max-h-[min(34rem,calc(100vh-9rem))] w-80 max-w-[calc(100vw-2.5rem)] flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-2xl"
         >
-          <div className="bg-gradient-to-r from-orange to-orange-soft px-4 py-4 text-white">
+          <div className="bg-gradient-to-r rtl:bg-gradient-to-l from-orange to-orange-soft px-4 py-4 text-white">
             <p className="text-sm font-semibold">{t("title")}</p>
             <p className="text-xs text-white/85">{t("subtitle")}</p>
           </div>
@@ -59,7 +59,7 @@ export default function ChatBubble() {
               if (!q) return null;
               return (
                 <div key={`${id}-${i}`} ref={i === asked.length - 1 ? latestRef : undefined} className="space-y-3">
-                  <p className="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm bg-orange px-3.5 py-2.5 text-sm text-white">{q.question}</p>
+                  <p className="ms-auto max-w-[85%] rounded-2xl rounded-se-sm bg-orange px-3.5 py-2.5 text-sm text-white">{q.question}</p>
                   <Bot>{q.answer}</Bot>
                 </div>
               );
@@ -73,7 +73,7 @@ export default function ChatBubble() {
                     key={q.id}
                     type="button"
                     onClick={() => setAsked((prev) => [...prev, q.id])}
-                    className="rounded-full border border-orange/40 px-3.5 py-1.5 text-left text-xs font-medium text-ink transition-colors hover:border-orange hover:bg-orange/5"
+                    className="rounded-full border border-orange/40 px-3.5 py-1.5 text-start text-xs font-medium text-ink transition-colors hover:border-orange hover:bg-orange/5"
                   >
                     {q.question}
                   </button>
@@ -121,5 +121,5 @@ export default function ChatBubble() {
 }
 
 function Bot({ children }: { children: React.ReactNode }) {
-  return <p className="max-w-[85%] rounded-2xl rounded-tl-sm bg-cream px-3.5 py-2.5 text-sm text-ink">{children}</p>;
+  return <p className="max-w-[85%] rounded-2xl rounded-ss-sm bg-cream px-3.5 py-2.5 text-sm text-ink">{children}</p>;
 }

@@ -18,7 +18,7 @@ export default function PopularDestinations() {
         title={t("title")}
         action={
           <Link href="/destinations" className="text-sm font-semibold text-orange hover:underline">
-            {t("allDestinations")} →
+            {t("allDestinations")} <span aria-hidden className="inline-block rtl:-scale-x-100">→</span>
           </Link>
         }
       />

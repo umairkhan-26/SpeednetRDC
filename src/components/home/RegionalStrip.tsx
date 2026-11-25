@@ -35,7 +35,7 @@ export default function RegionalStrip() {
           subtitle={t("subtitle")}
           action={
             <Link href="/regional-plans" className="inline-flex items-center gap-1 text-sm font-semibold text-orange hover:underline">
-              {t("seeAllRegions")} <ArrowRight className="size-3.5" />
+              {t("seeAllRegions")} <ArrowRight className="size-3.5 rtl:-scale-x-100" />
             </Link>
           }
         />

@@ -17,7 +17,7 @@ export default function ResendEmailButton({ orderId, email }: { orderId: number;
 
   return (
     <div className="flex flex-col gap-0.5">
-      <button type="button" onClick={resend} disabled={isPending} className="text-left text-xs font-semibold text-orange hover:underline disabled:opacity-50">
+      <button type="button" onClick={resend} disabled={isPending} className="text-start text-xs font-semibold text-orange hover:underline disabled:opacity-50">
         {isPending ? t("common.sending") : t("orders.resend")}
       </button>
       {result && <span className={`text-xs ${result.ok ? "text-green-700" : "text-red-700"}`}>{result.message}</span>}

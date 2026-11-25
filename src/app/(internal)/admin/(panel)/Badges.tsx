@@ -106,7 +106,7 @@ export function HealthBadge({ health }: { health: SimHealth }) {
   const t = useTranslations("admin.badges.health");
   return (
     <span className={`${PILL} ${HEALTH_STYLE[health]}`}>
-      <span aria-hidden className="mr-1">●</span>
+      <span aria-hidden className="me-1">●</span>
       {t(health)}
     </span>
   );

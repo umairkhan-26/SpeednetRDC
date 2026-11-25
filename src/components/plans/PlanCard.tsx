@@ -28,13 +28,13 @@ export default function PlanCard({ plan }: { plan: Plan }) {
       className={`group relative flex flex-col gap-4 rounded-2xl border bg-white p-5 transition-all hover:-translate-y-0.5 hover:shadow-lg ${plan.bestValue ? "border-orange" : "border-line"}`}
     >
       {plan.bestValue && (
-        <span className="absolute -top-2.5 left-5 rounded-full bg-orange px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow">
+        <span className="absolute -top-2.5 start-5 rounded-full bg-orange px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow">
           {t("bestValue")}
         </span>
       )}
       {plan.badge && (
         <span
-          className={`absolute -top-2.5 right-5 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow ${plan.badge === "new" ? "bg-emerald-600" : "bg-sky-600"}`}
+          className={`absolute -top-2.5 end-5 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow ${plan.badge === "new" ? "bg-emerald-600" : "bg-sky-600"}`}
         >
           {plan.badge === "new" ? t("badgeNew") : t("badgePriceDrop")}
         </span>

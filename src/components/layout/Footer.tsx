@@ -14,7 +14,7 @@ const POPULAR = ["congo-democratic-republic", "morocco", "turkey", "spain", "fra
 
 // "Congo Democratic Republic" reads awkwardly in a footer.
 const SHORT_NAMES: Record<string, Record<string, string>> = {
-  "congo-democratic-republic": { en: "DR Congo", fr: "RD Congo", es: "RD del Congo", pt: "RD Congo", nl: "DR Congo", de: "DR Kongo", it: "RD del Congo" },
+  "congo-democratic-republic": { en: "DR Congo", fr: "RD Congo", es: "RD del Congo", pt: "RD Congo", nl: "DR Congo", de: "DR Kongo", it: "RD del Congo", ar: "الكونغو الديمقراطية" },
 };
 
 const linkClass = "text-sm text-ink/75 transition-colors hover:text-orange";
@@ -80,7 +80,7 @@ export default async function Footer({ locale }: { locale: AppLocale }) {
 
   const showCookieSettings = /^\d{5,20}$/.test(process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "");
   const legalLive = legalPagesLive();
-  const addresses: Record<string, string> = { fr: COMPANY.addressFr, es: COMPANY.addressEs, pt: COMPANY.addressPt, nl: COMPANY.addressNl, de: COMPANY.addressDe, it: COMPANY.addressIt };
+  const addresses: Record<string, string> = { fr: COMPANY.addressFr, es: COMPANY.addressEs, pt: COMPANY.addressPt, nl: COMPANY.addressNl, de: COMPANY.addressDe, it: COMPANY.addressIt, ar: COMPANY.addressAr };
   const companyAddress = addresses[locale] ?? COMPANY.address;
   const bottomLink = "text-ink/75 underline-offset-4 transition-colors hover:text-orange hover:underline";
 
@@ -188,7 +188,7 @@ export default async function Footer({ locale }: { locale: AppLocale }) {
                 </Link>
               </>
             )}
-            {showCookieSettings && <CookieSettingsButton label={t("cookieSettings")} className={`text-left ${bottomLink}`} />}
+            {showCookieSettings && <CookieSettingsButton label={t("cookieSettings")} className={`text-start ${bottomLink}`} />}
           </div>
 
           <div className="flex flex-wrap items-center gap-3">

@@ -36,14 +36,14 @@ export default function DestinationsClient() {
       </div>
 
       <div className="relative mt-8 max-w-md">
-        <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted" />
+        <Search className="pointer-events-none absolute start-4 top-1/2 size-4 -translate-y-1/2 text-muted" />
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t("filterPlaceholder")}
           aria-label={t("filterPlaceholder")}
-          className="w-full rounded-full border border-line bg-white py-3 pl-11 pr-4 text-sm outline-none focus:border-orange"
+          className="w-full rounded-full border border-line bg-white py-3 ps-11 pe-4 text-sm outline-none focus:border-orange"
         />
       </div>
 
