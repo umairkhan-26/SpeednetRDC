@@ -9,6 +9,12 @@ const { classification } = JSON.parse(
 );
 const newPhotos = JSON.parse(fs.readFileSync(new URL("./country-photos.json", import.meta.url)));
 
+// Transatel's grid can repeat rows in a zone's list (WORLD ends with five
+// countries a second time): list and count every country once.
+for (const [zone, members] of Object.entries(zones)) {
+  zones[zone] = [...new Map(members.map((c) => [c.code, c])).values()];
+}
+
 // -- Existing 32 hand-curated countries keep their existing slug/photo/tagline/speed. --
 const CURATED = JSON.parse(fs.readFileSync(new URL("./curated-countries.json", import.meta.url)));
 const curatedByCode = new Map(CURATED.map((c) => [c.iso3, c]));

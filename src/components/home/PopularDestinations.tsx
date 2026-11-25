@@ -9,6 +9,7 @@ import { useNames } from "@/i18n/use-names";
 
 export default function PopularDestinations() {
   const t = useTranslations("home.popularDestinations");
+  const tStrip = useTranslations("home.regionalStrip");
   const names = useNames();
 
   return (
@@ -32,7 +33,13 @@ export default function PopularDestinations() {
             code={d.iso}
             isGlobal={d.iso === "GLOBAL"}
             name={names.localized ? t(`names.${d.slug}`) : d.name}
-            subtitle={names.localized ? t(`subtitles.${d.slug}`) : d.subtitle}
+            subtitle={
+              d.coverage
+                ? tStrip(d.coverage.messageKey, { count: d.coverage.count })
+                : names.localized
+                  ? t(`subtitles.${d.slug}`)
+                  : d.subtitle
+            }
             fromPrice={d.fromPrice}
           />
         ))}

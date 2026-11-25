@@ -1,24 +1,33 @@
 import { getCountryBySlug } from "./countries";
-import { getGlobalPlans } from "./plans";
+import { getGlobalCountryCount, getGlobalPlans } from "./plans";
 import { getRegionBySlug } from "./regions";
 
-export interface PopularDestination {
+/** Coverage of a multi-country tile, worded like the regional cards below the grid. */
+interface Coverage {
+  messageKey: "countriesCount" | "countriesCountPlain";
+  count: number;
+}
+
+// A single-country tile names its continent; a multi-country one counts its countries.
+export type PopularDestination = {
   slug: string;
   name: string;
-  subtitle: string;
   iso: string;
   heroImage: string;
   fromPrice: number;
   href: string;
-}
+} & ({ subtitle: string; coverage?: undefined } | { coverage: Coverage; subtitle?: undefined });
+
+/** Omit that keeps the two kinds of tile apart. */
+type WithoutPrice<T> = T extends unknown ? Omit<T, "fromPrice"> : never;
 
 // Mix of single-country destinations and multi-country passes, matching
 // what ships on the homepage's "Popular destinations" grid.
-const destinations: Omit<PopularDestination, "fromPrice">[] = [
+const destinations: WithoutPrice<PopularDestination>[] = [
   { slug: "australia", name: "Australia", subtitle: "Oceania", iso: "AU", heroImage: "/destinations/australia.webp", href: "/destinations/australia" },
   { slug: "canada", name: "Canada", subtitle: "North America", iso: "CA", heroImage: "/destinations/canada.webp", href: "/destinations/canada" },
-  { slug: "europe", name: "Europe", subtitle: "22+ countries", iso: "EU", heroImage: "/destinations/switzerland.webp", href: "/regional-plans/europe" },
-  { slug: "global", name: "Global", subtitle: "81+ countries", iso: "GLOBAL", heroImage: "/destinations/global.webp", href: "/global-plans" },
+  { slug: "europe", name: "Europe", coverage: { messageKey: "countriesCountPlain", count: getRegionBySlug("europe")?.countryCount ?? 0 }, iso: "EU", heroImage: "/destinations/switzerland.webp", href: "/regional-plans/europe" },
+  { slug: "global", name: "Global", coverage: { messageKey: "countriesCount", count: getGlobalCountryCount() }, iso: "GLOBAL", heroImage: "/destinations/global.webp", href: "/global-plans" },
   { slug: "japan", name: "Japan", subtitle: "Asia", iso: "JP", heroImage: "/destinations/japan.webp", href: "/destinations/japan" },
   { slug: "saudi-arabia", name: "Saudi Arabia", subtitle: "Middle East", iso: "SA", heroImage: "/destinations/saudi-arabia.webp", href: "/destinations/saudi-arabia" },
   { slug: "thailand", name: "Thailand", subtitle: "Asia", iso: "TH", heroImage: "/destinations/thailand.webp", href: "/destinations/thailand" },

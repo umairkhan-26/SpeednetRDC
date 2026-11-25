@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, Globe } from "lucide-react";
 import { getRegionBySlug } from "@/data/regions";
-import { getGlobalPlans } from "@/data/plans";
+import { getGlobalCountryCount, getGlobalPlans } from "@/data/plans";
 import { useNames } from "@/i18n/use-names";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Flag from "@/components/ui/Flag";
@@ -24,7 +24,7 @@ export default function RegionalStrip() {
   const names = useNames();
   const globalPlans = getGlobalPlans("budget");
   const globalFromPrice = Math.min(...globalPlans.map((p) => p.price));
-  const globalCountryCount = globalPlans[0]?.countriesIncluded?.length ?? 0;
+  const globalCountryCount = getGlobalCountryCount();
 
   return (
     <section className="bg-white py-16 sm:py-20">

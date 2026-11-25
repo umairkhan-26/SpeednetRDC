@@ -50,3 +50,8 @@ export function getPlansForRegion(regionSlug: RegionSlug) {
 export function getGlobalPlans(tier?: "budget" | "premium") {
   return plans.filter((p) => p.scope === "global" && (!tier || p.globalTier === tier));
 }
+
+/** How many countries "Global" covers (the entry tier, not Global Plus). */
+export function getGlobalCountryCount() {
+  return getGlobalPlans("budget")[0]?.countriesIncluded?.length ?? 0;
+}
