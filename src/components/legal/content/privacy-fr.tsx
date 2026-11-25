@@ -8,9 +8,8 @@ export default function PrivacyFr() {
   return (
     <>
       <P>
-        Cette politique explique quelles données personnelles {COMPANY.tradingName} collecte lorsque vous utilisez ce site et achetez une
-        eSIM, pourquoi, avec qui nous les partageons, combien de temps nous les conservons et quels sont vos droits. Nous collectons le strict
-        nécessaire pour vous vendre et vous livrer votre eSIM.
+        Cette politique explique quelles données personnelles {COMPANY.tradingName} collecte lorsque vous utilisez ce site et achetez une eSIM ou une carte SIM, pourquoi, avec qui nous les partageons, combien de temps nous les conservons et quels sont vos droits. Nous collectons le strict
+        nécessaire pour vous vendre et vous livrer votre eSIM ou votre carte SIM.
       </P>
 
       <H2>1. Qui sommes-nous</H2>
@@ -24,20 +23,23 @@ export default function PrivacyFr() {
       <UL>
         <li>
           <strong>Votre commande :</strong> votre nom, votre adresse e-mail, le forfait et la destination choisis, le prix et la date de la
-          commande — pour vous vendre l’eSIM, vous l’envoyer et conserver les documents exigés par la loi. Base légale : exécution de notre
+          commande — pour vous vendre l’eSIM ou la carte SIM, vous l’envoyer et conserver les documents exigés par la loi. Base légale : exécution de notre
           contrat avec vous et nos obligations légales (comptabilité et fiscalité).
         </li>
         <li>
           <strong>Pays de facturation :</strong> le pays de l’adresse de facturation de votre carte, tel que communiqué par notre prestataire
-          de paiement — à des fins de TVA et de prévention de la fraude. Nous ne conservons pas le reste de votre adresse. Base légale :
+          de paiement — à des fins de TVA et de prévention de la fraude. Nous ne conservons pas le reste de votre adresse de facturation. Pour l’adresse de livraison d’une carte SIM, voir « Livraison de la carte SIM ». Base légale :
           obligation légale et intérêts légitimes.
+        </li>
+        <li>
+          <strong>Livraison de la carte SIM :</strong> si vous commandez une carte SIM, le nom et l’adresse postale que vous indiquez pour la livraison sur la page de paiement de Stripe : pour vous poster la carte, vous montrer où elle est envoyée et remplir une déclaration en douane lorsqu’elle est nécessaire. Nous enregistrons aussi le numéro de la carte, la date d’envoi, le numéro de suivi s’il y en a un et la date de livraison. Base légale : exécution de notre contrat avec vous et nos obligations légales (douanes).
         </li>
         <li>
           <strong>Paiement :</strong> vous payez sur la page sécurisée de Stripe. Stripe traite les données de votre carte ; nous ne voyons ni
           ne conservons jamais votre numéro de carte. Nous recevons une référence de paiement et l’indication de la réussite du paiement.
         </li>
         <li>
-          <strong>Votre eSIM et son utilisation :</strong> les identifiants SIM attribués à votre commande (ICCID et numéro de
+          <strong>Votre eSIM ou carte SIM et son utilisation :</strong> les identifiants SIM attribués à votre commande (ICCID et numéro de
           téléphone/MSISDN) et, de la part de notre partenaire réseau, l’état de la SIM, la date de son activation et de sa dernière
           connexion, le pays depuis lequel elle s’est connectée en dernier, ainsi que vos données restantes et l’expiration du forfait — pour
           fournir le service, répondre aux demandes d’assistance et prévenir les abus. Base légale : exécution de notre contrat et intérêts
@@ -114,7 +116,8 @@ export default function PrivacyFr() {
       </P>
       <UL>
         <li>Stripe (traitement des paiements et prévention de la fraude) ;</li>
-        <li>notre partenaire réseau mobile, qui fournit l’eSIM et la connectivité ;</li>
+        <li>notre partenaire réseau mobile, qui fournit l’eSIM ou la carte SIM et la connectivité ;</li>
+        <li>si vous commandez une carte SIM : les services postaux et de livraison et, lorsqu’une déclaration en douane est nécessaire, les autorités douanières ;</li>
         <li>Resend (envoi des e-mails de commande et de connexion, depuis des serveurs situés dans l’UE) ;</li>
         <li>Hostinger (hébergement du site et de la base de données) ;</li>
         <li>Meta Platforms Ireland Ltd (mesure publicitaire), uniquement si vous acceptez les cookies Meta ;</li>
@@ -131,6 +134,9 @@ export default function PrivacyFr() {
           Commandes, paiements et factures : <V>{POLICY.orderRecordYears}</V> ans, comme l’exigent la comptabilité et la fiscalité.
         </li>
         <li>Informations sur l’état de la SIM : aussi longtemps que nous conservons la commande à laquelle elles se rapportent.</li>
+        <li>
+          Nom et adresse de livraison d’une commande de carte SIM : supprimés de nos dossiers <V>{POLICY.shippingAddressMonths}</V> mois après la livraison (si aucune date de livraison n’est enregistrée, après l’envoi de la carte ; si la commande est remboursée avant l’envoi, après la date de la commande). Le pays de livraison est conservé avec la commande.
+        </li>
         <li>Liens de connexion : supprimés un jour après leur expiration (ils expirent après 15 minutes).</li>
         <li>Adresses IP hachées utilisées pour la sécurité : 24 heures.</li>
         <li>
@@ -156,7 +162,7 @@ export default function PrivacyFr() {
       <H2>7. Sécurité</H2>
       <P>
         Les détails d’installation de votre eSIM ne sont affichés que sur une page de commande privée accessible par un lien impossible à
-        deviner, et dans votre compte connecté. Traitez ce lien comme un mot de passe. L’accès à nos systèmes est limité au personnel qui en
+        deviner, et dans votre compte connecté. Pour une commande de carte SIM, cette page affiche aussi votre adresse de livraison. Traitez ce lien comme un mot de passe. L’accès à nos systèmes est limité au personnel qui en
         a besoin, et chaque connexion du personnel est enregistrée.
       </P>
 

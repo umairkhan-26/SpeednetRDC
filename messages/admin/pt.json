@@ -596,6 +596,7 @@
     "paid": "Paga a {date}",
     "refunded": "Reembolsada: não enviar",
     "noAddress": "O Stripe não enviou morada: contacte o cliente",
+    "addressDeleted": "Morada eliminada a {date} (privacidade). País: {country}",
     "customs": "Fora da UE: declaração aduaneira",
     "posted": "Enviada a {date}",
     "tracking": "Seguimento: {number}",

@@ -6,5 +6,10 @@ export async function register() {
   if (process.env.NEXT_RUNTIME === "nodejs") {
     const { setDefaultResultOrder } = await import("node:dns");
     setDefaultResultOrder("ipv4first");
+
+    // Privacy: old SIM card delivery addresses are deleted on a timer. Only
+    // scheduled here, so the server doesn't wait for the database to start.
+    const { scheduleShippingAddressCleanup } = await import("@/lib/checkout/shipping-retention");
+    scheduleShippingAddressCleanup();
   }
 }

@@ -8,9 +8,9 @@ export default function PrivacyEs() {
   return (
     <>
       <P>
-        Esta política explica qué datos personales recoge {COMPANY.tradingName} cuando usas este sitio y compras una eSIM, por qué los
+        Esta política explica qué datos personales recoge {COMPANY.tradingName} cuando usas este sitio y compras una eSIM o una tarjeta SIM, por qué los
         recoge, con quién los comparte, cuánto tiempo los conserva y cuáles son tus derechos. Recogemos solo lo necesario para venderte y
-        entregarte tu eSIM.
+        entregarte tu eSIM o tarjeta SIM.
       </P>
 
       <H2>1. Quiénes somos</H2>
@@ -24,20 +24,23 @@ export default function PrivacyEs() {
       <UL>
         <li>
           <strong>Tu pedido:</strong> tu nombre, tu correo electrónico, el plan y el destino elegidos, el precio y la fecha del pedido, para
-          venderte la eSIM, enviártela y conservar los registros que exige la ley. Base jurídica: ejecución de nuestro contrato contigo y
+          venderte la eSIM o la tarjeta SIM, enviártela y conservar los registros que exige la ley. Base jurídica: ejecución de nuestro contrato contigo y
           obligaciones legales (contabilidad e impuestos).
         </li>
         <li>
           <strong>País de facturación:</strong> el país de la dirección de facturación de tu tarjeta, según nos lo comunica nuestro proveedor
-          de pagos, para fines de IVA y prevención del fraude. No conservamos el resto de tu dirección. Base jurídica: obligación legal e
+          de pagos, para fines de IVA y prevención del fraude. No conservamos el resto de tu dirección de facturación. Sobre la dirección de entrega de una tarjeta SIM, véase «Entrega de la tarjeta SIM». Base jurídica: obligación legal e
           interés legítimo.
+        </li>
+        <li>
+          <strong>Entrega de la tarjeta SIM:</strong> si pides una tarjeta SIM, el nombre y la dirección postal que indicas para la entrega en la página de pago de Stripe, para enviarte la tarjeta, mostrarte adónde se envía y cumplimentar una declaración de aduana cuando sea necesaria. También registramos el número de la tarjeta, la fecha de envío, el número de seguimiento si lo hay y la fecha de entrega. Base jurídica: ejecución de nuestro contrato contigo y obligaciones legales (aduanas).
         </li>
         <li>
           <strong>Pago:</strong> pagas en la página segura de Stripe. Stripe trata los datos de tu tarjeta; nosotros nunca vemos ni
           conservamos tu número de tarjeta. Recibimos una referencia de pago y la confirmación de que el pago se realizó.
         </li>
         <li>
-          <strong>Tu eSIM y su uso:</strong> los identificadores SIM asignados a tu pedido (ICCID y número de teléfono/MSISDN) y, de nuestro
+          <strong>Tu eSIM o tarjeta SIM y su uso:</strong> los identificadores SIM asignados a tu pedido (ICCID y número de teléfono/MSISDN) y, de nuestro
           socio de red, el estado de la SIM, la fecha de su activación y de su última conexión, el país desde el que se conectó por última
           vez, los datos que te quedan y la caducidad del plan, para prestar el servicio, atender solicitudes de asistencia y prevenir
           abusos. Base jurídica: ejecución de nuestro contrato e interés legítimo. No vemos el contenido de tu navegación ni de tus
@@ -113,7 +116,8 @@ export default function PrivacyEs() {
       </P>
       <UL>
         <li>Stripe (procesamiento de pagos y prevención del fraude);</li>
-        <li>nuestro socio de red móvil, que proporciona la eSIM y la conectividad;</li>
+        <li>nuestro socio de red móvil, que proporciona la eSIM o la tarjeta SIM y la conectividad;</li>
+        <li>si pides una tarjeta SIM: los servicios postales y de mensajería y, cuando se necesite una declaración de aduana, las autoridades aduaneras;</li>
         <li>Resend (envío de los correos de pedido y de acceso, desde servidores situados en la UE);</li>
         <li>Hostinger (alojamiento del sitio y de la base de datos);</li>
         <li>Meta Platforms Ireland Ltd (medición publicitaria), solo si aceptas las cookies de Meta;</li>
@@ -130,6 +134,9 @@ export default function PrivacyEs() {
           Pedidos, pagos y facturas: <V>{POLICY.orderRecordYears}</V> años, como exigen la contabilidad y la normativa fiscal.
         </li>
         <li>Información sobre el estado de la SIM: mientras conservemos el pedido al que se refiere.</li>
+        <li>
+          Nombre y dirección de entrega de un pedido de tarjeta SIM: los eliminamos de nuestros registros <V>{POLICY.shippingAddressMonths}</V> meses después de la entrega (si no consta la fecha de entrega, después del envío de la tarjeta; si el pedido se reembolsa antes del envío, después de la fecha del pedido). El país de entrega se conserva con el pedido.
+        </li>
         <li>Enlaces de acceso: se eliminan un día después de que caduquen (caducan a los 15 minutos).</li>
         <li>Direcciones IP codificadas usadas para la seguridad: 24 horas.</li>
         <li>
@@ -154,7 +161,7 @@ export default function PrivacyEs() {
       <H2>7. Seguridad</H2>
       <P>
         Los datos de instalación de tu eSIM solo se muestran en una página de pedido privada, a la que se accede mediante un enlace
-        imposible de adivinar, y en tu cuenta con sesión iniciada. Trata ese enlace como una contraseña. El acceso a nuestros sistemas se
+        imposible de adivinar, y en tu cuenta con sesión iniciada. En un pedido de tarjeta SIM, esa página muestra también tu dirección de entrega. Trata ese enlace como una contraseña. El acceso a nuestros sistemas se
         limita al personal que lo necesita y se registra cada inicio de sesión del personal.
       </P>
 

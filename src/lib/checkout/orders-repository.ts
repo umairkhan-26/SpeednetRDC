@@ -53,6 +53,8 @@ export interface CheckoutOrder {
   stripeFeeEur: number | null;
   productType: ProductType;
   shippingAddress: ShippingAddress | null;
+  /** Set when the delivery address was deleted for privacy (see shipping-retention.ts). */
+  shippingAddressDeletedAt: string | null;
   shippingCountry: string | null;
   shippingEur: number | null;
   /** Actual postage we paid, entered when the card is marked shipped. */
@@ -92,6 +94,7 @@ interface OrderRow extends RowDataPacket {
   stripe_fee_eur?: string | null;
   product_type?: ProductType;
   shipping_address?: string | null;
+  shipping_address_deleted_at?: string | null;
   shipping_country?: string | null;
   shipping_eur?: string | null;
   shipping_cost_eur?: string | null;
@@ -140,6 +143,7 @@ function toCheckoutOrder(row: OrderRow): CheckoutOrder {
     stripeFeeEur: row.stripe_fee_eur == null ? null : Number(row.stripe_fee_eur),
     productType: row.product_type ?? "esim",
     shippingAddress: parseAddress(row.shipping_address),
+    shippingAddressDeletedAt: fromMySQLDateTime(row.shipping_address_deleted_at ?? null),
     shippingCountry: row.shipping_country ?? null,
     shippingEur: row.shipping_eur == null ? null : Number(row.shipping_eur),
     shippingCostEur: row.shipping_cost_eur == null ? null : Number(row.shipping_cost_eur),
@@ -224,6 +228,7 @@ export async function createPendingOrder(input: {
     stripeFeeEur: null,
     productType: input.topUpIccid ? "topup" : "esim",
     shippingAddress: null,
+    shippingAddressDeletedAt: null,
     shippingCountry: null,
     shippingEur: null,
     shippingCostEur: null,

@@ -596,6 +596,7 @@
     "paid": "Pagado el {date}",
     "refunded": "Reembolsado: no enviar",
     "noAddress": "Stripe no ha enviado dirección: contacta con el cliente",
+    "addressDeleted": "Dirección eliminada el {date} (privacidad). País: {country}",
     "customs": "Fuera de la UE: declaración de aduana",
     "posted": "Enviado el {date}",
     "tracking": "Seguimiento: {number}",

@@ -8,9 +8,9 @@ export default function PrivacyPt() {
   return (
     <>
       <P>
-        Esta política explica que dados pessoais a {COMPANY.tradingName} recolhe quando utiliza este site e compra uma eSIM, porquê, com
+        Esta política explica que dados pessoais a {COMPANY.tradingName} recolhe quando utiliza este site e compra uma eSIM ou um cartão SIM, porquê, com
         quem os partilhamos, durante quanto tempo os conservamos e quais são os seus direitos. Recolhemos apenas o necessário para lhe
-        vender e entregar a sua eSIM.
+        vender e entregar a sua eSIM ou o seu cartão SIM.
       </P>
 
       <H2>1. Quem somos</H2>
@@ -24,20 +24,23 @@ export default function PrivacyPt() {
       <UL>
         <li>
           <strong>A sua encomenda:</strong> o seu nome, o seu e-mail, o plano e o destino escolhidos, o preço e a data da encomenda, para lhe
-          vender a eSIM, enviá-la e conservar os registos exigidos por lei. Fundamento jurídico: execução do nosso contrato consigo e
+          vender a eSIM ou o cartão SIM, fazer-lhe o envio e conservar os registos exigidos por lei. Fundamento jurídico: execução do nosso contrato consigo e
           obrigações legais (contabilidade e impostos).
         </li>
         <li>
           <strong>País de faturação:</strong> o país da morada de faturação do seu cartão, tal como comunicado pelo nosso prestador de
-          pagamentos, para efeitos de IVA e prevenção de fraude. Não conservamos o resto da sua morada. Fundamento jurídico: obrigação legal
+          pagamentos, para efeitos de IVA e prevenção de fraude. Não conservamos o resto da sua morada de faturação. Sobre a morada de entrega de um cartão SIM, ver «Entrega do cartão SIM». Fundamento jurídico: obrigação legal
           e interesse legítimo.
+        </li>
+        <li>
+          <strong>Entrega do cartão SIM:</strong> se encomendar um cartão SIM, o nome e a morada postal que indica para a entrega na página de pagamento da Stripe, para lhe enviar o cartão, mostrar-lhe para onde é enviado e preencher uma declaração aduaneira quando for necessária. Registamos também o número do cartão, a data de envio, o número de seguimento, se existir, e a data de entrega. Fundamento jurídico: execução do nosso contrato consigo e obrigações legais (alfândega).
         </li>
         <li>
           <strong>Pagamento:</strong> paga na página segura da Stripe. A Stripe trata os dados do seu cartão; nós nunca vemos nem
           conservamos o número do seu cartão. Recebemos uma referência de pagamento e a indicação de que o pagamento foi bem-sucedido.
         </li>
         <li>
-          <strong>A sua eSIM e a sua utilização:</strong> os identificadores SIM atribuídos à sua encomenda (ICCID e número de
+          <strong>A sua eSIM ou cartão SIM e a sua utilização:</strong> os identificadores SIM atribuídos à sua encomenda (ICCID e número de
           telefone/MSISDN) e, do nosso parceiro de rede, o estado da SIM, a data da sua ativação e da última ligação, o país a partir do
           qual se ligou pela última vez, os dados restantes e a expiração do plano, para prestar o serviço, responder a pedidos de
           assistência e prevenir abusos. Fundamento jurídico: execução do nosso contrato e interesse legítimo. Não vemos o conteúdo da sua
@@ -113,7 +116,8 @@ export default function PrivacyPt() {
       </P>
       <UL>
         <li>Stripe (processamento de pagamentos e prevenção de fraude);</li>
-        <li>o nosso parceiro de rede móvel, que fornece a eSIM e a conectividade;</li>
+        <li>o nosso parceiro de rede móvel, que fornece a eSIM ou o cartão SIM e a conectividade;</li>
+        <li>se encomendar um cartão SIM: os serviços postais e de entrega e, quando for necessária uma declaração aduaneira, as autoridades aduaneiras;</li>
         <li>Resend (envio dos e-mails de encomenda e de acesso, a partir de servidores situados na UE);</li>
         <li>Hostinger (alojamento do site e da base de dados);</li>
         <li>Meta Platforms Ireland Ltd (medição publicitária), apenas se aceitar os cookies da Meta;</li>
@@ -130,6 +134,9 @@ export default function PrivacyPt() {
           Encomendas, pagamentos e faturas: <V>{POLICY.orderRecordYears}</V> anos, como exigem a contabilidade e a fiscalidade.
         </li>
         <li>Informação sobre o estado da SIM: enquanto conservarmos a encomenda a que diz respeito.</li>
+        <li>
+          Nome e morada de entrega de uma encomenda de cartão SIM: eliminados dos nossos registos <V>{POLICY.shippingAddressMonths}</V> meses após a entrega (se não estiver registada a data de entrega, após o envio do cartão; se a encomenda for reembolsada antes do envio, após a data da encomenda). O país de entrega é conservado com a encomenda.
+        </li>
         <li>Ligações de acesso: eliminadas um dia depois de expirarem (expiram ao fim de 15 minutos).</li>
         <li>Endereços IP codificados usados para a segurança: 24 horas.</li>
         <li>
@@ -153,7 +160,7 @@ export default function PrivacyPt() {
       <H2>7. Segurança</H2>
       <P>
         Os dados de instalação da sua eSIM só são mostrados numa página de encomenda privada, acessível por uma ligação impossível de
-        adivinhar, e na sua conta com sessão iniciada. Trate essa ligação como uma palavra-passe. O acesso aos nossos sistemas está
+        adivinhar, e na sua conta com sessão iniciada. Numa encomenda de cartão SIM, essa página mostra também a sua morada de entrega. Trate essa ligação como uma palavra-passe. O acesso aos nossos sistemas está
         limitado ao pessoal que dele precisa e cada início de sessão do pessoal é registado.
       </P>
 

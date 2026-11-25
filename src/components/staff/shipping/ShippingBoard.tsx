@@ -1,5 +1,6 @@
 import { listPhysicalSimOrders, type ShippingAddress, type ShippingStatus } from "@/lib/checkout/orders-repository";
 import { orderKind } from "@/lib/checkout/order-kind";
+import { deleteExpiredShippingAddresses } from "@/lib/checkout/shipping-retention";
 import { formatPrice } from "@/lib/format";
 import { isPhysicalSimEnabled, needsCustomsDeclaration } from "@/lib/physical-sim";
 import { getAdminT, type AdminTranslator } from "@/i18n/admin";
@@ -32,6 +33,8 @@ function AddressBlock({ address, t }: { address: ShippingAddress | null; t: Admi
 /** Physical SIM orders to post, shared by /admin/shipping and /staff/shipping. */
 export default async function ShippingBoard({ basePath, statusParam }: { basePath: string; statusParam: string | undefined }) {
   const status = FILTERS.includes(statusParam as ShippingStatus | "all") ? (statusParam as ShippingStatus | "all") : "awaiting";
+  // Staff never see an address that is past its keeping period, even between timed runs.
+  await deleteExpiredShippingAddresses();
   const orders = await listPhysicalSimOrders(status);
   const t = await getAdminT();
   const fmt = (iso: string | null) => formatDate(iso, t.locale);
@@ -91,8 +94,14 @@ export default async function ShippingBoard({ basePath, statusParam }: { basePat
                       <p className="text-xs text-muted">{order.customerEmail}</p>
                     </td>
                     <td className="px-4 py-3 text-xs text-ink">
-                      <AddressBlock address={order.shippingAddress} t={t} />
-                      {customs && (
+                      {order.shippingAddressDeletedAt ? (
+                        <span className="text-muted">
+                          {t("shipping.addressDeleted", { date: fmt(order.shippingAddressDeletedAt), country: order.shippingCountry ?? "—" })}
+                        </span>
+                      ) : (
+                        <AddressBlock address={order.shippingAddress} t={t} />
+                      )}
+                      {customs && !order.shippingAddressDeletedAt && (
                         <p className="mt-1.5 w-max rounded-full bg-red-100 px-2 py-0.5 font-semibold text-red-700">{t("shipping.customs")}</p>
                       )}
                     </td>

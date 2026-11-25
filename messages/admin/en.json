@@ -596,6 +596,7 @@
     "paid": "Paid {date}",
     "refunded": "Refunded — don’t ship",
     "noAddress": "No address from Stripe — contact the customer",
+    "addressDeleted": "Address deleted {date} (privacy). Country: {country}",
     "customs": "Outside the EU — customs declaration",
     "posted": "Posted {date}",
     "tracking": "Tracking: {number}",

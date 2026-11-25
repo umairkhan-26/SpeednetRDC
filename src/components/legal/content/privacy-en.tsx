@@ -6,8 +6,8 @@ export default function PrivacyEn() {
   return (
     <>
       <P>
-        This policy explains what personal data {COMPANY.tradingName} collects when you use this website and buy an eSIM, why, who we share it
-        with, how long we keep it and the rights you have. We collect as little as we need to sell and deliver your eSIM.
+        This policy explains what personal data {COMPANY.tradingName} collects when you use this website and buy an eSIM or a SIM card, why, who we share it
+        with, how long we keep it and the rights you have. We collect as little as we need to sell and deliver your eSIM or SIM card.
       </P>
 
       <H2>1. Who we are</H2>
@@ -20,20 +20,22 @@ export default function PrivacyEn() {
       <H2>2. What we collect and why</H2>
       <UL>
         <li>
-          <strong>Your order:</strong> your name, email address, the plan and destination you chose, the price and the order date — to sell
-          you the eSIM, send it to you and keep the records the law requires. Legal basis: performance of our contract with you, and our legal
+          <strong>Your order:</strong> your name, email address, the plan and destination you chose, the price and the order date — to sell you the eSIM or SIM card, send it to you and keep the records the law requires. Legal basis: performance of our contract with you, and our legal
           obligations (accounting and tax).
         </li>
         <li>
           <strong>Billing country:</strong> the country of your card&apos;s billing address, as reported by our payment provider — for tax
-          (VAT) purposes and fraud prevention. We do not store the rest of your address. Legal basis: legal obligation and legitimate interests.
+          (VAT) purposes and fraud prevention. We do not store the rest of your billing address. For the delivery address of a SIM card, see &ldquo;SIM card delivery&rdquo;. Legal basis: legal obligation and legitimate interests.
+        </li>
+        <li>
+          <strong>SIM card delivery:</strong> if you order a SIM card, the name and postal address you give for delivery on Stripe&apos;s payment page: to post the card to you, show you where it is going and complete a customs declaration where one is needed. We also record the card&apos;s number, the date we posted it, the tracking number if there is one, and the date it was delivered. Legal basis: performance of our contract with you, and our legal obligations (customs).
         </li>
         <li>
           <strong>Payment:</strong> you pay on Stripe&apos;s secure page. Stripe processes your card details; we never see or store your card
           number. We receive a payment reference and whether the payment succeeded.
         </li>
         <li>
-          <strong>Your eSIM and its use:</strong> the SIM identifiers assigned to your order (ICCID and phone number/MSISDN) and, from our
+          <strong>Your eSIM or SIM card and its use:</strong> the SIM identifiers assigned to your order (ICCID and phone number/MSISDN) and, from our
           network partner, the SIM&apos;s status, when it was activated and last connected, the country it last connected from, and your
           remaining data and plan expiry — to deliver the service, answer support requests and prevent misuse. Legal basis: performance of our
           contract and legitimate interests. We do not see the content of your browsing or communications.
@@ -104,7 +106,8 @@ export default function PrivacyEn() {
       <P>Only with service providers who need it to run the service, under contracts that require them to protect it:</P>
       <UL>
         <li>Stripe (payment processing and fraud prevention);</li>
-        <li>our mobile network partner, which provides the eSIM and the connectivity;</li>
+        <li>our mobile network partner, which provides the eSIM or SIM card and the connectivity;</li>
+        <li>if you order a SIM card: postal and delivery services and, where a customs declaration is needed, customs authorities;</li>
         <li>Resend (sending order and sign-in emails, from servers in the EU);</li>
         <li>Hostinger (website and database hosting);</li>
         <li>Meta Platforms Ireland Ltd (advertising measurement), only if you accept Meta cookies;</li>
@@ -121,6 +124,9 @@ export default function PrivacyEn() {
           Order, payment and invoice records: <V>{POLICY.orderRecordYears}</V> years, as required by accounting and tax law.
         </li>
         <li>SIM status information: for as long as we keep the order it belongs to.</li>
+        <li>
+          Delivery name and street address of a SIM card order: deleted from our records <V>{POLICY.shippingAddressMonths}</V> months after delivery (if no delivery date is recorded, after we posted the card; if the order is refunded before posting, after the order date). The delivery country stays with the order record.
+        </li>
         <li>Sign-in links: deleted one day after they expire (they expire after 15 minutes).</li>
         <li>Hashed IP addresses used for security: 24 hours.</li>
         <li>Your cookie choice: 6 months, then we ask again. Meta&apos;s cookies: up to 90 days, or until you reject them.</li>
@@ -141,7 +147,7 @@ export default function PrivacyEn() {
 
       <H2>7. Security</H2>
       <P>
-        Your eSIM&apos;s installation details are only shown on a private order page with an unguessable link, and in your signed-in account.
+        Your eSIM&apos;s installation details are only shown on a private order page with an unguessable link, and in your signed-in account. For a SIM card order, that page also shows your delivery address.
         Treat that link like a password. Access to our systems is limited to staff who need it, and every staff sign-in is logged.
       </P>
 

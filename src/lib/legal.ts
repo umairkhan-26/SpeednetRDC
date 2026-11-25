@@ -75,15 +75,21 @@ export const POLICY = {
    * plan has not been used. A business decision for the owner.
    */
   coverageSwitchDays: "10",
+  /**
+   * Months after delivery after which a SIM card's delivery name and street
+   * address are deleted (owner, 2026-11-25: 6). The site deletes them itself:
+   * src/lib/checkout/shipping-retention.ts.
+   */
+  shippingAddressMonths: "6",
 };
 
-export const LEGAL_LAST_UPDATED = "21 November 2026";
+export const LEGAL_LAST_UPDATED = "25 November 2026";
 /** The same date written out per language (keep in step with LEGAL_LAST_UPDATED). */
 export const LEGAL_LAST_UPDATED_BY_LOCALE: Record<string, string> = {
-  en: "21 November 2026",
-  fr: "21 novembre 2026",
-  es: "21 de noviembre de 2026",
-  pt: "21 de novembro de 2026",
+  en: "25 November 2026",
+  fr: "25 novembre 2026",
+  es: "25 de noviembre de 2026",
+  pt: "25 de novembro de 2026",
 };
 
 export const isPlaceholder = (value: string) => value.startsWith("[") && value.endsWith("]");

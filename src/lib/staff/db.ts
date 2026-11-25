@@ -362,6 +362,9 @@ const ORDERS_NEW_COLUMNS: NewColumn[] = [
   { name: "shipped_by", ddl: "INT NULL" },
   // What posting this card really cost us (EUR), typed when staff mark it shipped.
   { name: "shipping_cost_eur", ddl: "DECIMAL(10,2) NULL" },
+  // Set when the delivery name and street address were deleted for privacy
+  // (see src/lib/checkout/shipping-retention.ts).
+  { name: "shipping_address_deleted_at", ddl: "DATETIME NULL" },
 ];
 
 // A connection-level failure (database down, wrong credentials) is not a

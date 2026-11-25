@@ -596,6 +596,7 @@
     "paid": "Payée le {date}",
     "refunded": "Remboursée : ne pas expédier",
     "noAddress": "Pas d’adresse transmise par Stripe : contactez le client",
+    "addressDeleted": "Adresse supprimée le {date} (vie privée). Pays : {country}",
     "customs": "Hors UE : déclaration en douane",
     "posted": "Postée le {date}",
     "tracking": "Suivi : {number}",
