@@ -64,7 +64,7 @@ export default function PrivacyEs() {
         las cookies de Meta (véase el apartado 3).
       </P>
 
-      <H2>3. Cookies</H2>
+      <H2 id="cookies">3. Cookies</H2>
       <P>
         <strong>Cookies necesarias para el funcionamiento del sitio</strong> (siempre activas):
       </P>

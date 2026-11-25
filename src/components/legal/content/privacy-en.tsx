@@ -58,7 +58,7 @@ export default function PrivacyEn() {
         ads (see section 3).
       </P>
 
-      <H2>3. Cookies</H2>
+      <H2 id="cookies">3. Cookies</H2>
       <P>
         <strong>Cookies needed for the site to work</strong> (always on):
       </P>

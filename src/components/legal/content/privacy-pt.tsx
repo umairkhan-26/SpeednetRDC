@@ -64,7 +64,7 @@ export default function PrivacyPt() {
         aceitar os cookies da Meta (ver o ponto 3).
       </P>
 
-      <H2>3. Cookies</H2>
+      <H2 id="cookies">3. Cookies</H2>
       <P>
         <strong>Cookies necessários ao funcionamento do site</strong> (sempre ativos):
       </P>

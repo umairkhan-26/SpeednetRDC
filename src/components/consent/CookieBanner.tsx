@@ -55,7 +55,7 @@ export default function CookieBanner({ privacyLink }: { privacyLink: boolean }) 
             {privacyLink && (
               <>
                 {" "}
-                <a href={`/${locale}/privacy`} className="font-semibold text-white underline hover:text-orange-soft">
+                <a href={`/${locale}/privacy#cookies`} className="font-semibold text-white underline hover:text-orange-soft">
                   {t("learnMore")}
                 </a>
               </>

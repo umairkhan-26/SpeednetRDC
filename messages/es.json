@@ -962,7 +962,7 @@
   },
   "consent": {
     "title": "Cookies",
-    "text": "Nos gustaría usar cookies de Meta (Facebook) para medir nuestros anuncios y mostrarte anuncios relevantes. Solo se usan si aceptas. Puedes cambiar tu elección en cualquier momento en «Configuración de cookies», al final de la página.",
+    "text": "Queremos usar cookies de Meta (Facebook) para medir nuestros anuncios y mostrarte anuncios relevantes. Solo si aceptas, Meta sabrá qué páginas y planes ves y qué compras, con tu correo y tu país de facturación codificados (hash). Cambia tu elección cuando quieras en «Configuración de cookies», al final de la página.",
     "accept": "Aceptar",
     "reject": "Rechazar",
     "learnMore": "Política de privacidad"

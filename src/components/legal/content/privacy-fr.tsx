@@ -64,7 +64,7 @@ export default function PrivacyFr() {
         publicités, que si vous acceptez les cookies Meta (voir l’article 3).
       </P>
 
-      <H2>3. Cookies</H2>
+      <H2 id="cookies">3. Cookies</H2>
       <P>
         <strong>Cookies nécessaires au fonctionnement du site</strong> (toujours actifs) :
       </P>
