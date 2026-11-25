@@ -9,6 +9,25 @@ const { classification } = JSON.parse(
 );
 const newPhotos = JSON.parse(fs.readFileSync(new URL("./country-photos.json", import.meta.url)));
 
+// Countries Transatel's live catalogue states for a zone's plans but the price
+// grid leaves out of that zone's list. Checked 25 Nov 2026 on all eight Global
+// Plus plans; added on the owner's instruction. A grid that lists them itself
+// makes these entries do nothing.
+const ZONE_ADDITIONS = {
+  WORLD: [
+    { code: "GUF", name: "French Guiana" },
+    { code: "ZWE", name: "Zimbabwe" },
+  ],
+};
+for (const [zone, additions] of Object.entries(ZONE_ADDITIONS)) {
+  for (const country of additions) {
+    if (zones[zone].some((c) => c.code === country.code)) continue;
+    // The grid lists countries in code order: keep it that way.
+    const next = zones[zone].findIndex((c) => c.code > country.code);
+    zones[zone].splice(next === -1 ? zones[zone].length : next, 0, country);
+  }
+}
+
 // Transatel's grid can repeat rows in a zone's list (WORLD ends with five
 // countries a second time): list and count every country once.
 for (const [zone, members] of Object.entries(zones)) {
