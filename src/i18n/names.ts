@@ -11,7 +11,7 @@ import { languageTag } from "./routing";
 // pages are fully translated, so a page never mixes English text with
 // translated names. Add a language here once its pages are fully translated.
 // (French and Spanish joined on 23 Nov 2026, once every text key was translated.)
-const LOCALIZED_NAME_LOCALES = new Set(["fr", "es", "pt"]);
+const LOCALIZED_NAME_LOCALES = new Set(["fr", "es", "pt", "nl", "de", "it"]);
 
 export function localizesNames(locale: string): boolean {
   return LOCALIZED_NAME_LOCALES.has(locale);
@@ -24,6 +24,9 @@ const NAME_OVERRIDES: Record<string, Record<string, string>> = {
   fr: { CD: "RD Congo", HK: "Hong Kong", MO: "Macao" },
   es: { CD: "RD Congo", HK: "Hong Kong", MO: "Macao" },
   pt: { CI: "Costa do Marfim", HK: "Hong Kong", MO: "Macau" },
+  nl: { CD: "DR Congo", HK: "Hongkong", MO: "Macau" },
+  de: { CD: "DR Kongo", HK: "Hongkong", MO: "Macau" },
+  it: { CD: "RD del Congo", HK: "Hong Kong", MO: "Macao" },
 };
 
 /** The provider's "Netherlands Antilles" has no ISO code any more, so it is matched by its English name. */
@@ -31,6 +34,9 @@ const NAME_OVERRIDES_BY_ENGLISH_NAME: Record<string, Record<string, string>> = {
   fr: { "Netherlands Antilles": "Antilles néerlandaises" },
   es: { "Netherlands Antilles": "Antillas Neerlandesas" },
   pt: { "Netherlands Antilles": "Antilhas Holandesas" },
+  nl: { "Netherlands Antilles": "Nederlandse Antillen" },
+  de: { "Netherlands Antilles": "Niederländische Antillen" },
+  it: { "Netherlands Antilles": "Antille Olandesi" },
 };
 
 const displayNames = new Map<string, Intl.DisplayNames | null>();

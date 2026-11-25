@@ -36,6 +36,9 @@ const REPLY_COPY: Record<string, { subject: (id: number) => string; intro: (id: 
   fr: { subject: (id) => `SpeedNetRDC a répondu à votre demande (ORD-${id})`, intro: (id) => `Notre équipe a répondu à votre demande concernant la commande ORD-${id} :`, cta: "Ouvrez votre compte pour répondre" },
   es: { subject: (id) => `SpeedNetRDC ha respondido a tu solicitud (ORD-${id})`, intro: (id) => `Nuestro equipo ha respondido a tu solicitud sobre el pedido ORD-${id}:`, cta: "Abre tu cuenta para responder" },
   pt: { subject: (id) => `A SpeedNetRDC respondeu ao seu pedido (ORD-${id})`, intro: (id) => `A nossa equipa respondeu ao seu pedido sobre a encomenda ORD-${id}:`, cta: "Abra a sua conta para responder" },
+  nl: { subject: (id) => `SpeedNetRDC heeft op je melding geantwoord (ORD-${id})`, intro: (id) => `Ons team heeft je vraag over bestelling ORD-${id} beantwoord:`, cta: "Open je account om te antwoorden" },
+  de: { subject: (id) => `SpeedNetRDC hat auf Ihre Anfrage geantwortet (ORD-${id})`, intro: (id) => `Unser Team hat Ihre Anfrage zur Bestellung ORD-${id} beantwortet:`, cta: "Konto öffnen und antworten" },
+  it: { subject: (id) => `SpeedNetRDC ha risposto alla tua richiesta (ORD-${id})`, intro: (id) => `Il nostro team ha risposto alla tua richiesta sull'ordine ORD-${id}:`, cta: "Apri il tuo account per rispondere" },
 };
 
 /** Tells the customer the team replied, with the reply and a link to their account. */

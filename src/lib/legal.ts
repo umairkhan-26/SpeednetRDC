@@ -26,6 +26,10 @@ export const COMPANY = {
   legalNameEs: "SpeedNetRDC, empresa de telecomunicaciones con sede en Bélgica",
   /** Portuguese wording of legalName (keep in step with it). */
   legalNamePt: "SpeedNetRDC, empresa de telecomunicações sediada na Bélgica",
+  /** Dutch / German / Italian wording of legalName (keep in step with it). */
+  legalNameNl: "SpeedNetRDC, een telecommunicatiebedrijf gevestigd in België",
+  legalNameDe: "SpeedNetRDC, ein Telekommunikationsunternehmen mit Sitz in Belgien",
+  legalNameIt: "SpeedNetRDC, società di telecomunicazioni con sede in Belgio",
   tradingName: "SpeedNetRDC",
   address: "Avenue Louise 163, 1050 Brussels, Belgium",
   /** French wording of address (keep in step with it). */
@@ -33,6 +37,10 @@ export const COMPANY = {
   /** Spanish / Portuguese wording of address (keep in step with it). */
   addressEs: "Avenue Louise 163, 1050 Bruselas, Bélgica",
   addressPt: "Avenue Louise 163, 1050 Bruxelas, Bélgica",
+  /** Dutch / German / Italian wording of address (keep in step with it). */
+  addressNl: "Louizalaan 163, 1050 Brussel, België",
+  addressDe: "Avenue Louise 163, 1050 Brüssel, Belgien",
+  addressIt: "Avenue Louise 163, 1050 Bruxelles, Belgio",
   registrationNumber: "BE0676820270",
   vatNumber: "BE0676820270",
   privacyEmail: "contact@speednetrdc.com",
@@ -44,6 +52,9 @@ export const COMPANY = {
   /** Spanish / Portuguese wording of governingLaw (the texts add "derecho de" / "lei da"). */
   governingLawEs: "Bélgica",
   governingLawPt: "Bélgica",
+  governingLawNl: "België",
+  governingLawDe: "Belgien",
+  governingLawIt: "Belgio",
   /** Lead data protection authority, e.g. "the CNIL (France)". */
   supervisoryAuthority: "the Belgian Data Protection Authority (APD-GBA)",
   /** French wording of supervisoryAuthority (keep in step with it). */
@@ -51,6 +62,9 @@ export const COMPANY = {
   /** Spanish / Portuguese wording of supervisoryAuthority (keep in step with it). */
   supervisoryAuthorityEs: "la Autoridad belga de Protección de Datos (APD-GBA)",
   supervisoryAuthorityPt: "a Autoridade belga de Proteção de Dados (APD-GBA)",
+  supervisoryAuthorityNl: "de Belgische Gegevensbeschermingsautoriteit (GBA)",
+  supervisoryAuthorityDe: "die belgische Datenschutzbehörde (APD-GBA)",
+  supervisoryAuthorityIt: "l’Autorità belga per la protezione dei dati (APD-GBA)",
   /** Consumer mediation / ADR body named in the Terms. Owner, 2026-11-21: none for now; the lawyer must confirm. */
   mediationBody:
     "the Belgian Consumer Mediation Service (Service de médiation pour le consommateur), Boulevard du Roi Albert II 8, box 1, 1000 Brussels, www.mediationconsommateur.be (free of charge)",
@@ -62,6 +76,13 @@ export const COMPANY = {
     "el Servicio belga de Mediación del Consumidor (Service de médiation pour le consommateur), Boulevard du Roi Albert II 8, caja 1, 1000 Bruselas, www.mediationconsommateur.be (gratuito)",
   mediationBodyPt:
     "o Serviço belga de Mediação do Consumidor (Service de médiation pour le consommateur), Boulevard du Roi Albert II 8, caixa 1, 1000 Bruxelas, www.mediationconsommateur.be (gratuito)",
+  /** Dutch / German / Italian wording of mediationBody (keep in step with it). */
+  mediationBodyNl:
+    "de Consumentenombudsdienst, Koning Albert II-laan 8, bus 1, 1000 Brussel, www.consumentenombudsdienst.be (gratis)",
+  mediationBodyDe:
+    "der belgische Ombudsdienst für Verbraucher (Service de médiation pour le consommateur), Boulevard du Roi Albert II 8, Postfach 1, 1000 Brüssel, www.mediationconsommateur.be (kostenlos)",
+  mediationBodyIt:
+    "il Servizio belga di mediazione per i consumatori (Service de médiation pour le consommateur), Boulevard du Roi Albert II 8, casella 1, 1000 Bruxelles, www.mediationconsommateur.be (gratuito)",
 };
 
 export const POLICY = {
@@ -90,6 +111,9 @@ export const LEGAL_LAST_UPDATED_BY_LOCALE: Record<string, string> = {
   fr: "25 novembre 2026",
   es: "25 de noviembre de 2026",
   pt: "25 de novembro de 2026",
+  nl: "25 november 2026",
+  de: "25. November 2026",
+  it: "25 novembre 2026",
 };
 
 export const isPlaceholder = (value: string) => value.startsWith("[") && value.endsWith("]");

@@ -1,0 +1,1042 @@
+{
+  "nav": {
+    "esimStore": "Negozio eSIM",
+    "destinations": "Destinazioni",
+    "regionalPlans": "Piani regionali",
+    "globalPlans": "Piani globali",
+    "howItWorks": "Come funziona",
+    "help": "Aiuto",
+    "myEsims": "Le mie eSIM",
+    "language": "Lingua",
+    "physicalSim": "SIM fisica",
+    "toggleMenu": "Apri o chiudi il menu"
+  },
+  "footer": {
+    "tagline": "Resta connesso. Ovunque. Dati eSIM immediati per oltre 180 paesi, consegnati via e-mail.",
+    "shopHeading": "Acquista",
+    "supportHeading": "Assistenza",
+    "languageHeading": "Lingua",
+    "globalEsim": "eSIM globale",
+    "deviceCompatibility": "Compatibilità",
+    "helpCenter": "Centro assistenza",
+    "copyright": "© {year} SpeedNetRDC. Tutti i diritti riservati.",
+    "designedBy": "Design di",
+    "privacy": "Informativa sulla privacy",
+    "terms": "Termini e condizioni",
+    "refunds": "Politica di rimborso",
+    "cookieSettings": "Impostazioni cookie",
+    "followUs": "Seguici",
+    "followOn": "SpeedNetRDC su {network}",
+    "popularDestinations": "Destinazioni popolari",
+    "contactUs": "Contattaci",
+    "legalNotice": "Note legali",
+    "securePayments": "Pagamenti sicuri con Stripe",
+    "operatedBy": "SpeedNetRDC è gestito da una società di telecomunicazioni con sede in Belgio.",
+    "companyDetails": "{address} · N. impresa (BCE/KBO) {registration} · P. IVA {vat} · {email}"
+  },
+  "home": {
+    "hero": {
+      "titleLine1": "Resta connesso.",
+      "titleLine2": "Ovunque.",
+      "subtitle": "Dati eSIM immediati per oltre 180 paesi. Senza contratto: atterri e ti connetti.",
+      "explorePlans": "Scopri i piani eSIM",
+      "howItWorks": "Come funziona",
+      "searchPlaceholder": "Dove vai in viaggio?",
+      "search": "Cerca"
+    },
+    "valueProps": {
+      "instantDeliveryTitle": "Consegna immediata",
+      "instantDeliveryDescription": "Codice QR e dati di attivazione appena paghi.",
+      "securePaymentsTitle": "Pagamenti sicuri",
+      "securePaymentsDescription": "Pagamento con carta crittografato, con Apple Pay e Google Pay sui dispositivi supportati.",
+      "keepNumberTitle": "Mantieni il tuo numero",
+      "keepNumberDescription": "La tua SIM abituale resta attiva per chiamate e SMS, mentre l’eSIM gestisce i dati.",
+      "supportTitle": "Assistenza via e-mail e WhatsApp",
+      "supportDescription": "Rispondono persone vere, di solito entro un giorno lavorativo."
+    },
+    "steps": {
+      "eyebrow": "Come funziona",
+      "title": "Connesso in quattro semplici passi",
+      "searchTitle": "Cerca la tua destinazione",
+      "searchDescription": "Dicci dove vai e ti mostriamo tutti i piani che coprono quel paese.",
+      "pickTitle": "Scegli un piano e paga",
+      "pickDescription": "Scegli dati e validità, poi paga in sicurezza in meno di un minuto.",
+      "scanTitle": "Scansiona il codice QR",
+      "scanDescription": "Installa subito scansionando il codice QR o inserendo i dati di attivazione.",
+      "landTitle": "Atterra e connettiti",
+      "landDescription": "La tua eSIM si attiva automaticamente sulla prima rete supportata."
+    },
+    "popularDestinations": {
+      "eyebrow": "Destinazioni popolari",
+      "title": "Dove si connettono più viaggiatori",
+      "allDestinations": "Tutte le destinazioni",
+      "names": {
+        "australia": "Australia",
+        "canada": "Canada",
+        "europe": "Europa",
+        "global": "Globale",
+        "japan": "Giappone",
+        "saudi-arabia": "Arabia Saudita",
+        "thailand": "Thailandia",
+        "turkey": "Turchia",
+        "uae": "Emirati Arabi",
+        "united-kingdom": "Regno Unito"
+      },
+      "subtitles": {
+        "australia": "Oceania",
+        "canada": "Nord America",
+        "europe": "22+ paesi",
+        "global": "81+ paesi",
+        "japan": "Asia",
+        "saudi-arabia": "Medio Oriente",
+        "thailand": "Asia",
+        "turkey": "Europa",
+        "uae": "Medio Oriente",
+        "united-kingdom": "Europa"
+      }
+    },
+    "regionalStrip": {
+      "eyebrow": "Copertura multi-paese",
+      "title": "Una sola eSIM per tutto il viaggio",
+      "subtitle": "Attraversi i confini? Un solo piano copre tutti i paesi della regione.",
+      "seeAllRegions": "Vedi tutte le regioni",
+      "global": "Globale",
+      "countriesCount": "{count}+ paesi",
+      "countriesCountPlain": "Fino a {count} paesi",
+      "fromPrice": "da {price}"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Accedi",
+      "subtitle": "Inserisci l’e-mail usata per l’acquisto. Ti invieremo un link di accesso, senza password.",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "tu@esempio.com",
+      "emailError": "Inserisci un’e-mail valida.",
+      "submit": "Inviami un link di accesso",
+      "sending": "Invio in corso…",
+      "sentTitle": "Controlla la posta",
+      "sentBody": "Se {email} ha effettuato un ordine con noi, abbiamo inviato un link di accesso. Funziona una sola volta e scade tra 15 minuti.",
+      "tooMany": "Troppi tentativi. Riprova più tardi.",
+      "useDifferent": "Usa un’altra e-mail",
+      "unavailable": "L’accesso non è disponibile in questo momento. Il link della tua eSIM è nell’e-mail di conferma, oppure contatta l’assistenza."
+    },
+    "verify": {
+      "title": "Accedi a SpeedNetRDC",
+      "body": "Stai accedendo come {email}.",
+      "submit": "Accedi",
+      "signingIn": "Accesso in corso…",
+      "invalidTitle": "Questo link è scaduto",
+      "invalidBody": "I link di accesso funzionano una sola volta e scadono dopo 15 minuti.",
+      "newLink": "Richiedi un nuovo link",
+      "tooMany": "Troppi tentativi. Riprova più tardi.",
+      "unavailable": "L’accesso non è disponibile in questo momento. Il link della tua eSIM è nell’e-mail di conferma, oppure contatta l’assistenza."
+    }
+  },
+  "regions": {
+    "africa": "Africa",
+    "americas": "Americhe",
+    "asia": "Asia",
+    "caribbean": "Caraibi",
+    "europe": "Europa",
+    "middle-east": "Medio Oriente",
+    "global": "Globale",
+    "latin-america": "America Latina",
+    "oceania": "Oceania",
+    "north-america": "Nord America",
+    "africa-plus": "Africa Plus",
+    "asia-plus": "Asia Plus",
+    "malaysia-singapore": "Malesia e Singapore",
+    "caribbean-plus": "Caraibi Plus",
+    "europe-plus": "Europa Plus",
+    "europe-mediterranean": "Europa e Mediterraneo",
+    "scandinavia-baltics": "Scandinavia e Paesi baltici",
+    "middle-east-plus": "Medio Oriente Plus",
+    "australia-new-zealand": "Australia e Nuova Zelanda",
+    "isle-of-man-channel-islands": "Isola di Man e Isole del Canale",
+    "french-caribbean": "Caraibi francesi e Guyana"
+  },
+  "account": {
+    "title": "Le mie eSIM",
+    "subtitle": "Accesso come {email}. Tutte le eSIM acquistate con questa e-mail.",
+    "signOut": "Esci",
+    "emptyTitle": "Nessun ordine per questa e-mail",
+    "emptyBody": "Gli ordini compaiono qui dopo il pagamento.",
+    "emptyCta": "Sfoglia i piani eSIM",
+    "orderNumber": "Ordine ORD-{id}",
+    "bought": "Acquistato il {date}",
+    "statusReady": "Pronta da installare",
+    "statusPreparing": "In preparazione",
+    "statusRefunded": "Rimborsato",
+    "viewEsim": "Vedi eSIM e codice QR",
+    "preparingNote": "Ti scriveremo appena è pronta.",
+    "help": "Manca un ordine? È registrato con l’e-mail usata per l’acquisto. Serve aiuto?",
+    "contactSupport": "Contatta l’assistenza",
+    "mySimsTitle": "Le mie SIM",
+    "mySimsSubtitle": "Le tue SIM e i piani dati attivi.",
+    "simCard": "SIM",
+    "esim": "eSIM",
+    "ending": "termina con {digits}",
+    "noPlan": "Al momento nessun piano dati su questa SIM.",
+    "planActive": "Attivo",
+    "planWaiting": "Inizia alla prima connessione in un paese coperto",
+    "dataLeft": "{left} rimanenti su {total}",
+    "expires": "Scade il {date}",
+    "buyMore": "Acquista altri dati",
+    "checkedAt": "Controllato alle {time}",
+    "viewOrder": "Vedi ordine",
+    "recharge": "Ricarica"
+  },
+  "homePhysicalSim": {
+    "eyebrow": "SIM fisica · Disponibile ora",
+    "title": "Il tuo telefono non ha l’eSIM? Scegli una SIM fisica",
+    "text": "Una SIM SpeedNetRDC per qualsiasi telefono sbloccato, con dati internazionali inclusi, spedita dal Belgio in tutto il mondo in 3–5 giorni lavorativi.",
+    "price": "€{total} tutto incluso: SIM, {gb} di dati, spedizione in tutto il mondo e IVA",
+    "cta": "Scopri di più"
+  },
+  "physicalSim": {
+    "metaTitle": "SIM fisica — SpeedNetRDC",
+    "eyebrow": "SIM fisica",
+    "title": "Il tuo telefono non ha l’eSIM? Prendi una SIM SpeedNetRDC",
+    "subtitle": "Una vera SIM per qualsiasi telefono sbloccato, con {gb} di dati internazionali inclusi, spedita dal Belgio in tutto il mondo.",
+    "priceTitle": "Prezzo",
+    "simLine": "SIM + {gb} di dati",
+    "shippingLine": "Spedizione in tutto il mondo",
+    "total": "Totale",
+    "taxNote": "IVA inclusa ({vat}).",
+    "features": {
+      "shipsFrom": "Spedita dal Belgio",
+      "delivery": "Consegna in tutto il mondo in 3–5 giorni lavorativi",
+      "unlocked": "Funziona in qualsiasi telefono sbloccato",
+      "data": "{gb} di dati internazionali inclusi"
+    },
+    "howTitle": "Come funziona",
+    "steps": {
+      "shipTitle": "La spediamo",
+      "shipText": "Spediamo la tua SIM dal Belgio: arriva in 3–5 giorni lavorativi, ovunque tu sia.",
+      "insertTitle": "Inseriscila",
+      "insertText": "Inserisci la SIM in un telefono sbloccato.",
+      "dataTitle": "Connettiti",
+      "dataText": "I dati inclusi sono già sulla SIM: attiva il roaming dati e sei online."
+    },
+    "orderTitle": "Disponibile ora",
+    "orderText": "Ordina la SIM via e-mail: inviaci nome e indirizzo di consegna e ti risponderemo con i passi successivi.",
+    "contactButton": "Ordina via e-mail",
+    "contactSubject": "Ordine SIM fisica",
+    "faqTitle": "Domande",
+    "faq": {
+      "whatQ": "Che cos’è la SIM SpeedNetRDC?",
+      "whatA": "Una SIM fisica per telefoni senza eSIM. Include {gb} di dati internazionali (validi {days} giorni, {countries} paesi), quindi funziona appena arriva.",
+      "phonesQ": "In quali telefoni funziona?",
+      "phonesA": "In qualsiasi telefono non bloccato da un operatore che accetta una SIM standard.",
+      "priceQ": "Quanto costa?",
+      "priceA": "{total} tutto incluso: la SIM, {gb} di dati internazionali, spedizione in tutto il mondo e IVA.",
+      "shippingQ": "Dove spedite e quanto tempo ci vuole?",
+      "shippingA": "Spediamo dal Belgio in tutto il mondo. La consegna richiede 3–5 giorni lavorativi.",
+      "whenQ": "Posso ordinarla ora?",
+      "whenA": "Sì. Scrivi a {email} con nome e indirizzo di consegna e ti risponderemo con i passi successivi."
+    }
+  },
+  "physicalSimShop": {
+    "metaTitle": "SIM fisica — SpeedNetRDC",
+    "eyebrow": "SIM fisica",
+    "title": "Il tuo telefono non ha l’eSIM? Prendi una SIM SpeedNetRDC",
+    "subtitle": "Una vera SIM per qualsiasi telefono sbloccato, con dati internazionali inclusi. Conservala e aggiungi dati dal nostro sito ogni volta che viaggi.",
+    "priceTitle": "Prezzo",
+    "simLine": "SIM + {gb} di dati",
+    "shippingLine": "Spedizione in tutto il mondo",
+    "feesLine": "Tasse e commissioni",
+    "total": "Totale",
+    "taxFinal": "IVA inclusa ({vat}).",
+    "taxSurcharge": "Include il 5% di tasse e commissioni.",
+    "taxVat": "Include {vat} di IVA (21%).",
+    "features": {
+      "shipsFrom": "Spedita dal Belgio",
+      "delivery": "Consegna in tutto il mondo in 3–5 giorni lavorativi",
+      "unlocked": "Funziona in qualsiasi telefono sbloccato",
+      "keep": "Dati inclusi: è tua, ricaricabile ogni volta che viaggi"
+    },
+    "howTitle": "Come funziona",
+    "steps": {
+      "orderTitle": "Ordina",
+      "orderText": "Ordina qui la tua SIM e paga in sicurezza.",
+      "shipTitle": "Spediamo",
+      "shipText": "La spediamo dal Belgio: arriva in 3–5 giorni lavorativi, in tutto il mondo.",
+      "insertTitle": "Inserisci",
+      "insertText": "Inserisci la SIM in un telefono sbloccato e attiva il roaming dati.",
+      "buyTitle": "Usa i tuoi dati",
+      "buyText": "I dati inclusi sono già sulla SIM. Te ne servono altri? Scegli un piano e “Aggiungi alla mia SIM”.",
+      "connectTitle": "Connettiti",
+      "connectText": "Il piano inizia alla prima connessione in un paese coperto."
+    },
+    "orderTitle": "Ordina la tua SIM",
+    "nameLabel": "Nome e cognome",
+    "emailLabel": "Indirizzo e-mail",
+    "emailHint": "Qui invieremo gli aggiornamenti dell’ordine. Accedi poi con questa e-mail per vedere la SIM in “Le mie SIM”.",
+    "addressNote": "Inserirai l’indirizzo di spedizione nella pagina di pagamento sicura. Spediamo in tutto il mondo.",
+    "oneSim": "Una SIM per ordine.",
+    "submit": "Vai al pagamento · {total}",
+    "submitting": "Apertura del pagamento sicuro…",
+    "invalid": "Inserisci nome completo e un’e-mail valida.",
+    "error": "Qualcosa è andato storto. Riprova.",
+    "faqTitle": "Domande",
+    "faq": {
+      "whatQ": "Che cos’è la SIM SpeedNetRDC?",
+      "whatA": "Una SIM fisica per telefoni senza eSIM. Include {gb} di dati internazionali, funziona appena arriva e puoi aggiungere dati quando vuoi.",
+      "includedQ": "Cosa include il prezzo?",
+      "includedA": "{total} tutto incluso: la SIM, {gb} di dati internazionali validi {days} giorni in {countries} paesi, spedizione in tutto il mondo e IVA. I dati vengono caricati prima della spedizione; i {days} giorni iniziano alla prima connessione.",
+      "phonesQ": "In quali telefoni funziona?",
+      "phonesA": "In qualsiasi telefono non bloccato da un operatore che accetta una SIM standard.",
+      "shippingQ": "Dove spedite e quanto tempo ci vuole?",
+      "shippingA": "Spediamo dal Belgio in tutto il mondo, inclusi Europa, Americhe e Africa. La consegna richiede 3–5 giorni lavorativi dalla spedizione.",
+      "customsQ": "Ci sono costi doganali fuori dall’UE?",
+      "customsA": "Il prezzo include già l’IVA. Fuori dall’UE il paese di destinazione può applicare formalità doganali o dazi propri, da pagare alla consegna.",
+      "keepQ": "Per quanto tempo posso tenere la SIM?",
+      "keepA": "È tua: non ha una data di scadenza fissa. Una SIM inutilizzata per {period} viene disattivata.",
+      "dataQ": "Come aggiungo altri dati?",
+      "dataA": "Scegli un piano sul sito, seleziona “Aggiungi alla mia SIM” e inserisci il numero stampato sulla SIM, oppure sceglila in “Le mie SIM” dopo l’accesso.",
+      "startQ": "Quando inizia un piano?",
+      "startA": "La prima volta che il telefono si connette in un paese coperto dal piano {window}.",
+      "twoQ": "E se ho due piani per lo stesso paese?",
+      "twoA": "I piani si sommano: ognuno mantiene i propri dati e la propria scadenza. {priority}",
+      "returnsQ": "Posso restituire la SIM?",
+      "returnsA": "{returns}"
+    }
+  },
+  "meta": {
+    "siteTitle": "SpeedNetRDC — Dati eSIM immediati, ovunque",
+    "siteDescription": "Resta connesso in oltre 180 paesi con dati eSIM immediati. Senza contratto.",
+    "store": "Negozio eSIM",
+    "destinations": "Destinazioni",
+    "destination": "eSIM {country}",
+    "destinationFallback": "Destinazione",
+    "regionalPlans": "Piani regionali",
+    "regionPlans": "Piani {region}",
+    "planFallback": "Piano",
+    "globalPlans": "Piani globali",
+    "help": "Centro assistenza",
+    "howItWorks": "Come funziona",
+    "deviceCompatibility": "Compatibilità",
+    "checkout": "Pagamento",
+    "checkoutSuccess": "Ordine confermato",
+    "checkoutCancelled": "Pagamento annullato",
+    "order": "La tua eSIM",
+    "account": "Le mie eSIM",
+    "physicalSim": "SIM fisica"
+  },
+  "format": {
+    "unlimited": "Illimitati",
+    "days": "{count, plural, one {# giorno} other {# giorni}}",
+    "global": "Globale",
+    "globalPlus": "Global Plus",
+    "planName": "{area} {data} / {validity}"
+  },
+  "planCard": {
+    "bestValue": "Più conveniente",
+    "badgePriceDrop": "Prezzo ribassato",
+    "badgeNew": "Nuovo",
+    "data": "Dati",
+    "validity": "Validità",
+    "from": "Da",
+    "viewPlan": "Vedi piano",
+    "countries": "{count, plural, one {# paese} other {# paesi}}",
+    "fairUse": "Uso corretto: {gb} GB"
+  },
+  "store": {
+    "title": "Piani per “{destination}”",
+    "everywhere": "Ovunque",
+    "subtitle": "Filtra per destinazione, regione, dati e durata per trovare l’eSIM giusta.",
+    "found": "{count, plural, one {# piano trovato} other {# piani trovati}}",
+    "capped": " — mostrati i primi {cap}, affina la ricerca per vederne altri",
+    "noResultsTitle": "Nessun piano corrisponde ai filtri",
+    "noResultsText": "Rimuovi un filtro o cerca un’altra destinazione."
+  },
+  "sort": {
+    "sortBy": "Ordina per",
+    "recommended": "Consigliati",
+    "price": "Prezzo più basso",
+    "data": "Più dati",
+    "validity": "Validità più lunga",
+    "value": "Più conveniente"
+  },
+  "filters": {
+    "destination": "Destinazione",
+    "destinationPlaceholder": "Cerca paese o regione",
+    "region": "Regione",
+    "allRegions": "Tutte le regioni",
+    "dataAmount": "Quantità di dati",
+    "anyData": "Qualsiasi",
+    "dataMin": "{amount}GB+",
+    "duration": "Durata",
+    "anyDuration": "Qualsiasi durata",
+    "days": "{count, plural, one {# giorno} other {# giorni}}",
+    "maxPrice": "Prezzo massimo",
+    "anyPrice": "Qualsiasi prezzo",
+    "under": "Sotto {price}",
+    "network": "Rete",
+    "allNetworks": "Tutte le reti",
+    "unlimitedOnly": "Solo dati illimitati",
+    "fiveG": "5G disponibile"
+  },
+  "destinations": {
+    "title": "Ogni paese a un tocco",
+    "subtitle": "Sfoglia i piani dati eSIM per oltre 180 paesi, raggruppati per regione.",
+    "filterPlaceholder": "Filtra paesi…",
+    "noMatch": "Nessun paese per “{query}”."
+  },
+  "destinationTile": {
+    "from": "da"
+  },
+  "installSteps": {
+    "openSettings": "Apri le impostazioni del telefono",
+    "selectMobile": "Seleziona Cellulare / Rete mobile",
+    "addEsim": "Aggiungi eSIM",
+    "scanQr": "Scansiona il codice QR SpeedNetRDC",
+    "enableData": "Attiva SpeedNetRDC per i dati mobili"
+  },
+  "destination": {
+    "title": "eSIM {country}",
+    "oneCountry": "1 paese coperto",
+    "networks": "{count, plural, one {# rete} other {# reti}}",
+    "plansEyebrow": "Piani",
+    "plansTitle": "Scegli il tuo piano",
+    "setupEyebrow": "Configurazione",
+    "installTitle": "Installazione in cinque passi",
+    "deviceEyebrow": "Verifica dispositivo",
+    "deviceTitle": "Il tuo telefono è compatibile?",
+    "needDifferent": "Ti serve un altro paese?",
+    "browseAll": "Tutte le destinazioni",
+    "alsoEyebrow": "Altre opzioni",
+    "alsoTitle": "Piani regionali e globali che coprono anche {country}",
+    "alsoText": "Questi piani coprono più paesi, incluso questo. Ogni piano elenca i paesi coperti."
+  },
+  "coverage": {
+    "eyebrow": "Copertura",
+    "title": "Copertura e reti",
+    "countriesCovered": "Paesi coperti ({count})",
+    "availableNetworks": "Reti disponibili",
+    "speed": "Velocità",
+    "dataOptions": "Opzioni dati",
+    "worksIn": "{count, plural, one {Funziona in # paese} other {Funziona in # paesi}}",
+    "worksOnly": "Funziona solo in {country}",
+    "noInternet": "Fuori da questi paesi non c’è internet.",
+    "noInternetSingle": "Fuori da {country} non c’è internet.",
+    "notIncluded": "Non incluso",
+    "notIncludedHint": "Nella stessa zona, ma questo piano non funziona lì:",
+    "showMore": "+{count} altri",
+    "showLess": "Mostra meno"
+  },
+  "taglines": {
+    "default": "Dati eSIM immediati per {country}.",
+    "custom": {
+      "argentina": "Da Buenos Aires alla Patagonia.",
+      "australia": "Da Sydney all’outback, copertura completa.",
+      "bahamas": "Da un’isola all’altra senza perdere segnale.",
+      "brazil": "Da Rio all’Amazzonia, dati affidabili.",
+      "canada": "Da Vancouver a Toronto, sempre connessi.",
+      "colombia": "Da Bogotá a Cartagena, senza interruzioni.",
+      "dominican-republic": "Dal resort alla città, sempre connessi.",
+      "egypt": "Dal Cairo al Mar Rosso, resta connesso.",
+      "fiji": "Resort sulle isole, dati affidabili.",
+      "france": "Dalla Torre Eiffel alla Riviera, online ovunque.",
+      "germany": "Dati veloci e affidabili in tutti i 16 Länder.",
+      "indonesia": "Dalle spiagge di Bali al traffico di Giacarta.",
+      "israel": "Dalla costa al deserto, resta in contatto.",
+      "italy": "Dati al passo con la tua vacanza in Italia.",
+      "japan": "5G velocissimo da Tokyo a Kyoto.",
+      "kenya": "Nairobi e le terre dei safari, coperte.",
+      "mexico": "Dalle località di mare a Città del Messico, sempre online.",
+      "morocco": "Dai souk di Marrakech al Sahara.",
+      "new-zealand": "Dall’Isola del Nord a quella del Sud, sempre online.",
+      "qatar": "Lo skyline di Doha, con i tuoi dati.",
+      "saudi-arabia": "Da Riad a Gedda, copertura affidabile.",
+      "singapore": "5G in tutta la città, senza zone morte.",
+      "south-africa": "Da Città del Capo al Kruger, sempre raggiungibile.",
+      "south-korea": "Alcune delle reti più veloci al mondo.",
+      "spain": "Dalla costa alla città, copertura continua in tutta la Spagna.",
+      "thailand": "Dalle strade di Bangkok alle spiagge delle isole, sempre online.",
+      "turkey": "Da Istanbul alla costa, mai senza segnale.",
+      "uae": "Dubai e Abu Dhabi, completamente connesse.",
+      "united-kingdom": "Da Londra alle Highlands, sempre connessi.",
+      "united-states": "Da costa a costa, nessuna sorpresa di roaming.",
+      "vietnam": "Dati affidabili lungo tutta la costa."
+    }
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Domande frequenti",
+    "destination": [
+      {
+        "id": "what-is-esim",
+        "question": "Che cos’è un’eSIM?",
+        "answer": "L’eSIM è una SIM digitale integrata nel telefono. Invece di cambiare scheda, installi un piano scansionando un codice QR o toccando un link: niente negozio, niente attese."
+      },
+      {
+        "id": "when-install",
+        "question": "Quando devo installare l’eSIM?",
+        "answer": "Puoi installarla in qualsiasi momento dopo l’acquisto, ma consigliamo di farlo prima di partire, con il Wi-Fi. Il piano si attiva solo quando ti connetti a una rete supportata a destinazione."
+      },
+      {
+        "id": "keep-number",
+        "question": "Posso mantenere il mio numero?",
+        "answer": "Sì. L’eSIM aggiunge una seconda linea solo dati accanto alla tua SIM, quindi continui a ricevere chiamate e SMS sul tuo numero."
+      },
+      {
+        "id": "hotspot",
+        "question": "Il mio piano include l’hotspot?",
+        "answer": "La maggior parte dei piani SpeedNetRDC supporta l’hotspot senza costi aggiuntivi. Controlla il campo “Hotspot” nella pagina del piano."
+      }
+    ],
+    "help": [
+      {
+        "id": "delivery",
+        "question": "Quanto tempo ci vuole per ricevere l’eSIM?",
+        "answer": "Subito. Codice QR e dati di attivazione sono pronti nel tuo account e nella posta appena il pagamento è completato."
+      },
+      {
+        "id": "compatible",
+        "question": "E se il mio telefono non supporta l’eSIM?",
+        "answer": "Controlla il telefono nella pagina di compatibilità prima di acquistare. Un piano eSIM funziona solo su un telefono compatibile."
+      },
+      {
+        "id": "refund",
+        "question": "Posso ottenere un rimborso?",
+        "answer": "Per i rimborsi scrivi a contact@speednetrdc.com."
+      },
+      {
+        "id": "payment",
+        "question": "Quali metodi di pagamento accettate?",
+        "answer": "Carte di debito e credito nella pagina sicura di Stripe. Apple Pay e Google Pay sono disponibili sui dispositivi compatibili."
+      },
+      {
+        "id": "recharge",
+        "question": "Come ricarico la mia eSIM?",
+        "answer": "Accedi con l’e-mail dell’ordine, apri Le mie SIM, premi “Ricarica” accanto alla tua eSIM e scegli un piano per il paese in cui ti trovi. Puoi anche scegliere “Aggiungi alla mia SIM” su qualsiasi piano. I nuovi dati vanno sulla stessa eSIM."
+      },
+      {
+        "id": "contact",
+        "question": "Come parlo con una persona?",
+        "answer": "Scrivi a contact@speednetrdc.com: di solito rispondiamo entro un giorno lavorativo. Per risposte rapide tocca il pulsante chat in basso a destra."
+      }
+    ]
+  },
+  "regionalPlans": {
+    "title": "Una sola eSIM per tutto il viaggio",
+    "subtitle": "Più confini nella stessa regione? Un solo piano copre tutti i paesi.",
+    "countries": "{count, plural, one {# paese} other {Fino a # paesi}}",
+    "from": "da {price}"
+  },
+  "regionPage": {
+    "eyebrow": "eSIM {region}",
+    "titleStart": "Una sola eSIM.",
+    "titleEnd": "Tutta: {region}.",
+    "subtitle": "Piani per un massimo di {count} paesi in {region}, senza cambiare SIM tra un confine e l’altro. Ogni piano elenca i paesi coperti.",
+    "statCountries": "Paesi coperti",
+    "statNetwork": "Rete",
+    "statSpeed": "Velocità",
+    "statValidity": "Validità",
+    "validityRange": "3–30 giorni"
+  },
+  "globalPlans": {
+    "budget": {
+      "label": "Globale",
+      "eyebrow": "eSIM globale",
+      "titleStart": "Una sola eSIM.",
+      "titleEnd": "Il mondo è tuo.",
+      "subtitle": "Il nostro piano globale di tutti i giorni: ampia copertura al prezzo per GB più basso."
+    },
+    "premium": {
+      "label": "Global Plus",
+      "eyebrow": "eSIM Global Plus",
+      "titleStart": "Global Plus.",
+      "titleEnd": "Copertura più ampia, reti più veloci.",
+      "subtitle": "Il nostro livello globale premium: più operatori, per chi ha bisogno di copertura ovunque."
+    },
+    "statCountries": "Paesi coperti",
+    "statNetwork": "Rete",
+    "statSpeed": "Velocità",
+    "statPlans": "Piani"
+  },
+  "planDetail": {
+    "title": "eSIM {area}",
+    "dataAllowance": "Dati inclusi",
+    "validity": "Validità",
+    "network": "Rete",
+    "speed": "Velocità",
+    "hotspot": "Hotspot",
+    "supported": "Supportato",
+    "notSupported": "Non supportato",
+    "activationPolicy": "Attivazione",
+    "activationPolicyValue": "Si attiva automaticamente alla prima connessione a una rete supportata",
+    "supportedDevices": "Dispositivi supportati",
+    "supportedDevicesValue": "Telefoni sbloccati compatibili con eSIM",
+    "refunds": "Rimborsi",
+    "refundsValue": "Per i rimborsi: contact@speednetrdc.com",
+    "totalPrice": "Prezzo totale",
+    "buy": "Acquista questa eSIM",
+    "checkDevice": "Controlla compatibilità",
+    "instantSecure": "Consegna immediata · Pagamento sicuro",
+    "whereTitle": "Dove vuoi questo piano?",
+    "newEsim": "Nuova eSIM",
+    "newEsimHint": "Ottieni una nuova eSIM con questo piano",
+    "addToSim": "Aggiungi alla mia SIM",
+    "addToSimHint": "Mettilo su una SIM che hai già",
+    "buyTopUp": "Aggiungi questo piano alla mia SIM",
+    "fairUse": "Uso corretto",
+    "fairUseValue": "Limite di uso corretto di {gb} GB",
+    "multiCountryNote": "Questo piano funziona in un solo paese. Ne visiti più di uno? Scegli un piano regionale o globale.",
+    "multiCountryRegional": "Piani regionali",
+    "multiCountryGlobal": "Piani globali"
+  },
+  "salesPaused": {
+    "title": "Gli ordini eSIM sono temporaneamente sospesi",
+    "notice": "Stiamo apportando miglioramenti e torneremo presto.",
+    "page": "Stiamo lavorando a dei miglioramenti e torneremo presto. Nel frattempo puoi sfogliare i piani e verificare se il telefono supporta l’eSIM.",
+    "browsePlans": "Sfoglia i piani",
+    "checkPhone": "Controlla il mio telefono",
+    "questions": "Domande?",
+    "getHelp": "Ottieni aiuto"
+  },
+  "checkout": {
+    "noPlanTitle": "Nessun piano selezionato",
+    "noPlanText": "Scegli prima un piano eSIM, poi torna qui per pagare.",
+    "browsePlans": "Sfoglia i piani eSIM",
+    "trouble": "Hai problemi?",
+    "getHelp": "Ottieni aiuto",
+    "steps": {
+      "plan": "Piano",
+      "account": "Account",
+      "payment": "Pagamento",
+      "confirmation": "Conferma"
+    },
+    "planStep": {
+      "title": "Conferma il piano",
+      "subtitle": "Controlla i dettagli prima di continuare.",
+      "changePlan": "Non è il piano giusto? Cambia piano",
+      "continue": "Continua",
+      "subtitleTopUp": "Il piano sarà aggiunto a una SIM che hai già: nessuna nuova eSIM da installare."
+    },
+    "accountStep": {
+      "title": "Il tuo account",
+      "subtitle": "Invieremo eSIM e ricevuta a questa e-mail.",
+      "fullName": "Nome e cognome",
+      "namePlaceholder": "Mario Rossi",
+      "nameError": "Inserisci nome e cognome.",
+      "email": "Indirizzo e-mail",
+      "emailPlaceholder": "tu@esempio.com",
+      "emailError": "Inserisci un indirizzo e-mail valido.",
+      "back": "Indietro",
+      "continue": "Vai al pagamento"
+    },
+    "paymentStep": {
+      "title": "Pagamento",
+      "intro": "Inserirai i dati della carta nella pagina sicura di Stripe: non vediamo né conserviamo mai il numero.",
+      "methods": "Carta, Apple Pay, Google Pay e altri metodi attivi saranno proposti nella schermata successiva. Il pagamento è gestito da Stripe; nessun addebito finché non confermi.",
+      "consent": "Consegnate la mia eSIM subito dopo il pagamento. Comprendo che, una volta consegnata, il consueto diritto di recesso di 14 giorni non si applica più. Posso comunque ottenere un rimborso nei casi previsti dalla <refunds>Politica di rimborso</refunds>.",
+      "legal": "Continuando accetti i nostri <terms>Termini e condizioni</terms> e la <refunds>Politica di rimborso</refunds>. Leggi come usiamo i tuoi dati nell’<privacy>Informativa sulla privacy</privacy>.",
+      "back": "Indietro",
+      "pay": "Vai al pagamento sicuro · {total}",
+      "errorPaused": "Gli ordini eSIM sono temporaneamente sospesi. Torneremo presto: riprova più tardi.",
+      "errorDetails": "Inserisci un nome e un’e-mail validi",
+      "errorPlan": "Piano sconosciuto",
+      "errorConsent": "Spunta la casella per confermare la consegna immediata dell’eSIM.",
+      "errorGeneric": "Impossibile avviare il pagamento. Riprova.",
+      "consentTopUp": "Consegnate il mio piano dati subito dopo il pagamento. Comprendo che, una volta consegnato, il consueto diritto di recesso di 14 giorni non si applica più. Posso comunque ottenere un rimborso nei casi previsti dalla <refunds>Politica di rimborso</refunds>.",
+      "errorTopUpUnavailable": "Non è ancora possibile aggiungere un piano a una SIM esistente.",
+      "errorTooMany": "Troppi tentativi. Riprova più tardi.",
+      "errorSimNotFound": "Non troviamo questa SIM. Controlla il numero stampato sulla scheda."
+    },
+    "summary": {
+      "title": "Riepilogo ordine",
+      "destination": "Destinazione",
+      "plan": "Piano",
+      "validity": "Validità",
+      "data": "Dati",
+      "price": "Prezzo",
+      "taxes": "Tasse e commissioni",
+      "total": "Totale",
+      "footer": "Pagamento crittografato · Consegna immediata · Rimborsi: contact@speednetrdc.com",
+      "addedTo": "Aggiunto a",
+      "simEnding": "SIM che termina con {last4}",
+      "chooseSim": "La tua SIM (sceglila)",
+      "plainTotal": "Paghi {total} in un’unica soluzione: il piano ({price}) più tasse e commissioni ({fees}).",
+      "footerTopUp": "Pagamento crittografato · Sulla tua SIM in pochi minuti · Rimborsi: contact@speednetrdc.com"
+    },
+    "cancelled": {
+      "title": "Pagamento annullato",
+      "text": "Non ti è stato addebitato nulla. Il carrello non è stato salvato, ma puoi riscegliere il piano in pochi tocchi.",
+      "backToPlans": "Torna ai piani",
+      "getHelp": "Ottieni aiuto"
+    },
+    "success": {
+      "confirming": "Conferma del pagamento…",
+      "settingUp": "Pagamento ricevuto: stiamo preparando la tua eSIM…",
+      "fewSeconds": "Di solito bastano pochi secondi. Non chiudere la pagina.",
+      "needsMomentTitle": "Pagamento ricevuto: la tua eSIM richiede un momento",
+      "stillPreparingTitle": "Pagamento ricevuto: stiamo ancora preparando la tua eSIM",
+      "needsMomentText": "C’è stato un problema nella creazione automatica dell’eSIM. Il nostro team è stato avvisato e la completerà per te.",
+      "stillPreparingText": "Ci sta mettendo più del solito.",
+      "orderPageNote": "eSIM e codice QR compariranno nella tua pagina privata dell’ordine. Salvala nei preferiti: chiunque abbia il link può vedere la tua eSIM.",
+      "openOrderPage": "Apri la pagina del mio ordine",
+      "getHelp": "Ottieni aiuto",
+      "paymentFailedTitle": "Pagamento non riuscito",
+      "notConfirmedTitle": "Non abbiamo ancora potuto confermare il pagamento",
+      "paymentFailedText": "La tua carta non è stata addebitata. Riprova o usa un altro metodo di pagamento.",
+      "notConfirmedText": "Può succedere se la conferma richiede più tempo. Se ti è stato addebitato l’importo, contatta l’assistenza e risolviamo.",
+      "missingSession": "Sessione di pagamento mancante.",
+      "somethingWrong": "Qualcosa è andato storto.",
+      "backToPlans": "Torna ai piani"
+    }
+  },
+  "orderPage": {
+    "orderNumber": "Ordine ORD-{id}",
+    "readyTitle": "La tua eSIM è pronta da installare",
+    "readyText": "Il piano inizia solo quando il telefono si connette per la prima volta a una rete in un paese coperto.",
+    "installOnPhone": "Installa su questo iPhone",
+    "installOnPhoneHint": "Un tocco apre la configurazione eSIM su questo iPhone (iOS 17.4 o successivo). Installi su un altro telefono? Scansiona il codice QR qui sotto.",
+    "qrAlt": "Codice QR di installazione eSIM",
+    "scanTitle": "Scansiona questo codice QR con il telefono su cui installi l’eSIM",
+    "iphoneSteps": "Impostazioni › Cellulare › Aggiungi eSIM › Usa codice QR",
+    "androidSteps": "Impostazioni › Rete e Internet › SIM › Aggiungi eSIM (il testo varia secondo la marca)",
+    "roaming": "All’arrivo attiva il roaming dati per questa eSIM.",
+    "wifi": "Installala con il Wi-Fi, meglio prima di partire.",
+    "manualTitle": "Non riesci a scansionare? Inserisci a mano",
+    "smdpAddress": "Indirizzo SM-DP+",
+    "activationCode": "Codice di attivazione",
+    "keepPrivate": "Mantieni privata questa pagina: chiunque abbia link o codice QR può installare la tua eSIM, e si può fare una sola volta. Salvala nei preferiti.",
+    "failedTitle": "La tua eSIM richiede ancora un po’ di tempo",
+    "settingUpTitle": "Stiamo preparando la tua eSIM",
+    "failedText": "Il pagamento è andato a buon fine, ma la creazione automatica dell’eSIM non è riuscita. Il team la completerà e, se serve, ti contatterà a {email}.",
+    "settingUpText": "Il pagamento è andato a buon fine. Di solito basta meno di un minuto: ricarica la pagina tra poco.",
+    "qrWillAppear": "Il codice QR comparirà qui appena pronto: salva questa pagina.",
+    "yourEmail": "la tua e-mail",
+    "questions": "Domande?",
+    "getHelp": "Ottieni aiuto",
+    "sim": {
+      "awaitingTitle": "La tua SIM è in arrivo",
+      "shippedTitle": "La tua SIM è stata spedita",
+      "deliveredTitle": "La tua SIM è stata consegnata",
+      "awaitingText": "Stiamo preparando la tua SIM. Parte dal Belgio e arriva di solito entro 3–5 giorni lavorativi dalla spedizione. Ti scriveremo quando sarà spedita.",
+      "shippedText": "La tua SIM è stata spedita e di solito arriva entro 3–5 giorni lavorativi.",
+      "deliveredText": "La tua SIM è arrivata. Inseriscila e aggiungi un piano dati.",
+      "shippingTo": "Spedizione a",
+      "status": "Stato",
+      "paid": "Pagato · {date}",
+      "posted": "Spedito · {date}",
+      "tracking": "Numero di tracciamento:",
+      "delivered": "Consegnato · {date}",
+      "iccid": "Numero SIM (ICCID):",
+      "whenArrives": "Quando arriva",
+      "step1": "Inserisci la SIM in un telefono sbloccato.",
+      "step2": "I dati internazionali sono già sulla SIM. Te ne servono altri? Scegli un piano sul sito e “Aggiungi alla mia SIM”.",
+      "step3": "Attiva il roaming dati per questa SIM. Il piano inizia alla prima connessione in un paese coperto.",
+      "keep": "Resta tua: aggiungi dati quando viaggi. Una SIM inutilizzata per {period} viene disattivata.",
+      "productName": "SIM SpeedNetRDC"
+    },
+    "topup": {
+      "readyTitle": "Il piano è sulla tua SIM",
+      "readyText": "{plan} è stato aggiunto alla SIM che termina con {ending}. Non c’è nulla da installare: il piano inizia alla prima connessione in un paese coperto {window}. Verifica che il roaming dati sia attivo.",
+      "failedTitle": "Il piano richiede ancora un po’ di tempo",
+      "addingTitle": "Aggiunta del piano alla SIM {ending}",
+      "failedText": "Il pagamento è andato a buon fine, ma l’aggiunta automatica del piano non è riuscita. Il team la completerà e, se serve, ti contatterà a {email}.",
+      "addingText": "Il pagamento è andato a buon fine. Di solito basta meno di un minuto: ricarica la pagina tra poco."
+    },
+    "coverageTitle": "Dove funziona questo piano",
+    "coverageText": "I dati funzionano solo in questi paesi. Altrove non avrai internet, anche se il telefono mostra segnale.",
+    "coverageTextSingle": "I dati funzionano solo in {country}. Altrove non avrai internet, anche se il telefono mostra segnale.",
+    "noInternetTitle": "Niente internet?",
+    "noInternet1": "Attiva la linea eSIM: Impostazioni → Dati cellulare → seleziona questa eSIM.",
+    "noInternet2": "Scegli questa eSIM per i dati mobili e attiva il Roaming dati per la linea.",
+    "noInternet3": "Controlla di trovarti in uno dei paesi elencati sopra.",
+    "noInternet4": "Riavvia il telefono e attendi un minuto. Se ancora non funziona, contattaci con il numero d’ordine.",
+    "keepEsim": "Non eliminare l’eSIM dal telefono, anche se non funziona: non può essere reinstallata. Contattaci prima.",
+    "reportIntro": "Ancora niente internet?",
+    "reportLink": "Segnala un problema dal tuo account"
+  },
+  "help": {
+    "title": "Come possiamo aiutarti?",
+    "subtitle": "Trova risposte rapide o contatta una persona via e-mail o WhatsApp.",
+    "categories": {
+      "installation": {
+        "title": "Aiuto per l’installazione",
+        "description": "Configurazione con QR e manuale, passo passo."
+      },
+      "compatibility": {
+        "title": "Compatibilità dispositivo",
+        "description": "Verifica se il tuo telefono supporta l’eSIM."
+      },
+      "payment": {
+        "title": "Aiuto per i pagamenti",
+        "description": "Carte, wallet, ricevute e rimborsi."
+      },
+      "activation": {
+        "title": "Attivazione eSIM",
+        "description": "Attivare il piano all’arrivo."
+      }
+    },
+    "whatsappTitle": "WhatsApp",
+    "whatsappText": "Inviaci un messaggio su WhatsApp.",
+    "whatsappButton": "Parla con noi su WhatsApp",
+    "emailSupport": "Scrivi all’assistenza",
+    "emailSupportText": "Di solito rispondiamo entro un giorno lavorativo."
+  },
+  "howItWorks": {
+    "title": "Dalla ricerca a <accent>connesso</accent> in pochi minuti",
+    "subtitle": "Niente carrellini SIM, niente negozi, niente sorprese di roaming. Ecco come SpeedNetRDC ti porta online.",
+    "explore": "Scopri i piani eSIM",
+    "setupEyebrow": "Configurazione",
+    "setupTitle": "Installare l’eSIM"
+  },
+  "deviceChecker": {
+    "pickBrand": "1 · Scegli la marca",
+    "otherBrand": "Altro",
+    "selectModel": "2 · Seleziona il modello",
+    "chooseModel": "Scegli un modello…",
+    "compatible": "Compatibile con eSIM",
+    "mayNotSupport": "Potrebbe non supportare l’eSIM",
+    "compatibleText": "Il tuo {model} supporta l’eSIM. Prima di acquistare verifica che sia sbloccato, aggiornato e di avere il Wi-Fi per installare.",
+    "unconfirmedText": "Non possiamo confermare il supporto eSIM per {model}. Controlla le impostazioni o contatta l’assistenza.",
+    "models": [
+      {
+        "model": "iPhone 13 series",
+        "label": "Serie iPhone 13"
+      },
+      {
+        "model": "iPhone 12 series",
+        "label": "Serie iPhone 12"
+      },
+      {
+        "model": "iPhone 11 series",
+        "label": "Serie iPhone 11"
+      },
+      {
+        "model": "iPhone SE (2nd gen or later)",
+        "label": "iPhone SE (2ª generazione o successiva)"
+      },
+      {
+        "model": "iPhone SE (1st gen)",
+        "label": "iPhone SE (1ª generazione)"
+      },
+      {
+        "model": "iPhone X / 8 / 8 Plus or earlier",
+        "label": "iPhone X / 8 / 8 Plus o precedenti"
+      },
+      {
+        "model": "Galaxy S25 series",
+        "label": "Serie Galaxy S25"
+      },
+      {
+        "model": "Galaxy S24 series",
+        "label": "Serie Galaxy S24"
+      },
+      {
+        "model": "Galaxy S23 series",
+        "label": "Serie Galaxy S23"
+      },
+      {
+        "model": "Galaxy S22 series",
+        "label": "Serie Galaxy S22"
+      },
+      {
+        "model": "Galaxy S21 series",
+        "label": "Serie Galaxy S21"
+      },
+      {
+        "model": "Galaxy S20 series",
+        "label": "Serie Galaxy S20",
+        "notes": "Alcune versioni degli operatori hanno l’eSIM bloccata su quell’operatore."
+      },
+      {
+        "model": "Galaxy Z Fold / Z Flip (all generations)",
+        "label": "Galaxy Z Fold / Z Flip (tutte le generazioni)"
+      },
+      {
+        "model": "Galaxy Note 20 series",
+        "label": "Serie Galaxy Note 20"
+      },
+      {
+        "model": "Galaxy S10 series or earlier",
+        "label": "Serie Galaxy S10 o precedenti"
+      },
+      {
+        "model": "Galaxy A-series (budget line)",
+        "label": "Galaxy serie A (fascia economica)",
+        "notes": "La maggior parte dei modelli A non ha il chip eSIM."
+      },
+      {
+        "model": "Pixel 9 series",
+        "label": "Serie Pixel 9"
+      },
+      {
+        "model": "Pixel 8 series",
+        "label": "Serie Pixel 8"
+      },
+      {
+        "model": "Pixel 7 series",
+        "label": "Serie Pixel 7"
+      },
+      {
+        "model": "Pixel 6 series",
+        "label": "Serie Pixel 6"
+      },
+      {
+        "model": "Pixel 4 series",
+        "label": "Serie Pixel 4"
+      },
+      {
+        "model": "Pixel 3a / 3a XL",
+        "label": "Pixel 3a / 3a XL",
+        "notes": "La linea 3a è uscita senza chip eSIM."
+      },
+      {
+        "model": "Xiaomi 14 / 14 Ultra",
+        "label": "Xiaomi 14 / 14 Ultra",
+        "notes": "Il supporto eSIM varia secondo la regione: verifica che il tuo sia stato venduto in un mercato con eSIM."
+      },
+      {
+        "model": "Xiaomi 13 / 13 Pro",
+        "label": "Xiaomi 13 / 13 Pro",
+        "notes": "Il supporto eSIM varia secondo la regione: verifica che il tuo sia stato venduto in un mercato con eSIM."
+      },
+      {
+        "model": "Redmi / Poco series",
+        "label": "Serie Redmi / Poco",
+        "notes": "I telefoni Redmi e Poco al momento non hanno l’eSIM."
+      },
+      {
+        "model": "Other Xiaomi model",
+        "label": "Altro modello Xiaomi"
+      },
+      {
+        "model": "Razr / Razr+ (all generations)",
+        "label": "Razr / Razr+ (tutte le generazioni)"
+      },
+      {
+        "model": "Edge 40 / 50 series",
+        "label": "Serie Edge 40 / 50"
+      },
+      {
+        "model": "Moto G series",
+        "label": "Serie Moto G",
+        "notes": "La linea G non ha il chip eSIM."
+      },
+      {
+        "model": "Other Motorola model",
+        "label": "Altro modello Motorola"
+      },
+      {
+        "model": "My device isn't listed",
+        "label": "Il mio dispositivo non è in elenco",
+        "notes": "Non possiamo confermare automaticamente il supporto eSIM: cerca “Aggiungi eSIM” nelle impostazioni Cellulare o contatta l’assistenza."
+      }
+    ]
+  },
+  "devicePage": {
+    "title": "SpeedNetRDC funzionerà sul mio telefono?",
+    "subtitle": "Scegli il tuo dispositivo e ti diremo subito se supporta l’eSIM.",
+    "cards": {
+      "capable": {
+        "title": "Telefono compatibile eSIM",
+        "description": "La maggior parte dei telefoni usciti dopo il 2018 supporta l’eSIM: controlla il tuo modello sopra."
+      },
+      "unlocked": {
+        "title": "Sbloccato",
+        "description": "I telefoni bloccati non possono installare un’eSIM di terzi. Chiedi prima lo sblocco al tuo operatore."
+      },
+      "wifi": {
+        "title": "Wi-Fi per installare",
+        "description": "Per la configurazione di circa 2 minuti serve internet: meglio il Wi-Fi."
+      }
+    }
+  },
+  "chat": {
+    "title": "Aiuto SpeedNetRDC",
+    "subtitle": "Risposte alle domande frequenti",
+    "greeting": "Ciao! Ecco le domande più frequenti. Toccane una per vedere la risposta.",
+    "more": "Altro? Scegli un’altra domanda.",
+    "whatsapp": "Parla con noi su WhatsApp",
+    "whatsappMessage": "Ciao SpeedNetRDC, ho una domanda.",
+    "emailUs": "Scrivici",
+    "open": "Apri aiuto",
+    "close": "Chiudi aiuto"
+  },
+  "consent": {
+    "title": "Cookie",
+    "text": "Vorremmo usare i cookie di Meta (Facebook) per misurare le nostre pubblicità e mostrartene di pertinenti. Solo se accetti, Meta apprende quali pagine e piani visualizzi e cosa acquisti, con la tua e-mail e il paese di fatturazione in forma cifrata (hash). Puoi cambiare scelta in qualsiasi momento da “Impostazioni cookie” in fondo alla pagina.",
+    "accept": "Accetta",
+    "reject": "Rifiuta",
+    "learnMore": "Informativa sulla privacy"
+  },
+  "topUpPicker": {
+    "title": "A quale SIM aggiungiamo questo piano?",
+    "simCard": "SIM che termina con {last4}",
+    "esim": "eSIM che termina con {last4}",
+    "orAnother": "Oppure inserisci qui sotto il numero di un’altra SIM.",
+    "iccidLabel": "Numero SIM (ICCID)",
+    "check": "Verifica SIM",
+    "checking": "Verifica…",
+    "hint": "È stampato sulla SIM. Per un’eSIM acquistata qui, accedi con l’e-mail dell’ordine e sceglila tra le tue SIM.",
+    "errors": {
+      "unavailable": "Non è ancora possibile aggiungere dati a una SIM esistente.",
+      "tooMany": "Troppi tentativi. Riprova più tardi.",
+      "notFound": "Non troviamo questa SIM. Controlla il numero stampato sulla scheda."
+    },
+    "willAddCard": "Il piano sarà aggiunto alla SIM che termina con {last4}.",
+    "willAddEsim": "Il piano sarà aggiunto alla eSIM che termina con {last4}."
+  },
+  "recharge": {
+    "coverage": {
+      "generic": "Prima di pagare: un piano funziona solo nei paesi coperti. Verifica che includa il paese in cui usi questa SIM.",
+      "warning": "Attenzione: questo piano non sembra coprire {country}, il paese per cui è stata acquistata la SIM. Se sei in {country}, scegli un piano che lo copra, altrimenti i dati non funzioneranno."
+    },
+    "how": {
+      "title": "Come ricaricare la tua eSIM",
+      "step1": "Accedi con l’e-mail di questo ordine e apri Le mie SIM.",
+      "step2": "Premi “Ricarica” accanto alla eSIM e scegli un piano per il paese in cui sei.",
+      "step3": "Paga: i nuovi dati vanno sulla stessa eSIM.",
+      "note": "Puoi anche scegliere “Aggiungi alla mia SIM” su qualsiasi piano.",
+      "signIn": "Accedi per ricaricare"
+    }
+  },
+  "support": {
+    "title": "Serve aiuto con la tua SIM?",
+    "subtitle": "Dicci cosa non va e il nostro team vedrà di quale SIM si tratta. Rispondiamo qui e via e-mail.",
+    "report": "Segnala un problema",
+    "whichOrder": "Quale ordine o SIM?",
+    "whichIssue": "Qual è il problema?",
+    "categories": {
+      "no_internet": "Niente internet / niente dati",
+      "cant_install": "Non riesco a installare o scansionare l’eSIM",
+      "wrong_country": "Il piano non copre il paese in cui sono",
+      "data_gone": "I dati sono finiti o mancano",
+      "billing": "Pagamento o rimborso",
+      "other": "Altro"
+    },
+    "messageLabel": "Aggiungi dettagli (facoltativo)",
+    "messagePlaceholder": "Per esempio: il paese in cui sei, cosa vedi sul telefono…",
+    "send": "Invia al nostro team",
+    "sending": "Invio in corso…",
+    "cancel": "Annulla",
+    "sent": "Grazie. Il team è stato avvisato e risponderà qui e via e-mail.",
+    "yourRequests": "Le tue richieste",
+    "status": {
+      "open": "In attesa di noi",
+      "answered": "Risposta inviata",
+      "resolved": "Risolta"
+    },
+    "newReply": "Nuova risposta",
+    "you": "Tu",
+    "team": "Team SpeedNetRDC",
+    "noMessage": "Nessun messaggio.",
+    "replyPlaceholder": "Scrivi una risposta…",
+    "reply": "Invia",
+    "errors": {
+      "notSignedIn": "Accedi di nuovo.",
+      "invalid": "Controlla i dati inseriti e riprova.",
+      "tooMany": "Troppe richieste. Riprova più tardi.",
+      "noOrder": "Non troviamo questo ordine.",
+      "failed": "Qualcosa è andato storto. Riprova.",
+      "chooseIssue": "Scegli qual è il problema."
+    }
+  }
+}

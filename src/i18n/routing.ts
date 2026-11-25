@@ -1,7 +1,7 @@
 import { defineRouting } from "next-intl/routing";
 
 export const routing = defineRouting({
-  locales: ["en", "fr", "es", "pt"],
+  locales: ["en", "fr", "es", "pt", "nl", "de", "it"],
   defaultLocale: "en",
   localePrefix: "always",
 });
@@ -13,6 +13,9 @@ export const LOCALE_LABELS: Record<AppLocale, string> = {
   fr: "Français",
   es: "Español",
   pt: "Português",
+  nl: "Nederlands",
+  de: "Deutsch",
+  it: "Italiano",
 };
 
 /**
@@ -24,6 +27,9 @@ export const LANGUAGE_TAGS: Record<AppLocale, string> = {
   fr: "fr",
   es: "es",
   pt: "pt-PT",
+  nl: "nl",
+  de: "de",
+  it: "it",
 };
 
 export function languageTag(locale: string): string {

@@ -28,6 +28,9 @@ const LAST_UPDATED_LABEL: Record<string, string> = {
   fr: "Dernière mise à jour :",
   es: "Última actualización:",
   pt: "Última atualização:",
+  nl: "Laatst bijgewerkt:",
+  de: "Zuletzt aktualisiert:",
+  it: "Ultimo aggiornamento:",
 };
 
 const OPERATED_BY: Record<string, string> = {
@@ -35,9 +38,12 @@ const OPERATED_BY: Record<string, string> = {
   fr: "SpeedNetRDC est exploité par une société de télécommunications établie en Belgique.",
   es: "SpeedNetRDC está operado por una empresa de telecomunicaciones con sede en Bélgica.",
   pt: "A SpeedNetRDC é explorada por uma empresa de telecomunicações sediada na Bélgica.",
+  nl: "SpeedNetRDC wordt uitgebaat door een telecommunicatiebedrijf gevestigd in België.",
+  de: "SpeedNetRDC wird von einem Telekommunikationsunternehmen mit Sitz in Belgien betrieben.",
+  it: "SpeedNetRDC è gestito da una società di telecomunicazioni con sede in Belgio.",
 };
 
-/** Shared frame for the Privacy Policy, Terms and Refund Policy (English, French, Spanish and Portuguese; other languages show the English text with a note). */
+/** Shared frame for the Privacy Policy, Terms and Refund Policy (every site language; any other shows the English text with a note). */
 export default function LegalPage({ title, locale, children }: { title: string; locale: string; children: ReactNode }) {
   if (!legalPagesViewable()) notFound();
   return (

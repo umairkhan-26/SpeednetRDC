@@ -180,6 +180,9 @@ export const PENDING_ANSWERS = {
     fr: "une longue période",
     es: "mucho tiempo",
     pt: "muito tempo",
+    nl: "lange tijd",
+    de: "lange Zeit",
+    it: "molto tempo",
   },
   /** Which plan is used first when two plans cover the same country. */
   planPriority: {
@@ -188,6 +191,9 @@ export const PENDING_ANSWERS = {
     fr: "",
     es: "",
     pt: "",
+    nl: "",
+    de: "",
+    it: "",
   },
   /** Plans have a 6-month deferred-activation period at Transatel; what happens at its end. */
   startWindow: {
@@ -196,6 +202,9 @@ export const PENDING_ANSWERS = {
     fr: "dans les 6 mois suivant l'achat",
     es: "en los 6 meses siguientes a la compra",
     pt: "nos 6 meses seguintes à compra",
+    nl: "binnen 6 maanden na aankoop",
+    de: "innerhalb von 6 Monaten nach dem Kauf",
+    it: "entro 6 mesi dall'acquisto",
   },
   /** Returns for the card: 14 days from delivery, unused, customer pays return postage (confirmed by the client). */
   returns: {
@@ -204,12 +213,15 @@ export const PENDING_ANSWERS = {
     fr: "Vous pouvez retourner la carte SIM inutilisée dans les 14 jours suivant la livraison pour un remboursement complet de la carte et des frais d’envoi initiaux ; les frais de retour sont à votre charge. Pour la retourner, écrivez à contact@speednetrdc.com.",
     es: "Puedes devolver la tarjeta SIM sin usar en los 14 días siguientes a la entrega y te reembolsamos la tarjeta y el envío original; los gastos de devolución corren de tu cuenta. Para devolverla, escribe a contact@speednetrdc.com.",
     pt: "Pode devolver o cartão SIM sem utilização no prazo de 14 dias após a entrega e reembolsamos o cartão e o envio original; os portes de devolução ficam a seu cargo. Para o devolver, envie um e-mail para contact@speednetrdc.com.",
+    nl: "Je kunt de ongebruikte simkaart binnen 14 dagen na levering terugsturen voor een volledige terugbetaling van de kaart en de oorspronkelijke verzending; de retourkosten zijn voor jou. Mail om terug te sturen naar contact@speednetrdc.com.",
+    de: "Sie können die ungenutzte SIM-Karte innerhalb von 14 Tagen nach Zustellung zurücksenden und erhalten Karte und ursprünglichen Versand vollständig erstattet; die Rücksendekosten tragen Sie. Schreiben Sie dazu an contact@speednetrdc.com.",
+    it: "Puoi restituire la SIM non usata entro 14 giorni dalla consegna con rimborso completo della scheda e della spedizione originale; le spese di reso sono a tuo carico. Per restituirla scrivi a contact@speednetrdc.com.",
   },
 } as const;
 
-type Locale = "en" | "fr" | "es" | "pt";
+type Locale = "en" | "fr" | "es" | "pt" | "nl" | "de" | "it";
 
 export function pendingAnswer(key: keyof typeof PENDING_ANSWERS, locale: string): string {
   const answer = PENDING_ANSWERS[key];
-  return answer[(["en", "fr", "es", "pt"].includes(locale) ? locale : "en") as Locale];
+  return answer[(["en", "fr", "es", "pt", "nl", "de", "it"].includes(locale) ? locale : "en") as Locale];
 }

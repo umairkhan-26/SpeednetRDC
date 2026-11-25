@@ -1,0 +1,1042 @@
+{
+  "nav": {
+    "esimStore": "eSIM-winkel",
+    "destinations": "Bestemmingen",
+    "regionalPlans": "Regionale pakketten",
+    "globalPlans": "Wereldpakketten",
+    "howItWorks": "Hoe het werkt",
+    "help": "Hulp",
+    "myEsims": "Mijn eSIM’s",
+    "language": "Taal",
+    "physicalSim": "Simkaart",
+    "toggleMenu": "Menu openen of sluiten"
+  },
+  "footer": {
+    "tagline": "Blijf verbonden. Overal. Direct eSIM-data voor 180+ landen, per e-mail geleverd.",
+    "shopHeading": "Winkel",
+    "supportHeading": "Ondersteuning",
+    "languageHeading": "Taal",
+    "globalEsim": "Wereld-eSIM",
+    "deviceCompatibility": "Compatibiliteit",
+    "helpCenter": "Helpcentrum",
+    "copyright": "© {year} SpeedNetRDC. Alle rechten voorbehouden.",
+    "designedBy": "Ontworpen door",
+    "privacy": "Privacybeleid",
+    "terms": "Algemene voorwaarden",
+    "refunds": "Terugbetalingsbeleid",
+    "cookieSettings": "Cookie-instellingen",
+    "followUs": "Volg ons",
+    "followOn": "SpeedNetRDC op {network}",
+    "popularDestinations": "Populaire bestemmingen",
+    "contactUs": "Contact",
+    "legalNotice": "Juridische informatie",
+    "securePayments": "Veilig betalen via Stripe",
+    "operatedBy": "SpeedNetRDC wordt geëxploiteerd door een telecommunicatiebedrijf gevestigd in België.",
+    "companyDetails": "{address} · Ondernemingsnr. (BCE/KBO) {registration} · Btw {vat} · {email}"
+  },
+  "home": {
+    "hero": {
+      "titleLine1": "Blijf verbonden.",
+      "titleLine2": "Overal.",
+      "subtitle": "Direct eSIM-data voor 180+ landen. Geen contract: land en maak verbinding.",
+      "explorePlans": "Bekijk eSIM-pakketten",
+      "howItWorks": "Hoe het werkt",
+      "searchPlaceholder": "Waar reis je naartoe?",
+      "search": "Zoeken"
+    },
+    "valueProps": {
+      "instantDeliveryTitle": "Directe levering",
+      "instantDeliveryDescription": "QR-code en activeringsgegevens zodra je betaalt.",
+      "securePaymentsTitle": "Veilig betalen",
+      "securePaymentsDescription": "Versleutelde kaartbetaling, met Apple Pay en Google Pay op ondersteunde toestellen.",
+      "keepNumberTitle": "Houd je nummer",
+      "keepNumberDescription": "Je gewone simkaart blijft actief voor bellen en sms’en, terwijl de eSIM je data regelt.",
+      "supportTitle": "Hulp via e-mail en WhatsApp",
+      "supportDescription": "Echte mensen antwoorden: meestal binnen één werkdag."
+    },
+    "steps": {
+      "eyebrow": "Hoe het werkt",
+      "title": "In vier eenvoudige stappen verbonden",
+      "searchTitle": "Zoek je bestemming",
+      "searchDescription": "Zeg ons waar je naartoe gaat en we tonen alle pakketten die daar werken.",
+      "pickTitle": "Kies een pakket en betaal",
+      "pickDescription": "Kies je data en geldigheid en reken in minder dan een minuut veilig af.",
+      "scanTitle": "Scan de QR-code",
+      "scanDescription": "Installeer meteen door je QR-code te scannen of de activeringsgegevens in te voeren.",
+      "landTitle": "Land en verbind",
+      "landDescription": "Je eSIM wordt automatisch actief op het eerste ondersteunde netwerk."
+    },
+    "popularDestinations": {
+      "eyebrow": "Populaire bestemmingen",
+      "title": "Waar reizigers het vaakst verbinden",
+      "allDestinations": "Alle bestemmingen",
+      "names": {
+        "australia": "Australië",
+        "canada": "Canada",
+        "europe": "Europa",
+        "global": "Wereld",
+        "japan": "Japan",
+        "saudi-arabia": "Saoedi-Arabië",
+        "thailand": "Thailand",
+        "turkey": "Turkije",
+        "uae": "VAE",
+        "united-kingdom": "Verenigd Koninkrijk"
+      },
+      "subtitles": {
+        "australia": "Oceanië",
+        "canada": "Noord-Amerika",
+        "europe": "22+ landen",
+        "global": "81+ landen",
+        "japan": "Azië",
+        "saudi-arabia": "Midden-Oosten",
+        "thailand": "Azië",
+        "turkey": "Europa",
+        "uae": "Midden-Oosten",
+        "united-kingdom": "Europa"
+      }
+    },
+    "regionalStrip": {
+      "eyebrow": "Dekking in meerdere landen",
+      "title": "Eén eSIM voor je hele reis",
+      "subtitle": "Grenzen over? Eén pakket dekt alle landen van de regio.",
+      "seeAllRegions": "Alle regio’s bekijken",
+      "global": "Wereld",
+      "countriesCount": "{count}+ landen",
+      "countriesCountPlain": "Tot {count} landen",
+      "fromPrice": "vanaf {price}"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Inloggen",
+      "subtitle": "Voer het e-mailadres in dat je bij het afrekenen gebruikte. We mailen je een inloglink, zonder wachtwoord.",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "jij@voorbeeld.com",
+      "emailError": "Voer een geldig e-mailadres in.",
+      "submit": "Mail me een inloglink",
+      "sending": "Verzenden…",
+      "sentTitle": "Controleer je inbox",
+      "sentBody": "Als {email} bij ons heeft besteld, hebben we er een inloglink naartoe gestuurd. Die werkt één keer en verloopt na 15 minuten.",
+      "tooMany": "Te veel pogingen. Probeer het later opnieuw.",
+      "useDifferent": "Ander e-mailadres gebruiken",
+      "unavailable": "Inloggen lukt nu niet. Je eSIM-link staat in de e-mail met je orderbevestiging, of neem contact op met ons."
+    },
+    "verify": {
+      "title": "Inloggen bij SpeedNetRDC",
+      "body": "Je logt in als {email}.",
+      "submit": "Inloggen",
+      "signingIn": "Bezig met inloggen…",
+      "invalidTitle": "Deze link is verlopen",
+      "invalidBody": "Inloglinks werken één keer en verlopen na 15 minuten.",
+      "newLink": "Nieuwe inloglink aanvragen",
+      "tooMany": "Te veel pogingen. Probeer het later opnieuw.",
+      "unavailable": "Inloggen lukt nu niet. Je eSIM-link staat in de e-mail met je orderbevestiging, of neem contact op met ons."
+    }
+  },
+  "regions": {
+    "africa": "Afrika",
+    "americas": "Amerika",
+    "asia": "Azië",
+    "caribbean": "Caraïben",
+    "europe": "Europa",
+    "middle-east": "Midden-Oosten",
+    "global": "Wereld",
+    "latin-america": "Latijns-Amerika",
+    "oceania": "Oceanië",
+    "north-america": "Noord-Amerika",
+    "africa-plus": "Afrika Plus",
+    "asia-plus": "Azië Plus",
+    "malaysia-singapore": "Maleisië en Singapore",
+    "caribbean-plus": "Caraïben Plus",
+    "europe-plus": "Europa Plus",
+    "europe-mediterranean": "Europa en Middellandse Zee",
+    "scandinavia-baltics": "Scandinavië en Baltische staten",
+    "middle-east-plus": "Midden-Oosten Plus",
+    "australia-new-zealand": "Australië en Nieuw-Zeeland",
+    "isle-of-man-channel-islands": "Man en de Kanaaleilanden",
+    "french-caribbean": "Franse Antillen en Guyana"
+  },
+  "account": {
+    "title": "Mijn eSIM’s",
+    "subtitle": "Ingelogd als {email}. Alle eSIM’s die met dit e-mailadres zijn gekocht.",
+    "signOut": "Uitloggen",
+    "emptyTitle": "Nog geen bestellingen voor dit e-mailadres",
+    "emptyBody": "Bestellingen verschijnen hier zodra ze betaald zijn.",
+    "emptyCta": "eSIM-pakketten bekijken",
+    "orderNumber": "Bestelling ORD-{id}",
+    "bought": "Gekocht op {date}",
+    "statusReady": "Klaar om te installeren",
+    "statusPreparing": "Wordt klaargemaakt",
+    "statusRefunded": "Terugbetaald",
+    "viewEsim": "eSIM en QR-code bekijken",
+    "preparingNote": "We mailen je zodra ze klaar is.",
+    "help": "Mis je een bestelling? Ze staat onder het e-mailadres dat je bij het afrekenen gebruikte. Hulp nodig?",
+    "contactSupport": "Neem contact op",
+    "mySimsTitle": "Mijn simkaarten",
+    "mySimsSubtitle": "Je simkaarten en de datapakketten erop.",
+    "simCard": "Simkaart",
+    "esim": "eSIM",
+    "ending": "eindigend op {digits}",
+    "noPlan": "Nu geen datapakket op deze simkaart.",
+    "planActive": "Actief",
+    "planWaiting": "Start bij de eerste verbinding in een gedekt land",
+    "dataLeft": "{left} van {total} over",
+    "expires": "Verloopt op {date}",
+    "buyMore": "Meer data kopen",
+    "checkedAt": "Gecontroleerd om {time}",
+    "viewOrder": "Bestelling bekijken",
+    "recharge": "Opladen"
+  },
+  "homePhysicalSim": {
+    "eyebrow": "Fysieke simkaart · Nu beschikbaar",
+    "title": "Geen eSIM op je telefoon? Neem een fysieke simkaart",
+    "text": "Een SpeedNetRDC-simkaart voor elke simlockvrije telefoon, met internationale data inbegrepen, vanuit België overal ter wereld verzonden in 3–5 werkdagen.",
+    "price": "€{total} alles inbegrepen: simkaart, {gb} data, wereldwijde verzending en btw",
+    "cta": "Meer informatie"
+  },
+  "physicalSim": {
+    "metaTitle": "Fysieke simkaart — SpeedNetRDC",
+    "eyebrow": "Fysieke simkaart",
+    "title": "Geen eSIM op je telefoon? Neem een SpeedNetRDC-simkaart",
+    "subtitle": "Een echte simkaart voor elke simlockvrije telefoon, met {gb} internationale data inbegrepen, vanuit België overal ter wereld verzonden.",
+    "priceTitle": "Prijs",
+    "simLine": "Simkaart + {gb} data",
+    "shippingLine": "Wereldwijde verzending",
+    "total": "Totaal",
+    "taxNote": "Btw inbegrepen ({vat}).",
+    "features": {
+      "shipsFrom": "Verzonden vanuit België",
+      "delivery": "Wereldwijd geleverd in 3–5 werkdagen",
+      "unlocked": "Werkt in elke simlockvrije telefoon",
+      "data": "{gb} internationale data inbegrepen"
+    },
+    "howTitle": "Hoe het werkt",
+    "steps": {
+      "shipTitle": "Wij verzenden",
+      "shipText": "We versturen je simkaart vanuit België; ze komt in 3–5 werkdagen aan, waar je ook bent.",
+      "insertTitle": "Plaats ze",
+      "insertText": "Steek de simkaart in een simlockvrije telefoon.",
+      "dataTitle": "Verbind",
+      "dataText": "Je data staat al op de kaart: zet dataroaming aan en je bent online."
+    },
+    "orderTitle": "Nu beschikbaar",
+    "orderText": "Bestel je simkaart per e-mail: stuur ons je naam en leveradres, en we antwoorden met de volgende stappen.",
+    "contactButton": "Per e-mail bestellen",
+    "contactSubject": "Bestelling fysieke simkaart",
+    "faqTitle": "Vragen",
+    "faq": {
+      "whatQ": "Wat is de SpeedNetRDC-simkaart?",
+      "whatA": "Een fysieke simkaart voor telefoons zonder eSIM. Ze bevat {gb} internationale data ({days} dagen geldig, {countries} landen), dus ze werkt meteen bij aankomst.",
+      "phonesQ": "In welke telefoons werkt ze?",
+      "phonesA": "In elke telefoon zonder simlock die een standaard simkaart aanneemt.",
+      "priceQ": "Hoeveel kost ze?",
+      "priceA": "{total} alles inbegrepen: de simkaart, {gb} internationale data, verzending wereldwijd en btw.",
+      "shippingQ": "Waar leveren jullie en hoe lang duurt het?",
+      "shippingA": "We verzenden vanuit België naar de hele wereld. De levering duurt 3–5 werkdagen.",
+      "whenQ": "Kan ik ze nu bestellen?",
+      "whenA": "Ja. Mail ons op {email} met je naam en leveradres, en we antwoorden met de volgende stappen."
+    }
+  },
+  "physicalSimShop": {
+    "metaTitle": "Fysieke simkaart — SpeedNetRDC",
+    "eyebrow": "Fysieke simkaart",
+    "title": "Geen eSIM op je telefoon? Neem een SpeedNetRDC-simkaart",
+    "subtitle": "Een echte simkaart voor elke simlockvrije telefoon, met internationale data inbegrepen. Houd ze bij en koop via onze site extra data wanneer je reist.",
+    "priceTitle": "Prijs",
+    "simLine": "Simkaart + {gb} data",
+    "shippingLine": "Wereldwijde verzending",
+    "feesLine": "Belastingen en kosten",
+    "total": "Totaal",
+    "taxFinal": "Btw inbegrepen ({vat}).",
+    "taxSurcharge": "Inclusief 5% belastingen en kosten.",
+    "taxVat": "Inclusief {vat} btw (21%).",
+    "features": {
+      "shipsFrom": "Verzonden vanuit België",
+      "delivery": "Wereldwijd geleverd in 3–5 werkdagen",
+      "unlocked": "Werkt in elke simlockvrije telefoon",
+      "keep": "Data inbegrepen: van jou, bij te laden wanneer je reist"
+    },
+    "howTitle": "Hoe het werkt",
+    "steps": {
+      "orderTitle": "Bestellen",
+      "orderText": "Bestel je simkaart hier en betaal veilig.",
+      "shipTitle": "Wij verzenden",
+      "shipText": "We versturen ze vanuit België; ze komt in 3–5 werkdagen aan, overal ter wereld.",
+      "insertTitle": "Plaatsen",
+      "insertText": "Steek de simkaart in een simlockvrije telefoon en zet dataroaming aan.",
+      "buyTitle": "Gebruik je data",
+      "buyText": "Je data staat al op de kaart. Meer nodig? Kies een pakket en selecteer “Aan mijn simkaart toevoegen”.",
+      "connectTitle": "Verbind",
+      "connectText": "Je pakket start bij je eerste verbinding in een gedekt land."
+    },
+    "orderTitle": "Bestel je simkaart",
+    "nameLabel": "Volledige naam",
+    "emailLabel": "E-mailadres",
+    "emailHint": "We sturen hier updates over je bestelling. Log later met dit e-mailadres in om je simkaart onder Mijn simkaarten te zien.",
+    "addressNote": "Je vult het leveradres in op de beveiligde betaalpagina. We verzenden wereldwijd.",
+    "oneSim": "Eén simkaart per bestelling.",
+    "submit": "Verder naar betalen · {total}",
+    "submitting": "Beveiligde betaling openen…",
+    "invalid": "Voer je volledige naam en een geldig e-mailadres in.",
+    "error": "Er ging iets mis. Probeer het opnieuw.",
+    "faqTitle": "Vragen",
+    "faq": {
+      "whatQ": "Wat is de SpeedNetRDC-simkaart?",
+      "whatA": "Een fysieke simkaart voor telefoons zonder eSIM. Ze bevat {gb} internationale data, dus ze werkt meteen bij aankomst, en je kunt altijd data bijkopen.",
+      "includedQ": "Wat zit er in de prijs?",
+      "includedA": "{total} alles inbegrepen: de simkaart, {gb} internationale data {days} dagen geldig in {countries} landen, verzending wereldwijd en btw. De data staat op de kaart voor we ze versturen; de {days} dagen starten bij je eerste verbinding.",
+      "phonesQ": "In welke telefoons werkt ze?",
+      "phonesA": "In elke telefoon zonder simlock die een standaard simkaart aanneemt.",
+      "shippingQ": "Waar leveren jullie en hoe lang duurt het?",
+      "shippingA": "We verzenden vanuit België naar de hele wereld, waaronder Europa, Amerika en Afrika. De levering duurt 3–5 werkdagen na verzending.",
+      "customsQ": "Zijn er douanekosten buiten de EU?",
+      "customsA": "Onze prijs bevat al btw. Buiten de EU kan het land van bestemming eigen douaneformaliteiten of invoerkosten toepassen; die betaal je bij levering.",
+      "keepQ": "Hoe lang mag ik de simkaart houden?",
+      "keepA": "Ze is van jou: er is geen vaste einddatum. Een simkaart die {period} niet wordt gebruikt, wordt gedeactiveerd.",
+      "dataQ": "Hoe voeg ik meer data toe?",
+      "dataA": "Kies een pakket op onze site, selecteer “Aan mijn simkaart toevoegen” en voer het nummer op je simkaart in, of kies ze bij Mijn simkaarten als je bent ingelogd.",
+      "startQ": "Wanneer start een pakket?",
+      "startA": "De eerste keer dat je telefoon verbinding maakt in een gedekt land {window}.",
+      "twoQ": "Wat als ik twee pakketten voor hetzelfde land heb?",
+      "twoA": "Pakketten stapelen: elk behoudt zijn eigen data en vervaldatum. {priority}",
+      "returnsQ": "Kan ik de simkaart terugsturen?",
+      "returnsA": "{returns}"
+    }
+  },
+  "meta": {
+    "siteTitle": "SpeedNetRDC — Direct eSIM-data, overal",
+    "siteDescription": "Blijf verbonden in 180+ landen met directe eSIM-data. Zonder contract.",
+    "store": "eSIM-winkel",
+    "destinations": "Bestemmingen",
+    "destination": "eSIM {country}",
+    "destinationFallback": "Bestemming",
+    "regionalPlans": "Regionale pakketten",
+    "regionPlans": "Pakketten {region}",
+    "planFallback": "Pakket",
+    "globalPlans": "Wereldpakketten",
+    "help": "Helpcentrum",
+    "howItWorks": "Hoe het werkt",
+    "deviceCompatibility": "Compatibiliteit",
+    "checkout": "Afrekenen",
+    "checkoutSuccess": "Bestelling bevestigd",
+    "checkoutCancelled": "Betaling geannuleerd",
+    "order": "Je eSIM",
+    "account": "Mijn eSIM’s",
+    "physicalSim": "Fysieke simkaart"
+  },
+  "format": {
+    "unlimited": "Onbeperkt",
+    "days": "{count, plural, one {# dag} other {# dagen}}",
+    "global": "Wereld",
+    "globalPlus": "Global Plus",
+    "planName": "{area} {data} / {validity}"
+  },
+  "planCard": {
+    "bestValue": "Beste keuze",
+    "badgePriceDrop": "Prijsverlaging",
+    "badgeNew": "Nieuw",
+    "data": "Data",
+    "validity": "Geldigheid",
+    "from": "Vanaf",
+    "viewPlan": "Pakket bekijken",
+    "countries": "{count, plural, one {# land} other {# landen}}",
+    "fairUse": "Fair use: {gb} GB"
+  },
+  "store": {
+    "title": "Pakketten voor “{destination}”",
+    "everywhere": "Overal",
+    "subtitle": "Filter op bestemming, regio, data en duur om de juiste eSIM te vinden.",
+    "found": "{count, plural, one {# pakket gevonden} other {# pakketten gevonden}}",
+    "capped": " — de eerste {cap} worden getoond, verfijn je zoekopdracht voor meer",
+    "noResultsTitle": "Geen pakketten voor deze filters",
+    "noResultsText": "Wis een filter of zoek een andere bestemming."
+  },
+  "sort": {
+    "sortBy": "Sorteren op",
+    "recommended": "Aanbevolen",
+    "price": "Laagste prijs",
+    "data": "Meeste data",
+    "validity": "Langste geldigheid",
+    "value": "Beste keuze"
+  },
+  "filters": {
+    "destination": "Bestemming",
+    "destinationPlaceholder": "Zoek land of regio",
+    "region": "Regio",
+    "allRegions": "Alle regio’s",
+    "dataAmount": "Hoeveelheid data",
+    "anyData": "Alle volumes",
+    "dataMin": "{amount}GB+",
+    "duration": "Duur",
+    "anyDuration": "Alle duur",
+    "days": "{count, plural, one {# dag} other {# dagen}}",
+    "maxPrice": "Maximumprijs",
+    "anyPrice": "Elke prijs",
+    "under": "Onder {price}",
+    "network": "Netwerk",
+    "allNetworks": "Alle netwerken",
+    "unlimitedOnly": "Alleen onbeperkte data",
+    "fiveG": "5G beschikbaar"
+  },
+  "destinations": {
+    "title": "Elk land, met één tik",
+    "subtitle": "Bekijk eSIM-datapakketten voor 180+ landen, per regio gegroepeerd.",
+    "filterPlaceholder": "Landen filteren…",
+    "noMatch": "Geen landen gevonden voor “{query}”."
+  },
+  "destinationTile": {
+    "from": "vanaf"
+  },
+  "installSteps": {
+    "openSettings": "Open je telefooninstellingen",
+    "selectMobile": "Kies Mobiel / Mobiel netwerk",
+    "addEsim": "eSIM toevoegen",
+    "scanQr": "Scan de QR-code van SpeedNetRDC",
+    "enableData": "Zet SpeedNetRDC aan voor mobiele data"
+  },
+  "destination": {
+    "title": "eSIM {country}",
+    "oneCountry": "1 land gedekt",
+    "networks": "{count, plural, one {# netwerk} other {# netwerken}}",
+    "plansEyebrow": "Pakketten",
+    "plansTitle": "Kies je pakket",
+    "setupEyebrow": "Installatie",
+    "installTitle": "Installeren in vijf stappen",
+    "deviceEyebrow": "Toestelcontrole",
+    "deviceTitle": "Is je telefoon compatibel?",
+    "needDifferent": "Een ander land nodig?",
+    "browseAll": "Alle bestemmingen bekijken",
+    "alsoEyebrow": "Meer opties",
+    "alsoTitle": "Regionale en wereldpakketten die ook {country} dekken",
+    "alsoText": "Deze pakketten dekken meerdere landen, waaronder dit land. Elk pakket vermeldt de gedekte landen."
+  },
+  "coverage": {
+    "eyebrow": "Dekking",
+    "title": "Dekking en netwerken",
+    "countriesCovered": "Gedekte landen ({count})",
+    "availableNetworks": "Beschikbare netwerken",
+    "speed": "Snelheid",
+    "dataOptions": "Dataopties",
+    "worksIn": "{count, plural, one {Werkt in # land} other {Werkt in # landen}}",
+    "worksOnly": "Werkt alleen in {country}",
+    "noInternet": "Buiten deze landen is er geen internet.",
+    "noInternetSingle": "Buiten {country} is er geen internet.",
+    "notIncluded": "Niet inbegrepen",
+    "notIncludedHint": "In dezelfde omgeving, maar dit pakket werkt daar niet:",
+    "showMore": "+{count} meer",
+    "showLess": "Minder tonen"
+  },
+  "taglines": {
+    "default": "Directe eSIM-data voor {country}.",
+    "custom": {
+      "argentina": "Van Buenos Aires tot Patagonië.",
+      "australia": "Van Sydney tot de outback, volledig gedekt.",
+      "bahamas": "Eilandhoppen zonder signaal te verliezen.",
+      "brazil": "Van Rio tot de Amazone, betrouwbare data.",
+      "canada": "Van Vancouver tot Toronto, altijd verbonden.",
+      "colombia": "Van Bogotá tot Cartagena, naadloos.",
+      "dominican-republic": "Van resort tot stad, altijd verbonden.",
+      "egypt": "Van Caïro tot de Rode Zee, blijf verbonden.",
+      "fiji": "Eilandresorts, betrouwbare data.",
+      "france": "Van de Eiffeltoren tot de Rivièra, overal online.",
+      "germany": "Snelle, betrouwbare data in alle 16 deelstaten.",
+      "indonesia": "Van de stranden van Bali tot de drukte van Jakarta.",
+      "israel": "Van kust tot woestijn, blijf in contact.",
+      "italy": "Data die je Italiaanse uitstap bijhoudt.",
+      "japan": "Razendsnelle 5G van Tokio tot Kyoto.",
+      "kenya": "Nairobi en safariland, gedekt.",
+      "mexico": "Van strandstadjes tot Mexico-Stad, altijd aan.",
+      "morocco": "Van de souks van Marrakech tot de Sahara.",
+      "new-zealand": "Van het Noorder- tot het Zuidereiland, altijd aan.",
+      "qatar": "De skyline van Doha, met je data inbegrepen.",
+      "saudi-arabia": "Van Riyad tot Djedda, betrouwbare dekking.",
+      "singapore": "5G in de hele stad, zonder dode zones.",
+      "south-africa": "Van Kaapstad tot Kruger, altijd bereikbaar.",
+      "south-korea": "Enkele van de snelste netwerken ter wereld.",
+      "spain": "Van kust tot stad, naadloze dekking in heel Spanje.",
+      "thailand": "Van de straten van Bangkok tot de eilandstranden, altijd aan.",
+      "turkey": "Van Istanbul tot de kust, nooit zonder signaal.",
+      "uae": "Dubai en Abu Dhabi, volledig verbonden.",
+      "united-kingdom": "Van Londen tot de Hooglanden, altijd verbonden.",
+      "united-states": "Van kust tot kust, geen roamingverrassingen.",
+      "vietnam": "Betrouwbare data over de hele kustlijn."
+    }
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Veelgestelde vragen",
+    "destination": [
+      {
+        "id": "what-is-esim",
+        "question": "Wat is een eSIM?",
+        "answer": "Een eSIM is een digitale simkaart in je telefoon. In plaats van een kaartje te wisselen, installeer je een pakket door een QR-code te scannen of op een link te tikken: geen winkelbezoek, geen wachten."
+      },
+      {
+        "id": "when-install",
+        "question": "Wanneer moet ik mijn eSIM installeren?",
+        "answer": "Je kunt ze op elk moment na aankoop installeren, maar we raden aan dit vóór vertrek te doen, zolang je wifi hebt. Het pakket start pas zodra je op je bestemming verbinding maakt met een ondersteund netwerk."
+      },
+      {
+        "id": "keep-number",
+        "question": "Kan ik mijn gewone nummer houden?",
+        "answer": "Ja. Je eSIM voegt een tweede, data-only lijn toe naast je huidige simkaart, dus je blijft bellen en sms’en ontvangen op je gewone nummer."
+      },
+      {
+        "id": "hotspot",
+        "question": "Bevat mijn pakket hotspot?",
+        "answer": "De meeste SpeedNetRDC-pakketten ondersteunen een persoonlijke hotspot zonder extra kosten. Controleer het veld “Hotspot” op de pakketpagina om dit voor jouw pakket te bevestigen."
+      }
+    ],
+    "help": [
+      {
+        "id": "delivery",
+        "question": "Hoe lang duurt de levering van een eSIM?",
+        "answer": "Meteen. Je QR-code en activeringsgegevens staan klaar in je account en inbox zodra de betaling is voltooid."
+      },
+      {
+        "id": "compatible",
+        "question": "Wat als mijn telefoon niet eSIM-compatibel is?",
+        "answer": "Controleer je telefoon op onze compatibiliteitspagina vóór je koopt. Een eSIM-pakket werkt alleen op een telefoon die eSIM ondersteunt."
+      },
+      {
+        "id": "refund",
+        "question": "Kan ik mijn geld terugkrijgen?",
+        "answer": "Voor terugbetalingen neem je contact op via contact@speednetrdc.com."
+      },
+      {
+        "id": "payment",
+        "question": "Welke betaalmethodes accepteren jullie?",
+        "answer": "Debet- en kredietkaarten op de beveiligde betaalpagina van Stripe. Apple Pay en Google Pay worden aangeboden op toestellen die ze ondersteunen."
+      },
+      {
+        "id": "recharge",
+        "question": "Hoe laad ik mijn eSIM op?",
+        "answer": "Log in met het e-mailadres van je bestelling, open Mijn simkaarten, druk op “Opladen” naast je eSIM en kies een pakket voor het land waar je bent. Je kunt op elke pakketpagina ook “Aan mijn simkaart toevoegen” kiezen. De nieuwe data komt op dezelfde eSIM."
+      },
+      {
+        "id": "contact",
+        "question": "Hoe spreek ik met een mens?",
+        "answer": "Mail ons op contact@speednetrdc.com: we antwoorden meestal binnen één werkdag. Voor snelle antwoorden tik je op de chatknop rechtsonder."
+      }
+    ]
+  },
+  "regionalPlans": {
+    "title": "Eén eSIM voor je hele reis",
+    "subtitle": "Meerdere grenzen over in een regio? Eén pakket dekt alle landen erin.",
+    "countries": "{count, plural, one {# land} other {Tot # landen}}",
+    "from": "vanaf {price}"
+  },
+  "regionPage": {
+    "eyebrow": "eSIM {region}",
+    "titleStart": "Eén eSIM.",
+    "titleEnd": "Heel {region}.",
+    "subtitle": "Pakketten voor tot {count} landen in {region}, zonder simkaart te wisselen aan de grens. Elk pakket vermeldt precies welke landen het dekt.",
+    "statCountries": "Gedekte landen",
+    "statNetwork": "Netwerk",
+    "statSpeed": "Snelheid",
+    "statValidity": "Geldigheid",
+    "validityRange": "3–30 dagen"
+  },
+  "globalPlans": {
+    "budget": {
+      "label": "Wereld",
+      "eyebrow": "Wereld-eSIM",
+      "titleStart": "Eén eSIM.",
+      "titleEnd": "De wereld is van jou.",
+      "subtitle": "Ons wereldpakket voor elke dag: brede dekking tegen de laagste prijs per GB."
+    },
+    "premium": {
+      "label": "Global Plus",
+      "eyebrow": "eSIM Global Plus",
+      "titleStart": "Global Plus.",
+      "titleEnd": "Ruimere dekking, snellere netwerken.",
+      "subtitle": "Ons premium wereldniveau: bredere dekking door meer operatoren, voor wie die overal nodig heeft."
+    },
+    "statCountries": "Gedekte landen",
+    "statNetwork": "Netwerk",
+    "statSpeed": "Snelheid",
+    "statPlans": "Pakketten"
+  },
+  "planDetail": {
+    "title": "eSIM {area}",
+    "dataAllowance": "Datategoed",
+    "validity": "Geldigheid",
+    "network": "Netwerk",
+    "speed": "Snelheid",
+    "hotspot": "Hotspot",
+    "supported": "Ondersteund",
+    "notSupported": "Niet ondersteund",
+    "activationPolicy": "Activeringsbeleid",
+    "activationPolicyValue": "Wordt automatisch actief bij de eerste verbinding met een ondersteund netwerk",
+    "supportedDevices": "Ondersteunde toestellen",
+    "supportedDevicesValue": "Simlockvrije telefoons met eSIM",
+    "refunds": "Terugbetalingen",
+    "refundsValue": "Voor terugbetalingen: contact@speednetrdc.com",
+    "totalPrice": "Totaalprijs",
+    "buy": "Koop deze eSIM",
+    "checkDevice": "Compatibiliteit controleren",
+    "instantSecure": "Directe levering · Veilig betalen",
+    "whereTitle": "Waar moet dit pakket op?",
+    "newEsim": "Nieuwe eSIM",
+    "newEsimHint": "Neem een nieuwe eSIM met dit pakket",
+    "addToSim": "Aan mijn simkaart toevoegen",
+    "addToSimHint": "Zet het op een simkaart die je al hebt",
+    "buyTopUp": "Voeg dit pakket toe aan mijn simkaart",
+    "fairUse": "Fair use",
+    "fairUseValue": "Fair-uselimiet van {gb} GB",
+    "multiCountryNote": "Dit pakket werkt maar in één land. Bezoek je er meer? Kies dan een regionaal of wereldpakket.",
+    "multiCountryRegional": "Regionale pakketten",
+    "multiCountryGlobal": "Wereldpakketten"
+  },
+  "salesPaused": {
+    "title": "eSIM-bestellingen zijn tijdelijk niet mogelijk",
+    "notice": "We voeren enkele verbeteringen door en zijn snel terug.",
+    "page": "We werken achter de schermen aan verbeteringen en zijn snel terug. Intussen kun je pakketten bekijken en controleren of je telefoon eSIM ondersteunt.",
+    "browsePlans": "Pakketten bekijken",
+    "checkPhone": "Mijn telefoon controleren",
+    "questions": "Vragen?",
+    "getHelp": "Hulp krijgen"
+  },
+  "checkout": {
+    "noPlanTitle": "Nog geen pakket gekozen",
+    "noPlanText": "Kies eerst een eSIM-pakket en kom dan terug om af te rekenen.",
+    "browsePlans": "eSIM-pakketten bekijken",
+    "trouble": "Problemen?",
+    "getHelp": "Hulp krijgen",
+    "steps": {
+      "plan": "Pakket",
+      "account": "Account",
+      "payment": "Betaling",
+      "confirmation": "Bevestiging"
+    },
+    "planStep": {
+      "title": "Bevestig je pakket",
+      "subtitle": "Controleer de gegevens voor je verdergaat.",
+      "changePlan": "Niet het juiste pakket? Ander pakket kiezen",
+      "continue": "Verder",
+      "subtitleTopUp": "Dit pakket komt op een simkaart die je al hebt: geen nieuwe eSIM te installeren."
+    },
+    "accountStep": {
+      "title": "Je account",
+      "subtitle": "We sturen je eSIM en ontvangstbewijs naar dit e-mailadres.",
+      "fullName": "Volledige naam",
+      "namePlaceholder": "Alex Janssens",
+      "nameError": "Voer je volledige naam in.",
+      "email": "E-mailadres",
+      "emailPlaceholder": "jij@voorbeeld.com",
+      "emailError": "Voer een geldig e-mailadres in.",
+      "back": "Terug",
+      "continue": "Verder naar betalen"
+    },
+    "paymentStep": {
+      "title": "Betaling",
+      "intro": "Je voert je kaartgegevens in op de beveiligde betaalpagina van Stripe: wij zien of bewaren je kaartnummer nooit.",
+      "methods": "Kaart, Apple Pay, Google Pay en andere methodes op ons account worden op het volgende scherm aangeboden. Stripe verwerkt de betaling; er wordt niets aangerekend voor je daar bevestigt.",
+      "consent": "Lever mijn eSIM meteen na betaling. Ik begrijp dat na levering het gebruikelijke herroepingsrecht van 14 dagen niet meer geldt. Ik kan nog wel mijn geld terugkrijgen in de gevallen uit het <refunds>terugbetalingsbeleid</refunds>.",
+      "legal": "Door verder te gaan ga je akkoord met onze <terms>algemene voorwaarden</terms> en ons <refunds>terugbetalingsbeleid</refunds>. Lees in ons <privacy>privacybeleid</privacy> hoe we je gegevens gebruiken.",
+      "back": "Terug",
+      "pay": "Verder naar veilig betalen · {total}",
+      "errorPaused": "eSIM-bestellingen zijn tijdelijk niet mogelijk. We zijn snel terug: probeer het later opnieuw.",
+      "errorDetails": "Voer een geldige naam en e-mailadres in",
+      "errorPlan": "Onbekend pakket",
+      "errorConsent": "Vink het vakje aan om de onmiddellijke levering van je eSIM te bevestigen.",
+      "errorGeneric": "Afrekenen kon niet starten. Probeer het opnieuw.",
+      "consentTopUp": "Lever mijn datapakket meteen na betaling. Ik begrijp dat na levering het gebruikelijke herroepingsrecht van 14 dagen niet meer geldt. Ik kan nog wel mijn geld terugkrijgen in de gevallen uit het <refunds>terugbetalingsbeleid</refunds>.",
+      "errorTopUpUnavailable": "Een pakket aan een bestaande simkaart toevoegen kan nog niet.",
+      "errorTooMany": "Te veel pogingen. Probeer het later opnieuw.",
+      "errorSimNotFound": "We vinden die simkaart niet. Controleer het nummer op je simkaart."
+    },
+    "summary": {
+      "title": "Besteloverzicht",
+      "destination": "Bestemming",
+      "plan": "Pakket",
+      "validity": "Geldigheid",
+      "data": "Data",
+      "price": "Prijs",
+      "taxes": "Belastingen en kosten",
+      "total": "Totaal",
+      "footer": "Versleuteld afrekenen · Directe levering · Terugbetalingen: contact@speednetrdc.com",
+      "addedTo": "Toegevoegd aan",
+      "simEnding": "Simkaart eindigend op {last4}",
+      "chooseSim": "Je simkaart (kies ze)",
+      "plainTotal": "Je betaalt {total} in één keer: het pakket ({price}) plus belastingen en kosten ({fees}).",
+      "footerTopUp": "Versleuteld afrekenen · Binnen enkele minuten op je simkaart · Terugbetalingen: contact@speednetrdc.com"
+    },
+    "cancelled": {
+      "title": "Betaling geannuleerd",
+      "text": "Er is niets aangerekend. Je winkelmandje is niet bewaard, maar je kiest je pakket zo opnieuw.",
+      "backToPlans": "Terug naar pakketten",
+      "getHelp": "Hulp krijgen"
+    },
+    "success": {
+      "confirming": "Je betaling wordt bevestigd…",
+      "settingUp": "Betaling ontvangen: je eSIM wordt klaargemaakt…",
+      "fewSeconds": "Dit duurt meestal enkele seconden. Sluit deze pagina niet.",
+      "needsMomentTitle": "Betaling ontvangen: je eSIM heeft nog even nodig",
+      "stillPreparingTitle": "Betaling ontvangen: we maken je eSIM nog klaar",
+      "needsMomentText": "Het automatisch aanmaken van je eSIM is niet gelukt. Ons team is verwittigd en werkt het voor je af.",
+      "stillPreparingText": "Dit duurt langer dan normaal.",
+      "orderPageNote": "Je eSIM en QR-code verschijnen op je privébestelpagina. Bewaar ze als bladwijzer: iedereen met de link kan je eSIM zien.",
+      "openOrderPage": "Mijn bestelpagina openen",
+      "getHelp": "Hulp krijgen",
+      "paymentFailedTitle": "De betaling is niet gelukt",
+      "notConfirmedTitle": "We konden je betaling nog niet bevestigen",
+      "paymentFailedText": "Je kaart is niet belast. Probeer opnieuw of gebruik een andere betaalmethode.",
+      "notConfirmedText": "Dit kan gebeuren als de bevestiging langer duurt dan normaal. Is er toch aangerekend, neem dan contact op en we lossen het op.",
+      "missingSession": "Betaalsessie ontbreekt.",
+      "somethingWrong": "Er ging iets mis.",
+      "backToPlans": "Terug naar pakketten"
+    }
+  },
+  "orderPage": {
+    "orderNumber": "Bestelling ORD-{id}",
+    "readyTitle": "Je eSIM is klaar om te installeren",
+    "readyText": "Je pakket start pas wanneer je telefoon voor het eerst verbinding maakt met een netwerk in een gedekt land.",
+    "installOnPhone": "Installeren op deze iPhone",
+    "installOnPhoneHint": "Eén tik opent de eSIM-installatie op deze iPhone (iOS 17.4 of nieuwer). Op een andere telefoon installeren? Scan ermee de QR-code hieronder.",
+    "qrAlt": "QR-code voor eSIM-installatie",
+    "scanTitle": "Scan deze QR-code met de telefoon waarop je de eSIM installeert",
+    "iphoneSteps": "Instellingen › Mobiel netwerk › eSIM toevoegen › QR-code gebruiken",
+    "androidSteps": "Instellingen › Netwerk en internet › Simkaarten › eSIM toevoegen (benaming verschilt per merk)",
+    "roaming": "Zet bij aankomst dataroaming aan voor deze eSIM.",
+    "wifi": "Installeer met wifi, liefst vóór je vertrekt.",
+    "manualTitle": "Scannen lukt niet? Voer handmatig in",
+    "smdpAddress": "SM-DP+-adres",
+    "activationCode": "Activeringscode",
+    "keepPrivate": "Houd deze pagina privé: iedereen met deze link of QR-code kan je eSIM installeren, en dat kan maar één keer. Bewaar ze als bladwijzer.",
+    "failedTitle": "Je eSIM heeft iets meer tijd nodig",
+    "settingUpTitle": "We maken je eSIM klaar",
+    "failedText": "Je betaling is gelukt, maar de eSIM kon niet automatisch worden aangemaakt. Ons team is verwittigd, werkt het af en contacteert je indien nodig op {email}.",
+    "settingUpText": "Je betaling is gelukt. Dit duurt meestal minder dan een minuut: ververs de pagina zo meteen.",
+    "qrWillAppear": "Je QR-code verschijnt hier zodra hij klaar is, dus bewaar deze pagina.",
+    "yourEmail": "je e-mailadres",
+    "questions": "Vragen?",
+    "getHelp": "Hulp krijgen",
+    "sim": {
+      "awaitingTitle": "Je simkaart is onderweg",
+      "shippedTitle": "Je simkaart is op de post",
+      "deliveredTitle": "Je simkaart is geleverd",
+      "awaitingText": "We maken je simkaart klaar. Ze wordt vanuit België verzonden en komt meestal binnen 3–5 werkdagen na verzending aan. We mailen je zodra ze op de post is.",
+      "shippedText": "Je simkaart is verzonden en komt meestal binnen 3–5 werkdagen aan.",
+      "deliveredText": "Je simkaart is aangekomen. Steek ze in je telefoon en voeg een datapakket toe.",
+      "shippingTo": "Verzending naar",
+      "status": "Status",
+      "paid": "Betaald · {date}",
+      "posted": "Verzonden · {date}",
+      "tracking": "Trackingnummer:",
+      "delivered": "Geleverd · {date}",
+      "iccid": "Simnummer (ICCID):",
+      "whenArrives": "Wanneer ze aankomt",
+      "step1": "Steek de simkaart in een simlockvrije telefoon.",
+      "step2": "Je internationale data staat al op de kaart. Later meer nodig? Kies een pakket op onze site en selecteer “Aan mijn simkaart toevoegen”.",
+      "step3": "Zet dataroaming aan voor deze simkaart. Je pakket start bij je eerste verbinding in een gedekt land.",
+      "keep": "Ze blijft van jou: voeg data toe wanneer je reist. Een simkaart die {period} niet wordt gebruikt, wordt gedeactiveerd.",
+      "productName": "SpeedNetRDC-simkaart"
+    },
+    "topup": {
+      "readyTitle": "Je pakket staat op je simkaart",
+      "readyText": "{plan} is toegevoegd aan je simkaart eindigend op {ending}. Je hoeft niets te installeren: het pakket start bij de eerste verbinding in een gedekt land {window}. Zet dataroaming aan voor deze simkaart.",
+      "failedTitle": "Je pakket heeft iets meer tijd nodig",
+      "addingTitle": "Pakket toevoegen aan simkaart eindigend op {ending}",
+      "failedText": "Je betaling is gelukt, maar het pakket kon niet automatisch worden toegevoegd. Ons team is verwittigd, werkt het af en contacteert je indien nodig op {email}.",
+      "addingText": "Je betaling is gelukt. Dit duurt meestal minder dan een minuut: ververs de pagina zo meteen."
+    },
+    "coverageTitle": "Waar dit pakket werkt",
+    "coverageText": "Je data werkt alleen in deze landen. Daarbuiten heb je geen internet, ook al toont je telefoon signaal.",
+    "coverageTextSingle": "Je data werkt alleen in {country}. Elders heb je geen internet, ook al toont je telefoon signaal.",
+    "noInternetTitle": "Geen internet?",
+    "noInternet1": "Zet de eSIM-lijn aan: Instellingen → Mobiele data → selecteer deze eSIM.",
+    "noInternet2": "Kies deze eSIM voor mobiele data en zet Dataroaming aan voor die lijn.",
+    "noInternet3": "Controleer of je in een van de landen hierboven bent.",
+    "noInternet4": "Herstart je telefoon en wacht een minuut. Werkt het nog niet, contacteer ons met je bestelnummer.",
+    "keepEsim": "Verwijder de eSIM niet van je telefoon, ook niet als ze niet werkt: ze kan niet opnieuw worden geïnstalleerd. Contacteer ons eerst.",
+    "reportIntro": "Nog steeds geen internet?",
+    "reportLink": "Meld een probleem via je account"
+  },
+  "help": {
+    "title": "Hoe kunnen we helpen?",
+    "subtitle": "Vind snel antwoorden of bereik een echte persoon via e-mail of WhatsApp.",
+    "categories": {
+      "installation": {
+        "title": "Hulp bij installatie",
+        "description": "QR-code en handmatige instelling, stap voor stap."
+      },
+      "compatibility": {
+        "title": "Toestelcompatibiliteit",
+        "description": "Controleer of je telefoon eSIM ondersteunt."
+      },
+      "payment": {
+        "title": "Hulp bij betalen",
+        "description": "Kaarten, wallets, ontvangstbewijzen en terugbetalingen."
+      },
+      "activation": {
+        "title": "eSIM-activering",
+        "description": "Je pakket aanzetten bij aankomst."
+      }
+    },
+    "whatsappTitle": "WhatsApp",
+    "whatsappText": "Stuur ons een bericht op WhatsApp.",
+    "whatsappButton": "Praat met ons op WhatsApp",
+    "emailSupport": "Mail de support",
+    "emailSupportText": "We antwoorden meestal binnen één werkdag."
+  },
+  "howItWorks": {
+    "title": "Van zoeken naar <accent>verbonden</accent> in enkele minuten",
+    "subtitle": "Geen simladen, geen winkelbezoek, geen roamingverrassingen. Zo brengt SpeedNetRDC je online.",
+    "explore": "Bekijk eSIM-pakketten",
+    "setupEyebrow": "Installatie",
+    "setupTitle": "Je eSIM installeren"
+  },
+  "deviceChecker": {
+    "pickBrand": "1 · Kies je merk",
+    "otherBrand": "Ander merk",
+    "selectModel": "2 · Kies je model",
+    "chooseModel": "Kies een model…",
+    "compatible": "Geschikt voor eSIM",
+    "mayNotSupport": "Ondersteunt eSIM mogelijk niet",
+    "compatibleText": "Je {model} ondersteunt eSIM. Controleer vóór aankoop of het toestel simlockvrij en bijgewerkt is, en dat je wifi hebt om te installeren.",
+    "unconfirmedText": "We konden eSIM-ondersteuning voor de {model} niet bevestigen. Controleer je instellingen of neem contact op.",
+    "models": [
+      {
+        "model": "iPhone 13 series",
+        "label": "iPhone 13-serie"
+      },
+      {
+        "model": "iPhone 12 series",
+        "label": "iPhone 12-serie"
+      },
+      {
+        "model": "iPhone 11 series",
+        "label": "iPhone 11-serie"
+      },
+      {
+        "model": "iPhone SE (2nd gen or later)",
+        "label": "iPhone SE (2e generatie of nieuwer)"
+      },
+      {
+        "model": "iPhone SE (1st gen)",
+        "label": "iPhone SE (1e generatie)"
+      },
+      {
+        "model": "iPhone X / 8 / 8 Plus or earlier",
+        "label": "iPhone X / 8 / 8 Plus of ouder"
+      },
+      {
+        "model": "Galaxy S25 series",
+        "label": "Galaxy S25-serie"
+      },
+      {
+        "model": "Galaxy S24 series",
+        "label": "Galaxy S24-serie"
+      },
+      {
+        "model": "Galaxy S23 series",
+        "label": "Galaxy S23-serie"
+      },
+      {
+        "model": "Galaxy S22 series",
+        "label": "Galaxy S22-serie"
+      },
+      {
+        "model": "Galaxy S21 series",
+        "label": "Galaxy S21-serie"
+      },
+      {
+        "model": "Galaxy S20 series",
+        "label": "Galaxy S20-serie",
+        "notes": "Sommige providerversies zijn vergrendeld voor eSIM van die provider."
+      },
+      {
+        "model": "Galaxy Z Fold / Z Flip (all generations)",
+        "label": "Galaxy Z Fold / Z Flip (alle generaties)"
+      },
+      {
+        "model": "Galaxy Note 20 series",
+        "label": "Galaxy Note 20-serie"
+      },
+      {
+        "model": "Galaxy S10 series or earlier",
+        "label": "Galaxy S10-serie of ouder"
+      },
+      {
+        "model": "Galaxy A-series (budget line)",
+        "label": "Galaxy A-serie (budgetlijn)",
+        "notes": "De meeste A-toestellen hebben geen eSIM-chip."
+      },
+      {
+        "model": "Pixel 9 series",
+        "label": "Pixel 9-serie"
+      },
+      {
+        "model": "Pixel 8 series",
+        "label": "Pixel 8-serie"
+      },
+      {
+        "model": "Pixel 7 series",
+        "label": "Pixel 7-serie"
+      },
+      {
+        "model": "Pixel 6 series",
+        "label": "Pixel 6-serie"
+      },
+      {
+        "model": "Pixel 4 series",
+        "label": "Pixel 4-serie"
+      },
+      {
+        "model": "Pixel 3a / 3a XL",
+        "label": "Pixel 3a / 3a XL",
+        "notes": "De 3a-lijn kwam zonder eSIM-chip uit."
+      },
+      {
+        "model": "Xiaomi 14 / 14 Ultra",
+        "label": "Xiaomi 14 / 14 Ultra",
+        "notes": "eSIM-ondersteuning verschilt per regio: controleer of jouw toestel in een eSIM-markt is verkocht."
+      },
+      {
+        "model": "Xiaomi 13 / 13 Pro",
+        "label": "Xiaomi 13 / 13 Pro",
+        "notes": "eSIM-ondersteuning verschilt per regio: controleer of jouw toestel in een eSIM-markt is verkocht."
+      },
+      {
+        "model": "Redmi / Poco series",
+        "label": "Redmi / Poco-serie",
+        "notes": "Redmi- en Poco-toestellen hebben momenteel geen eSIM."
+      },
+      {
+        "model": "Other Xiaomi model",
+        "label": "Ander Xiaomi-model"
+      },
+      {
+        "model": "Razr / Razr+ (all generations)",
+        "label": "Razr / Razr+ (alle generaties)"
+      },
+      {
+        "model": "Edge 40 / 50 series",
+        "label": "Edge 40 / 50-serie"
+      },
+      {
+        "model": "Moto G series",
+        "label": "Moto G-serie",
+        "notes": "De G-lijn heeft geen eSIM-chip."
+      },
+      {
+        "model": "Other Motorola model",
+        "label": "Ander Motorola-model"
+      },
+      {
+        "model": "My device isn't listed",
+        "label": "Mijn toestel staat er niet bij",
+        "notes": "We konden eSIM-ondersteuning niet automatisch bevestigen: zoek in de instellingen onder Mobiel netwerk naar “eSIM toevoegen”, of neem contact op."
+      }
+    ]
+  },
+  "devicePage": {
+    "title": "Werkt SpeedNetRDC op mijn telefoon?",
+    "subtitle": "Kies je toestel hieronder en we zeggen meteen of het eSIM ondersteunt.",
+    "cards": {
+      "capable": {
+        "title": "Telefoon met eSIM",
+        "description": "De meeste telefoons van na 2018 ondersteunen eSIM: controleer je model hierboven."
+      },
+      "unlocked": {
+        "title": "Simlockvrij",
+        "description": "Vergrendelde telefoons kunnen geen externe eSIM installeren. Vraag je provider eerst om te ontgrendelen."
+      },
+      "wifi": {
+        "title": "Wifi om te installeren",
+        "description": "Voor de installatie van ongeveer 2 minuten heb je internet nodig: wifi werkt het best."
+      }
+    }
+  },
+  "chat": {
+    "title": "SpeedNetRDC-hulp",
+    "subtitle": "Antwoorden op veelgestelde vragen",
+    "greeting": "Hallo! Dit zijn de vragen die we het vaakst krijgen. Tik op een vraag voor het antwoord.",
+    "more": "Nog iets? Kies een andere vraag.",
+    "whatsapp": "Praat met ons op WhatsApp",
+    "whatsappMessage": "Hallo SpeedNetRDC, ik heb een vraag.",
+    "emailUs": "Mail ons",
+    "open": "Hulp openen",
+    "close": "Hulp sluiten"
+  },
+  "consent": {
+    "title": "Cookies",
+    "text": "We willen graag cookies van Meta (Facebook) gebruiken om onze advertenties te meten en je relevante advertenties te tonen. Alleen als je accepteert, verneemt Meta welke pagina’s en pakketten je bekijkt en wat je koopt, met je e-mailadres en factuurland in versleutelde (gehashte) vorm. Wijzig je keuze wanneer je wilt via “Cookie-instellingen” onderaan de pagina.",
+    "accept": "Accepteren",
+    "reject": "Weigeren",
+    "learnMore": "Privacybeleid"
+  },
+  "topUpPicker": {
+    "title": "Op welke simkaart moet dit pakket?",
+    "simCard": "Simkaart eindigend op {last4}",
+    "esim": "eSIM eindigend op {last4}",
+    "orAnother": "Of voer hieronder het nummer van een andere simkaart in.",
+    "iccidLabel": "Simnummer (ICCID)",
+    "check": "Simkaart controleren",
+    "checking": "Controleren…",
+    "hint": "Staat gedrukt op je simkaart. Voor een hier gekochte eSIM log je in met het e-mailadres van je bestelling en kies je ze uit je simkaarten.",
+    "errors": {
+      "unavailable": "Data toevoegen aan een bestaande simkaart kan nog niet.",
+      "tooMany": "Te veel pogingen. Probeer het later opnieuw.",
+      "notFound": "We vinden die simkaart niet. Controleer het nummer op je simkaart."
+    },
+    "willAddCard": "Dit pakket wordt toegevoegd aan je simkaart eindigend op {last4}.",
+    "willAddEsim": "Dit pakket wordt toegevoegd aan je eSIM eindigend op {last4}."
+  },
+  "recharge": {
+    "coverage": {
+      "generic": "Vóór je betaalt: een pakket werkt alleen in de gedekte landen. Controleer of het land waar je deze simkaart gebruikt erbij zit.",
+      "warning": "Let op: dit pakket lijkt {country} niet te dekken, het land waarvoor deze simkaart is gekocht. Ben je in {country}, kies dan een pakket dat het dekt, anders werkt de data daar niet."
+    },
+    "how": {
+      "title": "Je eSIM opladen",
+      "step1": "Log in met het e-mailadres van deze bestelling en open Mijn simkaarten.",
+      "step2": "Druk op “Opladen” naast je eSIM en kies een pakket voor het land waar je bent.",
+      "step3": "Betaal: de nieuwe data komt op dezelfde eSIM.",
+      "note": "Je kunt ook op elke pakketpagina “Aan mijn simkaart toevoegen” kiezen.",
+      "signIn": "Inloggen om op te laden"
+    }
+  },
+  "support": {
+    "title": "Hulp nodig met je simkaart?",
+    "subtitle": "Vertel ons wat er mis is en ons team ziet om welke simkaart het gaat. We antwoorden hier en per e-mail.",
+    "report": "Probleem melden",
+    "whichOrder": "Welke bestelling of simkaart?",
+    "whichIssue": "Wat is het probleem?",
+    "categories": {
+      "no_internet": "Geen internet / geen data",
+      "cant_install": "Ik kan de eSIM niet installeren of scannen",
+      "wrong_country": "Mijn pakket dekt het land waar ik ben niet",
+      "data_gone": "Mijn data is op of ontbreekt",
+      "billing": "Betaling of terugbetaling",
+      "other": "Iets anders"
+    },
+    "messageLabel": "Vertel meer (optioneel)",
+    "messagePlaceholder": "Bijvoorbeeld: het land waar je bent, wat je op je telefoon ziet…",
+    "send": "Naar ons team sturen",
+    "sending": "Verzenden…",
+    "cancel": "Annuleren",
+    "sent": "Bedankt. Ons team is verwittigd en antwoordt hier en per e-mail.",
+    "yourRequests": "Je meldingen",
+    "status": {
+      "open": "Wacht op ons",
+      "answered": "Beantwoord",
+      "resolved": "Opgelost"
+    },
+    "newReply": "Nieuw antwoord",
+    "you": "Jij",
+    "team": "SpeedNetRDC-team",
+    "noMessage": "Geen bericht.",
+    "replyPlaceholder": "Schrijf een antwoord…",
+    "reply": "Versturen",
+    "errors": {
+      "notSignedIn": "Log opnieuw in.",
+      "invalid": "Controleer wat je invoerde en probeer opnieuw.",
+      "tooMany": "Te veel verzoeken. Probeer het later opnieuw.",
+      "noOrder": "We vonden die bestelling niet.",
+      "failed": "Er ging iets mis. Probeer het opnieuw.",
+      "chooseIssue": "Kies wat het probleem is."
+    }
+  }
+}
