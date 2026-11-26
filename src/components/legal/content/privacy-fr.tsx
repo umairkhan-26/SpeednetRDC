@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
 import { H2, P, UL, V } from "@/components/legal/LegalPage";
+import { AdSentence, ExtraAdCookies, ExtraAdSharing } from "./ad-partners";
 
 const linkClass = "font-semibold text-orange hover:underline";
 
@@ -62,8 +63,10 @@ export default function PrivacyFr() {
         </li>
       </UL>
       <P>
-        Nous ne vendons pas vos données personnelles. Nous ne partageons des informations limitées avec Meta, pour mesurer et améliorer nos
-        publicités, que si vous acceptez les cookies Meta (voir l’article 3).
+        <AdSentence locale="fr" name="noSale">
+          Nous ne vendons pas vos données personnelles. Nous ne partageons des informations limitées avec Meta, pour mesurer et améliorer nos
+          publicités, que si vous acceptez les cookies Meta (voir l’article 3).
+        </AdSentence>
       </P>
 
       <H2 id="cookies">3. Cookies</H2>
@@ -79,7 +82,9 @@ export default function PrivacyFr() {
           de connexion. Supprimé lorsque vous vous déconnectez.
         </li>
         <li>
-          <strong>snrdc_consent</strong> — mémorise si vous avez accepté ou refusé les cookies Meta, pendant 6 mois.
+          <AdSentence locale="fr" name="consentCookie">
+            <strong>snrdc_consent</strong> — mémorise si vous avez accepté ou refusé les cookies Meta, pendant 6 mois.
+          </AdSentence>
         </li>
       </UL>
       <P>
@@ -103,6 +108,7 @@ export default function PrivacyFr() {
         Platforms Ireland Ltd sommes responsables conjoints du traitement ; l’usage que Meta en fait ensuite relève de la propre politique de
         confidentialité de Meta (facebook.com/privacy/policy).
       </P>
+      <ExtraAdCookies locale="fr" />
       <P>
         Vous pouvez modifier votre choix à tout moment avec « Paramètres des cookies » en bas de chaque page. Choisir « Refuser » arrête le
         Pixel Meta et supprime ses cookies de votre navigateur ; les informations déjà envoyées à Meta restent chez Meta. Stripe dépose ses
@@ -121,6 +127,7 @@ export default function PrivacyFr() {
         <li>Resend (envoi des e-mails de commande et de connexion, depuis des serveurs situés dans l’UE) ;</li>
         <li>Hostinger (hébergement du site et de la base de données) ;</li>
         <li>Meta Platforms Ireland Ltd (mesure publicitaire), uniquement si vous acceptez les cookies Meta ;</li>
+        <ExtraAdSharing locale="fr" />
         <li>les autorités, lorsque la loi l’exige.</li>
       </UL>
       <P>
@@ -140,8 +147,10 @@ export default function PrivacyFr() {
         <li>Liens de connexion : supprimés un jour après leur expiration (ils expirent après 15 minutes).</li>
         <li>Adresses IP hachées utilisées pour la sécurité : 24 heures.</li>
         <li>
-          Votre choix de cookies : 6 mois, après quoi nous vous le redemandons. Cookies de Meta : jusqu’à 90 jours, ou jusqu’à ce que vous
-          les refusiez.
+          <AdSentence locale="fr" name="retention">
+            Votre choix de cookies : 6 mois, après quoi nous vous le redemandons. Cookies de Meta : jusqu’à 90 jours, ou jusqu’à ce que vous
+            les refusiez.
+          </AdSentence>
         </li>
         <li>
           Si vous avez accepté les cookies Meta lors de votre commande : la référence et les informations de navigateur utilisées pour

@@ -6,6 +6,7 @@ import { getCountryBySlug } from "@/data/countries";
 import { COMPANY, legalPagesLive } from "@/lib/legal";
 import { SOCIAL_LINKS, SUPPORT_EMAIL } from "@/lib/contact";
 import CookieSettingsButton from "@/components/consent/CookieSettingsButton";
+import { enabledVendors } from "@/lib/tracking/vendors";
 import LanguageSwitcher from "./LanguageSwitcher";
 import SocialIcon from "./SocialIcon";
 
@@ -78,7 +79,7 @@ export default async function Footer({ locale }: { locale: AppLocale }) {
     { label: tNav("myEsims"), href: "/account" },
   ];
 
-  const showCookieSettings = /^\d{5,20}$/.test(process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "");
+  const showCookieSettings = enabledVendors().length > 0;
   const legalLive = legalPagesLive();
   const addresses: Record<string, string> = { fr: COMPANY.addressFr, es: COMPANY.addressEs, pt: COMPANY.addressPt, nl: COMPANY.addressNl, de: COMPANY.addressDe, it: COMPANY.addressIt, ar: COMPANY.addressAr };
   const companyAddress = addresses[locale] ?? COMPANY.address;

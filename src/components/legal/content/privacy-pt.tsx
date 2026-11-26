@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
 import { H2, P, UL, V } from "@/components/legal/LegalPage";
+import { AdSentence, ExtraAdCookies, ExtraAdSharing } from "./ad-partners";
 
 const linkClass = "font-semibold text-orange hover:underline";
 
@@ -63,8 +64,10 @@ export default function PrivacyPt() {
         </li>
       </UL>
       <P>
-        Não vendemos os seus dados pessoais. Só partilhamos informação limitada com a Meta, para medir e melhorar os nossos anúncios, se
-        aceitar os cookies da Meta (ver o ponto 3).
+        <AdSentence locale="pt" name="noSale">
+          Não vendemos os seus dados pessoais. Só partilhamos informação limitada com a Meta, para medir e melhorar os nossos anúncios, se
+          aceitar os cookies da Meta (ver o ponto 3).
+        </AdSentence>
       </P>
 
       <H2 id="cookies">3. Cookies</H2>
@@ -80,7 +83,9 @@ export default function PrivacyPt() {
           acesso. É eliminado quando termina a sessão.
         </li>
         <li>
-          <strong>snrdc_consent</strong> — memoriza se aceitou ou recusou os cookies da Meta, durante 6 meses.
+          <AdSentence locale="pt" name="consentCookie">
+            <strong>snrdc_consent</strong> — memoriza se aceitou ou recusou os cookies da Meta, durante 6 meses.
+          </AdSentence>
         </li>
       </UL>
       <P>
@@ -104,6 +109,7 @@ export default function PrivacyPt() {
         somos responsáveis conjuntos pelo tratamento; a utilização posterior que a Meta lhe der rege-se pela própria política de
         privacidade da Meta (facebook.com/privacy/policy).
       </P>
+      <ExtraAdCookies locale="pt" />
       <P>
         Pode alterar a sua escolha a qualquer momento em «Definições de cookies», no fundo de cada página. Escolher «Rejeitar» pára o Pixel
         da Meta e elimina os respetivos cookies do seu navegador; a informação já enviada à Meta permanece na Meta. A Stripe coloca os
@@ -121,6 +127,7 @@ export default function PrivacyPt() {
         <li>Resend (envio dos e-mails de encomenda e de acesso, a partir de servidores situados na UE);</li>
         <li>Hostinger (alojamento do site e da base de dados);</li>
         <li>Meta Platforms Ireland Ltd (medição publicitária), apenas se aceitar os cookies da Meta;</li>
+        <ExtraAdSharing locale="pt" />
         <li>as autoridades, quando a lei o exigir.</li>
       </UL>
       <P>
@@ -140,7 +147,9 @@ export default function PrivacyPt() {
         <li>Ligações de acesso: eliminadas um dia depois de expirarem (expiram ao fim de 15 minutos).</li>
         <li>Endereços IP codificados usados para a segurança: 24 horas.</li>
         <li>
-          A sua escolha sobre cookies: 6 meses, após os quais voltamos a perguntar. Cookies da Meta: até 90 dias, ou até os recusar.
+          <AdSentence locale="pt" name="retention">
+            A sua escolha sobre cookies: 6 meses, após os quais voltamos a perguntar. Cookies da Meta: até 90 dias, ou até os recusar.
+          </AdSentence>
         </li>
         <li>
           Se aceitou os cookies da Meta ao fazer a encomenda: a referência e a informação do navegador usadas para o evento de compra,

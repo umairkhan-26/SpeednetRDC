@@ -78,9 +78,10 @@ export default function AccountView({ email, orders, sims = [], tickets = [] }: 
                     {t(style.key)}
                   </span>
                   {order.state === "ready" && order.orderPath && (
-                    <Link href={order.orderPath} className="text-sm font-semibold text-orange hover:underline">
+                    // A full page load, not <Link>: the order page's address is private (see src/lib/tracking/private-pages.ts).
+                    <a href={`/${locale}${order.orderPath}`} className="text-sm font-semibold text-orange hover:underline">
                       {order.productType === "esim" ? t("viewEsim") : t("viewOrder")} <span aria-hidden className="inline-block rtl:-scale-x-100">→</span>
-                    </Link>
+                    </a>
                   )}
                   {order.state === "preparing" && <p className="text-xs text-muted">{t("preparingNote")}</p>}
                 </div>

@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
 import { H2, P, UL, V } from "@/components/legal/LegalPage";
+import { AdSentence, ExtraAdCookies, ExtraAdSharing } from "./ad-partners";
 
 export default function PrivacyNl() {
   return (
@@ -64,8 +65,10 @@ export default function PrivacyNl() {
         </li>
       </UL>
       <P>
-        We verkopen je persoonsgegevens niet. Alleen als je Meta-cookies aanvaardt, delen we beperkte informatie met Meta om onze advertenties
-        te meten en te verbeteren (zie punt 3).
+        <AdSentence locale="nl" name="noSale">
+          We verkopen je persoonsgegevens niet. Alleen als je Meta-cookies aanvaardt, delen we beperkte informatie met Meta om onze advertenties
+          te meten en te verbeteren (zie punt 3).
+        </AdSentence>
       </P>
 
       <H2 id="cookies">3. Cookies</H2>
@@ -81,7 +84,9 @@ export default function PrivacyNl() {
           gebruikte. Wordt verwijderd bij uitloggen.
         </li>
         <li>
-          <strong>snrdc_consent</strong>: onthoudt 6 maanden of je Meta-cookies hebt aanvaard of geweigerd.
+          <AdSentence locale="nl" name="consentCookie">
+            <strong>snrdc_consent</strong>: onthoudt 6 maanden of je Meta-cookies hebt aanvaard of geweigerd.
+          </AdSentence>
         </li>
       </UL>
       <P>
@@ -104,6 +109,7 @@ export default function PrivacyNl() {
         je toestemming. Voor het verzamelen van deze informatie en de doorgifte aan Meta zijn wij en Meta Platforms Ireland Ltd gezamenlijke
         verwerkingsverantwoordelijken; wat Meta er daarna mee doet, valt onder het privacybeleid van Meta (facebook.com/privacy/policy).
       </P>
+      <ExtraAdCookies locale="nl" />
       <P>
         Je kunt je keuze altijd wijzigen via &ldquo;Cookie-instellingen&rdquo; onderaan elke pagina. &ldquo;Weigeren&rdquo; stopt de Meta Pixel
         en verwijdert zijn cookies uit je browser; reeds verzonden informatie blijft bij Meta. Stripe plaatst eigen cookies op zijn
@@ -119,6 +125,7 @@ export default function PrivacyNl() {
         <li>Resend (verzenden van bestel- en inlogmails, vanaf servers in de EU);</li>
         <li>Hostinger (hosting van website en database);</li>
         <li>Meta Platforms Ireland Ltd (advertentiemeting), alleen als je Meta-cookies aanvaardt;</li>
+        <ExtraAdSharing locale="nl" />
         <li>overheden, wanneer de wet dat vereist.</li>
       </UL>
       <P>
@@ -139,7 +146,11 @@ export default function PrivacyNl() {
         </li>
         <li>Inloglinks: gewist een dag nadat ze verlopen (ze verlopen na 15 minuten).</li>
         <li>Gehashte IP-adressen voor beveiliging: 24 uur.</li>
-        <li>Je cookiekeuze: 6 maanden, dan vragen we opnieuw. Cookies van Meta: maximaal 90 dagen, of tot je ze weigert.</li>
+        <li>
+          <AdSentence locale="nl" name="retention">
+            Je cookiekeuze: 6 maanden, dan vragen we opnieuw. Cookies van Meta: maximaal 90 dagen, of tot je ze weigert.
+          </AdSentence>
+        </li>
         <li>
           Als je bij je bestelling Meta-cookies aanvaardde: de referentie en browsergegevens voor de aankoopmelding, zolang we de bestelling
           bewaren.

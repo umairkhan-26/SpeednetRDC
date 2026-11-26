@@ -8,6 +8,7 @@ import { useNames } from "@/i18n/use-names";
 import { isValidEmail, isValidFullName } from "@/lib/validation";
 import type { PhysicalSimPricing } from "@/lib/physical-sim";
 import HowSteps from "@/components/physical-sim/HowSteps";
+import { trackBeginCheckout } from "@/lib/tracking/events";
 
 interface Pending {
   inactivityPeriod: string;
@@ -69,6 +70,7 @@ export default function PhysicalSimCheckoutView({
         setSubmitting(false);
         return setError(response.status === 400 ? t("invalid") : t("error"));
       }
+      trackBeginCheckout({ contentId: "physical_sim", contentName: "SpeedNetRDC SIM card", value: pricing.totalEur, currency: "EUR" });
       window.location.href = body.url;
     } catch {
       setSubmitting(false);

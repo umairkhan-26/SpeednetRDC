@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
 import { H2, P, UL, V } from "@/components/legal/LegalPage";
+import { AdSentence, ExtraAdCookies, ExtraAdSharing } from "./ad-partners";
 
 export default function PrivacyDe() {
   return (
@@ -64,8 +65,10 @@ export default function PrivacyDe() {
         </li>
       </UL>
       <P>
-        Wir verkaufen Ihre personenbezogenen Daten nicht. Nur wenn Sie Meta-Cookies akzeptieren, teilen wir begrenzte Informationen mit Meta,
-        um unsere Anzeigen zu messen und zu verbessern (siehe Abschnitt 3).
+        <AdSentence locale="de" name="noSale">
+          Wir verkaufen Ihre personenbezogenen Daten nicht. Nur wenn Sie Meta-Cookies akzeptieren, teilen wir begrenzte Informationen mit Meta,
+          um unsere Anzeigen zu messen und zu verbessern (siehe Abschnitt 3).
+        </AdSentence>
       </P>
 
       <H2 id="cookies">3. Cookies</H2>
@@ -81,7 +84,9 @@ export default function PrivacyDe() {
           genutzt haben. Wird beim Abmelden gelöscht.
         </li>
         <li>
-          <strong>snrdc_consent</strong> – merkt sich 6 Monate lang, ob Sie Meta-Cookies akzeptiert oder abgelehnt haben.
+          <AdSentence locale="de" name="consentCookie">
+            <strong>snrdc_consent</strong> – merkt sich 6 Monate lang, ob Sie Meta-Cookies akzeptiert oder abgelehnt haben.
+          </AdSentence>
         </li>
       </UL>
       <P>
@@ -104,6 +109,7 @@ export default function PrivacyDe() {
         Einwilligung. Für die Erhebung dieser Informationen und die Übermittlung an Meta sind wir und Meta Platforms Ireland Ltd gemeinsam
         Verantwortliche; was Meta danach damit macht, regelt die Datenschutzrichtlinie von Meta (facebook.com/privacy/policy).
       </P>
+      <ExtraAdCookies locale="de" />
       <P>
         Sie können Ihre Wahl jederzeit über &bdquo;Cookie-Einstellungen&ldquo; unten auf jeder Seite ändern. &bdquo;Ablehnen&ldquo; stoppt den
         Meta-Pixel und entfernt seine Cookies aus Ihrem Browser; bereits übermittelte Informationen bleiben bei Meta. Stripe setzt auf seiner
@@ -119,6 +125,7 @@ export default function PrivacyDe() {
         <li>Resend (Versand von Bestell- und Anmelde-E-Mails von Servern in der EU);</li>
         <li>Hostinger (Hosting von Website und Datenbank);</li>
         <li>Meta Platforms Ireland Ltd (Werbemessung), nur wenn Sie Meta-Cookies akzeptieren;</li>
+        <ExtraAdSharing locale="de" />
         <li>Behörden, wenn das Gesetz es verlangt.</li>
       </UL>
       <P>
@@ -139,7 +146,11 @@ export default function PrivacyDe() {
         </li>
         <li>Anmeldelinks: gelöscht einen Tag nach Ablauf (sie laufen nach 15 Minuten ab).</li>
         <li>Gehashte IP-Adressen für die Sicherheit: 24 Stunden.</li>
-        <li>Ihre Cookie-Wahl: 6 Monate, dann fragen wir erneut. Cookies von Meta: bis zu 90 Tage oder bis Sie sie ablehnen.</li>
+        <li>
+          <AdSentence locale="de" name="retention">
+            Ihre Cookie-Wahl: 6 Monate, dann fragen wir erneut. Cookies von Meta: bis zu 90 Tage oder bis Sie sie ablehnen.
+          </AdSentence>
+        </li>
         <li>
           Wenn Sie bei der Bestellung Meta-Cookies akzeptiert haben: Referenz und Browserdaten für das Kaufereignis, solange wir die Bestellung
           aufbewahren.

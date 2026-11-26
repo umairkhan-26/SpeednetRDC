@@ -1,13 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { useSearchParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
-import { Link, useRouter } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
 import { LinkButton } from "@/components/ui/Button";
 import { getOrderStatus, type OrderStatusResult } from "@/lib/api/checkout";
+import { acceptedVendors, readConsentCookie } from "@/lib/consent";
 import { trackMeta } from "@/lib/meta/pixel";
+import { trackPurchase } from "@/lib/tracking/events";
+import { trackingSettled } from "@/lib/tracking/scripts";
 
 const POLL_INTERVAL_MS = 1500;
 // Payment confirmation usually takes a few seconds; setting up the eSIM
@@ -24,8 +27,37 @@ type ViewState =
   | { kind: "timeout" }
   | { kind: "error"; missingSession: boolean };
 
-/** Browser Purchase event, once per order (same event_id as the server event, so Meta counts it once). */
-function trackPurchaseOnce(purchase: OrderStatusResult["metaPurchase"]) {
+// The Stripe session id, kept in this tab once it has been taken out of the
+// address bar, so that reloading the page still finds the order.
+const SESSION_KEY = "snrdc-checkout-session";
+
+function storedSessionId(): string | null {
+  try {
+    return sessionStorage.getItem(SESSION_KEY);
+  } catch {
+    return null;
+  }
+}
+
+const noSubscription = () => () => {};
+
+/**
+ * Advertising tools must never see the Stripe session id in the address, so
+ * it is removed before any of them loads. Without storage to keep it in, the
+ * address is left alone and nothing is tracked.
+ */
+function hideSessionId(sessionId: string): void {
+  if (!window.location.search.includes("session_id=")) return;
+  try {
+    sessionStorage.setItem(SESSION_KEY, sessionId);
+  } catch {
+    return;
+  }
+  window.history.replaceState(null, "", window.location.pathname);
+}
+
+/** Meta's browser Purchase event, once per order (same event_id as the server event, so Meta counts it once). */
+function trackMetaPurchaseOnce(purchase: OrderStatusResult["metaPurchase"]) {
   if (!purchase) return;
   const key = `meta-purchase-${purchase.eventId}`;
   try {
@@ -41,11 +73,20 @@ function trackPurchaseOnce(purchase: OrderStatusResult["metaPurchase"]) {
   );
 }
 
+/** Sends the purchase to whichever tools the buyer accepted (none: does nothing at all). */
+function trackCompletedOrder(sessionId: string, result: OrderStatusResult) {
+  if (acceptedVendors(readConsentCookie()).length === 0) return;
+  hideSessionId(sessionId);
+  trackMetaPurchaseOnce(result.metaPurchase);
+  if (result.purchase) trackPurchase(result.purchase);
+}
+
 export default function SuccessClient() {
   const t = useTranslations("checkout.success");
-  const router = useRouter();
+  const locale = useLocale();
   const searchParams = useSearchParams();
-  const sessionId = searchParams.get("session_id");
+  const restoredSessionId = useSyncExternalStore(noSubscription, storedSessionId, () => null);
+  const sessionId = searchParams.get("session_id") ?? restoredSessionId;
   const [pollState, setState] = useState<ViewState>({ kind: "confirming" });
   const state: ViewState = sessionId ? pollState : { kind: "error", missingSession: true };
 
@@ -55,6 +96,13 @@ export default function SuccessClient() {
     let cancelled = false;
     let attempt = 0;
 
+    // The order page is opened with a full page load: its address is private,
+    // so it must start without any advertising tool running.
+    async function openOrderPage(token: string) {
+      await trackingSettled();
+      if (!cancelled) window.location.replace(`/${locale}/order/${token}`);
+    }
+
     async function poll() {
       attempt += 1;
       try {
@@ -63,15 +111,12 @@ export default function SuccessClient() {
 
         if (result.status === "failed") return setState({ kind: "paymentFailed" });
         if (result.status === "completed") {
-          trackPurchaseOnce(result.metaPurchase);
+          trackCompletedOrder(currentSessionId, result);
           // A SIM card is posted, not provisioned: its order page shows the shipping status.
-          if (result.productType === "physical_sim" && result.accessToken) {
-            router.replace(`/order/${result.accessToken}`);
-            return;
-          }
-          if (result.provisioningStatus === "provisioned" && result.accessToken) {
-            router.replace(`/order/${result.accessToken}`);
-            return;
+          const ready = result.productType === "physical_sim" || result.provisioningStatus === "provisioned";
+          if (ready && result.accessToken) {
+            setState({ kind: "preparing" });
+            return openOrderPage(result.accessToken);
           }
           if (result.provisioningStatus === "failed") return setState({ kind: "provisioningFailed", token: result.accessToken });
           if (attempt >= MAX_ATTEMPTS) return setState({ kind: "stillPreparing", token: result.accessToken });
@@ -90,7 +135,7 @@ export default function SuccessClient() {
     return () => {
       cancelled = true;
     };
-  }, [sessionId, router]);
+  }, [sessionId, locale]);
 
   return (
     <div className="container-page flex flex-col items-center gap-4 py-24 text-center">
@@ -113,7 +158,7 @@ export default function SuccessClient() {
             {state.kind === "provisioningFailed" ? t("needsMomentText") : t("stillPreparingText")} {t("orderPageNote")}
           </p>
           {state.token && (
-            <LinkButton href={`/order/${state.token}`} size="lg">
+            <LinkButton href={`/${locale}/order/${state.token}`} fullPageLoad size="lg">
               {t("openOrderPage")}
             </LinkButton>
           )}

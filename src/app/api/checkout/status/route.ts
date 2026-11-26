@@ -47,5 +47,17 @@ export async function GET(request: Request) {
     productType: order.productType,
     accessToken: order.status === "completed" ? order.accessToken : null,
     metaPurchase: consent ? { eventId: consent.eventId, value: Number(order.amountEur), currency: "EUR", contentId: order.planId } : null,
+    // For the Google and TikTok purchase events, which the browser only sends
+    // if the buyer accepted their cookies. Order facts only, no personal data.
+    purchase:
+      order.status === "completed"
+        ? {
+            transactionId: `ORD-${order.id}`,
+            value: Number(order.amountEur),
+            currency: "EUR",
+            contentId: order.productType === "physical_sim" ? "physical_sim" : order.planId,
+            contentName: order.productType === "physical_sim" ? "SpeedNetRDC SIM card" : order.planName,
+          }
+        : null,
   });
 }

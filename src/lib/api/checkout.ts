@@ -1,4 +1,5 @@
 import type { Plan } from "../types";
+import type { TrackedPurchase } from "../tracking/types";
 
 export interface CheckoutPayload {
   plan: Plan;
@@ -28,6 +29,8 @@ export interface OrderStatusResult {
   accessToken: string | null;
   /** Present only when the buyer accepted Meta cookies; event_id shared with the server event. */
   metaPurchase: { eventId: string; value: number; currency: string; contentId: string | null } | null;
+  /** The finished order, for the Google and TikTok purchase events (older servers don't send it). */
+  purchase?: TrackedPurchase | null;
   /** esim | physical_sim | topup (older servers don't send it: treat as esim). */
   productType?: "esim" | "physical_sim" | "topup";
 }

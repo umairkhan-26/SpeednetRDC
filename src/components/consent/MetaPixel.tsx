@@ -2,17 +2,17 @@
 
 import { useEffect, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
-import { readConsent, subscribeConsent } from "@/lib/consent";
-import { loadMetaPixel, metaPixelEnabled, trackMeta } from "@/lib/meta/pixel";
+import { readConsentCookie, subscribeConsent } from "@/lib/consent";
+import { loadMetaPixel, trackMeta } from "@/lib/meta/pixel";
 
 /** Loads the Meta Pixel once the visitor accepts cookies, and sends PageView on every page. */
 export default function MetaPixel() {
   const pathname = usePathname();
   // The choice lives in a browser cookie; on the server nothing is known yet.
-  const consent = useSyncExternalStore(subscribeConsent, readConsent, () => null);
+  const consent = useSyncExternalStore(subscribeConsent, readConsentCookie, () => null);
 
   useEffect(() => {
-    if (consent !== "granted" || !metaPixelEnabled()) return;
+    // Both do nothing without an ID, without consent or on a private page.
     loadMetaPixel();
     trackMeta("PageView");
   }, [consent, pathname]);

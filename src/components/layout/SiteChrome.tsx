@@ -6,6 +6,7 @@ import ChatBubble from "./ChatBubble";
 import CursorTrail from "./CursorTrail";
 import CookieBanner from "@/components/consent/CookieBanner";
 import MetaPixel from "@/components/consent/MetaPixel";
+import AdTags from "@/components/consent/AdTags";
 import { legalPagesLive } from "@/lib/legal";
 
 export default function SiteChrome({
@@ -23,6 +24,7 @@ export default function SiteChrome({
       <ChatBubble />
       <CursorTrail />
       <MetaPixel />
+      <AdTags />
       <CookieBanner privacyLink={legalPagesLive()} />
     </>
   );

@@ -49,9 +49,22 @@ export function LinkButton({
   size = "md",
   className,
   children,
-}: CommonProps & { href: string }) {
+  fullPageLoad = false,
+}: CommonProps & {
+  href: string;
+  /** For private pages (the order page): a plain link, so the page loads afresh. `href` must then include the language. */
+  fullPageLoad?: boolean;
+}) {
+  const classes = clsx(base, variants[variant], sizes[size], className);
+  if (fullPageLoad) {
+    return (
+      <a href={href} className={classes}>
+        {children}
+      </a>
+    );
+  }
   return (
-    <Link href={href} className={clsx(base, variants[variant], sizes[size], className)}>
+    <Link href={href} className={classes}>
       {children}
     </Link>
   );

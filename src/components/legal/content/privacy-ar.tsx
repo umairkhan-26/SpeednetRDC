@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
 import { H2, P, UL, V } from "@/components/legal/LegalPage";
+import { AdSentence, ExtraAdCookies, ExtraAdSharing } from "./ad-partners";
 
 export default function PrivacyAr() {
   return (
@@ -55,7 +56,9 @@ export default function PrivacyAr() {
         </li>
       </UL>
       <P>
-        لا نبيع بياناتك الشخصية. نشارك معلومات محدودة مع Meta لقياس إعلاناتنا وتحسينها فقط إذا قبلت ملفات تعريف ارتباط Meta (انظر البند 3).
+        <AdSentence locale="ar" name="noSale">
+          لا نبيع بياناتك الشخصية. نشارك معلومات محدودة مع Meta لقياس إعلاناتنا وتحسينها فقط إذا قبلت ملفات تعريف ارتباط Meta (انظر البند 3).
+        </AdSentence>
       </P>
 
       <H2 id="cookies">3. ملفات تعريف الارتباط</H2>
@@ -70,7 +73,9 @@ export default function PrivacyAr() {
           <strong>customer_session</strong> — يبقيك مسجّلاً في &quot;شرائحي&quot; حتى 30 يوماً بعد استخدام رابط الدخول، ويُحذف عند الخروج.
         </li>
         <li>
-          <strong>snrdc_consent</strong> — يتذكر لمدة 6 أشهر قبولك أو رفضك ملفات Meta.
+          <AdSentence locale="ar" name="consentCookie">
+            <strong>snrdc_consent</strong> — يتذكر لمدة 6 أشهر قبولك أو رفضك ملفات Meta.
+          </AdSentence>
         </li>
       </UL>
       <P>
@@ -90,6 +95,7 @@ export default function PrivacyAr() {
         نستخدم ذلك لقياس نجاح إعلاناتنا وعرضها على من يُرجّح اهتمامهم. الأساس القانوني: موافقتك. وفي جمع هذه المعلومات وتمريرها إلى Meta نكون نحن
         وشركة Meta Platforms Ireland Ltd مسؤولين مشتركين؛ وما تفعله Meta بها بعد ذلك تحكمه سياسة خصوصيتها (facebook.com/privacy/policy).
       </P>
+      <ExtraAdCookies locale="ar" />
       <P>
         يمكنك تغيير اختيارك في أي وقت من &quot;إعدادات ملفات تعريف الارتباط&quot; أسفل كل صفحة. &quot;الرفض&quot; يوقف بكسل Meta ويحذف ملفاته من
         متصفحك، وتبقى المعلومات المرسلة سابقاً لدى Meta. تضع Stripe ملفاتها الخاصة في صفحة الدفع لمنع الاحتيال.
@@ -104,6 +110,7 @@ export default function PrivacyAr() {
         <li>Resend (إرسال رسائل الطلبات والدخول من خوادم في الاتحاد الأوروبي)؛</li>
         <li>Hostinger (استضافة الموقع وقاعدة البيانات)؛</li>
         <li>Meta Platforms Ireland Ltd (قياس الإعلانات)، فقط إذا قبلت ملفات Meta؛</li>
+        <ExtraAdSharing locale="ar" />
         <li>السلطات عندما يفرض القانون ذلك.</li>
       </UL>
       <P>
@@ -123,7 +130,11 @@ export default function PrivacyAr() {
         </li>
         <li>روابط الدخول: تُحذف بعد يوم من انتهائها (تنتهي بعد 15 دقيقة).</li>
         <li>عناوين IP المشفّرة للأمان: 24 ساعة.</li>
-        <li>اختيارك لملفات الارتباط: 6 أشهر ثم نسأل مجدداً. ملفات Meta: حتى 90 يوماً أو حتى ترفضها.</li>
+        <li>
+          <AdSentence locale="ar" name="retention">
+            اختيارك لملفات الارتباط: 6 أشهر ثم نسأل مجدداً. ملفات Meta: حتى 90 يوماً أو حتى ترفضها.
+          </AdSentence>
+        </li>
         <li>إذا قبلت ملفات Meta عند الطلب: المرجع وبيانات المتصفح المستخدمة لحدث الشراء طالما نحتفظ بالطلب.</li>
         <li>رسائل الدعم: ما دام التعامل مع طلبك يتطلب ذلك، ثم حتى سنتين.</li>
       </UL>

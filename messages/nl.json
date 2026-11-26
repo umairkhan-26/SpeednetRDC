@@ -961,6 +961,9 @@
   "consent": {
     "title": "Cookies",
     "text": "We willen graag cookies van Meta (Facebook) gebruiken om onze advertenties te meten en je relevante advertenties te tonen. Alleen als je accepteert, verneemt Meta welke pagina’s en pakketten je bekijkt en wat je koopt, met je e-mailadres en factuurland in versleutelde (gehashte) vorm. Wijzig je keuze wanneer je wilt via “Cookie-instellingen” onderaan de pagina.",
+    "textPartners": "We willen graag advertentie- en analysecookies gebruiken om onze advertenties te meten en je relevante advertenties te tonen. Alleen als je accepteert, worden gegevens over de pagina’s en pakketten die je bekijkt en over wat je koopt doorgestuurd naar {partners}.",
+    "textMetaHashed": "Meta ontvangt daarnaast je e-mailadres en factuurland in versleutelde (gehashte) vorm.",
+    "textChange": "Wijzig je keuze wanneer je wilt via “Cookie-instellingen” onderaan de pagina.",
     "accept": "Accepteren",
     "reject": "Weigeren",
     "learnMore": "Privacybeleid"

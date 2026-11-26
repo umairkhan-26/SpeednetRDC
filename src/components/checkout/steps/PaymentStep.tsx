@@ -9,8 +9,9 @@ import { ESIM_CHECKOUT_PAUSED_ERROR } from "@/lib/checkout/availability";
 import { submitOrder } from "@/lib/api/checkout";
 import type { Plan } from "@/lib/types";
 import { legalPagesLive } from "@/lib/legal";
-import { readConsent } from "@/lib/consent";
+import { hasConsent } from "@/lib/consent";
 import { readMetaBrowserIds, trackMeta } from "@/lib/meta/pixel";
+import { trackBeginCheckout } from "@/lib/tracking/events";
 
 // The checkout API's messages (English) mapped to translations; anything
 // unrecognised shows the generic "couldn't start checkout" message.
@@ -59,7 +60,8 @@ export default function PaymentStep({
     setSubmitting(true);
     try {
       trackMeta("InitiateCheckout", { content_ids: [plan.id], content_type: "product", num_items: 1, value: total, currency: "EUR" });
-      const meta = readConsent() === "granted" ? { consent: true as const, ...readMetaBrowserIds() } : undefined;
+      trackBeginCheckout({ contentId: plan.id, contentName: plan.name, value: total, currency: "EUR" });
+      const meta = hasConsent("meta") ? { consent: true as const, ...readMetaBrowserIds() } : undefined;
       const session = await submitOrder({ plan, fullName, email, locale, withdrawalConsent, meta, topUpIccid: isTopUp ? topUpIccid : null });
       window.location.href = session.url;
     } catch (err) {

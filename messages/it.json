@@ -961,6 +961,9 @@
   "consent": {
     "title": "Cookie",
     "text": "Vorremmo usare i cookie di Meta (Facebook) per misurare le nostre pubblicità e mostrartene di pertinenti. Solo se accetti, Meta apprende quali pagine e piani visualizzi e cosa acquisti, con la tua e-mail e il paese di fatturazione in forma cifrata (hash). Puoi cambiare scelta in qualsiasi momento da “Impostazioni cookie” in fondo alla pagina.",
+    "textPartners": "Vorremmo usare cookie pubblicitari e di analisi per misurare le nostre pubblicità e mostrartene di pertinenti. Solo se accetti, i dati sulle pagine e sui piani che visualizzi e sui tuoi acquisti vengono inviati a {partners}.",
+    "textMetaHashed": "Meta riceve inoltre la tua e-mail e il paese di fatturazione in forma cifrata (hash).",
+    "textChange": "Puoi cambiare scelta in qualsiasi momento da “Impostazioni cookie” in fondo alla pagina.",
     "accept": "Accetta",
     "reject": "Rifiuta",
     "learnMore": "Informativa sulla privacy"

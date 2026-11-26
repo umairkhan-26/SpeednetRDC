@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
 import { H2, P, UL, V } from "@/components/legal/LegalPage";
+import { AdSentence, ExtraAdCookies, ExtraAdSharing } from "./ad-partners";
 
 export default function PrivacyEn() {
   return (
@@ -56,8 +57,10 @@ export default function PrivacyEn() {
         </li>
       </UL>
       <P>
-        We do not sell your personal data. Only if you accept Meta cookies do we share limited information with Meta to measure and improve our
-        ads (see section 3).
+        <AdSentence locale="en" name="noSale">
+          We do not sell your personal data. Only if you accept Meta cookies do we share limited information with Meta to measure and improve our
+          ads (see section 3).
+        </AdSentence>
       </P>
 
       <H2 id="cookies">3. Cookies</H2>
@@ -73,7 +76,9 @@ export default function PrivacyEn() {
           Removed when you sign out.
         </li>
         <li>
-          <strong>snrdc_consent</strong> — remembers whether you accepted or rejected Meta cookies, for 6 months.
+          <AdSentence locale="en" name="consentCookie">
+            <strong>snrdc_consent</strong> — remembers whether you accepted or rejected Meta cookies, for 6 months.
+          </AdSentence>
         </li>
       </UL>
       <P>
@@ -96,6 +101,7 @@ export default function PrivacyEn() {
         collecting this information and passing it to Meta, we and Meta Platforms Ireland Ltd are joint controllers; what Meta does with it
         afterwards is covered by Meta&apos;s own privacy policy (facebook.com/privacy/policy).
       </P>
+      <ExtraAdCookies locale="en" />
       <P>
         You can change your choice at any time with &ldquo;Cookie settings&rdquo; at the bottom of every page. Choosing &ldquo;Reject&rdquo;
         stops the Meta Pixel and removes its cookies from your browser; information already sent to Meta stays with Meta. Stripe sets its own
@@ -111,6 +117,7 @@ export default function PrivacyEn() {
         <li>Resend (sending order and sign-in emails, from servers in the EU);</li>
         <li>Hostinger (website and database hosting);</li>
         <li>Meta Platforms Ireland Ltd (advertising measurement), only if you accept Meta cookies;</li>
+        <ExtraAdSharing locale="en" />
         <li>authorities, when the law requires it.</li>
       </UL>
       <P>
@@ -129,7 +136,11 @@ export default function PrivacyEn() {
         </li>
         <li>Sign-in links: deleted one day after they expire (they expire after 15 minutes).</li>
         <li>Hashed IP addresses used for security: 24 hours.</li>
-        <li>Your cookie choice: 6 months, then we ask again. Meta&apos;s cookies: up to 90 days, or until you reject them.</li>
+        <li>
+          <AdSentence locale="en" name="retention">
+            Your cookie choice: 6 months, then we ask again. Meta&apos;s cookies: up to 90 days, or until you reject them.
+          </AdSentence>
+        </li>
         <li>
           If you accepted Meta cookies when you ordered: the reference and browser details used for the purchase event, for as long as we keep
           the order.

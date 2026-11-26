@@ -961,6 +961,9 @@
   "consent": {
     "title": "Cookies",
     "text": "Wir möchten Cookies von Meta (Facebook) verwenden, um unsere Anzeigen zu messen und Ihnen relevante zu zeigen. Nur wenn Sie akzeptieren, erfährt Meta, welche Seiten und Tarife Sie ansehen und was Sie kaufen, samt E-Mail und Rechnungsland in verschlüsselter (gehashter) Form. Sie können Ihre Wahl jederzeit über „Cookie-Einstellungen“ unten auf der Seite ändern.",
+    "textPartners": "Wir möchten Werbe- und Analyse-Cookies verwenden, um unsere Anzeigen zu messen und Ihnen relevante zu zeigen. Nur wenn Sie akzeptieren, werden Angaben zu den Seiten und Tarifen, die Sie ansehen, und zu Ihren Käufen an {partners} gesendet.",
+    "textMetaHashed": "Meta erhält außerdem Ihre E-Mail-Adresse und Ihr Rechnungsland in verschlüsselter (gehashter) Form.",
+    "textChange": "Sie können Ihre Wahl jederzeit über „Cookie-Einstellungen“ unten auf der Seite ändern.",
     "accept": "Akzeptieren",
     "reject": "Ablehnen",
     "learnMore": "Datenschutzerklärung"

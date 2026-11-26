@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
 import { H2, P, UL, V } from "@/components/legal/LegalPage";
+import { AdSentence, ExtraAdCookies, ExtraAdSharing } from "./ad-partners";
 
 export default function PrivacyIt() {
   return (
@@ -65,8 +66,10 @@ export default function PrivacyIt() {
         </li>
       </UL>
       <P>
-        Non vendiamo i tuoi dati personali. Solo se accetti i cookie di Meta condividiamo con Meta informazioni limitate per misurare e
-        migliorare le nostre pubblicità (vedi punto 3).
+        <AdSentence locale="it" name="noSale">
+          Non vendiamo i tuoi dati personali. Solo se accetti i cookie di Meta condividiamo con Meta informazioni limitate per misurare e
+          migliorare le nostre pubblicità (vedi punto 3).
+        </AdSentence>
       </P>
 
       <H2 id="cookies">3. Cookie</H2>
@@ -82,7 +85,9 @@ export default function PrivacyIt() {
           accesso. Viene rimosso quando esci.
         </li>
         <li>
-          <strong>snrdc_consent</strong>: ricorda per 6 mesi se hai accettato o rifiutato i cookie di Meta.
+          <AdSentence locale="it" name="consentCookie">
+            <strong>snrdc_consent</strong>: ricorda per 6 mesi se hai accettato o rifiutato i cookie di Meta.
+          </AdSentence>
         </li>
       </UL>
       <P>
@@ -105,6 +110,7 @@ export default function PrivacyIt() {
         giuridica: il tuo consenso. Per la raccolta di queste informazioni e la loro trasmissione a Meta, noi e Meta Platforms Ireland Ltd siamo
         contitolari; ciò che Meta ne fa dopo è disciplinato dall&apos;informativa di Meta (facebook.com/privacy/policy).
       </P>
+      <ExtraAdCookies locale="it" />
       <P>
         Puoi cambiare scelta in qualsiasi momento da &ldquo;Impostazioni cookie&rdquo; in fondo a ogni pagina. &ldquo;Rifiuta&rdquo; ferma il
         Meta Pixel e rimuove i suoi cookie dal browser; le informazioni già inviate restano a Meta. Stripe imposta propri cookie nella pagina di
@@ -120,6 +126,7 @@ export default function PrivacyIt() {
         <li>Resend (invio delle e-mail di ordine e accesso, da server nell&apos;UE);</li>
         <li>Hostinger (hosting del sito e del database);</li>
         <li>Meta Platforms Ireland Ltd (misurazione pubblicitaria), solo se accetti i cookie di Meta;</li>
+        <ExtraAdSharing locale="it" />
         <li>le autorità, quando la legge lo richiede.</li>
       </UL>
       <P>
@@ -141,7 +148,11 @@ export default function PrivacyIt() {
         </li>
         <li>Link di accesso: cancellati un giorno dopo la scadenza (scadono dopo 15 minuti).</li>
         <li>Indirizzi IP cifrati usati per la sicurezza: 24 ore.</li>
-        <li>La tua scelta sui cookie: 6 mesi, poi lo richiediamo. Cookie di Meta: fino a 90 giorni, o finché non li rifiuti.</li>
+        <li>
+          <AdSentence locale="it" name="retention">
+            La tua scelta sui cookie: 6 mesi, poi lo richiediamo. Cookie di Meta: fino a 90 giorni, o finché non li rifiuti.
+          </AdSentence>
+        </li>
         <li>
           Se hai accettato i cookie di Meta al momento dell&apos;ordine: il riferimento e i dati del browser usati per l&apos;evento di
           acquisto, finché conserviamo l&apos;ordine.
