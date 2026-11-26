@@ -129,6 +129,21 @@
       "newLink": "Nieuwe inloglink aanvragen",
       "tooMany": "Te veel pogingen. Probeer het later opnieuw.",
       "unavailable": "Inloggen lukt nu niet. Je eSIM-link staat in de e-mail met je orderbevestiging, of neem contact op met ons."
+    },
+    "social": {
+      "or": "of",
+      "continueGoogle": "Doorgaan met Google",
+      "continueApple": "Doorgaan met Apple",
+      "failed": "Inloggen met {provider} is niet gelukt. Probeer het opnieuw of gebruik de link per e-mail.",
+      "linkTitle": "Nog één stap",
+      "linkRelayBody": "Je Apple-e-mailadres is verborgen en we hebben er geen bestellingen bij gevonden. Heb je al eerder bij ons besteld, vul dan het e-mailadres in dat je toen gebruikte. We sturen daar een inloglink naartoe, en daarna opent Apple dat account.",
+      "linkConfirmBody": "Om je bestellingen te beschermen bevestig je je e-mailadres één keer: we sturen er een inloglink naartoe. Daarna log je direct in met {provider}.",
+      "linkSubmit": "Stuur mij een inloglink",
+      "linkSentBody": "Als het adres gebruikt kan worden, hebben we er een inloglink naartoe gestuurd. Open die binnen 15 minuten in dezelfde browser om af te ronden.",
+      "continueWithout": "Ik ben nieuw: doorgaan met dit Apple-account",
+      "expiredTitle": "Begin opnieuw",
+      "expiredBody": "Deze stap is verlopen.",
+      "backToLogin": "Terug naar inloggen"
     }
   },
   "regions": {
@@ -183,7 +198,8 @@
     "buyMore": "Meer data kopen",
     "checkedAt": "Gecontroleerd om {time}",
     "viewOrder": "Bestelling bekijken",
-    "recharge": "Opladen"
+    "recharge": "Opladen",
+    "emptyOtherEmail": "Met een ander e-mailadres besteld? Log uit en vraag een inloglink aan voor dat adres."
   },
   "homePhysicalSim": {
     "eyebrow": "Fysieke simkaart · Nu beschikbaar",

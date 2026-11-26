@@ -186,6 +186,17 @@ const SCHEMA_STATEMENTS = [
     INDEX (email),
     INDEX (expires_at)
   )`,
+  // Google / Apple accounts connected to the email address their orders use,
+  // after the owner confirmed it with an emailed link.
+  `CREATE TABLE IF NOT EXISTS customer_identities (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    provider VARCHAR(16) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL,
+    UNIQUE KEY provider_subject (provider, subject),
+    INDEX (email)
+  )`,
   // Last known Transatel status of each sold SIM, for the admin SIMs page
   // (refreshed on demand with read-only API calls, never on page load).
   // plans_json holds every plan seen on the SIM: product, status, dates

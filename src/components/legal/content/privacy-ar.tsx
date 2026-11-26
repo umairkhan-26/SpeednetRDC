@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
 import { H2, P, UL, V } from "@/components/legal/LegalPage";
 import { AdSentence, ExtraAdCookies, ExtraAdSharing } from "./ad-partners";
+import { SocialSignInCookies, SocialSignInData, SocialSignInRetention } from "./social-sign-in";
 
 export default function PrivacyAr() {
   return (
@@ -45,6 +46,7 @@ export default function PrivacyAr() {
         <li>
           <strong>تسجيل الدخول:</strong> عند طلب رابط دخول نحفظ رمزاً لمرة واحدة مرتبطاً ببريدك. الأساس: تنفيذ العقد.
         </li>
+        <SocialSignInData locale="ar" />
         <li>
           <strong>الأمان:</strong> لمنع تخمين روابط الدخول وكلمات المرور نعدّ المحاولات الفاشلة باستخدام صيغة مشفّرة (مُجزّأة) من عنوان IP
           نحذفها بعد 24 ساعة. لا نحفظ عنوان IP مع طلبك. الأساس: مصلحة مشروعة (أمن الحسابات والخدمة).
@@ -77,6 +79,7 @@ export default function PrivacyAr() {
             <strong>snrdc_consent</strong> — يتذكر لمدة 6 أشهر قبولك أو رفضك ملفات Meta.
           </AdSentence>
         </li>
+        <SocialSignInCookies locale="ar" />
       </UL>
       <P>
         <strong>ملفات Meta (فيسبوك) الإعلانية</strong> (بقبولك فقط): عند زيارتك الأولى نسألك إن كنت تقبلها. لا يُحمَّل شيء من Meta قبل الضغط
@@ -129,6 +132,7 @@ export default function PrivacyAr() {
           تسليم فبعد الإرسال، وإن رُدّ مبلغ الطلب قبل الإرسال فبعد تاريخ الطلب). ويبقى بلد التسليم مع سجل الطلب.
         </li>
         <li>روابط الدخول: تُحذف بعد يوم من انتهائها (تنتهي بعد 15 دقيقة).</li>
+        <SocialSignInRetention locale="ar" />
         <li>عناوين IP المشفّرة للأمان: 24 ساعة.</li>
         <li>
           <AdSentence locale="ar" name="retention">

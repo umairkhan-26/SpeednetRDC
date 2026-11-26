@@ -129,6 +129,21 @@
       "newLink": "Pedir uma nova ligação",
       "tooMany": "Demasiadas tentativas. Tente novamente mais tarde.",
       "unavailable": "De momento não é possível iniciar sessão. A ligação para o seu eSIM está no e-mail de confirmação da encomenda — ou contacte o apoio ao cliente."
+    },
+    "social": {
+      "or": "ou",
+      "continueGoogle": "Continuar com a Google",
+      "continueApple": "Continuar com a Apple",
+      "failed": "Não foi possível iniciar sessão com {provider}. Tente novamente ou use a ligação por e-mail.",
+      "linkTitle": "Só mais um passo",
+      "linkRelayBody": "O seu e-mail Apple está oculto e não encontrámos encomendas com ele. Se já nos fez uma encomenda, introduza o e-mail que usou. Enviamos-lhe uma ligação de acesso e, a partir daí, a Apple abre essa conta.",
+      "linkConfirmBody": "Para proteger as suas encomendas, confirme o seu e-mail uma vez: enviamos-lhe uma ligação de acesso. Depois, {provider} inicia a sua sessão diretamente.",
+      "linkSubmit": "Enviar-me uma ligação de acesso",
+      "linkSentBody": "Se o endereço puder ser usado, enviámos-lhe uma ligação de acesso. Abra-a neste mesmo navegador nos próximos 15 minutos para concluir.",
+      "continueWithout": "Sou novo aqui: continuar com esta conta Apple",
+      "expiredTitle": "Comece de novo",
+      "expiredBody": "Este passo expirou.",
+      "backToLogin": "Voltar ao início de sessão"
     }
   },
   "regions": {
@@ -183,7 +198,8 @@
     "buyMore": "Comprar mais dados",
     "checkedAt": "Verificado às {time}",
     "viewOrder": "Ver encomenda",
-    "recharge": "Recarregar"
+    "recharge": "Recarregar",
+    "emptyOtherEmail": "Encomendou com outro e-mail? Termine a sessão e peça uma ligação de acesso para esse endereço."
   },
   "homePhysicalSim": {
     "eyebrow": "Cartão SIM físico · Já disponível",

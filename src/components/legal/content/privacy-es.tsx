@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
 import { H2, P, UL, V } from "@/components/legal/LegalPage";
 import { AdSentence, ExtraAdCookies, ExtraAdSharing } from "./ad-partners";
+import { SocialSignInCookies, SocialSignInData, SocialSignInRetention } from "./social-sign-in";
 
 const linkClass = "font-semibold text-orange hover:underline";
 
@@ -51,6 +52,7 @@ export default function PrivacyEs() {
           <strong>Inicio de sesión:</strong> cuando pides un enlace de acceso, conservamos un código de un solo uso asociado a tu correo
           electrónico. Base jurídica: ejecución de nuestro contrato.
         </li>
+        <SocialSignInData locale="es" />
         <li>
           <strong>Seguridad:</strong> para impedir que se adivinen enlaces de acceso y contraseñas, contamos los intentos fallidos usando una
           forma codificada (hash) de tu dirección IP, que eliminamos tras 24 horas. No conservamos tu dirección IP junto con tu pedido. Base
@@ -87,6 +89,7 @@ export default function PrivacyEs() {
             <strong>snrdc_consent</strong>: recuerda si aceptaste o rechazaste las cookies de Meta, durante 6 meses.
           </AdSentence>
         </li>
+        <SocialSignInCookies locale="es" />
       </UL>
       <P>
         <strong>Cookies publicitarias de Meta (Facebook)</strong> (solo si las aceptas): en tu primera visita te preguntamos si las aceptas.
@@ -145,6 +148,7 @@ export default function PrivacyEs() {
           Nombre y dirección de entrega de un pedido de tarjeta SIM: los eliminamos de nuestros registros <V>{POLICY.shippingAddressMonths}</V> meses después de la entrega (si no consta la fecha de entrega, después del envío de la tarjeta; si el pedido se reembolsa antes del envío, después de la fecha del pedido). El país de entrega se conserva con el pedido.
         </li>
         <li>Enlaces de acceso: se eliminan un día después de que caduquen (caducan a los 15 minutos).</li>
+        <SocialSignInRetention locale="es" />
         <li>Direcciones IP codificadas usadas para la seguridad: 24 horas.</li>
         <li>
           <AdSentence locale="es" name="retention">

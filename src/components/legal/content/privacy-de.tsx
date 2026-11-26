@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
 import { H2, P, UL, V } from "@/components/legal/LegalPage";
 import { AdSentence, ExtraAdCookies, ExtraAdSharing } from "./ad-partners";
+import { SocialSignInCookies, SocialSignInData, SocialSignInRetention } from "./social-sign-in";
 
 export default function PrivacyDe() {
   return (
@@ -52,6 +53,7 @@ export default function PrivacyDe() {
           <strong>Anmeldung:</strong> Wenn Sie einen Anmeldelink anfordern, speichern wir einen Einmalcode zu Ihrer E-Mail-Adresse.
           Rechtsgrundlage: Vertragserfüllung.
         </li>
+        <SocialSignInData locale="de" />
         <li>
           <strong>Sicherheit:</strong> Damit niemand Anmeldelinks und Passwörter erraten kann, zählen wir Fehlversuche anhand einer
           verschlüsselten (gehashten) Form Ihrer IP-Adresse, die wir nach 24 Stunden löschen. Ihre IP-Adresse speichern wir nicht mit Ihrer
@@ -88,6 +90,7 @@ export default function PrivacyDe() {
             <strong>snrdc_consent</strong> – merkt sich 6 Monate lang, ob Sie Meta-Cookies akzeptiert oder abgelehnt haben.
           </AdSentence>
         </li>
+        <SocialSignInCookies locale="de" />
       </UL>
       <P>
         <strong>Werbe-Cookies von Meta (Facebook)</strong> (nur mit Ihrer Zustimmung): Beim ersten Besuch fragen wir, ob Sie sie akzeptieren.
@@ -145,6 +148,7 @@ export default function PrivacyDe() {
           Lieferland bleibt bei der Bestellung gespeichert.
         </li>
         <li>Anmeldelinks: gelöscht einen Tag nach Ablauf (sie laufen nach 15 Minuten ab).</li>
+        <SocialSignInRetention locale="de" />
         <li>Gehashte IP-Adressen für die Sicherheit: 24 Stunden.</li>
         <li>
           <AdSentence locale="de" name="retention">

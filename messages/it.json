@@ -129,6 +129,21 @@
       "newLink": "Richiedi un nuovo link",
       "tooMany": "Troppi tentativi. Riprova più tardi.",
       "unavailable": "L’accesso non è disponibile in questo momento. Il link della tua eSIM è nell’e-mail di conferma, oppure contatta l’assistenza."
+    },
+    "social": {
+      "or": "oppure",
+      "continueGoogle": "Continua con Google",
+      "continueApple": "Continua con Apple",
+      "failed": "Non è stato possibile accedere con {provider}. Riprova o usa il link via email.",
+      "linkTitle": "Ancora un passaggio",
+      "linkRelayBody": "La tua email Apple è nascosta e non abbiamo trovato ordini associati. Se hai già ordinato da noi, inserisci l'email che hai usato. Ti invieremo un link di accesso e, da quel momento, Apple aprirà quell'account.",
+      "linkConfirmBody": "Per proteggere i tuoi ordini, conferma la tua email una volta: le invieremo un link di accesso. Poi {provider} ti farà accedere direttamente.",
+      "linkSubmit": "Inviami un link di accesso",
+      "linkSentBody": "Se l'indirizzo può essere usato, gli abbiamo inviato un link di accesso. Aprilo in questo stesso browser entro 15 minuti per completare.",
+      "continueWithout": "Sono nuovo: continua con questo account Apple",
+      "expiredTitle": "Ricomincia",
+      "expiredBody": "Questo passaggio è scaduto.",
+      "backToLogin": "Torna all'accesso"
     }
   },
   "regions": {
@@ -183,7 +198,8 @@
     "buyMore": "Acquista altri dati",
     "checkedAt": "Controllato alle {time}",
     "viewOrder": "Vedi ordine",
-    "recharge": "Ricarica"
+    "recharge": "Ricarica",
+    "emptyOtherEmail": "Hai ordinato con un'altra email? Esci e richiedi un link di accesso per quell'indirizzo."
   },
   "homePhysicalSim": {
     "eyebrow": "SIM fisica · Disponibile ora",

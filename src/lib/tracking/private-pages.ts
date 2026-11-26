@@ -1,9 +1,10 @@
 // Some addresses are secrets in themselves: the private order page (it shows
 // the eSIM's activation code), one-time sign-in links and Stripe's session id
 // on the payment success page. No advertising or analytics tool may ever see
-// them, whatever the visitor accepted. Browser-only.
+// them, whatever the visitor accepted. The Google / Apple confirmation page is
+// kept out too, as it shows the visitor's email address. Browser-only.
 
-const PRIVATE_PATH = /^\/[a-z]{2}\/(order|login\/verify)(\/|$)/;
+const PRIVATE_PATH = /^\/[a-z]{2}\/(order|login\/verify|login\/link)(\/|$)/;
 const PRIVATE_QUERY = /[?&](session_id|token)=/;
 
 // A page first opened on a private address stays untracked until the next full

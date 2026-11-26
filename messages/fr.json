@@ -129,6 +129,21 @@
       "newLink": "Recevoir un nouveau lien",
       "tooMany": "Trop de tentatives. Veuillez réessayer plus tard.",
       "unavailable": "La connexion n'est pas disponible pour le moment. Le lien de votre eSIM se trouve dans votre e-mail de confirmation, ou contactez le support."
+    },
+    "social": {
+      "or": "ou",
+      "continueGoogle": "Continuer avec Google",
+      "continueApple": "Continuer avec Apple",
+      "failed": "La connexion avec {provider} n'a pas abouti. Réessayez ou utilisez le lien envoyé par e-mail.",
+      "linkTitle": "Encore une étape",
+      "linkRelayBody": "Votre adresse e-mail Apple est masquée et nous n'avons trouvé aucune commande à cette adresse. Si vous avez déjà commandé chez nous, saisissez l'e-mail utilisé. Nous y enverrons un lien de connexion et, ensuite, Apple ouvrira ce compte.",
+      "linkConfirmBody": "Pour protéger vos commandes, confirmez votre e-mail une fois : nous y envoyons un lien de connexion. Ensuite, {provider} vous connecte directement.",
+      "linkSubmit": "Recevoir un lien de connexion",
+      "linkSentBody": "Si cette adresse peut être utilisée, nous lui avons envoyé un lien de connexion. Ouvrez-le dans ce même navigateur dans les 15 minutes pour terminer.",
+      "continueWithout": "Je suis nouveau : continuer avec ce compte Apple",
+      "expiredTitle": "Veuillez recommencer",
+      "expiredBody": "Cette étape a expiré.",
+      "backToLogin": "Retour à la connexion"
     }
   },
   "regions": {
@@ -183,7 +198,8 @@
     "buyMore": "Acheter plus de données",
     "checkedAt": "Vérifié {time}",
     "viewOrder": "Voir la commande",
-    "recharge": "Recharger"
+    "recharge": "Recharger",
+    "emptyOtherEmail": "Vous avez commandé avec une autre adresse ? Déconnectez-vous et demandez un lien de connexion à cette adresse."
   },
   "homePhysicalSim": {
     "eyebrow": "Carte SIM physique · Disponible",

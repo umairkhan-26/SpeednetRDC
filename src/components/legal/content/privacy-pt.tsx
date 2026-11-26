@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
 import { H2, P, UL, V } from "@/components/legal/LegalPage";
 import { AdSentence, ExtraAdCookies, ExtraAdSharing } from "./ad-partners";
+import { SocialSignInCookies, SocialSignInData, SocialSignInRetention } from "./social-sign-in";
 
 const linkClass = "font-semibold text-orange hover:underline";
 
@@ -51,6 +52,7 @@ export default function PrivacyPt() {
           <strong>Início de sessão:</strong> quando pede uma ligação de acesso, conservamos um código de utilização única associado ao seu
           e-mail. Fundamento jurídico: execução do nosso contrato.
         </li>
+        <SocialSignInData locale="pt" />
         <li>
           <strong>Segurança:</strong> para impedir que sejam adivinhadas ligações de acesso e palavras-passe, contamos as tentativas
           falhadas usando uma forma codificada (hash) do seu endereço IP, que eliminamos após 24 horas. Não conservamos o seu endereço IP
@@ -87,6 +89,7 @@ export default function PrivacyPt() {
             <strong>snrdc_consent</strong> — memoriza se aceitou ou recusou os cookies da Meta, durante 6 meses.
           </AdSentence>
         </li>
+        <SocialSignInCookies locale="pt" />
       </UL>
       <P>
         <strong>Cookies publicitários da Meta (Facebook)</strong> (apenas se os aceitar): na sua primeira visita perguntamos-lhe se os
@@ -145,6 +148,7 @@ export default function PrivacyPt() {
           Nome e morada de entrega de uma encomenda de cartão SIM: eliminados dos nossos registos <V>{POLICY.shippingAddressMonths}</V> meses após a entrega (se não estiver registada a data de entrega, após o envio do cartão; se a encomenda for reembolsada antes do envio, após a data da encomenda). O país de entrega é conservado com a encomenda.
         </li>
         <li>Ligações de acesso: eliminadas um dia depois de expirarem (expiram ao fim de 15 minutos).</li>
+        <SocialSignInRetention locale="pt" />
         <li>Endereços IP codificados usados para a segurança: 24 horas.</li>
         <li>
           <AdSentence locale="pt" name="retention">

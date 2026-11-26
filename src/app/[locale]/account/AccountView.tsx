@@ -55,6 +55,7 @@ export default function AccountView({ email, orders, sims = [], tickets = [] }: 
         <div className="mt-10 rounded-2xl border border-dashed border-line bg-white py-16 text-center">
           <p className="font-semibold text-ink">{t("emptyTitle")}</p>
           <p className="mt-1 text-sm text-muted">{t("emptyBody")}</p>
+          <p className="mx-auto mt-1 max-w-md px-4 text-sm text-muted">{t("emptyOtherEmail")}</p>
           <Link href="/esim-store" className="mt-4 inline-block text-sm font-semibold text-orange hover:underline">
             {t("emptyCta")} <span aria-hidden className="inline-block rtl:-scale-x-100">→</span>
           </Link>

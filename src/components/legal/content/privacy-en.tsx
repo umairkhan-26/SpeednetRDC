@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
 import { H2, P, UL, V } from "@/components/legal/LegalPage";
 import { AdSentence, ExtraAdCookies, ExtraAdSharing } from "./ad-partners";
+import { SocialSignInCookies, SocialSignInData, SocialSignInRetention } from "./social-sign-in";
 
 export default function PrivacyEn() {
   return (
@@ -45,6 +46,7 @@ export default function PrivacyEn() {
           <strong>Signing in:</strong> when you ask for a sign-in link we store a one-time code linked to your email address. Legal basis:
           performance of our contract.
         </li>
+        <SocialSignInData locale="en" />
         <li>
           <strong>Security:</strong> to stop people guessing sign-in links and passwords, we count failed attempts using a scrambled
           (hashed) form of your IP address, which we delete after 24 hours. We do not store your IP address with your order. Legal basis:
@@ -80,6 +82,7 @@ export default function PrivacyEn() {
             <strong>snrdc_consent</strong> — remembers whether you accepted or rejected Meta cookies, for 6 months.
           </AdSentence>
         </li>
+        <SocialSignInCookies locale="en" />
       </UL>
       <P>
         <strong>Meta (Facebook) advertising cookies</strong> (only if you accept): when you first visit, we ask whether you accept them. Nothing
@@ -135,6 +138,7 @@ export default function PrivacyEn() {
           Delivery name and street address of a SIM card order: deleted from our records <V>{POLICY.shippingAddressMonths}</V> months after delivery (if no delivery date is recorded, after we posted the card; if the order is refunded before posting, after the order date). The delivery country stays with the order record.
         </li>
         <li>Sign-in links: deleted one day after they expire (they expire after 15 minutes).</li>
+        <SocialSignInRetention locale="en" />
         <li>Hashed IP addresses used for security: 24 hours.</li>
         <li>
           <AdSentence locale="en" name="retention">

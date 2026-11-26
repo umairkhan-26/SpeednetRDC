@@ -7,7 +7,7 @@ import { getPool, toMySQLDateTime } from "@/lib/staff/db";
 
 export const LOGIN_LINK_TTL_MINUTES = 15;
 
-const hashToken = (token: string) => createHash("sha256").update(token).digest("hex");
+export const hashToken = (token: string) => createHash("sha256").update(token).digest("hex");
 
 /** Returns the raw token (the only time it exists). Earlier unused links for the address stop working. */
 export async function createCustomerLoginToken(email: string): Promise<string> {

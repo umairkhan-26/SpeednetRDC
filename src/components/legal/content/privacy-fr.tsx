@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
 import { H2, P, UL, V } from "@/components/legal/LegalPage";
 import { AdSentence, ExtraAdCookies, ExtraAdSharing } from "./ad-partners";
+import { SocialSignInCookies, SocialSignInData, SocialSignInRetention } from "./social-sign-in";
 
 const linkClass = "font-semibold text-orange hover:underline";
 
@@ -50,6 +51,7 @@ export default function PrivacyFr() {
           <strong>Connexion :</strong> lorsque vous demandez un lien de connexion, nous conservons un code à usage unique associé à votre
           adresse e-mail. Base légale : exécution de notre contrat.
         </li>
+        <SocialSignInData locale="fr" />
         <li>
           <strong>Sécurité :</strong> pour empêcher que l’on devine des liens de connexion et des mots de passe, nous comptons les
           tentatives échouées à l’aide d’une forme brouillée (hachée) de votre adresse IP, que nous supprimons après 24 heures. Nous ne
@@ -86,6 +88,7 @@ export default function PrivacyFr() {
             <strong>snrdc_consent</strong> — mémorise si vous avez accepté ou refusé les cookies Meta, pendant 6 mois.
           </AdSentence>
         </li>
+        <SocialSignInCookies locale="fr" />
       </UL>
       <P>
         <strong>Cookies publicitaires Meta (Facebook)</strong> (uniquement si vous les acceptez) : lors de votre première visite, nous vous
@@ -145,6 +148,7 @@ export default function PrivacyFr() {
           Nom et adresse de livraison d’une commande de carte SIM : supprimés de nos dossiers <V>{POLICY.shippingAddressMonths}</V> mois après la livraison (si aucune date de livraison n’est enregistrée, après l’envoi de la carte ; si la commande est remboursée avant l’envoi, après la date de la commande). Le pays de livraison est conservé avec la commande.
         </li>
         <li>Liens de connexion : supprimés un jour après leur expiration (ils expirent après 15 minutes).</li>
+        <SocialSignInRetention locale="fr" />
         <li>Adresses IP hachées utilisées pour la sécurité : 24 heures.</li>
         <li>
           <AdSentence locale="fr" name="retention">

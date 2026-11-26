@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
 import { H2, P, UL, V } from "@/components/legal/LegalPage";
 import { AdSentence, ExtraAdCookies, ExtraAdSharing } from "./ad-partners";
+import { SocialSignInCookies, SocialSignInData, SocialSignInRetention } from "./social-sign-in";
 
 export default function PrivacyNl() {
   return (
@@ -52,6 +53,7 @@ export default function PrivacyNl() {
           <strong>Inloggen:</strong> vraag je een inloglink, dan bewaren we een eenmalige code gekoppeld aan je e-mailadres. Rechtsgrond:
           uitvoering van de overeenkomst.
         </li>
+        <SocialSignInData locale="nl" />
         <li>
           <strong>Beveiliging:</strong> om te voorkomen dat iemand inloglinks en wachtwoorden raadt, tellen we mislukte pogingen met een
           versleutelde (gehashte) vorm van je IP-adres, die we na 24 uur wissen. We bewaren je IP-adres niet bij je bestelling. Rechtsgrond:
@@ -88,6 +90,7 @@ export default function PrivacyNl() {
             <strong>snrdc_consent</strong>: onthoudt 6 maanden of je Meta-cookies hebt aanvaard of geweigerd.
           </AdSentence>
         </li>
+        <SocialSignInCookies locale="nl" />
       </UL>
       <P>
         <strong>Advertentiecookies van Meta (Facebook)</strong> (alleen als je aanvaardt): bij je eerste bezoek vragen we of je ze aanvaardt.
@@ -145,6 +148,7 @@ export default function PrivacyNl() {
           Het leveringsland blijft bij de bestelling.
         </li>
         <li>Inloglinks: gewist een dag nadat ze verlopen (ze verlopen na 15 minuten).</li>
+        <SocialSignInRetention locale="nl" />
         <li>Gehashte IP-adressen voor beveiliging: 24 uur.</li>
         <li>
           <AdSentence locale="nl" name="retention">

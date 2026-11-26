@@ -129,6 +129,21 @@
       "newLink": "Get a new sign-in link",
       "tooMany": "Too many attempts. Please try again later.",
       "unavailable": "Signing in isn't available right now. Your eSIM link is in your order confirmation email — or contact support."
+    },
+    "social": {
+      "or": "or",
+      "continueGoogle": "Continue with Google",
+      "continueApple": "Continue with Apple",
+      "failed": "We couldn't sign you in with {provider}. Please try again, or use the email link.",
+      "linkTitle": "One more step",
+      "linkRelayBody": "Your Apple email is hidden, and we found no orders for it. If you have ordered from us before, enter the email you used. We'll send it a sign-in link, and Apple will open that account from then on.",
+      "linkConfirmBody": "To protect your orders, confirm your email once: we'll send it a sign-in link. After that, {provider} signs you in directly.",
+      "linkSubmit": "Email me a sign-in link",
+      "linkSentBody": "If the address can be used, we've sent it a sign-in link. Open it in this same browser within 15 minutes to finish.",
+      "continueWithout": "I'm new here: continue with this Apple account",
+      "expiredTitle": "Please start again",
+      "expiredBody": "This step has expired.",
+      "backToLogin": "Back to sign-in"
     }
   },
   "regions": {
@@ -183,7 +198,8 @@
     "buyMore": "Buy more data",
     "checkedAt": "Checked {time}",
     "viewOrder": "View order",
-    "recharge": "Recharge"
+    "recharge": "Recharge",
+    "emptyOtherEmail": "Ordered with a different email? Sign out and ask for a sign-in link to that address."
   },
   "homePhysicalSim": {
     "eyebrow": "Physical SIM card · Available now",

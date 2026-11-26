@@ -129,6 +129,21 @@
       "newLink": "Neuen Anmeldelink anfordern",
       "tooMany": "Zu viele Versuche. Bitte versuchen Sie es später erneut.",
       "unavailable": "Die Anmeldung ist gerade nicht möglich. Ihr eSIM-Link steht in der Bestellbestätigung – oder wenden Sie sich an den Support."
+    },
+    "social": {
+      "or": "oder",
+      "continueGoogle": "Weiter mit Google",
+      "continueApple": "Weiter mit Apple",
+      "failed": "Die Anmeldung mit {provider} hat nicht geklappt. Bitte versuchen Sie es erneut oder nutzen Sie den Link per E-Mail.",
+      "linkTitle": "Noch ein Schritt",
+      "linkRelayBody": "Ihre Apple-E-Mail-Adresse ist verborgen, und wir haben dazu keine Bestellungen gefunden. Wenn Sie schon einmal bei uns bestellt haben, geben Sie die damals verwendete E-Mail-Adresse ein. Wir senden einen Anmeldelink dorthin, und danach öffnet Apple dieses Konto.",
+      "linkConfirmBody": "Zum Schutz Ihrer Bestellungen bestätigen Sie einmal Ihre E-Mail-Adresse: Wir senden einen Anmeldelink dorthin. Danach melden Sie sich direkt mit {provider} an.",
+      "linkSubmit": "Anmeldelink senden",
+      "linkSentBody": "Wenn die Adresse verwendet werden kann, haben wir einen Anmeldelink dorthin gesendet. Öffnen Sie ihn innerhalb von 15 Minuten in diesem Browser, um den Vorgang abzuschließen.",
+      "continueWithout": "Ich bin neu: mit diesem Apple-Konto fortfahren",
+      "expiredTitle": "Bitte beginnen Sie erneut",
+      "expiredBody": "Dieser Schritt ist abgelaufen.",
+      "backToLogin": "Zurück zur Anmeldung"
     }
   },
   "regions": {
@@ -183,7 +198,8 @@
     "buyMore": "Mehr Daten kaufen",
     "checkedAt": "Geprüft um {time}",
     "viewOrder": "Bestellung ansehen",
-    "recharge": "Aufladen"
+    "recharge": "Aufladen",
+    "emptyOtherEmail": "Mit einer anderen E-Mail-Adresse bestellt? Melden Sie sich ab und fordern Sie einen Anmeldelink für diese Adresse an."
   },
   "homePhysicalSim": {
     "eyebrow": "Physische SIM-Karte · Jetzt verfügbar",

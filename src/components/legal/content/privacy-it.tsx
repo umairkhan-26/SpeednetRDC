@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { COMPANY, POLICY } from "@/lib/legal";
 import { H2, P, UL, V } from "@/components/legal/LegalPage";
 import { AdSentence, ExtraAdCookies, ExtraAdSharing } from "./ad-partners";
+import { SocialSignInCookies, SocialSignInData, SocialSignInRetention } from "./social-sign-in";
 
 export default function PrivacyIt() {
   return (
@@ -53,6 +54,7 @@ export default function PrivacyIt() {
           <strong>Accesso:</strong> quando chiedi un link di accesso conserviamo un codice monouso collegato alla tua e-mail. Base giuridica:
           esecuzione del contratto.
         </li>
+        <SocialSignInData locale="it" />
         <li>
           <strong>Sicurezza:</strong> per impedire che qualcuno indovini link di accesso e password, contiamo i tentativi falliti usando una
           forma cifrata (hash) del tuo indirizzo IP, che cancelliamo dopo 24 ore. Non conserviamo l&apos;IP insieme all&apos;ordine. Base
@@ -89,6 +91,7 @@ export default function PrivacyIt() {
             <strong>snrdc_consent</strong>: ricorda per 6 mesi se hai accettato o rifiutato i cookie di Meta.
           </AdSentence>
         </li>
+        <SocialSignInCookies locale="it" />
       </UL>
       <P>
         <strong>Cookie pubblicitari di Meta (Facebook)</strong> (solo se accetti): alla prima visita ti chiediamo se li accetti. Nulla di Meta
@@ -147,6 +150,7 @@ export default function PrivacyIt() {
           la data dell&apos;ordine). Il paese di consegna resta nell&apos;ordine.
         </li>
         <li>Link di accesso: cancellati un giorno dopo la scadenza (scadono dopo 15 minuti).</li>
+        <SocialSignInRetention locale="it" />
         <li>Indirizzi IP cifrati usati per la sicurezza: 24 ore.</li>
         <li>
           <AdSentence locale="it" name="retention">

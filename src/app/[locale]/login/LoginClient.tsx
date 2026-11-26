@@ -8,6 +8,8 @@ import { requestCustomerLoginAction, type CustomerLoginState } from "@/lib/custo
 import { Button } from "@/components/ui/Button";
 import { isValidEmail } from "@/lib/validation";
 import Logo from "@/components/layout/Logo";
+import SocialSignInButtons from "@/components/auth/SocialSignInButtons";
+import type { SocialProvider } from "@/lib/customer/social/providers";
 
 function SubmitButton() {
   const t = useTranslations("auth.login");
@@ -19,9 +21,10 @@ function SubmitButton() {
   );
 }
 
-export default function LoginClient() {
+export default function LoginClient({ providers, failedProvider }: { providers: SocialProvider[]; failedProvider: string | null }) {
   const locale = useLocale();
   const t = useTranslations("auth.login");
+  const social = useTranslations("auth.social");
   const [state, formAction] = useActionState<CustomerLoginState, FormData>(requestCustomerLoginAction, {});
   const [email, setEmail] = useState("");
   const [touched, setTouched] = useState(false);
@@ -47,7 +50,22 @@ export default function LoginClient() {
         ) : (
           <>
             <h1 className="mt-6 text-center text-2xl font-bold text-ink">{t("title")}</h1>
-            <p className="mt-1 text-center text-sm text-muted">{t("subtitle")}</p>
+            {failedProvider && (
+              <p role="alert" className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-center text-sm text-red-700">
+                {social("failed", { provider: failedProvider })}
+              </p>
+            )}
+            {providers.length > 0 && (
+              <div className="mt-6">
+                <SocialSignInButtons providers={providers} />
+                <div className="mt-6 flex items-center gap-3 text-xs font-semibold text-muted">
+                  <span className="h-px flex-1 bg-line" />
+                  {social("or")}
+                  <span className="h-px flex-1 bg-line" />
+                </div>
+              </div>
+            )}
+            <p className={providers.length > 0 ? "mt-4 text-center text-sm text-muted" : "mt-1 text-center text-sm text-muted"}>{t("subtitle")}</p>
             <form
               action={formAction}
               onSubmit={(e) => {

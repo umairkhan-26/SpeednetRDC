@@ -129,6 +129,21 @@
       "newLink": "Obtener un nuevo enlace",
       "tooMany": "Demasiados intentos. Inténtalo de nuevo más tarde.",
       "unavailable": "El inicio de sesión no está disponible en este momento. El enlace de tu eSIM está en el correo de confirmación del pedido, o contacta con soporte."
+    },
+    "social": {
+      "or": "o",
+      "continueGoogle": "Continuar con Google",
+      "continueApple": "Continuar con Apple",
+      "failed": "No hemos podido iniciar tu sesión con {provider}. Inténtalo de nuevo o usa el enlace por correo.",
+      "linkTitle": "Un paso más",
+      "linkRelayBody": "Tu correo de Apple está oculto y no hemos encontrado pedidos con él. Si ya nos has comprado antes, escribe el correo que usaste. Le enviaremos un enlace de acceso y, a partir de entonces, Apple abrirá esa cuenta.",
+      "linkConfirmBody": "Para proteger tus pedidos, confirma tu correo una vez: le enviaremos un enlace de acceso. Después, {provider} iniciará tu sesión directamente.",
+      "linkSubmit": "Enviarme un enlace de acceso",
+      "linkSentBody": "Si la dirección se puede usar, le hemos enviado un enlace de acceso. Ábrelo en este mismo navegador antes de 15 minutos para terminar.",
+      "continueWithout": "Soy nuevo: continuar con esta cuenta de Apple",
+      "expiredTitle": "Vuelve a empezar",
+      "expiredBody": "Este paso ha caducado.",
+      "backToLogin": "Volver al inicio de sesión"
     }
   },
   "regions": {
@@ -183,7 +198,8 @@
     "buyMore": "Comprar más datos",
     "checkedAt": "Comprobado {time}",
     "viewOrder": "Ver pedido",
-    "recharge": "Recargar"
+    "recharge": "Recargar",
+    "emptyOtherEmail": "¿Compraste con otro correo? Cierra sesión y pide un enlace de acceso para esa dirección."
   },
   "homePhysicalSim": {
     "eyebrow": "Tarjeta SIM física · Ya disponible",
