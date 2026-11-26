@@ -5,11 +5,11 @@ import { regions } from "@/data/regions";
 import Flag from "@/components/ui/Flag";
 import { Globe } from "lucide-react";
 import { getNames } from "@/i18n/get-names";
-import { pageMetadata } from "@/i18n/metadata";
+import { pageMetadata, pageUrls } from "@/i18n/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  return pageMetadata(locale, "regionalPlans");
+  return { ...(await pageMetadata(locale, "regionalPlans")), ...(await pageUrls(locale, "/regional-plans")) };
 }
 
 const regionIcons: Record<string, string> = {

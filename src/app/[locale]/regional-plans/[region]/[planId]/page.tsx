@@ -5,7 +5,7 @@ import { getPlanById } from "@/data/plans";
 import { getRegionBySlug } from "@/data/regions";
 import { getTranslations } from "next-intl/server";
 import { getNames } from "@/i18n/get-names";
-import { pageMetadata } from "@/i18n/metadata";
+import { pageMetadata, pageUrls } from "@/i18n/metadata";
 import PlanDetailView from "@/components/plans/PlanDetailView";
 import { isEsimCheckoutEnabled } from "@/lib/checkout/availability";
 import { isTopUpEnabled } from "@/lib/topup";
@@ -16,11 +16,13 @@ export async function generateMetadata({
 }: {
   params: Promise<{ region: string; planId: string; locale: string }>;
 }): Promise<Metadata> {
-  const { planId, locale } = await params;
+  const { region, planId, locale } = await params;
   const plan = getPlanById(planId);
   if (!plan) return pageMetadata(locale, "planFallback");
   const names = await getNames(locale);
-  return { title: `${names.planName(plan)} — SpeedNetRDC` };
+  const title = `${names.planName(plan)} — SpeedNetRDC`;
+  if (plan.scope !== "regional" || plan.regionSlug !== region) return { title };
+  return { title, ...(await pageUrls(locale, `/regional-plans/${region}/${plan.id}`)) };
 }
 
 export default async function RegionalPlanDetailPage({

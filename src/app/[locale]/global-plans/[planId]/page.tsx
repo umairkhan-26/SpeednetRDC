@@ -4,7 +4,7 @@ import { Globe } from "lucide-react";
 import { getPlanById } from "@/data/plans";
 import { getTranslations } from "next-intl/server";
 import { getNames } from "@/i18n/get-names";
-import { pageMetadata } from "@/i18n/metadata";
+import { pageMetadata, pageUrls } from "@/i18n/metadata";
 import PlanDetailView from "@/components/plans/PlanDetailView";
 import { isEsimCheckoutEnabled } from "@/lib/checkout/availability";
 import { isTopUpEnabled } from "@/lib/topup";
@@ -18,7 +18,9 @@ export async function generateMetadata({
   const plan = getPlanById(planId);
   if (!plan) return pageMetadata(locale, "planFallback");
   const names = await getNames(locale);
-  return { title: `${names.planName(plan)} — SpeedNetRDC` };
+  const title = `${names.planName(plan)} — SpeedNetRDC`;
+  if (plan.scope !== "global") return { title };
+  return { title, ...(await pageUrls(locale, `/global-plans/${plan.id}`)) };
 }
 
 export default async function GlobalPlanDetailPage({

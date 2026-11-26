@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import PhysicalSimView from "./PhysicalSimView";
 import PhysicalSimCheckoutView from "./PhysicalSimCheckoutView";
 import { getPhysicalSimTaxMode, includedPlanFacts, isPhysicalSimEnabled, pendingAnswer, physicalSimPricing } from "@/lib/physical-sim";
-import { pageMetadata } from "@/i18n/metadata";
+import { pageMetadata, pageUrls } from "@/i18n/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  return pageMetadata(locale, "physicalSim");
+  return { ...(await pageMetadata(locale, "physicalSim")), ...(await pageUrls(locale, "/physical-sim")) };
 }
 
 // With PHYSICAL_SIM_ENABLED on: the card checkout. Otherwise the page still

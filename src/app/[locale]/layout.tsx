@@ -27,26 +27,14 @@ export async function generateMetadata({
   const TITLE = t("siteTitle");
   const DESCRIPTION = t("siteDescription");
 
-  // hreflang: one entry per site language, keyed by its language tag
-  // (European Portuguese is "pt-PT").
-  const languages: Record<string, string> = {};
-  for (const l of routing.locales) {
-    languages[languageTag(l)] = `${SITE_URL}/${l}`;
-  }
-  languages["x-default"] = `${SITE_URL}/${routing.defaultLocale}`;
-
   return {
     metadataBase: new URL(SITE_URL),
     title: TITLE,
     description: DESCRIPTION,
-    alternates: {
-      canonical: `${SITE_URL}/${locale}`,
-      languages,
-    },
+    // No canonical here: each page sets its own (pageUrls in src/i18n/metadata.ts).
     openGraph: {
       title: TITLE,
       description: DESCRIPTION,
-      url: `${SITE_URL}/${locale}`,
       siteName: "SpeedNetRDC",
       type: "website",
     },

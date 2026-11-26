@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageUrls } from "@/i18n/metadata";
 import LegalPage from "@/components/legal/LegalPage";
 import PrivacyEn from "@/components/legal/content/privacy-en";
 import PrivacyFr from "@/components/legal/content/privacy-fr";
@@ -13,7 +14,7 @@ const TITLES: Record<string, string> = { en: "Privacy Policy", fr: "Politique de
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  return { title: `${TITLES[locale] ?? TITLES.en} — SpeedNetRDC` };
+  return { title: `${TITLES[locale] ?? TITLES.en} — SpeedNetRDC`, ...(await pageUrls(locale, "/privacy")) };
 }
 
 export default async function PrivacyPage({ params }: { params: Promise<{ locale: string }> }) {

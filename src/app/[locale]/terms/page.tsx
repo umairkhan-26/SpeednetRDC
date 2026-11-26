@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageUrls } from "@/i18n/metadata";
 import LegalPage from "@/components/legal/LegalPage";
 import TermsEn from "@/components/legal/content/terms-en";
 import TermsFr from "@/components/legal/content/terms-fr";
@@ -13,7 +14,7 @@ const TITLES: Record<string, string> = { en: "Terms & Conditions", fr: "Conditio
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  return { title: `${TITLES[locale] ?? TITLES.en} — SpeedNetRDC` };
+  return { title: `${TITLES[locale] ?? TITLES.en} — SpeedNetRDC`, ...(await pageUrls(locale, "/terms")) };
 }
 
 export default async function TermsPage({ params }: { params: Promise<{ locale: string }> }) {

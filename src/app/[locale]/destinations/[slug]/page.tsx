@@ -12,7 +12,7 @@ import Accordion from "@/components/ui/Accordion";
 import SectionHeading from "@/components/ui/SectionHeading";
 import DeviceCompatibilityChecker from "@/components/device-compat/DeviceCompatibilityChecker";
 import { getNames } from "@/i18n/get-names";
-import { pageMetadata } from "@/i18n/metadata";
+import { pageMetadata, pageUrls } from "@/i18n/metadata";
 import type { FaqItem } from "@/lib/types";
 
 export function generateStaticParams() {
@@ -24,7 +24,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const country = getCountryBySlug(slug);
   if (!country) return pageMetadata(locale, "destinationFallback");
   const names = await getNames(locale);
-  return pageMetadata(locale, "destination", { country: names.country(country) });
+  return {
+    ...(await pageMetadata(locale, "destination", { country: names.country(country) })),
+    ...(await pageUrls(locale, `/destinations/${country.slug}`)),
+  };
 }
 
 export default async function DestinationPage({ params }: { params: Promise<{ slug: string; locale: string }> }) {

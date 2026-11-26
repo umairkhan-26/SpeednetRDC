@@ -5,11 +5,11 @@ import { LinkButton } from "@/components/ui/Button";
 import StepsSection from "@/components/home/StepsSection";
 import InstallSteps from "@/components/destinations/InstallSteps";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { pageMetadata } from "@/i18n/metadata";
+import { pageMetadata, pageUrls } from "@/i18n/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  return pageMetadata(locale, "howItWorks");
+  return { ...(await pageMetadata(locale, "howItWorks")), ...(await pageUrls(locale, "/how-it-works")) };
 }
 
 export default async function HowItWorksPage({ params }: { params: Promise<{ locale: string }> }) {

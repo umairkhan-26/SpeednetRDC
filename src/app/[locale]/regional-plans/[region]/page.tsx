@@ -6,7 +6,7 @@ import { getPlansForRegion } from "@/data/plans";
 import MultiPlansHero from "@/components/plans/MultiPlansHero";
 import type { RegionSlug } from "@/lib/types";
 import { getNames } from "@/i18n/get-names";
-import { pageMetadata } from "@/i18n/metadata";
+import { pageMetadata, pageUrls } from "@/i18n/metadata";
 
 export function generateStaticParams() {
   return regions.map((r) => ({ region: r.slug }));
@@ -21,7 +21,10 @@ export async function generateMetadata({
   const region = getRegionBySlug(slug);
   if (!region) return pageMetadata(locale, "regionalPlans");
   const names = await getNames(locale);
-  return pageMetadata(locale, "regionPlans", { region: names.region(region.slug, region.name) });
+  return {
+    ...(await pageMetadata(locale, "regionPlans", { region: names.region(region.slug, region.name) })),
+    ...(await pageUrls(locale, `/regional-plans/${region.slug}`)),
+  };
 }
 
 export default async function RegionPlansPage({ params }: { params: Promise<{ region: string; locale: string }> }) {

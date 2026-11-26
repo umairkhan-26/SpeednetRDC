@@ -5,13 +5,13 @@ import { Mail, MessageCircle, Smartphone, CreditCard, Power, BookOpen } from "lu
 import Accordion from "@/components/ui/Accordion";
 import SectionHeading from "@/components/ui/SectionHeading";
 import type { FaqItem } from "@/lib/types";
-import { pageMetadata } from "@/i18n/metadata";
+import { pageMetadata, pageUrls } from "@/i18n/metadata";
 import { SUPPORT_EMAIL, whatsappUrl } from "@/lib/contact";
 import { isTopUpEnabled } from "@/lib/topup";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  return pageMetadata(locale, "help");
+  return { ...(await pageMetadata(locale, "help")), ...(await pageUrls(locale, "/help")) };
 }
 
 const categories = [

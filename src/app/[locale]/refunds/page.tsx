@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageUrls } from "@/i18n/metadata";
 import LegalPage from "@/components/legal/LegalPage";
 import RefundsEn from "@/components/legal/content/refunds-en";
 import RefundsFr from "@/components/legal/content/refunds-fr";
@@ -13,7 +14,7 @@ const TITLES: Record<string, string> = { en: "Refund Policy", fr: "Politique de 
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  return { title: `${TITLES[locale] ?? TITLES.en} — SpeedNetRDC` };
+  return { title: `${TITLES[locale] ?? TITLES.en} — SpeedNetRDC`, ...(await pageUrls(locale, "/refunds")) };
 }
 
 export default async function RefundsPage({ params }: { params: Promise<{ locale: string }> }) {
