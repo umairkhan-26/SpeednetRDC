@@ -5,6 +5,8 @@ import { UserCheck } from "lucide-react";
 import { isValidEmail, isValidFullName } from "@/lib/validation";
 import type { CheckoutCustomer } from "@/lib/customer/checkout-customer";
 import SectionHeading from "./SectionHeading";
+import SocialSignInButtons from "@/components/auth/SocialSignInButtons";
+import type { SocialProvider } from "@/lib/customer/social/providers";
 
 const INPUT = "w-full scroll-mt-28 rounded-lg border border-line px-4 py-3 text-base outline-none focus:border-orange sm:text-sm";
 
@@ -15,6 +17,7 @@ export default function DetailsSection({
   email,
   onChange,
   showErrors,
+  signIn,
 }: {
   /** The signed-in customer, unless they chose to type other details. */
   account: CheckoutCustomer | null;
@@ -24,8 +27,11 @@ export default function DetailsSection({
   onChange: (fullName: string, email: string) => void;
   /** True once pay was pressed. */
   showErrors: boolean;
+  /** "Continue with Google" above the fields, for visitors who aren't signed in. */
+  signIn: { providers: SocialProvider[]; checkout: { planId: string; topUp: boolean }; failedProvider: string | null } | null;
 }) {
   const t = useTranslations("checkout.accountStep");
+  const social = useTranslations("auth.social");
   // Signed in: only ask for what we don't know already.
   const askName = !account?.fullName;
   const askEmail = !account;
@@ -49,6 +55,24 @@ export default function DetailsSection({
           <button type="button" onClick={onEditAccount} className="text-sm font-semibold text-orange hover:underline">
             {t("change")}
           </button>
+        </div>
+      )}
+
+      {signIn && signIn.providers.length > 0 && (
+        <div>
+          {signIn.failedProvider && (
+            <p role="alert" className="mb-3 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
+              {social("failedCheckout", { provider: signIn.failedProvider })}
+            </p>
+          )}
+          <div className="max-w-sm">
+            <SocialSignInButtons providers={signIn.providers} checkout={signIn.checkout} />
+          </div>
+          <div className="mt-5 flex items-center gap-3 text-xs font-semibold text-muted">
+            <span className="h-px flex-1 bg-line" />
+            {social("or")}
+            <span className="h-px flex-1 bg-line" />
+          </div>
         </div>
       )}
 

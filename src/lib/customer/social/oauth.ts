@@ -1,5 +1,6 @@
 // Sign in with Google and with Apple (OpenID Connect, authorization code
-// flow). We ask for the email address only, and accept an identity only from
+// flow). We ask Google for the email address and name, Apple for the email
+// address only, and accept an identity only from
 // an ID token whose signature, issuer, audience, expiry and nonce all check
 // out. Server-only; nothing here is ever logged.
 
@@ -40,7 +41,8 @@ export function authorizationUrl(provider: SocialProvider, opts: { state: string
   };
   if (provider === "google") {
     Object.assign(params, {
-      scope: "openid email",
+      // "profile" is for the name, which fills in the checkout.
+      scope: "openid email profile",
       code_challenge: opts.codeChallenge,
       code_challenge_method: "S256",
       prompt: "select_account",
@@ -109,6 +111,8 @@ export interface SocialIdentity {
   relay: boolean;
   /** The provider itself runs this mailbox or vouches for it today, so no emailed confirmation is needed. */
   authoritative: boolean;
+  /** The account's name, when the provider gives one (Google). */
+  name?: string;
 }
 
 type Claims = Record<string, unknown>;
@@ -147,5 +151,6 @@ export async function verifyIdToken(provider: SocialProvider, idToken: string, n
   // company (Workspace) accounts; for any other address it was checked once,
   // when the Google account was made.
   const authoritative = provider === "apple" || /@(gmail|googlemail)\.com$/.test(email) || typeof claims.hd === "string";
-  return { subject: claims.sub, email, relay, authoritative };
+  const name = typeof claims.name === "string" ? claims.name.trim().slice(0, 100) : "";
+  return { subject: claims.sub, email, relay, authoritative, ...(name ? { name } : {}) };
 }

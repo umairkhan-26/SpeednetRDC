@@ -7,6 +7,7 @@ import { clearPendingLink, savePendingLink, takePendingSignIn } from "@/lib/cust
 import { findLinkedEmail } from "@/lib/customer/social/identities";
 import { appOrigin, exchangeCode, verifyIdToken } from "@/lib/customer/social/oauth";
 import { isProviderEnabled, isSocialProvider, type SocialProvider } from "@/lib/customer/social/providers";
+import { checkoutPath, signedInPath } from "@/lib/customer/social/return-path";
 
 type Context = { params: Promise<{ provider: string }> };
 
@@ -17,11 +18,13 @@ const same = (a: string, b: string) => a.length === b.length && timingSafeEqual(
 async function finish(provider: SocialProvider, answer: URLSearchParams) {
   const pending = await takePendingSignIn(provider);
   const locale = pending?.locale ?? routing.defaultLocale;
-  const failed = () => go(`/${locale}/login?social=failed&provider=${provider}`);
+  const checkout = pending?.checkout;
+  const problem = { social: "failed", provider };
+  const failed = () => go(checkout ? checkoutPath(locale, checkout, problem) : `/${locale}/login?${new URLSearchParams(problem)}`);
 
   // The visitor pressed "Cancel" on the provider's page.
   const refused = answer.get("error");
-  if (refused === "access_denied" || refused === "user_cancelled_authorize") return go(`/${locale}/login`);
+  if (refused === "access_denied" || refused === "user_cancelled_authorize") return go(checkout ? checkoutPath(locale, checkout) : `/${locale}/login`);
 
   const code = answer.get("code");
   if (!pending || !code || !same(answer.get("state") ?? "", pending.state)) return failed();
@@ -36,13 +39,13 @@ async function finish(provider: SocialProvider, answer: URLSearchParams) {
       if (enough) email = identity.email;
     }
     if (!email) {
-      await savePendingLink({ provider, subject: identity.subject, email: identity.email, relay: identity.relay, locale });
+      await savePendingLink({ provider, subject: identity.subject, email: identity.email, relay: identity.relay, name: identity.name, locale, checkout });
       return go(`/${locale}/login/link`);
     }
 
     await clearPendingLink();
-    await setCustomerSessionCookie(email);
-    return go(`/${locale}/account`);
+    await setCustomerSessionCookie(email, identity.name);
+    return go(signedInPath(locale, checkout));
   } catch (error) {
     // The message only: never the code or the token.
     console.error(`[customer] ${provider} sign-in failed:`, error instanceof Error ? error.message : "unknown error");

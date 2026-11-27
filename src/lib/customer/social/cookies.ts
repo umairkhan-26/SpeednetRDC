@@ -7,6 +7,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
 import type { SocialProvider } from "./providers";
+import type { CheckoutReturn } from "./return-path";
 
 const OAUTH_COOKIE = "snrdc_oauth";
 const LINK_COOKIE = "snrdc_link";
@@ -19,6 +20,7 @@ export interface PendingSignIn {
   nonce: string;
   codeVerifier: string;
   locale: string;
+  checkout?: CheckoutReturn;
 }
 
 export interface PendingLink {
@@ -28,6 +30,9 @@ export interface PendingLink {
   email: string;
   relay: boolean;
   locale: string;
+  /** The name the provider gave, to fill in the checkout. */
+  name?: string;
+  checkout?: CheckoutReturn;
   /** Hash of the sign-in link asked for on the confirmation page: only that link may connect the account. */
   tokenHash?: string;
 }

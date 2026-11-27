@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useCheckoutStore } from "@/lib/store/checkout-store";
@@ -18,6 +18,8 @@ import { hasConsent } from "@/lib/consent";
 import { readMetaBrowserIds, trackMeta } from "@/lib/meta/pixel";
 import { trackBeginCheckout } from "@/lib/tracking/events";
 import { isValidEmail, isValidFullName } from "@/lib/validation";
+import type { Plan } from "@/lib/types";
+import type { SocialProvider } from "@/lib/customer/social/providers";
 
 // The checkout API's messages (English) mapped to translations; anything
 // unrecognised shows the generic "couldn't start checkout" message.
@@ -34,7 +36,19 @@ const API_ERRORS: Record<string, string> = {
 const CARD = "rounded-2xl border border-line bg-white p-5 sm:p-7 lg:col-start-1";
 
 /** The whole checkout on one page: plan, details, order summary and payment. */
-export default function CheckoutClient({ customer }: { customer: CheckoutCustomer | null }) {
+export default function CheckoutClient({
+  customer,
+  providers,
+  resume,
+  failedProvider,
+}: {
+  customer: CheckoutCustomer | null;
+  /** The "Continue with …" buttons that are switched on. */
+  providers: SocialProvider[];
+  /** Back from Google or Apple: the plan the visitor was buying (the page was reloaded, so the store is empty). */
+  resume: { plan: Plan; topUp: boolean } | null;
+  failedProvider: string | null;
+}) {
   const t = useTranslations("checkout");
   const locale = useLocale();
   const { plan, fullName: typedName, email: typedEmail, mode, topUpIccid, setAccountDetails } = useCheckoutStore();
@@ -43,6 +57,14 @@ export default function CheckoutClient({ customer }: { customer: CheckoutCustome
   const [withdrawalConsent, setWithdrawalConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const startCheckout = useCheckoutStore((s) => s.startCheckout);
+
+  useEffect(() => {
+    if (!useCheckoutStore.getState().plan && resume) startCheckout(resume.plan, resume.topUp ? "topup" : "new");
+  }, [resume, startCheckout]);
+
+  // The plan is on its way into the store: don't flash "no plan chosen".
+  if (!plan && resume) return <div className="container-page py-24" aria-busy="true" />;
 
   if (!plan) {
     return (
@@ -106,7 +128,15 @@ export default function CheckoutClient({ customer }: { customer: CheckoutCustome
         </section>
 
         <section className={`${CARD} lg:row-start-2`}>
-          <DetailsSection account={account} onEditAccount={editAccount} fullName={fullName} email={email} onChange={setAccountDetails} showErrors={showErrors} />
+          <DetailsSection
+            account={account}
+            onEditAccount={editAccount}
+            fullName={fullName}
+            email={email}
+            onChange={setAccountDetails}
+            showErrors={showErrors}
+            signIn={customer ? null : { providers, checkout: { planId: plan.id, topUp: isTopUp }, failedProvider }}
+          />
         </section>
 
         <OrderSummarySidebar plan={plan} className="lg:col-start-2 lg:row-span-3 lg:row-start-1 lg:self-start" />

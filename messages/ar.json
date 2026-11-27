@@ -143,7 +143,8 @@
       "continueWithout": "أنا جديد: المتابعة بحساب Apple هذا",
       "expiredTitle": "يرجى البدء من جديد",
       "expiredBody": "انتهت صلاحية هذه الخطوة.",
-      "backToLogin": "العودة إلى تسجيل الدخول"
+      "backToLogin": "العودة إلى تسجيل الدخول",
+      "failedCheckout": "تعذّر تسجيل دخولك باستخدام {provider}. حاول مرة أخرى أو أدخل بياناتك أدناه."
     }
   },
   "regions": {

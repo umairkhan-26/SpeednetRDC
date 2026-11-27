@@ -13,6 +13,8 @@ const MAX_AGE_SECONDS = 30 * 24 * 60 * 60;
 interface CustomerSessionPayload {
   email: string;
   exp: number;
+  /** From Google, to fill in the checkout. Absent after an emailed link. */
+  name?: string;
 }
 
 /** False until CUSTOMER_SESSION_SECRET is set: customer sign-in is then switched off (nobody is signed in), nothing crashes. */
@@ -41,8 +43,8 @@ function verify(token: string): CustomerSessionPayload | null {
   }
 }
 
-export async function setCustomerSessionCookie(email: string): Promise<void> {
-  const payload: CustomerSessionPayload = { email, exp: Math.floor(Date.now() / 1000) + MAX_AGE_SECONDS };
+export async function setCustomerSessionCookie(email: string, name?: string): Promise<void> {
+  const payload: CustomerSessionPayload = { email, exp: Math.floor(Date.now() / 1000) + MAX_AGE_SECONDS, ...(name ? { name } : {}) };
   const body = Buffer.from(JSON.stringify(payload)).toString("base64url");
   const cookieStore = await cookies();
   cookieStore.set(CUSTOMER_SESSION_COOKIE, `${body}.${sign(body)}`, {
@@ -66,3 +68,11 @@ export const getCustomerEmail = cache(async (): Promise<string | null> => {
   if (!token || !isCustomerSignInConfigured()) return null;
   return verify(token)?.email ?? null;
 });
+
+/** The name the signed-in customer's Google account gave, or null. */
+export async function getCustomerName(): Promise<string | null> {
+  const token = (await cookies()).get(CUSTOMER_SESSION_COOKIE)?.value;
+  if (!token || !isCustomerSignInConfigured()) return null;
+  const name = verify(token)?.name;
+  return typeof name === "string" ? name : null;
+}

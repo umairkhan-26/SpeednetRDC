@@ -14,6 +14,7 @@ import { consumeCustomerLoginToken, createCustomerLoginToken, hashToken } from "
 import { clearCustomerSessionCookie, isCustomerSignInConfigured, setCustomerSessionCookie } from "./session";
 import { clearPendingLink, readPendingLink, savePendingLink } from "./social/cookies";
 import { linkIdentity } from "./social/identities";
+import { signedInPath } from "./social/return-path";
 
 /** Status codes the sign-in pages translate (auth.login.* / auth.verify.*). */
 export interface CustomerLoginState {
@@ -94,8 +95,8 @@ export async function continueWithHiddenEmailAction(formData: FormData): Promise
   const pending = await readPendingLink();
   if (!pending?.relay) redirect(`/${locale}/login`);
   await clearPendingLink();
-  await setCustomerSessionCookie(pending.email);
-  redirect(`/${locale}/account`);
+  await setCustomerSessionCookie(pending.email, pending.name);
+  redirect(signedInPath(locale, pending.checkout));
 }
 
 /** The "Sign in" button on the link's page (a POST, so email scanners that open links can't use them up). */
@@ -112,13 +113,15 @@ export async function verifyCustomerLoginAction(_prev: CustomerLoginState, formD
     return { status: "invalidLink" };
   }
   const pending = await readPendingLink();
-  if (pending?.tokenHash === hashToken(token)) {
+  // Only the link asked for on the Google / Apple confirmation page carries anything over.
+  const connecting = pending?.tokenHash === hashToken(token) ? pending : null;
+  if (connecting) {
     // Signing in must still work if saving the connection fails.
-    await linkIdentity(pending.provider, pending.subject, email).catch((error) => console.error("[customer] Couldn't connect the account:", error));
+    await linkIdentity(connecting.provider, connecting.subject, email).catch((error) => console.error("[customer] Couldn't connect the account:", error));
     await clearPendingLink();
   }
-  await setCustomerSessionCookie(email);
-  redirect(`/${locale}/account`);
+  await setCustomerSessionCookie(email, connecting?.name);
+  redirect(signedInPath(locale, connecting?.checkout));
 }
 
 export async function customerLogoutAction(formData: FormData): Promise<void> {
