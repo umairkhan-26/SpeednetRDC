@@ -612,22 +612,16 @@
     "getHelp": "Get help"
   },
   "checkout": {
+    "title": "Checkout",
     "noPlanTitle": "No plan selected yet",
     "noPlanText": "Pick an eSIM plan first, then come back here to check out.",
     "browsePlans": "Browse eSIM Plans",
     "trouble": "Having trouble?",
     "getHelp": "Get help",
-    "steps": {
-      "plan": "Plan",
-      "account": "Account",
-      "payment": "Payment",
-      "confirmation": "Confirmation"
-    },
     "planStep": {
       "title": "Confirm your plan",
       "subtitle": "Double-check the details before you continue.",
       "changePlan": "Not the right plan? Change plan",
-      "continue": "Continue",
       "subtitleTopUp": "This plan will be added to a SIM you already have — no new eSIM to install."
     },
     "accountStep": {
@@ -639,8 +633,8 @@
       "email": "Email address",
       "emailPlaceholder": "you@example.com",
       "emailError": "Enter a valid email address.",
-      "back": "Back",
-      "continue": "Continue to payment"
+      "signedIn": "You’re signed in",
+      "change": "Use other details"
     },
     "paymentStep": {
       "title": "Payment",
@@ -648,7 +642,6 @@
       "methods": "Card, Apple Pay, Google Pay, and other methods enabled on our account will be offered on the next screen. Payment is processed by Stripe; nothing is charged until you confirm there.",
       "consent": "Deliver my eSIM right after payment. I understand that once it is delivered, the usual 14-day right to cancel no longer applies. I can still get a refund in the cases listed in the <refunds>Refund Policy</refunds>.",
       "legal": "By continuing you agree to our <terms>Terms & Conditions</terms> and <refunds>Refund Policy</refunds>. Read how we use your data in our <privacy>Privacy Policy</privacy>.",
-      "back": "Back",
       "pay": "Continue to secure payment · {total}",
       "errorPaused": "eSIM orders are temporarily unavailable. We'll be back soon — please try again later.",
       "errorDetails": "Enter a valid name and email address",
@@ -658,7 +651,8 @@
       "consentTopUp": "Deliver my data plan right after payment. I understand that once it is delivered, the usual 14-day right to cancel no longer applies. I can still get a refund in the cases listed in the <refunds>Refund Policy</refunds>.",
       "errorTopUpUnavailable": "Adding a plan to an existing SIM isn’t available yet.",
       "errorTooMany": "Too many attempts. Please try again later.",
-      "errorSimNotFound": "We couldn’t find that SIM. Check the number printed on your SIM card."
+      "errorSimNotFound": "We couldn’t find that SIM. Check the number printed on your SIM card.",
+      "errorChooseSim": "Choose the SIM to add this plan to before you pay."
     },
     "summary": {
       "title": "Order summary",

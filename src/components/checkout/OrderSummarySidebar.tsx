@@ -9,7 +9,7 @@ import { getCountryBySlug } from "@/data/countries";
 import { useCheckoutStore } from "@/lib/store/checkout-store";
 import PlanCoverage from "@/components/plans/PlanCoverage";
 
-export default function OrderSummarySidebar({ plan }: { plan: Plan }) {
+export default function OrderSummarySidebar({ plan, className = "" }: { plan: Plan; className?: string }) {
   const t = useTranslations("checkout.summary");
   const names = useNames();
   const country = plan.countrySlug ? getCountryBySlug(plan.countrySlug) : undefined;
@@ -18,7 +18,7 @@ export default function OrderSummarySidebar({ plan }: { plan: Plan }) {
   const { mode, topUpIccid } = useCheckoutStore();
 
   return (
-    <aside className="h-max rounded-2xl border border-line bg-white p-6 lg:sticky lg:top-24">
+    <aside className={`h-max rounded-2xl border border-line bg-white p-5 sm:p-6 lg:sticky lg:top-24 ${className}`}>
       <p className="text-xs font-semibold uppercase tracking-wide text-muted">{t("title")}</p>
 
       <dl className="mt-4 space-y-3 text-sm">

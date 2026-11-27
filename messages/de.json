@@ -612,22 +612,16 @@
     "getHelp": "Hilfe erhalten"
   },
   "checkout": {
+    "title": "Kasse",
     "noPlanTitle": "Noch kein Tarif gewählt",
     "noPlanText": "Wählen Sie zuerst einen eSIM-Tarif und kommen Sie dann zur Kasse zurück.",
     "browsePlans": "eSIM-Tarife ansehen",
     "trouble": "Probleme?",
     "getHelp": "Hilfe erhalten",
-    "steps": {
-      "plan": "Tarif",
-      "account": "Konto",
-      "payment": "Zahlung",
-      "confirmation": "Bestätigung"
-    },
     "planStep": {
       "title": "Tarif bestätigen",
       "subtitle": "Prüfen Sie die Angaben, bevor Sie fortfahren.",
       "changePlan": "Nicht der richtige Tarif? Tarif ändern",
-      "continue": "Weiter",
       "subtitleTopUp": "Dieser Tarif wird auf eine vorhandene SIM gebucht – keine neue eSIM nötig."
     },
     "accountStep": {
@@ -639,8 +633,8 @@
       "email": "E-Mail-Adresse",
       "emailPlaceholder": "sie@beispiel.com",
       "emailError": "Geben Sie eine gültige E-Mail-Adresse ein.",
-      "back": "Zurück",
-      "continue": "Weiter zur Zahlung"
+      "signedIn": "Sie sind angemeldet",
+      "change": "Andere Angaben verwenden"
     },
     "paymentStep": {
       "title": "Zahlung",
@@ -648,7 +642,6 @@
       "methods": "Karte, Apple Pay, Google Pay und weitere aktivierte Methoden werden im nächsten Schritt angeboten. Stripe wickelt die Zahlung ab; belastet wird erst nach Ihrer Bestätigung.",
       "consent": "Liefern Sie meine eSIM sofort nach der Zahlung. Mir ist bewusst, dass nach der Lieferung das übliche 14-tägige Widerrufsrecht erlischt. In den Fällen der <refunds>Erstattungsrichtlinie</refunds> kann ich weiterhin eine Erstattung erhalten.",
       "legal": "Mit dem Fortfahren akzeptieren Sie unsere <terms>AGB</terms> und <refunds>Erstattungsrichtlinie</refunds>. Wie wir Ihre Daten nutzen, steht in unserer <privacy>Datenschutzerklärung</privacy>.",
-      "back": "Zurück",
       "pay": "Weiter zur sicheren Zahlung · {total}",
       "errorPaused": "eSIM-Bestellungen sind vorübergehend nicht möglich. Wir sind bald zurück – bitte versuchen Sie es später.",
       "errorDetails": "Gültigen Namen und E-Mail eingeben",
@@ -658,7 +651,8 @@
       "consentTopUp": "Liefern Sie meinen Datentarif sofort nach der Zahlung. Mir ist bewusst, dass nach der Lieferung das übliche 14-tägige Widerrufsrecht erlischt. In den Fällen der <refunds>Erstattungsrichtlinie</refunds> kann ich weiterhin eine Erstattung erhalten.",
       "errorTopUpUnavailable": "Das Buchen auf eine vorhandene SIM ist noch nicht möglich.",
       "errorTooMany": "Zu viele Versuche. Bitte versuchen Sie es später erneut.",
-      "errorSimNotFound": "Diese SIM wurde nicht gefunden. Prüfen Sie die Nummer auf Ihrer Karte."
+      "errorSimNotFound": "Diese SIM wurde nicht gefunden. Prüfen Sie die Nummer auf Ihrer Karte.",
+      "errorChooseSim": "Wählen Sie vor dem Bezahlen die SIM, auf die dieser Tarif soll."
     },
     "summary": {
       "title": "Bestellübersicht",

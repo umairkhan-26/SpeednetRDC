@@ -612,22 +612,16 @@
     "getHelp": "Ottieni aiuto"
   },
   "checkout": {
+    "title": "Completa l’ordine",
     "noPlanTitle": "Nessun piano selezionato",
     "noPlanText": "Scegli prima un piano eSIM, poi torna qui per pagare.",
     "browsePlans": "Sfoglia i piani eSIM",
     "trouble": "Hai problemi?",
     "getHelp": "Ottieni aiuto",
-    "steps": {
-      "plan": "Piano",
-      "account": "Account",
-      "payment": "Pagamento",
-      "confirmation": "Conferma"
-    },
     "planStep": {
       "title": "Conferma il piano",
       "subtitle": "Controlla i dettagli prima di continuare.",
       "changePlan": "Non è il piano giusto? Cambia piano",
-      "continue": "Continua",
       "subtitleTopUp": "Il piano sarà aggiunto a una SIM che hai già: nessuna nuova eSIM da installare."
     },
     "accountStep": {
@@ -639,8 +633,8 @@
       "email": "Indirizzo e-mail",
       "emailPlaceholder": "tu@esempio.com",
       "emailError": "Inserisci un indirizzo e-mail valido.",
-      "back": "Indietro",
-      "continue": "Vai al pagamento"
+      "signedIn": "Hai effettuato l’accesso",
+      "change": "Usa altri dati"
     },
     "paymentStep": {
       "title": "Pagamento",
@@ -648,7 +642,6 @@
       "methods": "Carta, Apple Pay, Google Pay e altri metodi attivi saranno proposti nella schermata successiva. Il pagamento è gestito da Stripe; nessun addebito finché non confermi.",
       "consent": "Consegnate la mia eSIM subito dopo il pagamento. Comprendo che, una volta consegnata, il consueto diritto di recesso di 14 giorni non si applica più. Posso comunque ottenere un rimborso nei casi previsti dalla <refunds>Politica di rimborso</refunds>.",
       "legal": "Continuando accetti i nostri <terms>Termini e condizioni</terms> e la <refunds>Politica di rimborso</refunds>. Leggi come usiamo i tuoi dati nell’<privacy>Informativa sulla privacy</privacy>.",
-      "back": "Indietro",
       "pay": "Vai al pagamento sicuro · {total}",
       "errorPaused": "Gli ordini eSIM sono temporaneamente sospesi. Torneremo presto: riprova più tardi.",
       "errorDetails": "Inserisci un nome e un’e-mail validi",
@@ -658,7 +651,8 @@
       "consentTopUp": "Consegnate il mio piano dati subito dopo il pagamento. Comprendo che, una volta consegnato, il consueto diritto di recesso di 14 giorni non si applica più. Posso comunque ottenere un rimborso nei casi previsti dalla <refunds>Politica di rimborso</refunds>.",
       "errorTopUpUnavailable": "Non è ancora possibile aggiungere un piano a una SIM esistente.",
       "errorTooMany": "Troppi tentativi. Riprova più tardi.",
-      "errorSimNotFound": "Non troviamo questa SIM. Controlla il numero stampato sulla scheda."
+      "errorSimNotFound": "Non troviamo questa SIM. Controlla il numero stampato sulla scheda.",
+      "errorChooseSim": "Prima di pagare, scegli la SIM a cui aggiungere questo piano."
     },
     "summary": {
       "title": "Riepilogo ordine",

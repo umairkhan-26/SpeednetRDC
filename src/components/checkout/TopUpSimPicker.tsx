@@ -78,8 +78,10 @@ export default function TopUpSimPicker() {
                 }}
                 className="accent-orange"
               />
-              <span className="text-ink">{simLabel(sim)}</span>
-              <span className="font-mono text-xs text-muted">{sim.iccid}</span>
+              <span className="min-w-0">
+                <span className="block text-ink">{simLabel(sim)}</span>
+                <span className="block break-all font-mono text-xs text-muted">{sim.iccid}</span>
+              </span>
             </label>
           ))}
           <p className="text-xs text-muted">{t("orAnother")}</p>
@@ -95,10 +97,16 @@ export default function TopUpSimPicker() {
             id="topup-iccid"
             value={typed}
             onChange={(e) => setTyped(e.target.value)}
+            onKeyDown={(e) => {
+              // Enter checks this number; it must not submit the checkout form around it.
+              if (e.key !== "Enter") return;
+              e.preventDefault();
+              if (!isPending && typed.trim().length >= 18) check();
+            }}
             inputMode="numeric"
             autoComplete="off"
             placeholder="89…"
-            className="w-64 rounded-lg border border-line px-3 py-2.5 font-mono text-sm outline-none focus:border-orange"
+            className="w-64 max-w-full rounded-lg border border-line px-3 py-2.5 font-mono text-sm outline-none focus:border-orange"
           />
           <button
             type="button"

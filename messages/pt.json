@@ -612,22 +612,16 @@
     "getHelp": "Obter ajuda"
   },
   "checkout": {
+    "title": "Finalizar compra",
     "noPlanTitle": "Ainda não escolheu nenhum plano",
     "noPlanText": "Escolha primeiro um plano eSIM e depois volte aqui para finalizar a compra.",
     "browsePlans": "Ver planos eSIM",
     "trouble": "Está com dificuldades?",
     "getHelp": "Obter ajuda",
-    "steps": {
-      "plan": "Plano",
-      "account": "Conta",
-      "payment": "Pagamento",
-      "confirmation": "Confirmação"
-    },
     "planStep": {
       "title": "Confirme o seu plano",
       "subtitle": "Verifique os detalhes antes de continuar.",
       "changePlan": "Não é o plano certo? Mudar de plano",
-      "continue": "Continuar",
       "subtitleTopUp": "Este tarifário será adicionado a um SIM que já tem: não precisa de instalar um novo eSIM."
     },
     "accountStep": {
@@ -639,8 +633,8 @@
       "email": "Endereço de e-mail",
       "emailPlaceholder": "o.seu@email.com",
       "emailError": "Introduza um endereço de e-mail válido.",
-      "back": "Voltar",
-      "continue": "Continuar para o pagamento"
+      "signedIn": "Sessão iniciada",
+      "change": "Usar outros dados"
     },
     "paymentStep": {
       "title": "Pagamento",
@@ -648,7 +642,6 @@
       "methods": "No ecrã seguinte poderá pagar com cartão, Apple Pay, Google Pay e outros métodos disponíveis na nossa conta. O pagamento é processado pela Stripe e nada é cobrado até confirmar lá.",
       "consent": "Entreguem o meu eSIM logo após o pagamento. Compreendo que, depois de entregue, o direito habitual de livre resolução de 14 dias deixa de se aplicar. Posso continuar a obter reembolso nos casos indicados na <refunds>Política de Reembolso</refunds>.",
       "legal": "Ao continuar, aceita os nossos <terms>Termos e Condições</terms> e a nossa <refunds>Política de Reembolso</refunds>. Saiba como usamos os seus dados na nossa <privacy>Política de Privacidade</privacy>.",
-      "back": "Voltar",
       "pay": "Continuar para o pagamento seguro · {total}",
       "errorPaused": "As encomendas de eSIM estão temporariamente indisponíveis. Voltamos em breve — tente novamente mais tarde.",
       "errorDetails": "Introduza um nome e um endereço de e-mail válidos.",
@@ -658,7 +651,8 @@
       "consentTopUp": "Entreguem o meu tarifário de dados logo após o pagamento. Compreendo que, depois de entregue, o direito habitual de livre resolução de 14 dias deixa de se aplicar. Posso continuar a obter reembolso nos casos indicados na <refunds>Política de Reembolso</refunds>.",
       "errorTopUpUnavailable": "Ainda não é possível adicionar um tarifário a um SIM existente.",
       "errorTooMany": "Demasiadas tentativas. Tente novamente mais tarde.",
-      "errorSimNotFound": "Não encontrámos esse SIM. Verifique o número impresso no seu cartão SIM."
+      "errorSimNotFound": "Não encontrámos esse SIM. Verifique o número impresso no seu cartão SIM.",
+      "errorChooseSim": "Antes de pagar, escolha a SIM a que quer adicionar este tarifário."
     },
     "summary": {
       "title": "Resumo da encomenda",

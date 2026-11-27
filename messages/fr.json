@@ -612,22 +612,16 @@
     "getHelp": "Obtenir de l'aide"
   },
   "checkout": {
+    "title": "Finaliser la commande",
     "noPlanTitle": "Aucun forfait sélectionné",
     "noPlanText": "Choisissez d'abord un forfait eSIM, puis revenez ici pour finaliser votre commande.",
     "browsePlans": "Voir les forfaits eSIM",
     "trouble": "Un problème ?",
     "getHelp": "Obtenir de l'aide",
-    "steps": {
-      "plan": "Forfait",
-      "account": "Coordonnées",
-      "payment": "Paiement",
-      "confirmation": "Confirmation"
-    },
     "planStep": {
       "title": "Confirmez votre forfait",
       "subtitle": "Vérifiez les détails avant de continuer.",
       "changePlan": "Ce n'est pas le bon forfait ? Changer de forfait",
-      "continue": "Continuer",
       "subtitleTopUp": "Ce forfait sera ajouté à une SIM que vous avez déjà : aucune nouvelle eSIM à installer."
     },
     "accountStep": {
@@ -639,8 +633,8 @@
       "email": "Adresse e-mail",
       "emailPlaceholder": "vous@exemple.com",
       "emailError": "Saisissez une adresse e-mail valide.",
-      "back": "Retour",
-      "continue": "Continuer vers le paiement"
+      "signedIn": "Vous êtes connecté",
+      "change": "Utiliser d’autres coordonnées"
     },
     "paymentStep": {
       "title": "Paiement",
@@ -648,7 +642,6 @@
       "methods": "La carte bancaire, Apple Pay, Google Pay et les autres moyens activés sur notre compte vous seront proposés à l'écran suivant. Le paiement est traité par Stripe ; rien n'est débité avant votre confirmation.",
       "consent": "Livrez mon eSIM dès le paiement. Je comprends qu’une fois livrée, le droit habituel de rétractation de 14 jours ne s’applique plus. Je peux toujours être remboursé dans les cas prévus par la <refunds>Politique de remboursement</refunds>.",
       "legal": "En continuant, vous acceptez nos <terms>Conditions générales</terms> et notre <refunds>Politique de remboursement</refunds>. Découvrez comment nous utilisons vos données dans notre <privacy>Politique de confidentialité</privacy>.",
-      "back": "Retour",
       "pay": "Continuer vers le paiement sécurisé · {total}",
       "errorPaused": "Les commandes d'eSIM sont momentanément indisponibles. Nous revenons très vite — veuillez réessayer plus tard.",
       "errorDetails": "Saisissez un nom et une adresse e-mail valides.",
@@ -658,7 +651,8 @@
       "consentTopUp": "Livrez mon forfait de données dès le paiement. Je comprends qu’une fois livré, le droit habituel de rétractation de 14 jours ne s’applique plus. Je peux toujours être remboursé dans les cas prévus par la <refunds>Politique de remboursement</refunds>.",
       "errorTopUpUnavailable": "L’ajout d’un forfait à une SIM existante n’est pas encore disponible.",
       "errorTooMany": "Trop de tentatives. Réessayez plus tard.",
-      "errorSimNotFound": "Nous n’avons pas trouvé cette SIM. Vérifiez le numéro imprimé sur votre carte SIM."
+      "errorSimNotFound": "Nous n’avons pas trouvé cette SIM. Vérifiez le numéro imprimé sur votre carte SIM.",
+      "errorChooseSim": "Avant de payer, choisissez la SIM sur laquelle ajouter ce forfait."
     },
     "summary": {
       "title": "Récapitulatif de la commande",

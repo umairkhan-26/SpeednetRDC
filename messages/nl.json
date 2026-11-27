@@ -612,22 +612,16 @@
     "getHelp": "Hulp krijgen"
   },
   "checkout": {
+    "title": "Afrekenen",
     "noPlanTitle": "Nog geen pakket gekozen",
     "noPlanText": "Kies eerst een eSIM-pakket en kom dan terug om af te rekenen.",
     "browsePlans": "eSIM-pakketten bekijken",
     "trouble": "Problemen?",
     "getHelp": "Hulp krijgen",
-    "steps": {
-      "plan": "Pakket",
-      "account": "Account",
-      "payment": "Betaling",
-      "confirmation": "Bevestiging"
-    },
     "planStep": {
       "title": "Bevestig je pakket",
       "subtitle": "Controleer de gegevens voor je verdergaat.",
       "changePlan": "Niet het juiste pakket? Ander pakket kiezen",
-      "continue": "Verder",
       "subtitleTopUp": "Dit pakket komt op een simkaart die je al hebt: geen nieuwe eSIM te installeren."
     },
     "accountStep": {
@@ -639,8 +633,8 @@
       "email": "E-mailadres",
       "emailPlaceholder": "jij@voorbeeld.com",
       "emailError": "Voer een geldig e-mailadres in.",
-      "back": "Terug",
-      "continue": "Verder naar betalen"
+      "signedIn": "Je bent ingelogd",
+      "change": "Andere gegevens gebruiken"
     },
     "paymentStep": {
       "title": "Betaling",
@@ -648,7 +642,6 @@
       "methods": "Kaart, Apple Pay, Google Pay en andere methodes op ons account worden op het volgende scherm aangeboden. Stripe verwerkt de betaling; er wordt niets aangerekend voor je daar bevestigt.",
       "consent": "Lever mijn eSIM meteen na betaling. Ik begrijp dat na levering het gebruikelijke herroepingsrecht van 14 dagen niet meer geldt. Ik kan nog wel mijn geld terugkrijgen in de gevallen uit het <refunds>terugbetalingsbeleid</refunds>.",
       "legal": "Door verder te gaan ga je akkoord met onze <terms>algemene voorwaarden</terms> en ons <refunds>terugbetalingsbeleid</refunds>. Lees in ons <privacy>privacybeleid</privacy> hoe we je gegevens gebruiken.",
-      "back": "Terug",
       "pay": "Verder naar veilig betalen · {total}",
       "errorPaused": "eSIM-bestellingen zijn tijdelijk niet mogelijk. We zijn snel terug: probeer het later opnieuw.",
       "errorDetails": "Voer een geldige naam en e-mailadres in",
@@ -658,7 +651,8 @@
       "consentTopUp": "Lever mijn datapakket meteen na betaling. Ik begrijp dat na levering het gebruikelijke herroepingsrecht van 14 dagen niet meer geldt. Ik kan nog wel mijn geld terugkrijgen in de gevallen uit het <refunds>terugbetalingsbeleid</refunds>.",
       "errorTopUpUnavailable": "Een pakket aan een bestaande simkaart toevoegen kan nog niet.",
       "errorTooMany": "Te veel pogingen. Probeer het later opnieuw.",
-      "errorSimNotFound": "We vinden die simkaart niet. Controleer het nummer op je simkaart."
+      "errorSimNotFound": "We vinden die simkaart niet. Controleer het nummer op je simkaart.",
+      "errorChooseSim": "Kies vóór het betalen de simkaart waarop dit pakket moet."
     },
     "summary": {
       "title": "Besteloverzicht",
